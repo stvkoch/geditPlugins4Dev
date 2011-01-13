@@ -1,0 +1,193 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-01-06 22:41+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../advancedfind.py:104 ../advancedfind.py:138 ../FindDialog.glade:24
+msgid "Advanced Find/Replace"
+msgstr ""
+
+#: ../advancedfind.py:139
+msgid "Select and Find Next"
+msgstr ""
+
+#: ../advancedfind.py:140
+msgid "Select and Find Previous"
+msgstr ""
+
+#: ../advancedfind.py:269 ../advancedfind.py:313
+msgid "Nothing is found."
+msgstr ""
+
+#: ../advancedfind_ui.py:315
+msgid "Replace in this scope is not supported."
+msgstr ""
+
+#: ../find_result.py:76
+msgid "Next"
+msgstr ""
+
+#: ../find_result.py:80
+msgid "Expand All"
+msgstr ""
+
+#: ../find_result.py:82
+msgid "Collapse All"
+msgstr ""
+
+#: ../find_result.py:84
+msgid "Clear Highlight"
+msgstr ""
+
+#: ../find_result.py:86
+msgid "Clear"
+msgstr ""
+
+#: ../config.glade:6
+msgid "Configuration"
+msgstr ""
+
+#: ../config.glade:33
+msgid "Foreground color : "
+msgstr ""
+
+#: ../config.glade:66
+msgid "Background color : "
+msgstr ""
+
+#: ../config.glade:102
+msgid "<b>Highlight Settings</b>"
+msgstr ""
+
+#: ../config.glade:137
+msgid "Root Follow Filebrowser"
+msgstr ""
+
+#: ../config.glade:173
+msgid "<b>Other Settings</b>"
+msgstr ""
+
+#: ../FindDialog.glade:67
+msgid "Find what : "
+msgstr ""
+
+#: ../FindDialog.glade:78
+msgid "Replace with : "
+msgstr ""
+
+#: ../FindDialog.glade:134
+msgid "Forward"
+msgstr ""
+
+#: ../FindDialog.glade:150
+msgid "Backward"
+msgstr ""
+
+#: ../FindDialog.glade:187
+msgid "<b>Direction</b>"
+msgstr ""
+
+#: ../FindDialog.glade:211
+msgid "Current Document"
+msgstr ""
+
+#: ../FindDialog.glade:227
+msgid "All Opened Documents"
+msgstr ""
+
+#: ../FindDialog.glade:243
+msgid "All Documents in Directory"
+msgstr ""
+
+#: ../FindDialog.glade:259
+msgid "Current Selected Text"
+msgstr ""
+
+#: ../FindDialog.glade:280
+msgid "<b>Scope</b>"
+msgstr ""
+
+#: ../FindDialog.glade:313
+msgid "Match whole word"
+msgstr ""
+
+#: ../FindDialog.glade:323
+msgid "Match case"
+msgstr ""
+
+#: ../FindDialog.glade:337
+msgid "Wrap around"
+msgstr ""
+
+#: ../FindDialog.glade:351
+msgid "Directory follow current doc."
+msgstr ""
+
+#: ../FindDialog.glade:365
+msgid "Directoy include sub-folder"
+msgstr ""
+
+#: ../FindDialog.glade:381
+msgid "Regular expression"
+msgstr ""
+
+#: ../FindDialog.glade:404
+msgid "<b>Options</b>"
+msgstr ""
+
+#: ../FindDialog.glade:435
+msgid "Filter : "
+msgstr ""
+
+#: ../FindDialog.glade:446
+msgid "Directory : "
+msgstr ""
+
+#: ../FindDialog.glade:481
+msgid "..."
+msgstr ""
+
+#: ../FindDialog.glade:532
+msgid "Find"
+msgstr ""
+
+#: ../FindDialog.glade:546
+msgid "Replace"
+msgstr ""
+
+#: ../FindDialog.glade:560
+msgid "Find All"
+msgstr ""
+
+#: ../FindDialog.glade:574
+msgid "Replace All"
+msgstr ""
+
+#: ../FindDialog.glade:588
+msgid "Close"
+msgstr ""
+
+#: ../FindDialog.glade:634
+msgid "Select a directory"
+msgstr ""
+
+#: ../FindDialog.glade:656
+msgid "Cancel"
+msgstr ""
+
+#: ../FindDialog.glade:670
+msgid "Ok"
+msgstr ""

@@ -3,9 +3,10 @@ Loader=python
 Module=zencoding
 IAge=2
 Name=Zen Coding
-Description=Expand expressions similar to CSS selectors into HTML, CSS or XSLT code
-Description[fr]=Développe des expressions similaires à des sélecteurs CSS en code HTML, CSS ou XSLT
-Authors=Zen Coding: Sergey Chikuyonok <serge.che@gmail.com>\nGedit Plugin: Franck Marcia <franck.marcia@gmail.com>
-Copyright=Zen Coding: Sergey Chikuyonok <serge.che@gmail.com>\nGedit Plugin: Franck Marcia <franck.marcia@gmail.com>
-Website=http://code.google.com/p/zen-coding/
-
+Name[ru]=Дзэн-разработка
+Description=Enables Zen Coding's CSS and HTML tools for Gedit.
+Description[fr]=Des sélecteurs CSS pour écrire du code HTML.
+Description[ru]=Упрощает набор HTML и CSS с помощью механизма сокращений Zen Coding.
+Authors=Franck Marcia <franck.marcia@gmail.com>, Mike Crittenden <mike@mikethecoder.com>
+Copyright=Franck Marcia <franck.marcia@gmail.com>\nMike Crittenden <mike@mikethecoder.com>
+Website=http://github.com/mikecrittenden/zen-coding-gedit

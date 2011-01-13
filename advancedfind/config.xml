@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><manifest>
+	<search_option name="MATCH_WHOLE_WORD">False</search_option>
+	<search_option name="MATCH_CASE">False</search_option>
+	<search_option name="WRAP_AROUND">False</search_option>
+	<search_option name="FOLLOW_CURRENT_DOC">True</search_option>
+	<search_option name="ROOT_FOLLOW_FILEBROWSER">False</search_option>
+	<search_option name="INCLUDE_SUBFOLDER">False</search_option>
+	<search_option name="INCLUDE_HIDDEN">True</search_option>
+	<search_option name="REGEX_SEARCH">False</search_option>
+	<shortcut name="ACTIVATE">&lt;ctrl&gt;&lt;shift&gt;F</shortcut>
+	<shortcut name="SELECT_FIND_NEXT">&lt;ctrl&gt;F3</shortcut>
+	<shortcut name="SELECT_FIND_PREVIOUS">&lt;ctrl&gt;&lt;shift&gt;F3</shortcut>
+	<result_highlight name="FOREGROUND_COLOR">#ffffffff0000</result_highlight>
+	<result_highlight name="BACKGROUND_COLOR">red</result_highlight>
+</manifest>

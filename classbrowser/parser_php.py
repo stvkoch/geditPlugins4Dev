@@ -19,16 +19,16 @@ import gtk
 import gobject
 from parser_cstyle import Token, CStyleCodeParser
 import re
-from pprint import pprint
+
 
 e = r".*?" # anything, but *not greedy*
-e+= "(?:(private|protected|public) +)?" # visibility
-e+= "function *(\w+) *(\(.*\))" # function declaration
+e+= "(?:(private|protected) +)?" # visibility
+e+= "function +(\w+)(\(.*\))" # function declaration
 e+= " *\{$" # the tail
 RE_FUNCTION = re.compile(e)
 RE_CLASS = re.compile(r".*class +(\w+)(?: +extends +(\w+))? *\{$")
-RE_ATTRIBUTE = re.compile(r".*?(?:(private|protected|public|const) +)?(?:[a-zA-Z0-9_]+)?.*?$")
-
+        
+        
 class PHPParser( CStyleCodeParser ):
 
     def __init__(self):
@@ -36,7 +36,7 @@ class PHPParser( CStyleCodeParser ):
 
 
     def getTokenFromChunk(self, chunk):
-        if chunk.find("class")>-1 or chunk.find("private")>-1 or chunk.find("const")>-1 or chunk.find("protected")>-1 or chunk.find("public")>-1:
+        if chunk.find("function")>-1 or chunk.find("class")>-1:
             
             # third step: perform regular expression to get a token
             match = re.match(RE_FUNCTION,chunk)
@@ -54,19 +54,10 @@ class PHPParser( CStyleCodeParser ):
                     return t
 
                 else:
-                    match = re.match(RE_ATTRIBUTE,chunk)
-                    if match:
-                        t = Token("attribute")
-                        t.type = "attribute"
-                        t.visibility, t.name = match.groups()
-                        print( "find attribute" )
-
-                        return t
-
-                        # last step: alert user if a chunk could not be parsed
-                        #print "Could not resolve PHP function or class in the following string:"
-                        #print chunk
-
+                
+                    # last step: alert user if a chunk could not be parsed
+                    #print "Could not resolve PHP function or class in the following string:"
+                    #print chunk
                     
                     pass
 

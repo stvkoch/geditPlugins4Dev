@@ -1,19 +1,6 @@
-# Zen Coding for Gedit
-#
-# Copyright (C) 2010 Franck Marcia
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
+'''
+@author Franck Marcia (franck.marcia@gmail.com)
+'''
 
 import pygtk
 pygtk.require('2.0')
@@ -21,14 +8,13 @@ import gtk
 
 class ZenDialog():
 
-    def __init__(self, editor, x, y, callback, text, last):
+    def __init__(self, editor, x, y, callback, text=""):
 
         self.editor = editor
         self.exit = False
         self.done = False
         self.abbreviation = text
         self.callback = callback
-        self.last = last
 
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         self.window.set_decorated(False)
@@ -36,7 +22,7 @@ class ZenDialog():
         self.window.connect("focus-out-event", self.focus_lost)
         self.window.connect("key-press-event", self.key_pressed)
         self.window.set_resizable(False)
-        self.window.move(x - 15, y - 35)
+        self.window.move(x, y - 27)
 
         self.frame = gtk.Frame()
         self.window.add(self.frame)
@@ -49,8 +35,8 @@ class ZenDialog():
         self.entry = gtk.Entry()
         self.entry.connect("changed", self.update)
         self.entry.set_text(text)
-        self.entry.set_icon_from_icon_name(gtk.ENTRY_ICON_PRIMARY, 'zencoding')
-        self.entry.set_width_chars(48)
+        self.entry.set_has_frame(False)
+        self.entry.set_width_chars(36)
         self.box.pack_start(self.entry, True, True, 4)
         self.entry.show()
 
@@ -59,18 +45,13 @@ class ZenDialog():
     def key_pressed(widget, what, event):
         if event.keyval == 65293: # Return
             widget.exit = True
-            if widget.callback and widget.last:
-                widget.done = widget.callback(widget.done, widget.abbreviation, True)
             widget.quit()
         elif event.keyval == 65289: # Tab
             widget.exit = True
-            if widget.callback and widget.last:
-                widget.done = widget.callback(widget.done, widget.abbreviation, True)
             widget.quit()
         elif event.keyval == 65307: # Escape
             widget.exit = False
-            if widget.callback:
-                widget.done = widget.callback(widget.done, '', True)
+            widget.done = widget.callback(widget.done, '')
             widget.quit()
         else:
             return False
@@ -81,8 +62,7 @@ class ZenDialog():
 
     def update(self, entry):
         self.abbreviation = self.entry.get_text()
-        if self.callback:
-            self.done = self.callback(self.done, self.abbreviation)
+        self.done = self.callback(self.done, self.abbreviation)
 
     def quit(self, widget=None, event=None):
         self.window.hide()
@@ -92,12 +72,12 @@ class ZenDialog():
     def main(self):
         gtk.main()
 
-def main(editor, window, callback, text = "", last = False):
+def main(editor, window, callback, text=""):
 
-    # ensure the caret is hidden
+    # Ensure the caret is hidden.
     editor.view.set_cursor_visible(False)
     
-    # get coordinates of the cursor
+    # Get coordinates of the cursor.
     offset_start, offset_end = editor.get_selection_range()
     insert = editor.buffer.get_iter_at_offset(offset_start)
     location = editor.view.get_iter_location(insert)
@@ -105,16 +85,13 @@ def main(editor, window, callback, text = "", last = False):
     xo, yo = window.get_origin()
     xb, yb = editor.view.buffer_to_window_coords(gtk.TEXT_WINDOW_TEXT, location.x + location.width, location.y)
 
-    # open dialog at coordinates with eventual text
-    my_zen_dialog = ZenDialog(editor, xo + xb, yo + yb, callback, text, last)
+    # Open dialog at coordinates with eventual text.
+    my_zen_dialog = ZenDialog(editor, xo + xb, yo + yb, callback, text)
     my_zen_dialog.main()
 
-    # show the caret again
+    # Show the caret again.
     editor.view.set_cursor_visible(True)
 
-    # return exit status and abbreviation
-    if callback:
-        return my_zen_dialog.done and my_zen_dialog.exit, my_zen_dialog.abbreviation
-    else:
-        return my_zen_dialog.exit, my_zen_dialog.abbreviation
+    # Return exit status and abbreviation.
+    return my_zen_dialog.done and my_zen_dialog.exit, my_zen_dialog.abbreviation
 
