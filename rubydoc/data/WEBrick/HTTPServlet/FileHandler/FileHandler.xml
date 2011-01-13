@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='add_handler'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='remove_handler'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='do_GET'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='do_OPTIONS'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='do_POST'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='service'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;&lt;tt&gt;Integer&lt;/tt&gt; is the basis for the two concrete classes that hold whole numbers, &lt;tt&gt;Bignum&lt;/tt&gt; and &lt;tt&gt;Fixnum&lt;/tt&gt;.&lt;/p&gt;</comment>
+  <methods>
+    <method name='from_prime_division'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='induced_from'>&lt;p&gt;Convert &lt;tt&gt;obj&lt;/tt&gt; to an Integer.&lt;/p&gt;</method>
+    <method name='ceil'>&lt;p&gt;As &lt;em&gt;int&lt;/em&gt; is already an &lt;tt&gt;Integer&lt;/tt&gt;, all these methods simply return the receiver.&lt;/p&gt;</method>
+    <method name='chr'>&lt;p&gt;Returns a string containing the ASCII character represented by the receiver&apos;s value.&lt;/p&gt;&lt;pre&gt;   65.chr    #=&gt; &quot;A&quot;
+   ?a.chr    #=&gt; &quot;a&quot;
+   230.chr   #=&gt; &quot;\346&quot;
+&lt;/pre&gt;</method>
+    <method name='denominator'>&lt;p&gt;In an integer, the denominator is 1. Therefore, this method returns 1.&lt;/p&gt;</method>
+    <method name='downto'>&lt;p&gt;Iterates &lt;em&gt;block&lt;/em&gt;, passing decreasing values from &lt;em&gt;int&lt;/em&gt; down to and including &lt;em&gt;limit&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   5.downto(1) { |n| print n, &quot;.. &quot; }
+   print &quot;  Liftoff!\n&quot;
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   5.. 4.. 3.. 2.. 1..   Liftoff!
+&lt;/pre&gt;</method>
+    <method name='floor'>&lt;p&gt;As &lt;em&gt;int&lt;/em&gt; is already an &lt;tt&gt;Integer&lt;/tt&gt;, all these methods simply return the receiver.&lt;/p&gt;</method>
+    <method name='gcd'>&lt;p&gt;Returns the &lt;em&gt;greatest common denominator&lt;/em&gt; of the two numbers (&lt;tt&gt;self&lt;/tt&gt; and &lt;tt&gt;n&lt;/tt&gt;).&lt;/p&gt;&lt;p&gt;Examples:&lt;/p&gt;&lt;pre&gt;  72.gcd 168           # -&gt; 24
+  19.gcd 36            # -&gt; 1
+&lt;/pre&gt;&lt;p&gt;The result is positive, no matter the sign of the arguments.&lt;/p&gt;</method>
+    <method name='gcd2'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='gcdlcm'>&lt;p&gt;Returns the GCD &lt;em&gt;and&lt;/em&gt; the LCM (see #gcd and #lcm) of the two arguments (&lt;tt&gt;self&lt;/tt&gt; and &lt;tt&gt;other&lt;/tt&gt;). This is more efficient than calculating them separately.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  6.gcdlcm 9     # -&gt; [3, 18]
+&lt;/pre&gt;</method>
+    <method name='integer?'>&lt;p&gt;Always returns &lt;tt&gt;true&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='lcm'>&lt;p&gt;Returns the &lt;em&gt;lowest common multiple&lt;/em&gt; (LCM) of the two arguments (&lt;tt&gt;self&lt;/tt&gt; and &lt;tt&gt;other&lt;/tt&gt;).&lt;/p&gt;&lt;p&gt;Examples:&lt;/p&gt;&lt;pre&gt;  6.lcm 7        # -&gt; 42
+  6.lcm 9        # -&gt; 18
+&lt;/pre&gt;</method>
+    <method name='next'>&lt;p&gt;Returns the &lt;tt&gt;Integer&lt;/tt&gt; equal to &lt;em&gt;int&lt;/em&gt; + 1.&lt;/p&gt;&lt;pre&gt;   1.next      #=&gt; 2
+   (-1).next   #=&gt; 0
+&lt;/pre&gt;</method>
+    <method name='numerator'>&lt;p&gt;In an integer, the value &lt;em&gt;is&lt;/em&gt; the numerator of its rational equivalent. Therefore, this method returns &lt;tt&gt;self&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='prime_division'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='round'>&lt;p&gt;As &lt;em&gt;int&lt;/em&gt; is already an &lt;tt&gt;Integer&lt;/tt&gt;, all these methods simply return the receiver.&lt;/p&gt;</method>
+    <method name='succ'>&lt;p&gt;Returns the &lt;tt&gt;Integer&lt;/tt&gt; equal to &lt;em&gt;int&lt;/em&gt; + 1.&lt;/p&gt;&lt;pre&gt;   1.next      #=&gt; 2
+   (-1).next   #=&gt; 0
+&lt;/pre&gt;</method>
+    <method name='times'>&lt;p&gt;Iterates block &lt;em&gt;int&lt;/em&gt; times, passing in values from zero to &lt;em&gt;int&lt;/em&gt; - 1.&lt;/p&gt;&lt;pre&gt;   5.times do |i|
+     print i, &quot; &quot;
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   0 1 2 3 4
+&lt;/pre&gt;</method>
+    <method name='to_i'>&lt;p&gt;As &lt;em&gt;int&lt;/em&gt; is already an &lt;tt&gt;Integer&lt;/tt&gt;, all these methods simply return the receiver.&lt;/p&gt;</method>
+    <method name='to_int'>&lt;p&gt;As &lt;em&gt;int&lt;/em&gt; is already an &lt;tt&gt;Integer&lt;/tt&gt;, all these methods simply return the receiver.&lt;/p&gt;</method>
+    <method name='to_r'>&lt;p&gt;Returns a Rational representation of this integer.&lt;/p&gt;</method>
+    <method name='to_yaml'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='truncate'>&lt;p&gt;As &lt;em&gt;int&lt;/em&gt; is already an &lt;tt&gt;Integer&lt;/tt&gt;, all these methods simply return the receiver.&lt;/p&gt;</method>
+    <method name='upto'>&lt;p&gt;Iterates &lt;em&gt;block&lt;/em&gt;, passing in integer values from &lt;em&gt;int&lt;/em&gt; up to and including &lt;em&gt;limit&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   5.upto(10) { |i| print i, &quot; &quot; }
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   5 6 7 8 9 10
+&lt;/pre&gt;</method>
+  </methods>
+</help>

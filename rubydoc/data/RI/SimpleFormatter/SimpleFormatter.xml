@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This formatter reduces extra lines for a simpler output. It improves way output looks for tools like IRC bots.&lt;/p&gt;</comment>
+  <methods>
+    <method name='blankline'>&lt;p&gt;No extra blank lines&lt;/p&gt;</method>
+    <method name='display_heading'>&lt;p&gt;Place heading level indicators inline with heading.&lt;/p&gt;</method>
+    <method name='draw_line'>&lt;p&gt;Display labels only, no lines&lt;/p&gt;</method>
+  </methods>
+</help>

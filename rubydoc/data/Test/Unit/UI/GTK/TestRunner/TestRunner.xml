@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Runs a Test::Unit::TestSuite in a Gtk UI. Obviously, this one requires you to have Gtk (http://www.gtk.org/) and the Ruby Gtk extension (http://ruby-gnome.sourceforge.net/) installed.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new TestRunner for running the passed suite.&lt;/p&gt;</method>
+    <method name='start'>&lt;p&gt;Begins the test run.&lt;/p&gt;</method>
+  </methods>
+</help>

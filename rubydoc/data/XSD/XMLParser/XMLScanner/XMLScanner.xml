@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='do_parse'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='on_attr_charref'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='on_attr_charref_hex'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='on_attr_entityref'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='on_attr_value'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='on_attribute'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='on_chardata'>&lt;p&gt;def on_pi(target, pi); end&lt;/p&gt;</method>
+    <method name='on_charref'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='on_charref_hex'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='on_entityref'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='on_etag'>&lt;p&gt;def on_cdata(str); end&lt;/p&gt;</method>
+    <method name='on_stag'>&lt;p&gt;def on_end_document; end&lt;/p&gt;</method>
+    <method name='on_stag_end'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='on_stag_end_empty'>&lt;p&gt;def on_attribute_end(name); end&lt;/p&gt;</method>
+    <method name='on_xmldecl_encoding'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='on_xmldecl_version'>&lt;p&gt;def on_xmldecl; end&lt;/p&gt;</method>
+    <method name='parse_error'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='scanner_kcode='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='valid_error'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='warning'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='wellformed_error'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

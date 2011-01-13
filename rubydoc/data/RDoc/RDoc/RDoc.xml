@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Encapsulate the production of rdoc documentation. Basically you can use this as you would invoke rdoc from the command line:&lt;/p&gt;&lt;pre&gt;   rdoc = RDoc::RDoc.new
+   rdoc.document(args)
+&lt;/pre&gt;&lt;p&gt;where &lt;em&gt;args&lt;/em&gt; is an array of strings, each corresponding to an argument you&apos;d give rdoc on the command line. See rdoc/rdoc.rb for details.&lt;/p&gt;</comment>
+  <methods>
+    <method name='document'>&lt;p&gt;Format up one or more files according to the given arguments. For simplicity, &lt;em&gt;argv&lt;/em&gt; is an array of strings, equivalent to the strings that would be passed on the command line. (This isn&apos;t a coincidence, as we &lt;em&gt;do&lt;/em&gt; pass in ARGV when running interactively). For a list of options, see rdoc/rdoc.rb. By default, output will be stored in a directory called &lt;tt&gt;doc&lt;/tt&gt; below the current directory, so make sure you&apos;re somewhere writable before invoking.&lt;/p&gt;&lt;p&gt;Throws: RDocError on error&lt;/p&gt;</method>
+  </methods>
+</help>

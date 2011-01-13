@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Many operating systems allow signals to be sent to running processes. Some signals have a defined effect on the process, while others may be trapped at the code level and acted upon. For example, your process may trap the USR1 signal and use it to toggle debugging, and may use TERM to initiate a controlled shutdown.&lt;/p&gt;&lt;pre&gt;    pid = fork do
+      Signal.trap(&quot;USR1&quot;) do
+        $debug = !$debug
+        puts &quot;Debug now: #$debug&quot;
+      end
+      Signal.trap(&quot;TERM&quot;) do
+        puts &quot;Terminating...&quot;
+        shutdown()
+      end
+      # . . . do some work . . .
+    end
+
+    Process.detach(pid)
+
+    # Controlling program:
+    Process.kill(&quot;USR1&quot;, pid)
+    # ...
+    Process.kill(&quot;USR1&quot;, pid)
+    # ...
+    Process.kill(&quot;TERM&quot;, pid)
+&lt;/pre&gt;&lt;p&gt;produces:&lt;/p&gt;&lt;pre&gt;    Debug now: true
+    Debug now: false
+   Terminating...
+&lt;/pre&gt;&lt;p&gt;The list of available signal names and their interpretation is system dependent. Signal delivery semantics may also vary between systems; in particular signal delivery may not always be reliable.&lt;/p&gt;</comment>
+  <methods>
+    <method name='list'>&lt;p&gt;Returns a list of signal names mapped to the corresponding underlying signal numbers.&lt;/p&gt;&lt;p&gt;Signal.list #=&gt; {&quot;ABRT&quot;=&gt;6, &quot;ALRM&quot;=&gt;14, &quot;BUS&quot;=&gt;7, &quot;CHLD&quot;=&gt;17, &quot;CLD&quot;=&gt;17, &quot;CONT&quot;=&gt;18, &quot;FPE&quot;=&gt;8, &quot;HUP&quot;=&gt;1, &quot;ILL&quot;=&gt;4, &quot;INT&quot;=&gt;2, &quot;IO&quot;=&gt;29, &quot;IOT&quot;=&gt;6, &quot;KILL&quot;=&gt;9, &quot;PIPE&quot;=&gt;13, &quot;POLL&quot;=&gt;29, &quot;PROF&quot;=&gt;27, &quot;PWR&quot;=&gt;30, &quot;QUIT&quot;=&gt;3, &quot;SEGV&quot;=&gt;11, &quot;STOP&quot;=&gt;19, &quot;SYS&quot;=&gt;31, &quot;TERM&quot;=&gt;15, &quot;TRAP&quot;=&gt;5, &quot;TSTP&quot;=&gt;20, &quot;TTIN&quot;=&gt;21, &quot;TTOU&quot;=&gt;22, &quot;URG&quot;=&gt;23, &quot;USR1&quot;=&gt;10, &quot;USR2&quot;=&gt;12, &quot;VTALRM&quot;=&gt;26, &quot;WINCH&quot;=&gt;28, &quot;XCPU&quot;=&gt;24, &quot;XFSZ&quot;=&gt;25}&lt;/p&gt;</method>
+    <method name='trap'>&lt;p&gt;Specifies the handling of signals. The first parameter is a signal name (a string such as ``SIGALRM&apos;&apos;, ``SIGUSR1&apos;&apos;, and so on) or a signal number. The characters ``SIG&apos;&apos; may be omitted from the signal name. The command or block specifies code to be run when the signal is raised. If the command is the string ``IGNORE&apos;&apos; or ``SIG_IGN&apos;&apos;, the signal will be ignored. If the command is ``DEFAULT&apos;&apos; or ``SIG_DFL&apos;&apos;, the operating system&apos;s default handler will be invoked. If the command is ``EXIT&apos;&apos;, the script will be terminated by the signal. Otherwise, the given command or block will be run. The special signal name ``EXIT&apos;&apos; or signal number zero will be invoked just prior to program termination. trap returns the previous handler for the given signal.&lt;/p&gt;&lt;pre&gt;    Signal.trap(0, proc { puts &quot;Terminating: #{$$}&quot; })
+    Signal.trap(&quot;CLD&quot;)  { puts &quot;Child died&quot; }
+    fork &amp;&amp; Process.wait
+&lt;/pre&gt;&lt;p&gt;produces:&lt;/p&gt;&lt;pre&gt;    Terminating: 27461
+    Child died
+    Terminating: 27460
+&lt;/pre&gt;</method>
+  </methods>
+</help>

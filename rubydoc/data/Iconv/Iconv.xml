@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Document-class: Iconv::BrokenLibrary&lt;/p&gt;&lt;p&gt;Detected a bug of underlying iconv(3) libray.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;returns an error without setting errno properly&lt;/li&gt;&lt;/ul&gt;</comment>
+  <methods>
+    <method name='charset_map'>&lt;p&gt;Returns the map from canonical name to system dependent name.&lt;/p&gt;</method>
+    <method name='conv'>&lt;p&gt;Document-method: Iconv::conv&lt;/p&gt;&lt;p&gt;Shorthand for&lt;/p&gt;&lt;pre&gt;  Iconv.iconv(to, from, str).join
+&lt;/pre&gt;&lt;p&gt;See Iconv.iconv.&lt;/p&gt;</method>
+    <method name='iconv'>&lt;p&gt;Shorthand for&lt;/p&gt;&lt;pre&gt;  Iconv.open(to, from) { |cd|
+    (strs + [nil]).collect { |s| cd.iconv(s) }
+  }
+&lt;/pre&gt;&lt;h3&gt;Parameters&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;see Iconv.new&lt;/li&gt;&lt;li&gt;strings to be converted&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Exceptions&lt;/h3&gt;&lt;p&gt;Exceptions thrown by Iconv.new, Iconv.open and Iconv#iconv.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Creates new code converter from a coding-system designated with &lt;tt&gt;from&lt;/tt&gt; to another one designated with &lt;tt&gt;to&lt;/tt&gt;.&lt;/p&gt;&lt;h3&gt;Parameters&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;encoding name for destination&lt;/li&gt;&lt;li&gt;encoding name for source&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Exceptions&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;if &lt;tt&gt;to&lt;/tt&gt; or &lt;tt&gt;from&lt;/tt&gt; aren&apos;t String&lt;/li&gt;&lt;li&gt;if designated converter couldn&apos;t find out&lt;/li&gt;&lt;li&gt;if &lt;tt&gt;iconv_open(3)&lt;/tt&gt; fails&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='open'>&lt;p&gt;Equivalent to Iconv.new except that when it is called with a block, it yields with the new instance and closes it, and returns the result which returned from the block.&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;Finishes conversion.&lt;/p&gt;&lt;p&gt;After calling this, calling Iconv#iconv will cause an exception, but multiple calls of #close are guaranteed to end successfully.&lt;/p&gt;&lt;p&gt;Returns a string containing the byte sequence to change the output buffer to its initial shift state.&lt;/p&gt;</method>
+    <method name='iconv'>&lt;p&gt;Shorthand for&lt;/p&gt;&lt;pre&gt;  Iconv.open(to, from) { |cd|
+    (strs + [nil]).collect { |s| cd.iconv(s) }
+  }
+&lt;/pre&gt;&lt;h3&gt;Parameters&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;see Iconv.new&lt;/li&gt;&lt;li&gt;strings to be converted&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Exceptions&lt;/h3&gt;&lt;p&gt;Exceptions thrown by Iconv.new, Iconv.open and Iconv#iconv.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Detected a bug of underlying iconv(3) libray.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;returns an error without setting errno properly&lt;/li&gt;&lt;/ul&gt;</comment>
+  <methods/>
+</help>

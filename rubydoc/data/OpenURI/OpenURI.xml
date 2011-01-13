@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;pre&gt; OpenURI is an easy-to-use wrapper for net/http, net/https and net/ftp.
+&lt;/pre&gt;&lt;h2&gt;Example&lt;/h2&gt;&lt;pre&gt; It is possible to open http/https/ftp URL as usual like opening a file:
+
+   open(&quot;http://www.ruby-lang.org/&quot;) {|f|
+     f.each_line {|line| p line}
+   }
+
+ The opened file has several methods for meta information as follows since
+ it is extended by OpenURI::Meta.
+
+   open(&quot;http://www.ruby-lang.org/en&quot;) {|f|
+     f.each_line {|line| p line}
+     p f.base_uri         # &lt;URI::HTTP:0x40e6ef2 URL:http://www.ruby-lang.org/en/&gt;
+     p f.content_type     # &quot;text/html&quot;
+     p f.charset          # &quot;iso-8859-1&quot;
+     p f.content_encoding # []
+     p f.last_modified    # Thu Dec 05 02:45:02 UTC 2002
+   }
+
+ Additional header fields can be specified by an optional hash argument.
+
+   open(&quot;http://www.ruby-lang.org/en/&quot;,
+     &quot;User-Agent&quot; =&gt; &quot;Ruby/#{RUBY_VERSION}&quot;,
+     &quot;From&quot; =&gt; &quot;foo@bar.invalid&quot;,
+     &quot;Referer&quot; =&gt; &quot;http://www.ruby-lang.org/&quot;) {|f|
+     # ...
+   }
+
+ The environment variables such as http_proxy, https_proxy and ftp_proxy
+ are in effect by default.  :proxy =&gt; nil disables proxy.
+
+   open(&quot;http://www.ruby-lang.org/en/raa.html&quot;, :proxy =&gt; nil) {|f|
+     # ...
+   }
+
+ URI objects can be opened in a similar way.
+
+   uri = URI.parse(&quot;http://www.ruby-lang.org/en/&quot;)
+   uri.open {|f|
+     # ...
+   }
+
+ URI objects can be read directly. The returned string is also extended by
+ OpenURI::Meta.
+
+   str = uri.read
+   p str.base_uri
+
+ Author:: Tanaka Akira &lt;akr@m17n.org&gt;
+&lt;/pre&gt;</comment>
+  <methods/>
+</help>

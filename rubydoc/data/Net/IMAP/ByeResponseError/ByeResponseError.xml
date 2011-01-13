@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Error raised upon a &quot;BYE&quot; response from the server, indicating that the client is not being allowed to login, or has been timed out due to inactivity.&lt;/p&gt;</comment>
+  <methods/>
+</help>

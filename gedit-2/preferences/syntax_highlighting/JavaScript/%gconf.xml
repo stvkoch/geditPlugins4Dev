@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<gconf>
+        <entry name="Floating-Point@32@Number" mtime="1175276241" type="string">
+                <stringvalue>2/#ceceffff0000/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Operators" mtime="1175201638" type="string">
+                <stringvalue>0/#ffff0000ffff/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Word@32@Operators" mtime="1175276540" type="string">
+                <stringvalue>2/#e5e5caca2c2c/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Constructors" mtime="1175276210" type="string">
+                <stringvalue>2/#cece51510808/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Global@32@Functions" mtime="1175710511" type="string">
+                <stringvalue>2/#7a7a8e8eb5b5/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Unicode@32@Escape@32@Sequence" mtime="1175200479" type="string">
+                <stringvalue>2/#5d5dc4c43b3b/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Punctuators" mtime="1175200606" type="string">
+                <stringvalue>0/#6a6a5a5acdcd/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Objects" mtime="1175276531" type="string">
+                <stringvalue>2/#2e2e8b8b5757/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Object@32@Properties" mtime="1175276430" type="string">
+                <stringvalue>2/#7a7a8e8eb5b5/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Object@32@Functions" mtime="1175276419" type="string">
+                <stringvalue>2/#7a7a8e8eb5b5/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Math@32@Value@32@Properties" mtime="1175200409" type="string">
+                <stringvalue>0/#2e2e8b8b5757/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Hexadecimal@32@Number" mtime="1175276250" type="string">
+                <stringvalue>2/#ceceffff0000/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Flow@32@Keywords" mtime="1175200387" type="string">
+                <stringvalue>2/#e5e5caca2c2c/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Error@32@Handling" mtime="1175200522" type="string">
+                <stringvalue>2/#e5e5caca2c2c/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Array@32@Operators" mtime="1175200538" type="string">
+                <stringvalue>0/#00008a8a8c8c/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Literals" mtime="1175276411" type="string">
+                <stringvalue>2/#7a7a8e8eb5b5/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Number" mtime="1175276257" type="string">
+                <stringvalue>2/#ceceffff0000/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Keywords" mtime="1175200335" type="string">
+                <stringvalue>2/#e5e5caca2c2c/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Global@32@Properties" mtime="1175710578" type="string">
+                <stringvalue>2/#cece51510808/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Line@32@Comment" mtime="1175200258" type="string">
+                <stringvalue>2/#848481818a8a/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Block@32@Comment" mtime="1175200251" type="string">
+                <stringvalue>2/#848481818a8a/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="String@32@2" mtime="1175200207" type="string">
+                <stringvalue>2/#5d5dc4c43b3b/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="String" mtime="1175200203" type="string">
+                <stringvalue>2/#5d5dc4c43b3b/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+</gconf>

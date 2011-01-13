@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;attr_accessor :comment_url, :discard, :port&lt;/p&gt;</method>
+    <method name='parse'>&lt;p&gt;Cookie::parse()&lt;/p&gt;&lt;pre&gt;  It parses Cookie field sent from the user agent.
+&lt;/pre&gt;</method>
+    <method name='parse_set_cookie'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse_set_cookies'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='expires'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='expires='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;&lt;em&gt;Documentation?&lt;/em&gt;&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='cancel'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='read'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='signal'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='wait'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

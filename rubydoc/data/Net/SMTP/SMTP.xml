@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;h1&gt;Net::SMTP&lt;/h1&gt;&lt;h2&gt;What is This Library?&lt;/h2&gt;&lt;p&gt;This library provides functionality to send internet mail via SMTP, the Simple Mail Transfer Protocol. For details of SMTP itself, see [RFC2821] (http://www.ietf.org/rfc/rfc2821.txt).&lt;/p&gt;&lt;h2&gt;What is This Library NOT?&lt;/h2&gt;&lt;p&gt;This library does NOT provide functions to compose internet mails. You must create them by yourself. If you want better mail support, try RubyMail or TMail. You can get both libraries from RAA. (http://www.ruby-lang.org/en/raa.html)&lt;/p&gt;&lt;p&gt;FYI: the official documentation on internet mail is: [RFC2822] (http://www.ietf.org/rfc/rfc2822.txt).&lt;/p&gt;&lt;h2&gt;Examples&lt;/h2&gt;&lt;h3&gt;Sending Messages&lt;/h3&gt;&lt;p&gt;You must open a connection to an SMTP server before sending messages. The first argument is the address of your SMTP server, and the second argument is the port number. Using SMTP.start with a block is the simplest way to do this. This way, the SMTP connection is closed automatically after the block is executed.&lt;/p&gt;&lt;pre&gt;    require &apos;net/smtp&apos;
+    Net::SMTP.start(&apos;your.smtp.server&apos;, 25) do |smtp|
+      # Use the SMTP object smtp only in this block.
+    end
+&lt;/pre&gt;&lt;p&gt;Replace &apos;your.smtp.server&apos; with your SMTP server. Normally your system manager or internet provider supplies a server for you.&lt;/p&gt;&lt;p&gt;Then you can send messages.&lt;/p&gt;&lt;pre&gt;    msgstr = &lt;&lt;END_OF_MESSAGE
+    From: Your Name &lt;your@mail.address&gt;
+    To: Destination Address &lt;someone@example.com&gt;
+    Subject: test message
+    Date: Sat, 23 Jun 2001 16:26:43 +0900
+    Message-Id: &lt;unique.message.id.string@example.com&gt;
+
+    This is a test message.
+    END_OF_MESSAGE
+
+    require &apos;net/smtp&apos;
+    Net::SMTP.start(&apos;your.smtp.server&apos;, 25) do |smtp|
+      smtp.send_message msgstr,
+                        &apos;your@mail.address&apos;,
+                        &apos;his_addess@example.com&apos;
+    end
+&lt;/pre&gt;&lt;h3&gt;Closing the Session&lt;/h3&gt;&lt;p&gt;You MUST close the SMTP session after sending messages, by calling the #finish method:&lt;/p&gt;&lt;pre&gt;    # using SMTP#finish
+    smtp = Net::SMTP.start(&apos;your.smtp.server&apos;, 25)
+    smtp.send_message msgstr, &apos;from@address&apos;, &apos;to@address&apos;
+    smtp.finish
+&lt;/pre&gt;&lt;p&gt;You can also use the block form of SMTP.start/SMTP#start. This closes the SMTP session automatically:&lt;/p&gt;&lt;pre&gt;    # using block form of SMTP.start
+    Net::SMTP.start(&apos;your.smtp.server&apos;, 25) do |smtp|
+      smtp.send_message msgstr, &apos;from@address&apos;, &apos;to@address&apos;
+    end
+&lt;/pre&gt;&lt;p&gt;I strongly recommend this scheme. This form is simpler and more robust.&lt;/p&gt;&lt;h3&gt;HELO domain&lt;/h3&gt;&lt;p&gt;In almost all situations, you must provide a third argument to SMTP.start/SMTP#start. This is the domain name which you are on (the host to send mail from). It is called the &quot;HELO domain&quot;. The SMTP server will judge whether it should send or reject the SMTP session by inspecting the HELO domain.&lt;/p&gt;&lt;pre&gt;    Net::SMTP.start(&apos;your.smtp.server&apos;, 25,
+                    &apos;mail.from.domain&apos;) { |smtp| ... }
+&lt;/pre&gt;&lt;h3&gt;SMTP Authentication&lt;/h3&gt;&lt;p&gt;The Net::SMTP class supports three authentication schemes; PLAIN, LOGIN and CRAM MD5. (SMTP Authentication: [RFC2554]) To use SMTP authentication, pass extra arguments to SMTP.start/SMTP#start.&lt;/p&gt;&lt;pre&gt;    # PLAIN
+    Net::SMTP.start(&apos;your.smtp.server&apos;, 25, &apos;mail.from.domain&apos;,
+                    &apos;Your Account&apos;, &apos;Your Password&apos;, :plain)
+    # LOGIN
+    Net::SMTP.start(&apos;your.smtp.server&apos;, 25, &apos;mail.from.domain&apos;,
+                    &apos;Your Account&apos;, &apos;Your Password&apos;, :login)
+
+    # CRAM MD5
+    Net::SMTP.start(&apos;your.smtp.server&apos;, 25, &apos;mail.from.domain&apos;,
+                    &apos;Your Account&apos;, &apos;Your Password&apos;, :cram_md5)
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='default_port'>&lt;p&gt;The default SMTP port, port 25.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Creates a new Net::SMTP object.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;address&lt;/tt&gt; is the hostname or ip address of your SMTP server. &lt;tt&gt;port&lt;/tt&gt; is the port to connect to; it defaults to port 25.&lt;/p&gt;&lt;p&gt;This method does not open the TCP connection. You can use SMTP.start instead of SMTP.new if you want to do everything at once. Otherwise, follow SMTP.new with SMTP#start.&lt;/p&gt;</method>
+    <method name='start'>&lt;p&gt;Creates a new Net::SMTP object and connects to the server.&lt;/p&gt;&lt;p&gt;This method is equivalent to:&lt;/p&gt;&lt;pre&gt;  Net::SMTP.new(address, port).start(helo_domain, account, password, authtype)
+&lt;/pre&gt;&lt;h3&gt;Example&lt;/h3&gt;&lt;pre&gt;    Net::SMTP.start(&apos;your.smtp.server&apos;) do |smtp|
+      smtp.send_message msgstr, &apos;from@example.com&apos;, [&apos;dest@example.com&apos;]
+    end
+&lt;/pre&gt;&lt;h3&gt;Block Usage&lt;/h3&gt;&lt;p&gt;If called with a block, the newly-opened Net::SMTP object is yielded to the block, and automatically closed when the block finishes. If called without a block, the newly-opened Net::SMTP object is returned to the caller, and it is the caller&apos;s responsibility to close it when finished.&lt;/p&gt;&lt;h3&gt;Parameters&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;address&lt;/tt&gt; is the hostname or ip address of your smtp server.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;port&lt;/tt&gt; is the port to connect to; it defaults to port 25.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;helo&lt;/tt&gt; is the &lt;em&gt;HELO&lt;/em&gt; &lt;em&gt;domain&lt;/em&gt; provided by the client to the server (see overview comments); it defaults to &apos;localhost.localdomain&apos;.&lt;/p&gt;&lt;p&gt;The remaining arguments are used for SMTP authentication, if required or desired. &lt;tt&gt;user&lt;/tt&gt; is the account name; &lt;tt&gt;secret&lt;/tt&gt; is your password or other authentication token; and &lt;tt&gt;authtype&lt;/tt&gt; is the authentication type, one of :plain, :login, or :cram_md5. See the discussion of SMTP Authentication in the overview notes.&lt;/p&gt;&lt;h3&gt;Errors&lt;/h3&gt;&lt;p&gt;This method may raise:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Net::SMTPAuthenticationError&lt;/li&gt;&lt;li&gt;Net::SMTPServerBusy&lt;/li&gt;&lt;li&gt;Net::SMTPSyntaxError&lt;/li&gt;&lt;li&gt;Net::SMTPFatalError&lt;/li&gt;&lt;li&gt;Net::SMTPUnknownError&lt;/li&gt;&lt;li&gt;IOError&lt;/li&gt;&lt;li&gt;TimeoutError&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='esmtp'>&lt;p&gt;Alias for #esmtp?&lt;/p&gt;</method>
+    <method name='esmtp='>&lt;p&gt;Set whether to use ESMTP or not. This should be done before calling #start. Note that if #start is called in ESMTP mode, and the connection fails due to a ProtocolError, the SMTP object will automatically switch to plain SMTP mode and retry (but not vice versa).&lt;/p&gt;</method>
+    <method name='esmtp?'>&lt;p&gt;&lt;tt&gt;true&lt;/tt&gt; if the SMTP object uses ESMTP (which it does by default).&lt;/p&gt;</method>
+    <method name='finish'>&lt;p&gt;Finishes the SMTP session and closes TCP connection. Raises IOError if not started.&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;Provide human-readable stringification of class state.&lt;/p&gt;</method>
+    <method name='open_message_stream'>&lt;p&gt;Opens a message writer stream and gives it to the block. The stream is valid only in the block, and has these methods:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;outputs STR and CR LF.&lt;/li&gt;&lt;li&gt;outputs STR.&lt;/li&gt;&lt;li&gt;outputs sprintf(fmt,*args).&lt;/li&gt;&lt;li&gt;outputs STR and returns the length of written bytes.&lt;/li&gt;&lt;li&gt;outputs STR and returns self.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;If a single CR (&quot;\r&quot;) or LF (&quot;\n&quot;) is found in the message, it is converted to the CR LF pair. You cannot send a binary message with this method.&lt;/p&gt;&lt;h3&gt;Parameters&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;from_addr&lt;/tt&gt; is a String representing the source mail address.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;to_addr&lt;/tt&gt; is a String or Strings or Array of Strings, representing the destination mail address or addresses.&lt;/p&gt;&lt;h3&gt;Example&lt;/h3&gt;&lt;pre&gt;    Net::SMTP.start(&apos;smtp.example.com&apos;, 25) do |smtp|
+      smtp.open_message_stream(&apos;from@example.com&apos;, [&apos;dest@example.com&apos;]) do |f|
+        f.puts &apos;From: from@example.com&apos;
+        f.puts &apos;To: dest@example.com&apos;
+        f.puts &apos;Subject: test message&apos;
+        f.puts
+        f.puts &apos;This is a test message.&apos;
+      end
+    end
+&lt;/pre&gt;&lt;h3&gt;Errors&lt;/h3&gt;&lt;p&gt;This method may raise:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Net::SMTPServerBusy&lt;/li&gt;&lt;li&gt;Net::SMTPSyntaxError&lt;/li&gt;&lt;li&gt;Net::SMTPFatalError&lt;/li&gt;&lt;li&gt;Net::SMTPUnknownError&lt;/li&gt;&lt;li&gt;IOError&lt;/li&gt;&lt;li&gt;TimeoutError&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='read_timeout='>&lt;p&gt;Set the number of seconds to wait until timing-out a read(2) call.&lt;/p&gt;</method>
+    <method name='ready'>&lt;p&gt;Alias for #open_message_stream&lt;/p&gt;</method>
+    <method name='send_mail'>&lt;p&gt;Alias for #send_message&lt;/p&gt;</method>
+    <method name='send_message'>&lt;p&gt;Sends &lt;tt&gt;msgstr&lt;/tt&gt; as a message. Single CR (&quot;\r&quot;) and LF (&quot;\n&quot;) found in the &lt;tt&gt;msgstr&lt;/tt&gt;, are converted into the CR LF pair. You cannot send a binary message with this method. &lt;tt&gt;msgstr&lt;/tt&gt; should include both the message headers and body.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;from_addr&lt;/tt&gt; is a String representing the source mail address.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;to_addr&lt;/tt&gt; is a String or Strings or Array of Strings, representing the destination mail address or addresses.&lt;/p&gt;&lt;h3&gt;Example&lt;/h3&gt;&lt;pre&gt;    Net::SMTP.start(&apos;smtp.example.com&apos;) do |smtp|
+      smtp.send_message msgstr,
+                        &apos;from@example.com&apos;,
+                        [&apos;dest@example.com&apos;, &apos;dest2@example.com&apos;]
+    end
+&lt;/pre&gt;&lt;h3&gt;Errors&lt;/h3&gt;&lt;p&gt;This method may raise:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Net::SMTPServerBusy&lt;/li&gt;&lt;li&gt;Net::SMTPSyntaxError&lt;/li&gt;&lt;li&gt;Net::SMTPFatalError&lt;/li&gt;&lt;li&gt;Net::SMTPUnknownError&lt;/li&gt;&lt;li&gt;IOError&lt;/li&gt;&lt;li&gt;TimeoutError&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='sendmail'>&lt;p&gt;Alias for #send_message&lt;/p&gt;</method>
+    <method name='set_debug_output'>&lt;p&gt;WARNING: This method causes serious security holes. Use this method for only debugging.&lt;/p&gt;&lt;p&gt;Set an output stream for debug logging. You must call this before #start.&lt;/p&gt;&lt;pre&gt;  # example
+  smtp = Net::SMTP.new(addr, port)
+  smtp.set_debug_output $stderr
+  smtp.start do |smtp|
+    ....
+  end
+&lt;/pre&gt;</method>
+    <method name='start'>&lt;p&gt;Opens a TCP connection and starts the SMTP session.&lt;/p&gt;&lt;h3&gt;Parameters&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;helo&lt;/tt&gt; is the &lt;em&gt;HELO&lt;/em&gt; &lt;em&gt;domain&lt;/em&gt; that you&apos;ll dispatch mails from; see the discussion in the overview notes.&lt;/p&gt;&lt;p&gt;If both of &lt;tt&gt;user&lt;/tt&gt; and &lt;tt&gt;secret&lt;/tt&gt; are given, SMTP authentication will be attempted using the AUTH command. &lt;tt&gt;authtype&lt;/tt&gt; specifies the type of authentication to attempt; it must be one of :login, :plain, and :cram_md5. See the notes on SMTP Authentication in the overview.&lt;/p&gt;&lt;h3&gt;Block Usage&lt;/h3&gt;&lt;p&gt;When this methods is called with a block, the newly-started SMTP object is yielded to the block, and automatically closed after the block call finishes. Otherwise, it is the caller&apos;s responsibility to close the session when finished.&lt;/p&gt;&lt;h3&gt;Example&lt;/h3&gt;&lt;p&gt;This is very similar to the class method SMTP.start.&lt;/p&gt;&lt;pre&gt;    require &apos;net/smtp&apos;
+    smtp = Net::SMTP.new(&apos;smtp.mail.server&apos;, 25)
+    smtp.start(helo_domain, account, password, authtype) do |smtp|
+      smtp.send_message msgstr, &apos;from@example.com&apos;, [&apos;dest@example.com&apos;]
+    end
+&lt;/pre&gt;&lt;p&gt;The primary use of this method (as opposed to SMTP.start) is probably to set debugging (#set_debug_output) or ESMTP (#esmtp=), which must be done before the session is started.&lt;/p&gt;&lt;h3&gt;Errors&lt;/h3&gt;&lt;p&gt;If session has already been started, an IOError will be raised.&lt;/p&gt;&lt;p&gt;This method may raise:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Net::SMTPAuthenticationError&lt;/li&gt;&lt;li&gt;Net::SMTPServerBusy&lt;/li&gt;&lt;li&gt;Net::SMTPSyntaxError&lt;/li&gt;&lt;li&gt;Net::SMTPFatalError&lt;/li&gt;&lt;li&gt;Net::SMTPUnknownError&lt;/li&gt;&lt;li&gt;IOError&lt;/li&gt;&lt;li&gt;TimeoutError&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='started?'>&lt;p&gt;&lt;tt&gt;true&lt;/tt&gt; if the SMTP session has been started.&lt;/p&gt;</method>
+  </methods>
+</help>

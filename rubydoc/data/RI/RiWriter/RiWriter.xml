@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='class_desc_path'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='external_to_internal'>&lt;p&gt;And the reverse operation&lt;/p&gt;</method>
+    <method name='internal_to_external'>&lt;p&gt;Convert a name from internal form (containing punctuation) to an external form (where punctuation is replaced by %xx)&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_class'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_method'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='remove_class'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

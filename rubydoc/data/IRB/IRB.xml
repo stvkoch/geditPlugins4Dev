@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='CurrentContext'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='conf'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='irb_abort'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='irb_exit'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='start'>&lt;p&gt;initialize IRB and start TOP_LEVEL irb&lt;/p&gt;</method>
+    <method name='version'>&lt;p&gt;IRB version method&lt;/p&gt;</method>
+  </methods>
+</help>

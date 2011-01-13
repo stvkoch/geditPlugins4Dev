@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='charset_label'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='charset_str'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encoding'>&lt;p&gt;handlers&lt;/p&gt;</method>
+    <method name='encoding='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encoding_conv'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encoding_from_xml'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encoding_to_xml'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='init'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='is_ces'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='is_euc'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='is_sjis'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='is_us_ascii'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='is_utf8'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='xml_encoding_label'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

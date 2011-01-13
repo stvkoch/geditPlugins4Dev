@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<gconf>
+        <entry name="draw_spaces" mtime="1175208734" type="bool" value="true">
+        </entry>
+        <entry name="draw_tabs" mtime="1175208732" type="bool" value="true">
+        </entry>
+        <entry name="color" mtime="1175208727" type="string">
+                <stringvalue>#433546165eff</stringvalue>
+        </entry>
+</gconf>

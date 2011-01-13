@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Application -- Add logging support to your application.&lt;/p&gt;&lt;h2&gt;Usage&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Define your application class as a sub-class of this class.&lt;/li&gt;&lt;li&gt;Override &apos;run&apos; method in your class to do many things.&lt;/li&gt;&lt;li&gt;Instantiate it and invoke &apos;start&apos;.&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Example&lt;/h2&gt;&lt;pre&gt;  class FooApp &lt; Application
+    def initialize(foo_app, application_specific, arguments)
+      super(&apos;FooApp&apos;) # Name of the application.
+    end
+
+    def run
+      ...
+      log(WARN, &apos;warning&apos;, &apos;my_method1&apos;)
+      ...
+      @log.error(&apos;my_method2&apos;) { &apos;Error!&apos; }
+      ...
+    end
+  end
+
+  status = FooApp.new(....).start
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;h2&gt;Synopsis&lt;/h2&gt;&lt;pre&gt;  Application.new(appname = &apos;&apos;)
+&lt;/pre&gt;&lt;h2&gt;Args&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Name of the application.&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Create an instance. Log device is &lt;tt&gt;STDERR&lt;/tt&gt; by default. This can be changed with #set_log.&lt;/p&gt;</method>
+    <method name='level='>&lt;p&gt;Set the logging threshold, just like &lt;tt&gt;Logger#level=&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='log'>&lt;p&gt;See Logger#add. This application&apos;s &lt;tt&gt;appname&lt;/tt&gt; is used.&lt;/p&gt;</method>
+    <method name='log='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_log'>&lt;p&gt;Sets the log device for this application. See the class Logger for an explanation of the arguments.&lt;/p&gt;</method>
+    <method name='start'>&lt;p&gt;Start the application. Return the status code.&lt;/p&gt;</method>
+  </methods>
+</help>

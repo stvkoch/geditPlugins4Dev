@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The base class of all datatypes with Namespace.&lt;/p&gt;</comment>
+  <methods>
+    <method name='inherited'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='types'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='init'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

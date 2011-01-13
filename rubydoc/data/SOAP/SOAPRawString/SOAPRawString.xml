@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;SOAPRawString is for sending raw string. In contrast to SOAPString, SOAP4R does not do XML encoding and does not convert its CES. The string it holds is embedded to XML instance directly as a &apos;xsd:string&apos;.&lt;/p&gt;</comment>
+  <methods/>
+</help>

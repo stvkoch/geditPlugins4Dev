@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;SRV resource record defined in RFC 2782&lt;/p&gt;&lt;p&gt;These records identify the hostname and port that a service is available at.&lt;/p&gt;&lt;p&gt;The format is:&lt;/p&gt;&lt;pre&gt;  _Service._Proto.Name TTL Class SRV Priority Weight Port Target
+&lt;/pre&gt;&lt;p&gt;The fields specific to SRV are defined in RFC 2782 as meaning:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt;priority&lt;/tt&gt; The priority of this target host. A client MUST attempt to contact the target host with the lowest-numbered priority it can reach; target hosts with the same priority SHOULD be tried in an order defined by the weight field. The range is 0-65535. Note that it is not widely implemented and should be set to zero.&lt;/li&gt;&lt;li&gt;&lt;tt&gt;weight&lt;/tt&gt; A server selection mechanism. The weight field specifies a relative weight for entries with the same priority. Larger weights SHOULD be given a proportionately higher probability of being selected. The range of this number is 0-65535. Domain administrators SHOULD use Weight 0 when there isn&apos;t any server selection to do, to make the RR easier to read for humans (less noisy). Note that it is not widely implemented and should be set to zero.&lt;/li&gt;&lt;li&gt;&lt;tt&gt;port&lt;/tt&gt; The port on this target host of this service. The range is 0- 65535.&lt;/li&gt;&lt;li&gt;&lt;tt&gt;target&lt;/tt&gt; The domain name of the target host. A target of &quot;.&quot; means that the service is decidedly not available at this domain.&lt;/li&gt;&lt;/ul&gt;</comment>
+  <methods>
+    <method name='decode_rdata'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Create a SRV resource record.&lt;/p&gt;</method>
+    <method name='encode_rdata'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

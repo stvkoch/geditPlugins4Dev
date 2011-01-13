@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;h2&gt;Developer Documentation (not for RDoc output)&lt;/h2&gt;&lt;h3&gt;Class tree&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;OptionParser:: front end&lt;/li&gt;&lt;li&gt;OptionParser::Switch:: each switches&lt;/li&gt;&lt;li&gt;OptionParser::List:: options list&lt;/li&gt;&lt;li&gt;OptionParser::ParseError:: errors on parsing&lt;/li&gt;&lt;ul&gt;&lt;li&gt;OptionParser::AmbiguousOption&lt;/li&gt;&lt;li&gt;OptionParser::NeedlessArgument&lt;/li&gt;&lt;li&gt;OptionParser::MissingArgument&lt;/li&gt;&lt;li&gt;OptionParser::InvalidOption&lt;/li&gt;&lt;li&gt;OptionParser::InvalidArgument&lt;/li&gt;&lt;ul&gt;&lt;li&gt;OptionParser::AmbiguousArgument&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;&lt;/ul&gt;&lt;h3&gt;Object relationship diagram&lt;/h3&gt;&lt;pre&gt;  +--------------+
+  | OptionParser |&lt;&gt;-----+
+  +--------------+       |                      +--------+
+                         |                    ,-| Switch |
+       on_head --------&gt;+---------------+    /  +--------+
+       accept/reject --&gt;| List          |&lt;|&gt;-
+                        |               |&lt;|&gt;-  +----------+
+       on -------------&gt;+---------------+    `-| argument |
+                          :           :        |  class   |
+                        +---------------+      |==========|
+       on_tail --------&gt;|               |      |pattern   |
+                        +---------------+      |----------|
+  OptionParser.accept -&gt;| DefaultList   |      |converter |
+               reject   |(shared between|      +----------+
+                        | all instances)|
+                        +---------------+
+&lt;/pre&gt;&lt;h2&gt;OptionParser&lt;/h2&gt;&lt;h3&gt;Introduction&lt;/h3&gt;&lt;p&gt;OptionParser is a class for command-line option analysis. It is much more advanced, yet also easier to use, than GetoptLong, and is a more Ruby-oriented solution.&lt;/p&gt;&lt;h3&gt;Features&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The argument specification and the code to handle it are written in the same place.&lt;/li&gt;&lt;li&gt;It can output an option summary; you don&apos;t need to maintain this string separately.&lt;/li&gt;&lt;li&gt;Optional and mandatory arguments are specified very gracefully.&lt;/li&gt;&lt;li&gt;Arguments can be automatically converted to a specified class.&lt;/li&gt;&lt;li&gt;Arguments can be restricted to a certain set.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;All of these features are demonstrated in the examples below.&lt;/p&gt;&lt;h3&gt;Minimal example&lt;/h3&gt;&lt;pre&gt;  require &apos;optparse&apos;
+
+  options = {}
+  OptionParser.new do |opts|
+    opts.banner = &quot;Usage: example.rb [options]&quot;
+
+    opts.on(&quot;-v&quot;, &quot;--[no-]verbose&quot;, &quot;Run verbosely&quot;) do |v|
+      options[:verbose] = v
+    end
+  end.parse!
+
+  p options
+  p ARGV
+&lt;/pre&gt;&lt;h3&gt;Complete example&lt;/h3&gt;&lt;p&gt;The following example is a complete Ruby program. You can run it and see the effect of specifying various options. This is probably the best way to learn the features of &lt;tt&gt;optparse&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;  require &apos;optparse&apos;
+  require &apos;optparse/time&apos;
+  require &apos;ostruct&apos;
+  require &apos;pp&apos;
+
+  class OptparseExample
+
+    CODES = %w[iso-2022-jp shift_jis euc-jp utf8 binary]
+    CODE_ALIASES = { &quot;jis&quot; =&gt; &quot;iso-2022-jp&quot;, &quot;sjis&quot; =&gt; &quot;shift_jis&quot; }
+
+    #
+    # Return a structure describing the options.
+    #
+    def self.parse(args)
+      # The options specified on the command line will be collected in &lt;b&gt;options&lt;/b&gt;.
+      # We set default values here.
+      options = OpenStruct.new
+      options.library = []
+      options.inplace = false
+      options.encoding = &quot;utf8&quot;
+      options.transfer_type = :auto
+      options.verbose = false
+
+      opts = OptionParser.new do |opts|
+        opts.banner = &quot;Usage: example.rb [options]&quot;
+
+        opts.separator &quot;&quot;
+        opts.separator &quot;Specific options:&quot;
+
+        # Mandatory argument.
+        opts.on(&quot;-r&quot;, &quot;--require LIBRARY&quot;,
+                &quot;Require the LIBRARY before executing your script&quot;) do |lib|
+          options.library &lt;&lt; lib
+        end
+
+        # Optional argument; multi-line description.
+        opts.on(&quot;-i&quot;, &quot;--inplace [EXTENSION]&quot;,
+                &quot;Edit ARGV files in place&quot;,
+                &quot;  (make backup if EXTENSION supplied)&quot;) do |ext|
+          options.inplace = true
+          options.extension = ext || &apos;&apos;
+          options.extension.sub!(/\A\.?(?=.)/, &quot;.&quot;)  # Ensure extension begins with dot.
+        end
+
+        # Cast &apos;delay&apos; argument to a Float.
+        opts.on(&quot;--delay N&quot;, Float, &quot;Delay N seconds before executing&quot;) do |n|
+          options.delay = n
+        end
+
+        # Cast &apos;time&apos; argument to a Time object.
+        opts.on(&quot;-t&quot;, &quot;--time [TIME]&quot;, Time, &quot;Begin execution at given time&quot;) do |time|
+          options.time = time
+        end
+
+        # Cast to octal integer.
+        opts.on(&quot;-F&quot;, &quot;--irs [OCTAL]&quot;, OptionParser::OctalInteger,
+                &quot;Specify record separator (default \0)&quot;) do |rs|
+          options.record_separator = rs
+        end
+
+        # List of arguments.
+        opts.on(&quot;--list x,y,z&quot;, Array, &quot;Example &apos;list&apos; of arguments&quot;) do |list|
+          options.list = list
+        end
+
+        # Keyword completion.  We are specifying a specific set of arguments (CODES
+        # and CODE_ALIASES - notice the latter is a Hash), and the user may provide
+        # the shortest unambiguous text.
+        code_list = (CODE_ALIASES.keys + CODES).join(&apos;,&apos;)
+        opts.on(&quot;--code CODE&quot;, CODES, CODE_ALIASES, &quot;Select encoding&quot;,
+                &quot;  (#{code_list})&quot;) do |encoding|
+          options.encoding = encoding
+        end
+
+        # Optional argument with keyword completion.
+        opts.on(&quot;--type [TYPE]&quot;, [:text, :binary, :auto],
+                &quot;Select transfer type (text, binary, auto)&quot;) do |t|
+          options.transfer_type = t
+        end
+
+        # Boolean switch.
+        opts.on(&quot;-v&quot;, &quot;--[no-]verbose&quot;, &quot;Run verbosely&quot;) do |v|
+          options.verbose = v
+        end
+
+        opts.separator &quot;&quot;
+        opts.separator &quot;Common options:&quot;
+
+        # No argument, shows at tail.  This will print an options summary.
+        # Try it and see!
+        opts.on_tail(&quot;-h&quot;, &quot;--help&quot;, &quot;Show this message&quot;) do
+          puts opts
+          exit
+        end
+
+        # Another typical switch to print the version.
+        opts.on_tail(&quot;--version&quot;, &quot;Show version&quot;) do
+          puts OptionParser::Version.join(&apos;.&apos;)
+          exit
+        end
+      end
+
+      opts.parse!(args)
+      options
+    end  # parse()
+
+  end  # class OptparseExample
+
+  options = OptparseExample.parse(ARGV)
+  pp options
+&lt;/pre&gt;&lt;h3&gt;Further documentation&lt;/h3&gt;&lt;p&gt;The above examples should be enough to learn how to use this class. If you have any questions, email me (gsinclair@soyabean.com.au) and I will update this document.&lt;/p&gt;</comment>
+  <methods>
+    <method name='accept'>&lt;p&gt;See #accept.&lt;/p&gt;</method>
+    <method name='getopts'>&lt;p&gt;See #getopts.&lt;/p&gt;</method>
+    <method name='inc'>&lt;p&gt;Returns an incremented value of &lt;tt&gt;default&lt;/tt&gt; according to &lt;tt&gt;arg&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Initializes the instance and yields itself if called with a block.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Banner message.&lt;/li&gt;&lt;li&gt;Summary width.&lt;/li&gt;&lt;li&gt;Summary indent.&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='reject'>&lt;p&gt;See #reject.&lt;/p&gt;</method>
+    <method name='terminate'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='top'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='with'>&lt;p&gt;Initializes a new instance and evaluates the optional block in context of the instance. Arguments &lt;tt&gt;args&lt;/tt&gt; are passed to #new, see there for description of parameters.&lt;/p&gt;&lt;p&gt;This method is &lt;b&gt;deprecated&lt;/b&gt;, its behavior corresponds to the older #new method.&lt;/p&gt;</method>
+    <method name='abort'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='accept'>&lt;p&gt;Directs to accept specified class &lt;tt&gt;t&lt;/tt&gt;. The argument string is passed to the block in which it should be converted to the desired class.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Argument class specifier, any object including Class.&lt;/li&gt;&lt;li&gt;Pattern for argument, defaults to &lt;tt&gt;t&lt;/tt&gt; if it responds to match.&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt;  accept(t, pat, &amp;block)
+&lt;/pre&gt;</method>
+    <method name='banner'>&lt;p&gt;Heading banner preceding summary.&lt;/p&gt;</method>
+    <method name='base'>&lt;p&gt;Subject of #on_tail.&lt;/p&gt;</method>
+    <method name='def_head_option'>&lt;p&gt;Alias for #define_head&lt;/p&gt;</method>
+    <method name='def_option'>&lt;p&gt;Alias for #define&lt;/p&gt;</method>
+    <method name='def_tail_option'>&lt;p&gt;Alias for #define_tail&lt;/p&gt;</method>
+    <method name='define'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='define_head'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='define_tail'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='environment'>&lt;p&gt;Parses environment variable &lt;tt&gt;env&lt;/tt&gt; or its uppercase with splitting like a shell.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;env&lt;/tt&gt; defaults to the basename of the program.&lt;/p&gt;</method>
+    <method name='getopts'>&lt;p&gt;Wrapper method for getopts.rb.&lt;/p&gt;</method>
+    <method name='help'>&lt;p&gt;Returns option summary string.&lt;/p&gt;</method>
+    <method name='inc'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='load'>&lt;p&gt;Loads options from file names as &lt;tt&gt;filename&lt;/tt&gt;. Does nothing when the file is not present. Returns whether successfully loaded.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;filename&lt;/tt&gt; defaults to basename of the program without suffix in a directory ~/.options.&lt;/p&gt;</method>
+    <method name='make_switch'>&lt;p&gt;Creates an OptionParser::Switch from the parameters. The parsed argument value is passed to the given block, where it can be processed.&lt;/p&gt;&lt;p&gt;See at the beginning of OptionParser for some full examples.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;opts&lt;/tt&gt; can include the following elements:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;One of the following:&lt;/li&gt;&lt;pre&gt;  :NONE, :REQUIRED, :OPTIONAL
+&lt;/pre&gt;&lt;li&gt;Acceptable option argument format, must be pre-defined with OptionParser.accept or OptionParser#accept, or Regexp. This can appear once or assigned as String if not present, otherwise causes an ArgumentError. Examples:&lt;/li&gt;&lt;pre&gt;  Float, Time, Array
+&lt;/pre&gt;&lt;li&gt;Hash or Array.&lt;/li&gt;&lt;pre&gt;  [:text, :binary, :auto]
+  %w[iso-2022-jp shift_jis euc-jp utf8 binary]
+  { &quot;jis&quot; =&gt; &quot;iso-2022-jp&quot;, &quot;sjis&quot; =&gt; &quot;shift_jis&quot; }
+&lt;/pre&gt;&lt;li&gt;Specifies a long style switch which takes a mandatory, optional or no argument. It&apos;s a string of the following form:&lt;/li&gt;&lt;pre&gt;  &quot;--switch=MANDATORY&quot; or &quot;--switch MANDATORY&quot;
+  &quot;--switch[=OPTIONAL]&quot;
+  &quot;--switch&quot;
+&lt;/pre&gt;&lt;li&gt;Specifies short style switch which takes a mandatory, optional or no argument. It&apos;s a string of the following form:&lt;/li&gt;&lt;pre&gt;  &quot;-xMANDATORY&quot;
+  &quot;-x[OPTIONAL]&quot;
+  &quot;-x&quot;
+&lt;/pre&gt;&lt;p&gt;There is also a special form which matches character range (not full set of regural expression):&lt;/p&gt;&lt;pre&gt;  &quot;-[a-z]MANDATORY&quot;
+  &quot;-[a-z][OPTIONAL]&quot;
+  &quot;-[a-z]&quot;
+&lt;/pre&gt;&lt;li&gt;Instead of specifying mandatory or optional orguments directly in the switch parameter, this separate parameter can be used.&lt;/li&gt;&lt;pre&gt;  &quot;=MANDATORY&quot;
+  &quot;=[OPTIONAL]&quot;
+&lt;/pre&gt;&lt;li&gt;Description string for the option.&lt;/li&gt;&lt;pre&gt;  &quot;Run verbosely&quot;
+&lt;/pre&gt;&lt;li&gt;Handler for the parsed argument value. Either give a block or pass a Proc or Method as an argument.&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='new'>&lt;p&gt;Pushes a new List.&lt;/p&gt;</method>
+    <method name='on'>&lt;p&gt;Add option switch and handler. See #make_switch for an explanation of parameters.&lt;/p&gt;</method>
+    <method name='on_head'>&lt;p&gt;Add option switch like with #on, but at head of summary.&lt;/p&gt;</method>
+    <method name='on_tail'>&lt;p&gt;Add option switch like with #on, but at tail of summary.&lt;/p&gt;</method>
+    <method name='order'>&lt;p&gt;Parses command line arguments &lt;tt&gt;argv&lt;/tt&gt; in order. When a block is given, each non-option argument is yielded.&lt;/p&gt;&lt;p&gt;Returns the rest of &lt;tt&gt;argv&lt;/tt&gt; left unparsed.&lt;/p&gt;</method>
+    <method name='order!'>&lt;p&gt;Same as #order, but removes switches destructively.&lt;/p&gt;</method>
+    <method name='parse'>&lt;p&gt;Parses command line arguments &lt;tt&gt;argv&lt;/tt&gt; in order when environment variable POSIXLY_CORRECT is set, and in permutation mode otherwise.&lt;/p&gt;</method>
+    <method name='parse!'>&lt;p&gt;Same as #parse, but removes switches destructively.&lt;/p&gt;</method>
+    <method name='permute'>&lt;p&gt;Parses command line arguments &lt;tt&gt;argv&lt;/tt&gt; in permutation mode and returns list of non-option arguments.&lt;/p&gt;</method>
+    <method name='permute!'>&lt;p&gt;Same as #permute, but removes switches destructively.&lt;/p&gt;</method>
+    <method name='program_name'>&lt;p&gt;Program name to be emitted in error message and default banner, defaults to $0.&lt;/p&gt;</method>
+    <method name='reject'>&lt;p&gt;Directs to reject specified class argument.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Argument class speficier, any object including Class.&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt;  reject(t)
+&lt;/pre&gt;</method>
+    <method name='release'>&lt;p&gt;Release code&lt;/p&gt;</method>
+    <method name='remove'>&lt;p&gt;Removes the last List.&lt;/p&gt;</method>
+    <method name='separator'>&lt;p&gt;Add separator in summary.&lt;/p&gt;</method>
+    <method name='summarize'>&lt;p&gt;Puts option summary into &lt;tt&gt;to&lt;/tt&gt; and returns &lt;tt&gt;to&lt;/tt&gt;. Yields each line if a block is given.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Output destination, which must have method &lt;&lt;. Defaults to [].&lt;/li&gt;&lt;li&gt;Width of left side, defaults to @summary_width.&lt;/li&gt;&lt;li&gt;Maximum length allowed for left side, defaults to &lt;tt&gt;width&lt;/tt&gt; - 1.&lt;/li&gt;&lt;li&gt;Indentation, defaults to @summary_indent.&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='terminate'>&lt;p&gt;Terminates option parsing. Optional parameter &lt;tt&gt;arg&lt;/tt&gt; is a string pushed back to be the first non-option argument.&lt;/p&gt;</method>
+    <method name='to_a'>&lt;p&gt;Returns option summary list.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Alias for #help&lt;/p&gt;</method>
+    <method name='top'>&lt;p&gt;Subject of #on / #on_head, #accept / #reject&lt;/p&gt;</method>
+    <method name='ver'>&lt;p&gt;Returns version string from program_name, version and release.&lt;/p&gt;</method>
+    <method name='version'>&lt;p&gt;Version&lt;/p&gt;</method>
+    <method name='warn'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

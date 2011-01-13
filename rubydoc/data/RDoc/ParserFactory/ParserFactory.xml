@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A parser is simple a class that implements&lt;/p&gt;&lt;pre&gt;  #initialize(file_name, body, options)
+&lt;/pre&gt;&lt;p&gt;and&lt;/p&gt;&lt;pre&gt;  #scan
+&lt;/pre&gt;&lt;p&gt;The initialize method takes a file name to be used, the body of the file, and an RDoc::Options object. The scan method is then called to return an appropriately parsed TopLevel code object.&lt;/p&gt;&lt;p&gt;The ParseFactory is used to redirect to the correct parser given a filename extension. This magic works because individual parsers have to register themselves with us as they are loaded in. The do this using the following incantation&lt;/p&gt;&lt;pre&gt;   require &quot;rdoc/parsers/parsefactory&quot;
+
+   module RDoc
+
+     class XyzParser
+       extend ParseFactory                  &lt;&lt;&lt;&lt;
+       parse_files_matching /\.xyz$/        &lt;&lt;&lt;&lt;
+
+       def initialize(file_name, body, options)
+         ...
+       end
+
+       def scan
+         ...
+       end
+     end
+   end
+&lt;/pre&gt;&lt;p&gt;Just to make life interesting, if we suspect a plain text file, we also look for a shebang line just in case it&apos;s a potential shell script&lt;/p&gt;</comment>
+  <methods>
+    <method name='alias_extension'>&lt;p&gt;Alias an extension to another extension. After this call, files ending &quot;new_ext&quot; will be parsed using the same parser as &quot;old_ext&quot;&lt;/p&gt;</method>
+    <method name='can_parse'>&lt;p&gt;Return a parser that can handle a particular extension&lt;/p&gt;</method>
+    <method name='parser_for'>&lt;p&gt;Find the correct parser for a particular file name. Return a SimpleParser for ones that we don&apos;t know&lt;/p&gt;</method>
+    <method name='parse_files_matching'>&lt;p&gt;Record the fact that a particular class parses files that match a given extension&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,18 +1,21 @@
+#VERSION 1.1.3
+
 import gedit, gtk, gtk.glade
 import gconf
+import gnomevfs
 import pygtk
 pygtk.require('2.0')
 import os, os.path, gobject
-from urllib import pathname2url
-import tempfile
+
+# set this to true for gedit versions before 2.16
+pre216_version = False
 
 max_result = 50
-app_string = "Snap open"
 
 ui_str="""<ui>
 <menubar name="MenuBar">
-	<menu name="SearchMenu" action="Search">
-		<placeholder name="SearchOps_7">
+	<menu name="SnapOpenMenu" action="SnapOpenMenuAction">
+		<placeholder name="SnapOpen Options">
 			<menuitem name="SnapOpen" action="SnapOpenAction"/>
 		</placeholder>
 	</menu>
@@ -25,9 +28,11 @@ class SnapOpenPluginInstance:
 	def __init__( self, plugin, window ):
 		self._window = window
 		self._plugin = plugin
-		self._encoding = gedit.encoding_get_current()  
+		if pre216_version:
+			self._encoding = gedit.gedit_encoding_get_current() 
+		else:
+			self._encoding = gedit.encoding_get_current()  
 		self._rootdir = "file://" + os.getcwd()
-		self._tmpfile = os.path.join(tempfile.gettempdir(), 'snapopen.%s.%s' % (os.getuid(),os.getpid()))
 		self._show_hidden = False
 		self._liststore = None;
 		self._init_glade()
@@ -39,7 +44,6 @@ class SnapOpenPluginInstance:
 		self._window = None
 		self._plugin = None
 		self._liststore = None;
-		os.popen('rm %s &> /dev/null' % (self._tmpfile))
 
 	def update_ui( self ):
 		return
@@ -50,7 +54,7 @@ class SnapOpenPluginInstance:
 		self._action_group = gtk.ActionGroup( "SnapOpenPluginActions" )
 		snapopen_menu_action = gtk.Action( name="SnapOpenMenuAction", label="Snap", tooltip="Snap tools", stock_id=None )
 		self._action_group.add_action( snapopen_menu_action )
-		snapopen_action = gtk.Action( name="SnapOpenAction", label="Snap Open...\t", tooltip="Open file by autocomplete...", stock_id=gtk.STOCK_JUMP_TO )
+		snapopen_action = gtk.Action( name="SnapOpenAction", label="Open...\t", tooltip="Open a file", stock_id=gtk.STOCK_OPEN )
 		snapopen_action.connect( "activate", lambda a: self.on_snapopen_action() )
 		self._action_group.add_action_with_accel( snapopen_action, "<Ctrl><Alt>o" )
 		manager.insert_action_group( self._action_group, 0 )
@@ -82,8 +86,6 @@ class SnapOpenPluginInstance:
 		self._hit_list.connect("select-cursor-row", self.on_select_from_list)
 		self._hit_list.connect("button_press_event", self.on_list_mouse)
 		self._liststore = gtk.ListStore(str, str)
-		self._liststore.set_sort_column_id(0, gtk.SORT_ASCENDING)
-
 		self._hit_list.set_model(self._liststore)
 		column = gtk.TreeViewColumn("Name" , gtk.CellRendererText(), text=0)
 		column.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
@@ -108,28 +110,23 @@ class SnapOpenPluginInstance:
 		if event.keyval == gtk.keysyms.Return:
 			self.open_selected_item( event )
 			return
+		self._snapopen_window.set_title("searching ... ")
 		pattern = self._glade_entry_name.get_text()
-		pattern = pattern.replace(" ",".*")
-		cmd = ""
+		pattern = pattern.replace(" ","*")
+		#modify lines below as needed, these defaults work pretty well
+		rawpath = self._rootdir.replace("file://", "")
+		filefilter = " | grep -v \"/\.\""
 		if self._show_hidden:
-			filefilter = ""
-		if len(pattern) > 0:
-			# To search by name
-			cmd = "grep -m %d -e '%s' %s 2> /dev/null" % (max_result, pattern, self._tmpfile)
-			self._snapopen_window.set_title("Searching ... ")
-		else:
-			self._snapopen_window.set_title("Enter pattern ... ")	
-		#print cmd
-
+			filefilter = ""		
+		cmd = "cd " + rawpath + "; find . -maxdepth 5 -depth -type f -iwholename \"*" + pattern + "*\" " + filefilter + "| head -n " + repr(max_result + 1) + " | grep -v \"~$\" | sort"
 		self._liststore.clear()
 		maxcount = 0
-		hits = os.popen(cmd).readlines()
-		for file in hits:
+		for file in os.popen(cmd).readlines():
 			file = file.rstrip().replace("./", "") #remove cwd prefix
 			name = os.path.basename(file)			
 			self._liststore.append([name, file])
 			if maxcount > max_result:
-				break
+				break						
 			maxcount = maxcount + 1
 		if maxcount > max_result:
 			oldtitle = oldtitle + " * too many hits"
@@ -145,26 +142,17 @@ class SnapOpenPluginInstance:
 
 	#on menuitem activation (incl. shortcut)
 	def on_snapopen_action( self ):
-		self._init_glade()
-
 		fbroot = self.get_filebrowser_root()
 		if fbroot != "" and fbroot is not None:
 			self._rootdir = fbroot
-			self._snapopen_window.set_title(app_string + " (File Browser root)")
+			self._snapopen_window.set_title("Snap open (Filebrowser integration)")
 		else:
 			eddtroot = self.get_eddt_root()
 			if eddtroot != "" and eddtroot is not None:
 				self._rootdir = eddtroot
-				self._snapopen_window.set_title(app_string + " (EDDT integration)")
+				self._snapopen_window.set_title("Snap open (EDDT integration)")
 			else:
-				self._snapopen_window.set_title(app_string + " (Working dir): " + self._rootdir)	
-
-		# cache the file list in the background
-		#modify lines below as needed, these defaults work pretty well
-		imagefilter = " ! -iname '*.jpg' ! -iname '*.jpeg' ! -iname '*.gif' ! -iname '*.png' ! -iname '*.psd' ! -iname '*.tif' ! -iname '*.pyc' "
-		dirfilter = " ! -path '*.svn*' ! -path '*.git*' "
-		os.popen("cd %s; find . -type f %s > %s 2> /dev/null &" % (self._rootdir.replace("file://", ""), imagefilter + dirfilter, self._tmpfile))
-
+				self._snapopen_window.set_title("Snap open (cwd): " + self._rootdir)		
 		self._snapopen_window.show()
 		self._glade_entry_name.select_region(0,-1)
 		self._glade_entry_name.grab_focus()
@@ -195,8 +183,11 @@ class SnapOpenPluginInstance:
 	
 	#opens (or switches to) the given file
 	def _open_file( self, filename ):
- 		uri = self._rootdir + "/" + pathname2url(filename)
-		tab = self._window.get_tab_from_uri(uri) 
+ 		uri = self._rootdir + "/" + filename
+		if pre216_version:
+			tab = self.old_get_tab_from_uri(self._window, uri)
+		else:
+			tab = self._window.get_tab_from_uri(uri) 
 		if tab == None:
 			tab = self._window.create_tab_from_uri( uri, self._encoding, 0, False, False )
 		self._window.set_active_tab( tab )
@@ -224,10 +215,7 @@ class SnapOpenPluginInstance:
 		  client = gconf.client_get_default()
 		  client.add_dir(base, gconf.CLIENT_PRELOAD_NONE)
 		  path = os.path.join(base, u'filter_mode')
-		  try:
-			  fbfilter = client.get(path).get_string()
-		  except AttributeError:
-			  fbfilter = "hidden"
+		  fbfilter = client.get(path).get_string()
 		  if fbfilter.find("hidden") == -1:
 		  	self._show_hidden = True
 		  else:

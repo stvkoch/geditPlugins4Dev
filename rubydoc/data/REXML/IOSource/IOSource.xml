@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A Source that wraps an IO. See the Source class for method documentation&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;block_size has been deprecated&lt;/p&gt;</method>
+    <method name='consume'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='current_line'>&lt;p&gt;@return the current line in the source&lt;/p&gt;</method>
+    <method name='empty?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='match'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='position'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='read'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='scan'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

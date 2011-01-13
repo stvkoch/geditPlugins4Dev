@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;CAUTION: MT-unsafe&lt;/p&gt;</comment>
+  <methods>
+    <method name='assign_ns'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_reftarget'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='element_local?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='element_qualified?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encode_child'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encode_data'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encode_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encode_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encode_name_end'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encode_rawstring'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encode_string'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encode_tag'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encode_tag_end'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='generate'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

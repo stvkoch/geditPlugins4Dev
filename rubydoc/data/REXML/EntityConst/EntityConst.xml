@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This is a set of entity constants -- the ones defined in the XML specification. These are &lt;tt&gt;gt&lt;/tt&gt;, &lt;tt&gt;lt&lt;/tt&gt;, &lt;tt&gt;amp&lt;/tt&gt;, &lt;tt&gt;quot&lt;/tt&gt; and &lt;tt&gt;apos&lt;/tt&gt;.&lt;/p&gt;</comment>
+  <methods/>
+</help>

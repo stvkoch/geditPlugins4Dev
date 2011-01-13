@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A paragraph is a fragment which gets wrapped to fit. We remove all newlines when we&apos;re created, and have them put back on output&lt;/p&gt;</comment>
+  <methods/>
+</help>

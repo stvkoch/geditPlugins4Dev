@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The global value &lt;tt&gt;true&lt;/tt&gt; is the only instance of class &lt;tt&gt;TrueClass&lt;/tt&gt; and represents a logically true value in boolean expressions. The class provides operators allowing &lt;tt&gt;true&lt;/tt&gt; to be used in logical expressions.&lt;/p&gt;</comment>
+  <methods>
+    <method name='&amp;'>&lt;p&gt;And---Returns &lt;tt&gt;false&lt;/tt&gt; if &lt;em&gt;obj&lt;/em&gt; is &lt;tt&gt;nil&lt;/tt&gt; or &lt;tt&gt;false&lt;/tt&gt;, &lt;tt&gt;true&lt;/tt&gt; otherwise.&lt;/p&gt;</method>
+    <method name='^'>&lt;p&gt;Exclusive Or---Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;obj&lt;/em&gt; is &lt;tt&gt;nil&lt;/tt&gt; or &lt;tt&gt;false&lt;/tt&gt;, &lt;tt&gt;false&lt;/tt&gt; otherwise.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;The string representation of &lt;tt&gt;true&lt;/tt&gt; is &quot;true&quot;.&lt;/p&gt;</method>
+    <method name='to_yaml'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='|'>&lt;p&gt;Or---Returns &lt;tt&gt;true&lt;/tt&gt;. As &lt;em&gt;anObject&lt;/em&gt; is an argument to a method call, it is always evaluated; there is no short-circuit evaluation in this case.&lt;/p&gt;&lt;pre&gt;   true |  puts(&quot;or&quot;)
+   true || puts(&quot;logical or&quot;)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   or
+&lt;/pre&gt;</method>
+  </methods>
+</help>

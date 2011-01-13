@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment></comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='append_data'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each_data'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='list'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_ary'>&lt;p&gt;Alias for #list&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

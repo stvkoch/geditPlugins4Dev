@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This program is copyrighted free software by NAKAMURA, Hiroshi. You can redistribute it and/or modify it under the same terms of Ruby&apos;s license; either the dual license version in 2003, or any later version.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_content'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='post'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='proxy='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='reset'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='reset_all'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='save_cookie_store'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_basic_auth'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_cookie_store'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='test_loopback_response'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;pre&gt;    Constructor.  CData is data between &lt;![CDATA[ ... ]]&gt;
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Examples&lt;/em&gt;&lt;/p&gt;&lt;pre&gt; CData.new( source )
+ CData.new( &quot;Here is some CDATA&quot; )
+ CData.new( &quot;Some unprocessed data&quot;, respect_whitespace_TF, parent_element )
+&lt;/pre&gt;</method>
+    <method name='clone'>&lt;p&gt;Make a copy of this object&lt;/p&gt;&lt;p&gt;&lt;em&gt;Examples&lt;/em&gt;&lt;/p&gt;&lt;pre&gt; c = CData.new( &quot;Some text&quot; )
+ d = c.clone
+ d.to_s        # -&gt; &quot;Some text&quot;
+&lt;/pre&gt;</method>
+    <method name='to_s'>&lt;p&gt;Returns the content of this CData object&lt;/p&gt;&lt;p&gt;&lt;em&gt;Examples&lt;/em&gt;&lt;/p&gt;&lt;pre&gt; c = CData.new( &quot;Some text&quot; )
+ c.to_s        # -&gt; &quot;Some text&quot;
+&lt;/pre&gt;</method>
+    <method name='value'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='write'>&lt;p&gt;Generates XML output of this object&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Where to write the string. Defaults to $stdout&lt;/li&gt;&lt;li&gt;An integer. If -1, no indenting will be used; otherwise, the indentation will be this number of spaces, and children will be indented an additional amount. Defaults to -1.&lt;/li&gt;&lt;li&gt;If transitive is true and indent is &gt;= 0, then the output will be pretty-printed in such a way that the added whitespace does not affect the absolute &lt;b&gt;value&lt;/b&gt; of the document -- that is, it leaves the value and number of Text nodes in the document unchanged.&lt;/li&gt;&lt;li&gt;Internet Explorer is the worst piece of crap to have ever been written, with the possible exception of Windows itself. Since IE is unable to parse proper XML, we have to provide a hack to generate XML that IE&apos;s limited abilities can handle. This hack inserts a space before the /&gt; on empty tags.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;em&gt;Examples&lt;/em&gt;&lt;/p&gt;&lt;pre&gt; c = CData.new( &quot; Some text &quot; )
+ c.write( $stdout )     #-&gt;  &lt;![CDATA[ Some text ]]&gt;
+&lt;/pre&gt;</method>
+  </methods>
+</help>

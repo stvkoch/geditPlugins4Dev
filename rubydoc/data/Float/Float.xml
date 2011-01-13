@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;&lt;tt&gt;Float&lt;/tt&gt; objects represent real numbers using the native architecture&apos;s double-precision floating point representation.&lt;/p&gt;</comment>
+  <methods>
+    <method name='induced_from'>&lt;p&gt;Convert &lt;tt&gt;obj&lt;/tt&gt; to a float.&lt;/p&gt;</method>
+    <method name='%'>&lt;p&gt;Return the modulo after division of &lt;tt&gt;flt&lt;/tt&gt; by &lt;tt&gt;other&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   6543.21.modulo(137)      #=&gt; 104.21
+   6543.21.modulo(137.24)   #=&gt; 92.9299999999996
+&lt;/pre&gt;</method>
+    <method name='*'>&lt;p&gt;Returns a new float which is the product of &lt;tt&gt;float&lt;/tt&gt; and &lt;tt&gt;other&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='**'>&lt;pre&gt; flt ** other   =&gt; float
+&lt;/pre&gt;&lt;p&gt;Raises &lt;tt&gt;float&lt;/tt&gt; the &lt;tt&gt;other&lt;/tt&gt; power.&lt;/p&gt;</method>
+    <method name='+'>&lt;p&gt;Returns a new float which is the sum of &lt;tt&gt;float&lt;/tt&gt; and &lt;tt&gt;other&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='-'>&lt;p&gt;Returns a new float which is the difference of &lt;tt&gt;float&lt;/tt&gt; and &lt;tt&gt;other&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='-@'>&lt;p&gt;Returns float, negated.&lt;/p&gt;</method>
+    <method name='/'>&lt;p&gt;Returns a new float which is the result of dividing &lt;tt&gt;float&lt;/tt&gt; by &lt;tt&gt;other&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='&lt;'>&lt;p&gt;&lt;tt&gt;true&lt;/tt&gt; if &lt;tt&gt;flt&lt;/tt&gt; is less than &lt;tt&gt;other&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='&lt;='>&lt;p&gt;&lt;tt&gt;true&lt;/tt&gt; if &lt;tt&gt;flt&lt;/tt&gt; is less than or equal to &lt;tt&gt;other&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='&lt;=&gt;'>&lt;p&gt;Returns -1, 0, or +1 depending on whether &lt;em&gt;flt&lt;/em&gt; is less than, equal to, or greater than &lt;em&gt;numeric&lt;/em&gt;. This is the basis for the tests in &lt;tt&gt;Comparable&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; only if &lt;em&gt;obj&lt;/em&gt; has the same value as &lt;em&gt;flt&lt;/em&gt;. Contrast this with &lt;tt&gt;Float#eql?&lt;/tt&gt;, which requires &lt;em&gt;obj&lt;/em&gt; to be a &lt;tt&gt;Float&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   1.0 == 1   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='&gt;'>&lt;p&gt;&lt;tt&gt;true&lt;/tt&gt; if &lt;tt&gt;flt&lt;/tt&gt; is greater than &lt;tt&gt;other&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='&gt;='>&lt;p&gt;&lt;tt&gt;true&lt;/tt&gt; if &lt;tt&gt;flt&lt;/tt&gt; is greater than or equal to &lt;tt&gt;other&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='abs'>&lt;p&gt;Returns the absolute value of &lt;em&gt;flt&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   (-34.56).abs   #=&gt; 34.56
+   -34.56.abs     #=&gt; 34.56
+&lt;/pre&gt;</method>
+    <method name='ceil'>&lt;p&gt;Returns the smallest &lt;tt&gt;Integer&lt;/tt&gt; greater than or equal to &lt;em&gt;flt&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   1.2.ceil      #=&gt; 2
+   2.0.ceil      #=&gt; 2
+   (-1.2).ceil   #=&gt; -1
+   (-2.0).ceil   #=&gt; -2
+&lt;/pre&gt;</method>
+    <method name='coerce'>&lt;p&gt;MISSING: documentation&lt;/p&gt;</method>
+    <method name='divmod'>&lt;p&gt;See &lt;tt&gt;Numeric#divmod&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='eql?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; only if &lt;em&gt;obj&lt;/em&gt; is a &lt;tt&gt;Float&lt;/tt&gt; with the same value as &lt;em&gt;flt&lt;/em&gt;. Contrast this with &lt;tt&gt;Float#==&lt;/tt&gt;, which performs type conversions.&lt;/p&gt;&lt;pre&gt;   1.0.eql?(1)   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='finite?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;flt&lt;/em&gt; is a valid IEEE floating point number (it is not infinite, and &lt;tt&gt;nan?&lt;/tt&gt; is &lt;tt&gt;false&lt;/tt&gt;).&lt;/p&gt;</method>
+    <method name='floor'>&lt;p&gt;Returns the largest integer less than or equal to &lt;em&gt;flt&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   1.2.floor      #=&gt; 1
+   2.0.floor      #=&gt; 2
+   (-1.2).floor   #=&gt; -2
+   (-2.0).floor   #=&gt; -2
+&lt;/pre&gt;</method>
+    <method name='hash'>&lt;p&gt;Returns a hash code for this float.&lt;/p&gt;</method>
+    <method name='infinite?'>&lt;p&gt;Returns &lt;tt&gt;nil&lt;/tt&gt;, -1, or +1 depending on whether &lt;em&gt;flt&lt;/em&gt; is finite, -infinity, or +infinity.&lt;/p&gt;&lt;pre&gt;   (0.0).infinite?        #=&gt; nil
+   (-1.0/0.0).infinite?   #=&gt; -1
+   (+1.0/0.0).infinite?   #=&gt; 1
+&lt;/pre&gt;</method>
+    <method name='modulo'>&lt;p&gt;Return the modulo after division of &lt;tt&gt;flt&lt;/tt&gt; by &lt;tt&gt;other&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   6543.21.modulo(137)      #=&gt; 104.21
+   6543.21.modulo(137.24)   #=&gt; 92.9299999999996
+&lt;/pre&gt;</method>
+    <method name='nan?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;flt&lt;/em&gt; is an invalid IEEE floating point number.&lt;/p&gt;&lt;pre&gt;   a = -1.0      #=&gt; -1.0
+   a.nan?        #=&gt; false
+   a = 0.0/0.0   #=&gt; NaN
+   a.nan?        #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='round'>&lt;p&gt;Rounds &lt;em&gt;flt&lt;/em&gt; to the nearest integer. Equivalent to:&lt;/p&gt;&lt;pre&gt;   def round
+     return (self+0.5).floor if self &gt; 0.0
+     return (self-0.5).ceil  if self &lt; 0.0
+     return 0
+   end
+
+   1.5.round      #=&gt; 2
+   (-1.5).round   #=&gt; -2
+&lt;/pre&gt;</method>
+    <method name='to_f'>&lt;p&gt;As &lt;tt&gt;flt&lt;/tt&gt; is already a float, returns &lt;em&gt;self&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='to_i'>&lt;p&gt;Returns &lt;em&gt;flt&lt;/em&gt; truncated to an &lt;tt&gt;Integer&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='to_int'>&lt;p&gt;Returns &lt;em&gt;flt&lt;/em&gt; truncated to an &lt;tt&gt;Integer&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Returns a string containing a representation of self. As well as a fixed or exponential form of the number, the call may return ``&lt;tt&gt;NaN&lt;/tt&gt;&apos;&apos;, ``&lt;tt&gt;Infinity&lt;/tt&gt;&apos;&apos;, and ``&lt;tt&gt;-Infinity&lt;/tt&gt;&apos;&apos;.&lt;/p&gt;</method>
+    <method name='to_yaml'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='truncate'>&lt;p&gt;Returns &lt;em&gt;flt&lt;/em&gt; truncated to an &lt;tt&gt;Integer&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='zero?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;flt&lt;/em&gt; is 0.0.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,10 @@
+[Gedit Plugin]
+Loader=python
+Module=markuppreview
+IAge=2
+Name=Markup Preview
+Description=HTML preview for various markup languages
+Icon=gedit-plugin
+Authors=Matt Dorn <matt_dorn@yahoo.com>
+Copyright=Copyright © 2007 Matt Dorn
+Website=http://textmethod.com/

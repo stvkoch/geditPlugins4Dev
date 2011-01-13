@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='add_delegate_command_to_shell'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='alias_command'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='alias_map'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='def_builtin_commands'>&lt;p&gt;CommandProcessor.def_builtin_commands(delegation_class, command_specs)&lt;/p&gt;&lt;pre&gt;    delegation_class: Class or Module
+    command_specs: [[command_name, [argument,...]],...]
+       command_name: String
+       arguments:      String
+          FILENAME?? -&gt; expand_path(filename??)
+          *FILENAME?? -&gt; filename??.collect{|f|expand_path(f)}.join(&quot;, &quot;)
+  define command_name(argument,...) as
+      delegation_class.command_name(argument,...)
+&lt;/pre&gt;</method>
+    <method name='def_system_command'>&lt;p&gt;CommandProcessor.def_system_command(command, path)&lt;/p&gt;&lt;pre&gt;    command:  String
+    path:       String
+  define &apos;command()&apos; method as method.
+&lt;/pre&gt;</method>
+    <method name='initialize'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='install_builtin_commands'>&lt;p&gt;define default builtin commands&lt;/p&gt;</method>
+    <method name='install_system_commands'>&lt;p&gt;CommandProcessor.install_system_commands(pre)&lt;/p&gt;&lt;pre&gt;      pre: String - command name prefix
+&lt;/pre&gt;&lt;p&gt;defines every command which belongs in default_system_path via CommandProcessor.command(). It doesn&apos;t define already defined methods twice. By default, &quot;pre_&quot; is prefixes to each method name. Characters that may not be used in a method name are all converted to &apos;_&apos;. Definition errors are just ignored.&lt;/p&gt;</method>
+    <method name='method_added'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='run_config'>&lt;p&gt;include run file.&lt;/p&gt;</method>
+    <method name='unalias_command'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='undef_system_command'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;Alias for #test&lt;/p&gt;</method>
+    <method name='append'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='cat'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='check_point'>&lt;p&gt;ProcessCommand#transact&lt;/p&gt;</method>
+    <method name='concat'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='echo'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='expand_path'>&lt;p&gt;CommandProcessor#expand_path(path)&lt;/p&gt;&lt;pre&gt;    path:     String
+    return: String
+  returns the absolute path for &lt;path&gt;
+&lt;/pre&gt;</method>
+    <method name='find_system_command'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='finish_all_jobs'>&lt;p&gt;Alias for #check_point&lt;/p&gt;</method>
+    <method name='foreach'>&lt;p&gt;File related commands Shell#foreach Shell#open Shell#unlink Shell#test&lt;/p&gt;&lt;p&gt;-&lt;/p&gt;&lt;p&gt;CommandProcessor#foreach(path, rs)&lt;/p&gt;&lt;pre&gt;    path: String
+    rs:     String - record separator
+    iterator
+  Same as:
+    File#foreach (when path is file)
+    Dir#foreach (when path is directory)
+  path is relative to pwd
+&lt;/pre&gt;</method>
+    <method name='glob'>&lt;p&gt;def sort(*filenames)&lt;/p&gt;&lt;pre&gt;  Sort.new(self, *filenames)
+&lt;/pre&gt;&lt;p&gt;end&lt;/p&gt;</method>
+    <method name='mkdir'>&lt;p&gt;Dir related methods&lt;/p&gt;&lt;p&gt;Shell#mkdir Shell#rmdir&lt;/p&gt;</method>
+    <method name='notify'>&lt;p&gt;%pwd, %cwd -&gt; @pwd&lt;/p&gt;</method>
+    <method name='open'>&lt;p&gt;CommandProcessor#open(path, mode)&lt;/p&gt;&lt;pre&gt;    path:     String
+    mode:     String
+    return: File or Dir
+  Same as:
+    File#open (when path is file)
+    Dir#open  (when path is directory)
+  mode has an effect only when path is a file
+&lt;/pre&gt;</method>
+    <method name='out'>&lt;p&gt;internal commands&lt;/p&gt;</method>
+    <method name='rehash'>&lt;p&gt;ProcessCommand#rehash&lt;/p&gt;&lt;pre&gt;  clear command hash table.
+&lt;/pre&gt;</method>
+    <method name='rmdir'>&lt;p&gt;CommandProcessor#rmdir(*path)&lt;/p&gt;&lt;pre&gt;    path: String
+  same as Dir.rmdir()
+&lt;/pre&gt;</method>
+    <method name='system'>&lt;p&gt;CommandProcessor#system(command, *opts)&lt;/p&gt;&lt;pre&gt;    command: String
+    opts:      String
+    return:  SystemCommand
+  Same as system() function
+  example:
+    print sh.system(&quot;ls&quot;, &quot;-l&quot;)
+    sh.system(&quot;ls&quot;, &quot;-l&quot;) | sh.head &gt; STDOUT
+&lt;/pre&gt;</method>
+    <method name='tee'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='test'>&lt;p&gt;CommandProcessor#test(command, file1, file2) CommandProcessor#[command, file1, file2]&lt;/p&gt;&lt;pre&gt;    command: char or String or Symbol
+    file1:   String
+    file2:   String(optional)
+    return: Boolean
+  same as:
+    test()     (when command is char or length 1 string or symbol)
+    FileTest.command (others)
+  example:
+    sh[?e, &quot;foo&quot;]
+    sh[:e, &quot;foo&quot;]
+    sh[&quot;e&quot;, &quot;foo&quot;]
+    sh[:exists?, &quot;foo&quot;]
+    sh[&quot;exists?&quot;, &quot;foo&quot;]
+&lt;/pre&gt;</method>
+    <method name='transact'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='unlink'>&lt;p&gt;CommandProcessor#unlink(path)&lt;/p&gt;&lt;pre&gt;  same as:
+    Dir#unlink  (when path is directory)
+    File#unlink (when path is file)
+&lt;/pre&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Class handling the connection between a DRbObject and the server the real object lives on.&lt;/p&gt;&lt;p&gt;This class maintains a pool of connections, to reduce the overhead of starting and closing down connections for each method call.&lt;/p&gt;&lt;p&gt;This class is used internally by DRbObject. The user does not normally need to deal with it directly.&lt;/p&gt;</comment>
+  <methods/>
+</help>

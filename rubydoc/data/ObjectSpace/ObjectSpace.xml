@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The &lt;tt&gt;ObjectSpace&lt;/tt&gt; module contains a number of routines that interact with the garbage collection facility and allow you to traverse all living objects with an iterator.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;ObjectSpace&lt;/tt&gt; also provides support for object finalizers, procs that will be called when a specific object is about to be destroyed by garbage collection.&lt;/p&gt;&lt;pre&gt;   include ObjectSpace
+
+   a = &quot;A&quot;
+   b = &quot;B&quot;
+   c = &quot;C&quot;
+
+   define_finalizer(a, proc {|id| puts &quot;Finalizer one on #{id}&quot; })
+   define_finalizer(a, proc {|id| puts &quot;Finalizer two on #{id}&quot; })
+   define_finalizer(b, proc {|id| puts &quot;Finalizer three on #{id}&quot; })
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Finalizer three on 537763470
+   Finalizer one on 537763480
+   Finalizer two on 537763480
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='_id2ref'>&lt;p&gt;Converts an object id to a reference to the object. May not be called on an object id passed as a parameter to a finalizer.&lt;/p&gt;&lt;pre&gt;   s = &quot;I am a string&quot;                    #=&gt; &quot;I am a string&quot;
+   r = ObjectSpace._id2ref(s.object_id)   #=&gt; &quot;I am a string&quot;
+   r == s                                 #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='add_finalizer'>&lt;p&gt;deprecated&lt;/p&gt;</method>
+    <method name='call_finalizer'>&lt;p&gt;deprecated&lt;/p&gt;</method>
+    <method name='define_finalizer'>&lt;p&gt;Adds &lt;em&gt;aProc&lt;/em&gt; as a finalizer, to be called after &lt;em&gt;obj&lt;/em&gt; was destroyed.&lt;/p&gt;</method>
+    <method name='each_object'>&lt;p&gt;Calls the block once for each living, nonimmediate object in this Ruby process. If &lt;em&gt;module&lt;/em&gt; is specified, calls the block for only those classes or modules that match (or are a subclass of) &lt;em&gt;module&lt;/em&gt;. Returns the number of objects found. Immediate objects (&lt;tt&gt;Fixnum&lt;/tt&gt;s, &lt;tt&gt;Symbol&lt;/tt&gt;s &lt;tt&gt;true&lt;/tt&gt;, &lt;tt&gt;false&lt;/tt&gt;, and &lt;tt&gt;nil&lt;/tt&gt;) are never returned. In the example below, &lt;tt&gt;each_object&lt;/tt&gt; returns both the numbers we defined and several constants defined in the &lt;tt&gt;Math&lt;/tt&gt; module.&lt;/p&gt;&lt;pre&gt;   a = 102.7
+   b = 95       # Won&apos;t be returned
+   c = 12345678987654321
+   count = ObjectSpace.each_object(Numeric) {|x| p x }
+   puts &quot;Total count: #{count}&quot;
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   12345678987654321
+   102.7
+   2.71828182845905
+   3.14159265358979
+   2.22044604925031e-16
+   1.7976931348623157e+308
+   2.2250738585072e-308
+   Total count: 7
+&lt;/pre&gt;</method>
+    <method name='finalizers'>&lt;p&gt;deprecated&lt;/p&gt;</method>
+    <method name='garbage_collect'>&lt;p&gt;Initiates garbage collection, unless manually disabled.&lt;/p&gt;</method>
+    <method name='remove_finalizer'>&lt;p&gt;deprecated&lt;/p&gt;</method>
+    <method name='undefine_finalizer'>&lt;p&gt;Removes all finalizers for &lt;em&gt;obj&lt;/em&gt;.&lt;/p&gt;</method>
+  </methods>
+</help>

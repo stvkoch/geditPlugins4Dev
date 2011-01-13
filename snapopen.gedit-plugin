@@ -2,9 +2,8 @@
 Loader=python
 Module=snapopen
 IAge=2
-Name=Snap Open
+Name=Snap open
 Description=Opens files by regex
-Description[es]=Encuentra todos los archivos por porciones de su nombre. Ctrl + Alt + O
-Authors=Mads Buus Westmark <online@buus.net>
-Copyright=Copyright © 2010 Mads Buus Westmark <online@buus.net>
-Website=http://github.com/MadsBuus/gedit-snapopen-plugin
+Authors=Mads Buus Jensen <online@buus.net>
+Copyright=Copyright © 2006 Mads Buus Jensen <online@buus.net>
+Website=http://www.buus.net/linux

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='name'>&lt;p&gt;This method retrieves the name of the notation.&lt;/p&gt;&lt;p&gt;Method contributed by Henrik Martensson&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='write'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

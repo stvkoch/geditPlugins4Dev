@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Class representing an HTTP cookie.&lt;/p&gt;&lt;p&gt;In addition to its specific fields and methods, a Cookie instance is a delegator to the array of its values.&lt;/p&gt;&lt;p&gt;See RFC 2965.&lt;/p&gt;&lt;h2&gt;Examples of use&lt;/h2&gt;&lt;pre&gt;  cookie1 = CGI::Cookie::new(&quot;name&quot;, &quot;value1&quot;, &quot;value2&quot;, ...)
+  cookie1 = CGI::Cookie::new(&quot;name&quot; =&gt; &quot;name&quot;, &quot;value&quot; =&gt; &quot;value&quot;)
+  cookie1 = CGI::Cookie::new(&apos;name&apos;    =&gt; &apos;name&apos;,
+                             &apos;value&apos;   =&gt; [&apos;value1&apos;, &apos;value2&apos;, ...],
+                             &apos;path&apos;    =&gt; &apos;path&apos;,   # optional
+                             &apos;domain&apos;  =&gt; &apos;domain&apos;, # optional
+                             &apos;expires&apos; =&gt; Time.now, # optional
+                             &apos;secure&apos;  =&gt; true      # optional
+                            )
+
+  cgi.out(&quot;cookie&quot; =&gt; [cookie1, cookie2]) { &quot;string&quot; }
+
+  name    = cookie1.name
+  values  = cookie1.value
+  path    = cookie1.path
+  domain  = cookie1.domain
+  expires = cookie1.expires
+  secure  = cookie1.secure
+
+  cookie1.name    = &apos;name&apos;
+  cookie1.value   = [&apos;value1&apos;, &apos;value2&apos;, ...]
+  cookie1.path    = &apos;path&apos;
+  cookie1.domain  = &apos;domain&apos;
+  cookie1.expires = Time.now + 30
+  cookie1.secure  = true
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Create a new CGI::Cookie object.&lt;/p&gt;&lt;p&gt;The contents of the cookie can be specified as a &lt;tt&gt;name&lt;/tt&gt; and one or more &lt;tt&gt;value&lt;/tt&gt; arguments. Alternatively, the contents can be specified as a single hash argument. The possible keywords of this hash are as follows:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the name of the cookie. Required.&lt;/li&gt;&lt;li&gt;the cookie&apos;s value or list of values.&lt;/li&gt;&lt;li&gt;the path for which this cookie applies. Defaults to the base directory of the CGI script.&lt;/li&gt;&lt;li&gt;the domain for which this cookie applies.&lt;/li&gt;&lt;li&gt;the time at which this cookie expires, as a &lt;tt&gt;Time&lt;/tt&gt; object.&lt;/li&gt;&lt;li&gt;whether this cookie is a secure cookie or not (default to false). Secure cookies are only transmitted to HTTPS servers.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;These keywords correspond to attributes of the cookie object.&lt;/p&gt;</method>
+    <method name='parse'>&lt;p&gt;Parse a raw cookie string into a hash of cookie-name=&gt;Cookie pairs.&lt;/p&gt;&lt;pre&gt;  cookies = CGI::Cookie::parse(&quot;raw_cookie_string&quot;)
+    # { &quot;name1&quot; =&gt; cookie1, &quot;name2&quot; =&gt; cookie2, ... }
+&lt;/pre&gt;</method>
+    <method name='secure='>&lt;p&gt;Set whether the Cookie is a secure cookie or not.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;val&lt;/tt&gt; must be a boolean.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Convert the Cookie to its string representation.&lt;/p&gt;</method>
+  </methods>
+</help>

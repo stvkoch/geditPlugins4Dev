@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A collection of tests which can be #run.&lt;/p&gt;&lt;p&gt;Note: It is easy to confuse a TestSuite instance with something that has a static suite method; I know because &lt;em&gt;I&lt;/em&gt; have trouble keeping them straight. Think of something that has a suite method as simply providing a way to get a meaningful TestSuite instance.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new TestSuite with the given name.&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Adds the test to the suite.&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;It&apos;s handy to be able to compare TestSuite instances.&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='empty?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='run'>&lt;p&gt;Runs the tests and/or suites contained in this TestSuite.&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;Retuns the rolled up number of tests in this suite; i.e. if the suite contains other suites, it counts the tests within those suites, not the suites themselves.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Overridden to return the name given the suite at creation.&lt;/p&gt;</method>
+  </methods>
+</help>

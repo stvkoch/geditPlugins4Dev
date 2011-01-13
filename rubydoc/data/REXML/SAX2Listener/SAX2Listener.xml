@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A template for stream parser listeners. Note that the declarations (attlistdecl, elementdecl, etc) are trivially processed; REXML doesn&apos;t yet handle doctype entity declarations, so you have to parse them out yourself.&lt;/p&gt;&lt;h3&gt;Missing methods from SAX2&lt;/h3&gt;&lt;pre&gt; ignorable_whitespace
+&lt;/pre&gt;&lt;h3&gt;Methods extending SAX2&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;WARNING&lt;/tt&gt; These methods are certainly going to change, until DTDs are fully supported. Be aware of this.&lt;/p&gt;&lt;pre&gt; start_document
+ end_document
+ doctype
+ elementdecl
+ attlistdecl
+ entitydecl
+ notationdecl
+ cdata
+ xmldecl
+ comment
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='attlistdecl'>&lt;p&gt;If a doctype includes an ATTLIST declaration, it will cause this method to be called. The content is the declaration itself, unparsed. EG, &lt;!ATTLIST el attr CDATA #REQUIRED&gt; will come to this method as &quot;el attr CDATA #REQUIRED&quot;. This is the same for all of the .*decl methods.&lt;/p&gt;</method>
+    <method name='cdata'>&lt;p&gt;Called when &lt;![CDATA[ ... ]]&gt; is encountered in a document. @p content &quot;...&quot;&lt;/p&gt;</method>
+    <method name='characters'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='comment'>&lt;p&gt;Called when a comment is encountered. @p comment The content of the comment&lt;/p&gt;</method>
+    <method name='doctype'>&lt;p&gt;Handles a doctype declaration. Any attributes of the doctype which are not supplied will be nil. # EG, &lt;!DOCTYPE me PUBLIC &quot;foo&quot; &quot;bar&quot;&gt; @p name the name of the doctype; EG, &quot;me&quot; @p pub_sys &quot;PUBLIC&quot;, &quot;SYSTEM&quot;, or nil. EG, &quot;PUBLIC&quot; @p long_name the supplied long name, or nil. EG, &quot;foo&quot; @p uri the uri of the doctype, or nil. EG, &quot;bar&quot;&lt;/p&gt;</method>
+    <method name='elementdecl'>&lt;p&gt;&lt;!ELEMENT ...&gt;&lt;/p&gt;</method>
+    <method name='end_document'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='end_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='end_prefix_mapping'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='entitydecl'>&lt;p&gt;&lt;!ENTITY ...&gt; The argument passed to this method is an array of the entity declaration. It can be in a number of formats, but in general it returns (example, result):&lt;/p&gt;&lt;pre&gt; &lt;!ENTITY % YN &apos;&quot;Yes&quot;&apos;&gt;
+ [&quot;%&quot;, &quot;YN&quot;, &quot;&apos;\&quot;Yes\&quot;&apos;&quot;, &quot;\&quot;&quot;]
+ &lt;!ENTITY % YN &apos;Yes&apos;&gt;
+ [&quot;%&quot;, &quot;YN&quot;, &quot;&apos;Yes&apos;&quot;, &quot;s&quot;]
+ &lt;!ENTITY WhatHeSaid &quot;He said %YN;&quot;&gt;
+ [&quot;WhatHeSaid&quot;, &quot;\&quot;He said %YN;\&quot;&quot;, &quot;YN&quot;]
+ &lt;!ENTITY open-hatch SYSTEM &quot;http://www.textuality.com/boilerplate/OpenHatch.xml&quot;&gt;
+ [&quot;open-hatch&quot;, &quot;SYSTEM&quot;, &quot;\&quot;http://www.textuality.com/boilerplate/OpenHatch.xml\&quot;&quot;]
+ &lt;!ENTITY open-hatch PUBLIC &quot;-//Textuality//TEXT Standard open-hatch boilerplate//EN&quot; &quot;http://www.textuality.com/boilerplate/OpenHatch.xml&quot;&gt;
+ [&quot;open-hatch&quot;, &quot;PUBLIC&quot;, &quot;\&quot;-//Textuality//TEXT Standard open-hatch boilerplate//EN\&quot;&quot;, &quot;\&quot;http://www.textuality.com/boilerplate/OpenHatch.xml\&quot;&quot;]
+ &lt;!ENTITY hatch-pic SYSTEM &quot;../grafix/OpenHatch.gif&quot; NDATA gif&gt;
+ [&quot;hatch-pic&quot;, &quot;SYSTEM&quot;, &quot;\&quot;../grafix/OpenHatch.gif\&quot;&quot;, &quot;\n\t\t\t\t\t\t\tNDATA gif&quot;, &quot;gif&quot;]
+&lt;/pre&gt;</method>
+    <method name='notationdecl'>&lt;p&gt;&lt;!NOTATION ...&gt;&lt;/p&gt;</method>
+    <method name='processing_instruction'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='progress'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='start_document'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='start_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='start_prefix_mapping'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='xmldecl'>&lt;p&gt;Called when an XML PI is encountered in the document. EG: &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf&quot;?&gt; @p version the version attribute value. EG, &quot;1.0&quot; @p encoding the encoding attribute value, or nil. EG, &quot;utf&quot; @p standalone the standalone attribute value, or nil. EG, nil @p spaced the declaration is followed by a line break&lt;/p&gt;</method>
+  </methods>
+</help>

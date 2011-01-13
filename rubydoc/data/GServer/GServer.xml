@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;GServer implements a generic server, featuring thread pool management, simple logging, and multi-server management. See HttpServer in &lt;tt&gt;xmlrpc/httpserver.rb&lt;/tt&gt; in the Ruby standard library for an example of GServer in action.&lt;/p&gt;&lt;p&gt;Any kind of application-level server can be implemented using this class. It accepts multiple simultaneous connections from clients, up to an optional maximum number. Several &lt;em&gt;services&lt;/em&gt; (i.e. one service per TCP port) can be run simultaneously, and stopped at any time through the class method &lt;tt&gt;GServer.stop(port)&lt;/tt&gt;. All the threading issues are handled, saving you the effort. All events are optionally logged, but you can provide your own event handlers if you wish.&lt;/p&gt;&lt;h3&gt;Example&lt;/h3&gt;&lt;p&gt;Using GServer is simple. Below we implement a simple time server, run it, query it, and shut it down. Try this code in &lt;tt&gt;irb&lt;/tt&gt;:&lt;/p&gt;&lt;pre&gt;  require &apos;gserver&apos;
+
+  #
+  # A server that returns the time in seconds since 1970.
+  #
+  class TimeServer &lt; GServer
+    def initialize(port=10001, *args)
+      super(port, *args)
+    end
+    def serve(io)
+      io.puts(Time.now.to_i)
+    end
+  end
+
+  # Run the server with logging enabled (it&apos;s a separate thread).
+  server = TimeServer.new
+  server.audit = true                  # Turn logging on.
+  server.start
+
+  # *** Now point your browser to http://localhost:10001 to see it working ***
+
+  # See if it&apos;s still running.
+  GServer.in_service?(10001)           # -&gt; true
+  server.stopped?                      # -&gt; false
+
+  # Shut the server down gracefully.
+  server.shutdown
+
+  # Alternatively, stop it immediately.
+  GServer.stop(10001)
+  # or, of course, &quot;server.stop&quot;.
+&lt;/pre&gt;&lt;p&gt;All the business of accepting connections and exception handling is taken care of. All we have to do is implement the method that actually serves the client.&lt;/p&gt;&lt;h3&gt;Advanced&lt;/h3&gt;&lt;p&gt;As the example above shows, the way to use GServer is to subclass it to create a specific server, overriding the &lt;tt&gt;serve&lt;/tt&gt; method. You can override other methods as well if you wish, perhaps to collect statistics, or emit more detailed logging.&lt;/p&gt;&lt;pre&gt;  connecting
+  disconnecting
+  starting
+  stopping
+&lt;/pre&gt;&lt;p&gt;The above methods are only called if auditing is enabled.&lt;/p&gt;&lt;p&gt;You can also override &lt;tt&gt;log&lt;/tt&gt; and &lt;tt&gt;error&lt;/tt&gt; if, for example, you wish to use a more sophisticated logging system.&lt;/p&gt;</comment>
+  <methods>
+    <method name='in_service?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='stop'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='connections'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='join'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='serve'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='shutdown'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='start'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='stop'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='stopped?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

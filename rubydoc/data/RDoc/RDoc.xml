@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Extract code elements from a source file, returning a TopLevel object containing the constituent file elements.&lt;/p&gt;&lt;p&gt;This file is based on rtags&lt;/p&gt;</comment>
+  <methods>
+    <method name='usage'>&lt;p&gt;Display usage information from the comment at the top of the file. String arguments identify specific sections of the comment to display. An optional integer first argument specifies the exit status (defaults to 0)&lt;/p&gt;</method>
+    <method name='usage_no_exit'>&lt;p&gt;Display usage&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='displayer'>&lt;p&gt;Return an instance of the displayer (the thing that actually writes the information). This allows us to load in new displayer classes at runtime (for example to help with IDE integration)&lt;/p&gt;</method>
+    <method name='parse'>&lt;p&gt;Parse command line options.&lt;/p&gt;</method>
+    <method name='path'>&lt;p&gt;Return the selected documentation directories.&lt;/p&gt;</method>
+    <method name='raw_path'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='show_version'>&lt;p&gt;Show the version and exit&lt;/p&gt;</method>
+  </methods>
+</help>

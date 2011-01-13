@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Alias = Struct.new(:old_name, :new_name)&lt;/p&gt;</comment>
+  <methods/>
+</help>

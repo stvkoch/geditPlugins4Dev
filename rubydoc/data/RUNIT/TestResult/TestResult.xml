@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='add_error'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_failure'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='error_size'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='failure_size'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='run_asserts'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='run_tests'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='succeed?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

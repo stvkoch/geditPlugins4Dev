@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Provides an interface to write any given UI against, hopefully making it easy to write new UIs.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new TestRunnerMediator initialized to run the passed suite.&lt;/p&gt;</method>
+    <method name='run_suite'>&lt;p&gt;Runs the suite the TestRunnerMediator was created with.&lt;/p&gt;</method>
+  </methods>
+</help>

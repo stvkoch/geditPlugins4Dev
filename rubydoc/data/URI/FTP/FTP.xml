@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;RFC1738 section 3.2.&lt;/p&gt;</comment>
+  <methods>
+    <method name='build'>&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Creates a new URI::FTP object from components of URI::FTP with check. It is scheme, userinfo, host, port, path and typecode. It provided by an Array or a Hash. typecode is &quot;a&quot;, &quot;i&quot; or &quot;d&quot;.&lt;/p&gt;</method>
+    <method name='new'>&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Create a new URI::FTP object from ``generic&apos;&apos; components with no check.&lt;/p&gt;&lt;h2&gt;Usage&lt;/h2&gt;&lt;pre&gt;  require &apos;uri&apos;
+  p ftp = URI.parse(&quot;ftp://ftp.ruby-lang.org/pub/ruby/;type=d&quot;)
+  # =&gt; #&lt;URI::FTP:0x201fad08 URL:ftp://ftp.ruby-lang.org/pub/ruby/;type=d&gt;
+  p ftp.typecode
+  # =&gt; &quot;d&quot;
+&lt;/pre&gt;</method>
+    <method name='new2'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='typecode='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

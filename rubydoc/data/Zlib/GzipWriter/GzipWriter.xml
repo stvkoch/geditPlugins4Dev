@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Zlib::GzipWriter is a class for writing gzipped files. GzipWriter should be used with an instance of IO, or IO-like, object.&lt;/p&gt;&lt;p&gt;For example:&lt;/p&gt;&lt;pre&gt;  Zlib::GzipWriter.open(&apos;hoge.gz&apos;) do |gz|
+    gz.write &apos;jugemu jugemu gokou no surikire...&apos;
+  end
+
+  File.open(&apos;hoge.gz&apos;, &apos;w&apos;) do |f|
+    gz = Zlib::GzipWriter.new(f)
+    gz.write &apos;jugemu jugemu gokou no surikire...&apos;
+    gz.close
+  end
+
+  # TODO: test these.  Are they equivalent?  Can GzipWriter.new take a
+  # block?
+&lt;/pre&gt;&lt;p&gt;NOTE: Due to the limitation of Ruby&apos;s finalizer, you must explicitly close GzipWriter objects by Zlib::GzipWriter#close etc. Otherwise, GzipWriter will be not able to write the gzip footer and will generate a broken gzip file.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a GzipWriter object associated with &lt;tt&gt;io&lt;/tt&gt;. &lt;tt&gt;level&lt;/tt&gt; and &lt;tt&gt;strategy&lt;/tt&gt; should be the same as the arguments of Zlib::Deflate.new. The GzipWriter object writes gzipped data to &lt;tt&gt;io&lt;/tt&gt;. At least, &lt;tt&gt;io&lt;/tt&gt; must respond to the &lt;tt&gt;write&lt;/tt&gt; method that behaves same as write method in IO class.&lt;/p&gt;</method>
+    <method name='open'>&lt;p&gt;Opens a file specified by &lt;tt&gt;filename&lt;/tt&gt; for writing gzip compressed data, and returns a GzipWriter object associated with that file. Further details of this method are found in Zlib::GzipWriter.new and Zlib::GzipWriter#wrap.&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Document-method: &lt;&lt; Same as IO.&lt;/p&gt;&lt;p&gt;Same as IO.&lt;/p&gt;</method>
+    <method name='comment='>&lt;p&gt;???&lt;/p&gt;</method>
+    <method name='flush'>&lt;p&gt;Flushes all the internal buffers of the GzipWriter object. The meaning of &lt;tt&gt;flush&lt;/tt&gt; is same as in Zlib::Deflate#deflate. &lt;tt&gt;Zlib::SYNC_FLUSH&lt;/tt&gt; is used if &lt;tt&gt;flush&lt;/tt&gt; is omitted. It is no use giving flush &lt;tt&gt;Zlib::NO_FLUSH&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='mtime='>&lt;p&gt;???&lt;/p&gt;</method>
+    <method name='orig_name='>&lt;p&gt;???&lt;/p&gt;</method>
+    <method name='pos'>&lt;p&gt;???&lt;/p&gt;</method>
+    <method name='print'>&lt;p&gt;Document-method: print Same as IO.&lt;/p&gt;&lt;p&gt;Same as IO.&lt;/p&gt;</method>
+    <method name='printf'>&lt;p&gt;Document-method: printf Same as IO.&lt;/p&gt;&lt;p&gt;Same as IO.&lt;/p&gt;</method>
+    <method name='putc'>&lt;p&gt;Same as IO.&lt;/p&gt;</method>
+    <method name='puts'>&lt;p&gt;Document-method: puts Same as IO.&lt;/p&gt;&lt;p&gt;Same as IO.&lt;/p&gt;</method>
+    <method name='tell'>&lt;p&gt;???&lt;/p&gt;</method>
+    <method name='write'>&lt;p&gt;Same as IO.&lt;/p&gt;</method>
+  </methods>
+</help>

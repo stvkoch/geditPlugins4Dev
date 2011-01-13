@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Handles the mapping of a file&apos;s information to HTML. In reality, a file corresponds to a &lt;tt&gt;TopLevel&lt;/tt&gt; object, containing modules, classes, and top-level methods. In theory it &lt;em&gt;could&lt;/em&gt; contain attributes and aliases, but we ignore these for now.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='&lt;=&gt;'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='file_attribute_values'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='filename_to_label'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='http_url'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='index_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parent_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='value_hash'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='write_on'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

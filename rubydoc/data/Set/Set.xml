@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Set implements a collection of unordered values with no duplicates. This is a hybrid of Array&apos;s intuitive inter-operation facilities and Hash&apos;s fast lookup.&lt;/p&gt;&lt;p&gt;Several methods accept any Enumerable object (implementing &lt;tt&gt;each&lt;/tt&gt;) for greater flexibility: new, replace, merge, subtract, |, &amp;, -, ^.&lt;/p&gt;&lt;p&gt;The equality of each couple of elements is determined according to Object#eql? and Object#hash, since Set uses Hash as storage.&lt;/p&gt;&lt;p&gt;Finally, if you are using class Set, you can also use Enumerable#to_set for convenience.&lt;/p&gt;&lt;h2&gt;Example&lt;/h2&gt;&lt;pre&gt;  require &apos;set&apos;
+  s1 = Set.new [1, 2]                   # -&gt; #&lt;Set: {1, 2}&gt;
+  s2 = [1, 2].to_set                    # -&gt; #&lt;Set: {1, 2}&gt;
+  s1 == s2                              # -&gt; true
+  s1.add(&quot;foo&quot;)                         # -&gt; #&lt;Set: {1, 2, &quot;foo&quot;}&gt;
+  s1.merge([2, 6])                      # -&gt; #&lt;Set: {6, 1, 2, &quot;foo&quot;}&gt;
+  s1.subset? s2                         # -&gt; false
+  s2.subset? s1                         # -&gt; true
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='[]'>&lt;p&gt;Creates a new set containing the given objects.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Creates a new set containing the elements of the given enumerable object.&lt;/p&gt;&lt;p&gt;If a block is given, the elements of enum are preprocessed by the given block.&lt;/p&gt;</method>
+    <method name='&amp;'>&lt;p&gt;Returns a new array containing elements common to the set and the given enumerable object.&lt;/p&gt;</method>
+    <method name='+'>&lt;p&gt;Alias for #|&lt;/p&gt;</method>
+    <method name='-'>&lt;p&gt;Returns a new set built by duplicating the set, removing every element that appears in the given enumerable object.&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Alias for #add&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;Returns true if two sets are equal. The equality of each couple of elements is defined according to Object#eql?.&lt;/p&gt;</method>
+    <method name='^'>&lt;p&gt;Returns a new array containing elements exclusive between the set and the given enumerable object. (set ^ enum) is equivalent to ((set | enum) - (set &amp; enum)).&lt;/p&gt;</method>
+    <method name='add'>&lt;p&gt;Adds the given object to the set and returns self. Use &lt;tt&gt;merge&lt;/tt&gt; to add several elements at once.&lt;/p&gt;</method>
+    <method name='add?'>&lt;p&gt;Adds the given object to the set and returns self. If the object is already in the set, returns nil.&lt;/p&gt;</method>
+    <method name='classify'>&lt;p&gt;Classifies the set by the return value of the given block and returns a hash of {value =&gt; set of elements} pairs. The block is called once for each element of the set, passing the element as parameter.&lt;/p&gt;&lt;p&gt;e.g.:&lt;/p&gt;&lt;pre&gt;  require &apos;set&apos;
+  files = Set.new(Dir.glob(&quot;*.rb&quot;))
+  hash = files.classify { |f| File.mtime(f).year }
+  p hash    # =&gt; {2000=&gt;#&lt;Set: {&quot;a.rb&quot;, &quot;b.rb&quot;}&gt;,
+            #     2001=&gt;#&lt;Set: {&quot;c.rb&quot;, &quot;d.rb&quot;, &quot;e.rb&quot;}&gt;,
+            #     2002=&gt;#&lt;Set: {&quot;f.rb&quot;}&gt;}
+&lt;/pre&gt;</method>
+    <method name='clear'>&lt;p&gt;Removes all elements and returns self.&lt;/p&gt;</method>
+    <method name='collect!'>&lt;p&gt;Do collect() destructively.&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;Deletes the given object from the set and returns self. Use &lt;tt&gt;subtract&lt;/tt&gt; to delete several items at once.&lt;/p&gt;</method>
+    <method name='delete?'>&lt;p&gt;Deletes the given object from the set and returns self. If the object is not in the set, returns nil.&lt;/p&gt;</method>
+    <method name='delete_if'>&lt;p&gt;Deletes every element of the set for which block evaluates to true, and returns self.&lt;/p&gt;</method>
+    <method name='difference'>&lt;p&gt;Alias for #-&lt;/p&gt;</method>
+    <method name='divide'>&lt;p&gt;Divides the set into a set of subsets according to the commonality defined by the given block.&lt;/p&gt;&lt;p&gt;If the arity of the block is 2, elements o1 and o2 are in common if block.call(o1, o2) is true. Otherwise, elements o1 and o2 are in common if block.call(o1) == block.call(o2).&lt;/p&gt;&lt;p&gt;e.g.:&lt;/p&gt;&lt;pre&gt;  require &apos;set&apos;
+  numbers = Set[1, 3, 4, 6, 9, 10, 11]
+  set = numbers.divide { |i,j| (i - j).abs == 1 }
+  p set     # =&gt; #&lt;Set: {#&lt;Set: {1}&gt;,
+            #            #&lt;Set: {11, 9, 10}&gt;,
+            #            #&lt;Set: {3, 4}&gt;,
+            #            #&lt;Set: {6}&gt;}&gt;
+&lt;/pre&gt;</method>
+    <method name='each'>&lt;p&gt;Calls the given block once for each element in the set, passing the element as parameter.&lt;/p&gt;</method>
+    <method name='empty?'>&lt;p&gt;Returns true if the set contains no elements.&lt;/p&gt;</method>
+    <method name='flatten'>&lt;p&gt;Returns a new set that is a copy of the set, flattening each containing set recursively.&lt;/p&gt;</method>
+    <method name='flatten!'>&lt;p&gt;Equivalent to Set#flatten, but replaces the receiver with the result in place. Returns nil if no modifications were made.&lt;/p&gt;</method>
+    <method name='include?'>&lt;p&gt;Returns true if the set contains the given object.&lt;/p&gt;</method>
+    <method name='initialize_copy'>&lt;p&gt;Copy internal hash.&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;Returns a string containing a human-readable representation of the set. (&quot;#&lt;Set: {element1, element2, ...}&gt;&quot;)&lt;/p&gt;</method>
+    <method name='intersection'>&lt;p&gt;Alias for #&amp;&lt;/p&gt;</method>
+    <method name='length'>&lt;p&gt;Alias for #size&lt;/p&gt;</method>
+    <method name='map!'>&lt;p&gt;Alias for #collect!&lt;/p&gt;</method>
+    <method name='member?'>&lt;p&gt;Alias for #include?&lt;/p&gt;</method>
+    <method name='merge'>&lt;p&gt;Merges the elements of the given enumerable object to the set and returns self.&lt;/p&gt;</method>
+    <method name='proper_subset?'>&lt;p&gt;Returns true if the set is a proper subset of the given set.&lt;/p&gt;</method>
+    <method name='proper_superset?'>&lt;p&gt;Returns true if the set is a proper superset of the given set.&lt;/p&gt;</method>
+    <method name='reject!'>&lt;p&gt;Equivalent to Set#delete_if, but returns nil if no changes were made.&lt;/p&gt;</method>
+    <method name='replace'>&lt;p&gt;Replaces the contents of the set with the contents of the given enumerable object and returns self.&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;Returns the number of elements.&lt;/p&gt;</method>
+    <method name='subset?'>&lt;p&gt;Returns true if the set is a subset of the given set.&lt;/p&gt;</method>
+    <method name='subtract'>&lt;p&gt;Deletes every element that appears in the given enumerable object and returns self.&lt;/p&gt;</method>
+    <method name='superset?'>&lt;p&gt;Returns true if the set is a superset of the given set.&lt;/p&gt;</method>
+    <method name='to_a'>&lt;p&gt;Converts the set to an array. The order of elements is uncertain.&lt;/p&gt;</method>
+    <method name='union'>&lt;p&gt;Alias for #|&lt;/p&gt;</method>
+    <method name='|'>&lt;p&gt;Returns a new set built by merging the set and the elements of the given enumerable object.&lt;/p&gt;</method>
+  </methods>
+</help>

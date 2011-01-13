@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;RingFinger is used by RingServer clients to discover the RingServer&apos;s TupleSpace. Typically, all a client needs to do is call RingFinger.primary to retrieve the remote TupleSpace, which it can then begin using.&lt;/p&gt;</comment>
+  <methods>
+    <method name='finger'>&lt;p&gt;Creates a singleton RingFinger and looks for a RingServer. Returns the created RingFinger.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Creates a new RingFinger that will look for RingServers at &lt;tt&gt;port&lt;/tt&gt; on the addresses in &lt;tt&gt;broadcast_list&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='primary'>&lt;p&gt;Returns the first advertised TupleSpace.&lt;/p&gt;</method>
+    <method name='to_a'>&lt;p&gt;Contains all discoverd TupleSpaces except for the primary.&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;Iterates over all discovered TupleSpaces starting with the primary.&lt;/p&gt;</method>
+    <method name='lookup_ring'>&lt;p&gt;Looks up RingServers waiting &lt;tt&gt;timeout&lt;/tt&gt; seconds. RingServers will be given &lt;tt&gt;block&lt;/tt&gt; as a callback, which will be called with the remote TupleSpace.&lt;/p&gt;</method>
+    <method name='lookup_ring_any'>&lt;p&gt;Returns the first found remote TupleSpace. Any further recovered TupleSpaces can be found by calling &lt;tt&gt;to_a&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='to_a'>&lt;p&gt;Contains all discovered TupleSpaces except for the primary.&lt;/p&gt;</method>
+  </methods>
+</help>

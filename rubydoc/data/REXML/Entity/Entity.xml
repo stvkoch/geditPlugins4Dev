@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;God, I hate DTDs. I really do. Why this idiot standard still plagues us is beyond me.&lt;/p&gt;</comment>
+  <methods>
+    <method name='matches?'>&lt;p&gt;Evaluates whether the given string matchs an entity definition, returning true if so, and false otherwise.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Create a new entity. Simple entities can be constructed by passing a name, value to the constructor; this creates a generic, plain entity reference. For anything more complicated, you have to pass a Source to the constructor with the entity definiton, or use the accessor methods. &lt;tt&gt;WARNING&lt;/tt&gt;: There is no validation of entity state except when the entity is read from a stream. If you start poking around with the accessors, you can easily create a non-conformant Entity. The best thing to do is dump the stupid DTDs and use XMLSchema instead.&lt;/p&gt;&lt;pre&gt; e = Entity.new( &apos;amp&apos;, &apos;&amp;&apos; )
+&lt;/pre&gt;</method>
+    <method name='normalized'>&lt;p&gt;Returns the value of this entity unprocessed -- raw. This is the normalized value; that is, with all %ent; and &amp;ent; entities intact&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Returns this entity as a string. See write().&lt;/p&gt;</method>
+    <method name='unnormalized'>&lt;p&gt;Evaluates to the unnormalized value of this entity; that is, replacing all entities -- both %ent; and &amp;ent; entities. This differs from +value()+ in that &lt;tt&gt;value&lt;/tt&gt; only replaces %ent; entities.&lt;/p&gt;</method>
+    <method name='value'>&lt;p&gt;Returns the value of this entity. At the moment, only internal entities are processed. If the value contains internal references (IE, %blah;), those are replaced with their values. IE, if the doctype contains:&lt;/p&gt;&lt;pre&gt; &lt;!ENTITY % foo &quot;bar&quot;&gt;
+ &lt;!ENTITY yada &quot;nanoo %foo; nanoo&gt;
+&lt;/pre&gt;&lt;p&gt;then:&lt;/p&gt;&lt;pre&gt; doctype.entity(&apos;yada&apos;).value   #-&gt; &quot;nanoo bar nanoo&quot;
+&lt;/pre&gt;</method>
+    <method name='write'>&lt;p&gt;Write out a fully formed, correct entity definition (assuming the Entity object itself is valid.)&lt;/p&gt;</method>
+  </methods>
+</help>

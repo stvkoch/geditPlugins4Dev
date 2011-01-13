@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The &lt;tt&gt;Math&lt;/tt&gt; module contains module functions for basic trigonometric and transcendental functions. See class &lt;tt&gt;Float&lt;/tt&gt; for a list of constants that define Ruby&apos;s floating point accuracy.&lt;/p&gt;</comment>
+  <methods>
+    <method name='acos'>&lt;p&gt;Computes the arc cosine of &lt;em&gt;x&lt;/em&gt;. Returns 0..PI.&lt;/p&gt;</method>
+    <method name='acosh'>&lt;p&gt;Computes the inverse hyperbolic cosine of &lt;em&gt;x&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='asin'>&lt;p&gt;Computes the arc sine of &lt;em&gt;x&lt;/em&gt;. Returns 0..PI.&lt;/p&gt;</method>
+    <method name='asinh'>&lt;p&gt;Computes the inverse hyperbolic sine of &lt;em&gt;x&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='atan'>&lt;p&gt;Computes the arc tangent of &lt;em&gt;x&lt;/em&gt;. Returns -{PI/2} .. {PI/2}.&lt;/p&gt;</method>
+    <method name='atan2'>&lt;p&gt;Computes the arc tangent given &lt;em&gt;y&lt;/em&gt; and &lt;em&gt;x&lt;/em&gt;. Returns -PI..PI.&lt;/p&gt;</method>
+    <method name='atanh'>&lt;p&gt;Computes the inverse hyperbolic tangent of &lt;em&gt;x&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='cos'>&lt;p&gt;Computes the cosine of &lt;em&gt;x&lt;/em&gt; (expressed in radians). Returns -1..1.&lt;/p&gt;</method>
+    <method name='cosh'>&lt;p&gt;Computes the hyperbolic cosine of &lt;em&gt;x&lt;/em&gt; (expressed in radians).&lt;/p&gt;</method>
+    <method name='erf'>&lt;p&gt;Calculates the error function of x.&lt;/p&gt;</method>
+    <method name='erfc'>&lt;p&gt;Calculates the complementary error function of x.&lt;/p&gt;</method>
+    <method name='exp'>&lt;p&gt;Returns e**x.&lt;/p&gt;</method>
+    <method name='frexp'>&lt;p&gt;Returns a two-element array containing the normalized fraction (a &lt;tt&gt;Float&lt;/tt&gt;) and exponent (a &lt;tt&gt;Fixnum&lt;/tt&gt;) of &lt;em&gt;numeric&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   fraction, exponent = Math.frexp(1234)   #=&gt; [0.6025390625, 11]
+   fraction * 2**exponent                  #=&gt; 1234.0
+&lt;/pre&gt;</method>
+    <method name='hypot'>&lt;p&gt;Returns sqrt(x**2 + y**2), the hypotenuse of a right-angled triangle with sides &lt;em&gt;x&lt;/em&gt; and &lt;em&gt;y&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   Math.hypot(3, 4)   #=&gt; 5.0
+&lt;/pre&gt;</method>
+    <method name='ldexp'>&lt;p&gt;Returns the value of &lt;em&gt;flt&lt;/em&gt;*(2**&lt;em&gt;int&lt;/em&gt;).&lt;/p&gt;&lt;pre&gt;   fraction, exponent = Math.frexp(1234)
+   Math.ldexp(fraction, exponent)   #=&gt; 1234.0
+&lt;/pre&gt;</method>
+    <method name='log'>&lt;p&gt;Returns the natural logarithm of &lt;em&gt;numeric&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='log10'>&lt;p&gt;Returns the base 10 logarithm of &lt;em&gt;numeric&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='sin'>&lt;p&gt;Computes the sine of &lt;em&gt;x&lt;/em&gt; (expressed in radians). Returns -1..1.&lt;/p&gt;</method>
+    <method name='sinh'>&lt;p&gt;Computes the hyperbolic sine of &lt;em&gt;x&lt;/em&gt; (expressed in radians).&lt;/p&gt;</method>
+    <method name='sqrt'>&lt;p&gt;Returns the non-negative square root of &lt;em&gt;numeric&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='tan'>&lt;p&gt;Returns the tangent of &lt;em&gt;x&lt;/em&gt; (expressed in radians).&lt;/p&gt;</method>
+    <method name='tanh'>&lt;p&gt;Computes the hyperbolic tangent of &lt;em&gt;x&lt;/em&gt; (expressed in radians).&lt;/p&gt;</method>
+    <method name='acos'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='acosh'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='asin'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='asinh'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='atan'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='atan2'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='atanh'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='cos'>&lt;p&gt;Redefined to handle a Complex argument.&lt;/p&gt;</method>
+    <method name='cosh'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='exp'>&lt;p&gt;Redefined to handle a Complex argument.&lt;/p&gt;</method>
+    <method name='log'>&lt;p&gt;Redefined to handle a Complex argument.&lt;/p&gt;</method>
+    <method name='log10'>&lt;p&gt;Redefined to handle a Complex argument.&lt;/p&gt;</method>
+    <method name='rsqrt'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='sin'>&lt;p&gt;Redefined to handle a Complex argument.&lt;/p&gt;</method>
+    <method name='sinh'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='sqrt'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='tan'>&lt;p&gt;Redefined to handle a Complex argument.&lt;/p&gt;</method>
+    <method name='tanh'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='activate'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each_active_object'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inactivate'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='process_controllers_exclusive'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='active_job?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='active_jobs'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='active_jobs_exist?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_schedule'>&lt;p&gt;schedule a command&lt;/p&gt;</method>
+    <method name='jobs'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='jobs_exist?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='kill_job'>&lt;p&gt;kill a job&lt;/p&gt;</method>
+    <method name='sfork'>&lt;p&gt;simple fork&lt;/p&gt;</method>
+    <method name='start_job'>&lt;p&gt;start a job&lt;/p&gt;</method>
+    <method name='terminate_job'>&lt;p&gt;terminate a job&lt;/p&gt;</method>
+    <method name='wait_all_jobs_execution'>&lt;p&gt;wait for all jobs to terminate&lt;/p&gt;</method>
+    <method name='waiting_job?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='waiting_jobs'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='waiting_jobs_exist?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

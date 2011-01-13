@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;An SimpleRenewer allows a TupleSpace to check if a TupleEntry is still alive.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new SimpleRenewer that keeps an object alive for another &lt;tt&gt;sec&lt;/tt&gt; seconds.&lt;/p&gt;</method>
+    <method name='renew'>&lt;p&gt;Called by the TupleSpace to check if the object is still alive.&lt;/p&gt;</method>
+  </methods>
+</help>

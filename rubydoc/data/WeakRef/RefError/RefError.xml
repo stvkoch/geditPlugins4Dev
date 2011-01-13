@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;RefError is raised if an object cannot be referenced by a WeakRef.&lt;/p&gt;</comment>
+  <methods/>
+</help>

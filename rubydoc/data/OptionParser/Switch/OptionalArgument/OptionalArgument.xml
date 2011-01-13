@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Switch that can omit argument.&lt;/p&gt;</comment>
+  <methods>
+    <method name='parse'>&lt;p&gt;Parses argument if given, or uses default value.&lt;/p&gt;</method>
+  </methods>
+</help>

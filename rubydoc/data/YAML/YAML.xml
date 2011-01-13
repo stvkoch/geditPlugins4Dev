@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;h2&gt;YAML&lt;/h2&gt;&lt;p&gt;YAML(tm) (rhymes with &apos;camel&apos;) is a straightforward machine parsable data serialization format designed for human readability and interaction with scripting languages such as Perl and Python. YAML is optimized for data serialization, formatted dumping, configuration files, log files, Internet messaging and filtering. This specification describes the YAML information model and serialization format. Together with the Unicode standard for characters, it provides all the information necessary to understand YAML Version 1.0 and construct computer programs to process it.&lt;/p&gt;&lt;p&gt;See http://yaml.org/ for more information. For a quick tutorial, please visit YAML In Five Minutes (http://yaml.kwiki.org/?YamlInFiveMinutes).&lt;/p&gt;&lt;h2&gt;About This Library&lt;/h2&gt;&lt;p&gt;The YAML 1.0 specification outlines four stages of YAML loading and dumping. This library honors all four of those stages, although data is really only available to you in three stages.&lt;/p&gt;&lt;p&gt;The four stages are: native, representation, serialization, and presentation.&lt;/p&gt;&lt;p&gt;The native stage refers to data which has been loaded completely into Ruby&apos;s own types. (See +YAML::load+.)&lt;/p&gt;&lt;p&gt;The representation stage means data which has been composed into +YAML::BaseNode+ objects. In this stage, the document is available as a tree of node objects. You can perform YPath queries and transformations at this level. (See +YAML::parse+.)&lt;/p&gt;&lt;p&gt;The serialization stage happens inside the parser. The YAML parser used in Ruby is called Syck. Serialized nodes are available in the extension as SyckNode structs.&lt;/p&gt;&lt;p&gt;The presentation stage is the YAML document itself. This is accessible to you as a string. (See +YAML::dump+.)&lt;/p&gt;&lt;p&gt;For more information about the various information models, see Chapter 3 of the YAML 1.0 Specification (http://yaml.org/spec/#id2491269).&lt;/p&gt;&lt;p&gt;The YAML module provides quick access to the most common loading (YAML::load) and dumping (YAML::dump) tasks. This module also provides an API for registering global types (YAML::add_domain_type).&lt;/p&gt;&lt;h2&gt;Example&lt;/h2&gt;&lt;p&gt;A simple round-trip (load and dump) of an object.&lt;/p&gt;&lt;pre&gt;    require &quot;yaml&quot;
+
+    test_obj = [&quot;dogs&quot;, &quot;cats&quot;, &quot;badgers&quot;]
+
+    yaml_obj = YAML::dump( test_obj )
+                        # -&gt; ---
+                             - dogs
+                             - cats
+                             - badgers
+    ruby_obj = YAML::load( yaml_obj )
+                        # =&gt; [&quot;dogs&quot;, &quot;cats&quot;, &quot;badgers&quot;]
+    ruby_obj == test_obj
+                        # =&gt; true
+&lt;/pre&gt;&lt;p&gt;To register your custom types with the global resolver, use &lt;tt&gt;add_domain_type&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;    YAML::add_domain_type( &quot;your-site.com,2004&quot;, &quot;widget&quot; ) do |type, val|
+        Widget.new( val )
+    end
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='add_builtin_type'>&lt;p&gt;Add a transfer method for a builtin type&lt;/p&gt;</method>
+    <method name='add_domain_type'>&lt;p&gt;Add a global handler for a YAML domain type.&lt;/p&gt;</method>
+    <method name='add_private_type'>&lt;p&gt;Add a private document type&lt;/p&gt;</method>
+    <method name='add_ruby_type'>&lt;p&gt;Add a transfer method for a builtin type&lt;/p&gt;</method>
+    <method name='detect_implicit'>&lt;p&gt;Detect typing of a string&lt;/p&gt;</method>
+    <method name='dump'>&lt;p&gt;Converts &lt;em&gt;obj&lt;/em&gt; to YAML and writes the YAML result to &lt;em&gt;io&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;  File.open( &apos;animals.yaml&apos;, &apos;w&apos; ) do |out|
+    YAML.dump( [&apos;badger&apos;, &apos;elephant&apos;, &apos;tiger&apos;], out )
+  end
+&lt;/pre&gt;&lt;p&gt;If no &lt;em&gt;io&lt;/em&gt; is provided, a string containing the dumped YAML is returned.&lt;/p&gt;&lt;pre&gt;  YAML.dump( :locked )
+     #=&gt; &quot;--- :locked&quot;
+&lt;/pre&gt;</method>
+    <method name='dump_stream'>&lt;p&gt;Returns a YAML stream containing each of the items in &lt;tt&gt;objs&lt;/tt&gt;, each having their own document.&lt;/p&gt;&lt;pre&gt;  YAML.dump_stream( 0, [], {} )
+    #=&gt; --- 0
+        --- []
+        --- {}
+&lt;/pre&gt;</method>
+    <method name='each_document'>&lt;p&gt;Calls &lt;em&gt;block&lt;/em&gt; with each consecutive document in the YAML stream contained in &lt;em&gt;io&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;  File.open( &apos;many-docs.yaml&apos; ) do |yf|
+    YAML.each_document( yf ) do |ydoc|
+      ## ydoc contains the single object
+      ## from the YAML document
+    end
+  end
+&lt;/pre&gt;</method>
+    <method name='each_node'>&lt;p&gt;Calls &lt;em&gt;block&lt;/em&gt; with a tree of +YAML::BaseNodes+, one tree for each consecutive document in the YAML stream contained in &lt;em&gt;io&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;  File.open( &apos;many-docs.yaml&apos; ) do |yf|
+    YAML.each_node( yf ) do |ydoc|
+      ## ydoc contains a tree of nodes
+      ## from the YAML document
+    end
+  end
+&lt;/pre&gt;</method>
+    <method name='emitter'>&lt;p&gt;Returns a new default emitter&lt;/p&gt;</method>
+    <method name='escape'>&lt;p&gt;Escape the string, condensing common escapes&lt;/p&gt;</method>
+    <method name='generic_parser'>&lt;p&gt;Returns a new generic parser&lt;/p&gt;</method>
+    <method name='load'>&lt;p&gt;Load a document from the current &lt;em&gt;io&lt;/em&gt; stream.&lt;/p&gt;&lt;pre&gt;  File.open( &apos;animals.yaml&apos; ) { |yf| YAML::load( yf ) }
+     #=&gt; [&apos;badger&apos;, &apos;elephant&apos;, &apos;tiger&apos;]
+&lt;/pre&gt;&lt;p&gt;Can also load from a string.&lt;/p&gt;&lt;pre&gt;  YAML.load( &quot;--- :locked&quot; )
+     #=&gt; :locked
+&lt;/pre&gt;</method>
+    <method name='load_documents'>&lt;p&gt;Calls &lt;em&gt;block&lt;/em&gt; with each consecutive document in the YAML stream contained in &lt;em&gt;io&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;  File.open( &apos;many-docs.yaml&apos; ) do |yf|
+    YAML.load_documents( yf ) do |ydoc|
+      ## ydoc contains the single object
+      ## from the YAML document
+    end
+  end
+&lt;/pre&gt;</method>
+    <method name='load_file'>&lt;p&gt;Load a document from the file located at &lt;em&gt;filepath&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;  YAML.load_file( &apos;animals.yaml&apos; )
+     #=&gt; [&apos;badger&apos;, &apos;elephant&apos;, &apos;tiger&apos;]
+&lt;/pre&gt;</method>
+    <method name='load_stream'>&lt;p&gt;Loads all documents from the current &lt;em&gt;io&lt;/em&gt; stream, returning a +YAML::Stream+ object containing all loaded documents.&lt;/p&gt;</method>
+    <method name='make_stream'>&lt;p&gt;Class method for creating streams&lt;/p&gt;</method>
+    <method name='object_maker'>&lt;p&gt;Allocate blank object&lt;/p&gt;</method>
+    <method name='parse'>&lt;p&gt;Parse the first document from the current &lt;em&gt;io&lt;/em&gt; stream&lt;/p&gt;&lt;pre&gt;  File.open( &apos;animals.yaml&apos; ) { |yf| YAML::load( yf ) }
+     #=&gt; #&lt;YAML::Syck::Node:0x82ccce0
+          @kind=:seq,
+          @value=
+           [#&lt;YAML::Syck::Node:0x82ccd94
+             @kind=:scalar,
+             @type_id=&quot;str&quot;,
+             @value=&quot;badger&quot;&gt;,
+            #&lt;YAML::Syck::Node:0x82ccd58
+             @kind=:scalar,
+             @type_id=&quot;str&quot;,
+             @value=&quot;elephant&quot;&gt;,
+            #&lt;YAML::Syck::Node:0x82ccd1c
+             @kind=:scalar,
+             @type_id=&quot;str&quot;,
+             @value=&quot;tiger&quot;&gt;]&gt;
+&lt;/pre&gt;&lt;p&gt;Can also load from a string.&lt;/p&gt;&lt;pre&gt;  YAML.parse( &quot;--- :locked&quot; )
+     #=&gt; #&lt;YAML::Syck::Node:0x82edddc
+           @type_id=&quot;tag:ruby.yaml.org,2002:sym&quot;,
+           @value=&quot;:locked&quot;, @kind=:scalar&gt;
+&lt;/pre&gt;</method>
+    <method name='parse_documents'>&lt;p&gt;Calls &lt;em&gt;block&lt;/em&gt; with a tree of +YAML::BaseNodes+, one tree for each consecutive document in the YAML stream contained in &lt;em&gt;io&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;  File.open( &apos;many-docs.yaml&apos; ) do |yf|
+    YAML.parse_documents( yf ) do |ydoc|
+      ## ydoc contains a tree of nodes
+      ## from the YAML document
+    end
+  end
+&lt;/pre&gt;</method>
+    <method name='parse_file'>&lt;p&gt;Parse a document from the file located at &lt;em&gt;filepath&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;  YAML.parse_file( &apos;animals.yaml&apos; )
+     #=&gt; #&lt;YAML::Syck::Node:0x82ccce0
+          @kind=:seq,
+          @value=
+           [#&lt;YAML::Syck::Node:0x82ccd94
+             @kind=:scalar,
+             @type_id=&quot;str&quot;,
+             @value=&quot;badger&quot;&gt;,
+            #&lt;YAML::Syck::Node:0x82ccd58
+             @kind=:scalar,
+             @type_id=&quot;str&quot;,
+             @value=&quot;elephant&quot;&gt;,
+            #&lt;YAML::Syck::Node:0x82ccd1c
+             @kind=:scalar,
+             @type_id=&quot;str&quot;,
+             @value=&quot;tiger&quot;&gt;]&gt;
+&lt;/pre&gt;</method>
+    <method name='parser'>&lt;p&gt;Returns a new default parser&lt;/p&gt;</method>
+    <method name='quick_emit'>&lt;p&gt;Allocate an Emitter if needed&lt;/p&gt;</method>
+    <method name='read_type_class'>&lt;p&gt;Method to extract colon-seperated type and class, returning the type and the constant of the class&lt;/p&gt;</method>
+    <method name='resolver'>&lt;p&gt;Returns the default resolver&lt;/p&gt;</method>
+    <method name='tag_class'>&lt;p&gt;Associates a taguri &lt;em&gt;tag&lt;/em&gt; with a Ruby class &lt;em&gt;cls&lt;/em&gt;. The taguri is used to give types to classes when loading YAML. Taguris are of the form:&lt;/p&gt;&lt;pre&gt;  tag:authorityName,date:specific
+&lt;/pre&gt;&lt;p&gt;The &lt;tt&gt;authorityName&lt;/tt&gt; is a domain name or email address. The &lt;tt&gt;date&lt;/tt&gt; is the date the type was issued in YYYY or YYYY-MM or YYYY-MM-DD format. The &lt;tt&gt;specific&lt;/tt&gt; is a name for the type being added.&lt;/p&gt;&lt;p&gt;For example, built-in YAML types have &apos;yaml.org&apos; as the &lt;tt&gt;authorityName&lt;/tt&gt; and &apos;2002&apos; as the &lt;tt&gt;date&lt;/tt&gt;. The &lt;tt&gt;specific&lt;/tt&gt; is simply the name of the type:&lt;/p&gt;&lt;pre&gt; tag:yaml.org,2002:int
+ tag:yaml.org,2002:float
+ tag:yaml.org,2002:timestamp
+&lt;/pre&gt;&lt;p&gt;The domain must be owned by you on the &lt;tt&gt;date&lt;/tt&gt; declared. If you don&apos;t own any domains on the date you declare the type, you can simply use an e-mail address.&lt;/p&gt;&lt;pre&gt; tag:why@ruby-lang.org,2004:notes/personal
+&lt;/pre&gt;</method>
+    <method name='tagged_classes'>&lt;p&gt;Returns the complete dictionary of taguris, paired with classes. The key for the dictionary is the full taguri. The value for each key is the class constant associated to that taguri.&lt;/p&gt;&lt;pre&gt; YAML.tagged_classes[&quot;tag:yaml.org,2002:int&quot;] =&gt; Integer
+&lt;/pre&gt;</method>
+    <method name='tagurize'>&lt;p&gt;Convert a type_id to a taguri&lt;/p&gt;</method>
+    <method name='transfer'>&lt;p&gt;Apply a transfer method to a Ruby object&lt;/p&gt;</method>
+    <method name='try_implicit'>&lt;p&gt;Apply any implicit a node may qualify for&lt;/p&gt;</method>
+    <method name='unescape'>&lt;p&gt;Unescape the condenses escapes&lt;/p&gt;</method>
+  </methods>
+</help>

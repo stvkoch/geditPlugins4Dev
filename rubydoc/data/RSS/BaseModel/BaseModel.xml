@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='install_date_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='install_have_attribute_element'>&lt;p&gt;Alias for #install_have_child_element&lt;/p&gt;</method>
+    <method name='install_have_child_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='install_have_children_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='install_text_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

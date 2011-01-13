@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Numeric is a built-in class on which Fixnum, Bignum, etc., are based. Here some methods are added so that all number types can be treated to some extent as Complex numbers.&lt;/p&gt;</comment>
+  <methods>
+    <method name='+@'>&lt;p&gt;Unary Plus---Returns the receiver&apos;s value.&lt;/p&gt;</method>
+    <method name='-@'>&lt;p&gt;Unary Minus---Returns the receiver&apos;s value, negated.&lt;/p&gt;</method>
+    <method name='&lt;=&gt;'>&lt;p&gt;Returns zero if &lt;em&gt;num&lt;/em&gt; equals &lt;em&gt;other&lt;/em&gt;, &lt;tt&gt;nil&lt;/tt&gt; otherwise.&lt;/p&gt;</method>
+    <method name='abs'>&lt;p&gt;Returns the absolute value of &lt;em&gt;num&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   12.abs         #=&gt; 12
+   (-34.56).abs   #=&gt; 34.56
+   -34.56.abs     #=&gt; 34.56
+&lt;/pre&gt;</method>
+    <method name='angle'>&lt;p&gt;Alias for #arg&lt;/p&gt;</method>
+    <method name='arg'>&lt;p&gt;See Complex#arg.&lt;/p&gt;</method>
+    <method name='ceil'>&lt;p&gt;Returns the smallest &lt;tt&gt;Integer&lt;/tt&gt; greater than or equal to &lt;em&gt;num&lt;/em&gt;. Class &lt;tt&gt;Numeric&lt;/tt&gt; achieves this by converting itself to a &lt;tt&gt;Float&lt;/tt&gt; then invoking &lt;tt&gt;Float#ceil&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   1.ceil        #=&gt; 1
+   1.2.ceil      #=&gt; 2
+   (-1.2).ceil   #=&gt; -1
+   (-1.0).ceil   #=&gt; -1
+&lt;/pre&gt;</method>
+    <method name='coerce'>&lt;p&gt;If &lt;em&gt;aNumeric&lt;/em&gt; is the same type as &lt;em&gt;num&lt;/em&gt;, returns an array containing &lt;em&gt;aNumeric&lt;/em&gt; and &lt;em&gt;num&lt;/em&gt;. Otherwise, returns an array with both &lt;em&gt;aNumeric&lt;/em&gt; and &lt;em&gt;num&lt;/em&gt; represented as &lt;tt&gt;Float&lt;/tt&gt; objects. This coercion mechanism is used by Ruby to handle mixed-type numeric operations: it is intended to find a compatible common type between the two operands of the operator.&lt;/p&gt;&lt;pre&gt;   1.coerce(2.5)   #=&gt; [2.5, 1.0]
+   1.2.coerce(3)   #=&gt; [3.0, 1.2]
+   1.coerce(2)     #=&gt; [2, 1]
+&lt;/pre&gt;</method>
+    <method name='conj'>&lt;p&gt;Alias for #conjugate&lt;/p&gt;</method>
+    <method name='conjugate'>&lt;p&gt;See Complex#conjugate (short answer: returns &lt;em&gt;self&lt;/em&gt;).&lt;/p&gt;</method>
+    <method name='div'>&lt;p&gt;Uses &lt;tt&gt;/&lt;/tt&gt; to perform division, then converts the result to an integer. &lt;tt&gt;Numeric&lt;/tt&gt; does not define the &lt;tt&gt;/&lt;/tt&gt; operator; this is left to subclasses.&lt;/p&gt;</method>
+    <method name='divmod'>&lt;p&gt;Returns an array containing the quotient and modulus obtained by dividing &lt;em&gt;num&lt;/em&gt; by &lt;em&gt;aNumeric&lt;/em&gt;. If &lt;tt&gt;q, r = x.divmod(y)&lt;/tt&gt;, then&lt;/p&gt;&lt;pre&gt;    q = floor(float(x)/float(y))
+    x = q*y + r
+&lt;/pre&gt;&lt;p&gt;The quotient is rounded toward -infinity, as shown in the following table:&lt;/p&gt;&lt;pre&gt;   a    |  b  |  a.divmod(b)  |   a/b   | a.modulo(b) | a.remainder(b)
+  ------+-----+---------------+---------+-------------+---------------
+   13   |  4  |   3,    1     |   3     |    1        |     1
+  ------+-----+---------------+---------+-------------+---------------
+   13   | -4  |  -4,   -3     |  -3     |   -3        |     1
+  ------+-----+---------------+---------+-------------+---------------
+  -13   |  4  |  -4,    3     |  -4     |    3        |    -1
+  ------+-----+---------------+---------+-------------+---------------
+  -13   | -4  |   3,   -1     |   3     |   -1        |    -1
+  ------+-----+---------------+---------+-------------+---------------
+   11.5 |  4  |   2,    3.5   |   2.875 |    3.5      |     3.5
+  ------+-----+---------------+---------+-------------+---------------
+   11.5 | -4  |  -3,   -0.5   |  -2.875 |   -0.5      |     3.5
+  ------+-----+---------------+---------+-------------+---------------
+  -11.5 |  4  |  -3,    0.5   |  -2.875 |    0.5      |    -3.5
+  ------+-----+---------------+---------+-------------+---------------
+  -11.5 | -4  |   2    -3.5   |   2.875 |   -3.5      |    -3.5
+&lt;/pre&gt;&lt;p&gt;Examples&lt;/p&gt;&lt;pre&gt;   11.divmod(3)         #=&gt; [3, 2]
+   11.divmod(-3)        #=&gt; [-4, -1]
+   11.divmod(3.5)       #=&gt; [3, 0.5]
+   (-11).divmod(3.5)    #=&gt; [-4, 3.0]
+   (11.5).divmod(3.5)   #=&gt; [3, 1.0]
+&lt;/pre&gt;</method>
+    <method name='eql?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;num&lt;/em&gt; and &lt;em&gt;numeric&lt;/em&gt; are the same type and have equal values.&lt;/p&gt;&lt;pre&gt;   1 == 1.0          #=&gt; true
+   1.eql?(1.0)       #=&gt; false
+   (1.0).eql?(1.0)   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='floor'>&lt;p&gt;Returns the largest integer less than or equal to &lt;em&gt;num&lt;/em&gt;. &lt;tt&gt;Numeric&lt;/tt&gt; implements this by converting &lt;em&gt;anInteger&lt;/em&gt; to a &lt;tt&gt;Float&lt;/tt&gt; and invoking &lt;tt&gt;Float#floor&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   1.floor      #=&gt; 1
+   (-1).floor   #=&gt; -1
+&lt;/pre&gt;</method>
+    <method name='im'>&lt;p&gt;Returns a Complex number &lt;tt&gt;(0,&lt;em&gt;self&lt;/em&gt;)&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='imag'>&lt;p&gt;Alias for #image&lt;/p&gt;</method>
+    <method name='image'>&lt;p&gt;The imaginary part of a complex number, i.e. 0.&lt;/p&gt;</method>
+    <method name='integer?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;num&lt;/em&gt; is an &lt;tt&gt;Integer&lt;/tt&gt; (including &lt;tt&gt;Fixnum&lt;/tt&gt; and &lt;tt&gt;Bignum&lt;/tt&gt;).&lt;/p&gt;</method>
+    <method name='modulo'>&lt;p&gt;Equivalent to &lt;em&gt;num&lt;/em&gt;.&lt;tt&gt;divmod(&lt;/tt&gt;&lt;em&gt;aNumeric&lt;/em&gt;&lt;tt&gt;)[1]&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='nonzero?'>&lt;p&gt;Returns &lt;em&gt;num&lt;/em&gt; if &lt;em&gt;num&lt;/em&gt; is not zero, &lt;tt&gt;nil&lt;/tt&gt; otherwise. This behavior is useful when chaining comparisons:&lt;/p&gt;&lt;pre&gt;   a = %w( z Bb bB bb BB a aA Aa AA A )
+   b = a.sort {|a,b| (a.downcase &lt;=&gt; b.downcase).nonzero? || a &lt;=&gt; b }
+   b   #=&gt; [&quot;A&quot;, &quot;a&quot;, &quot;AA&quot;, &quot;Aa&quot;, &quot;aA&quot;, &quot;BB&quot;, &quot;Bb&quot;, &quot;bB&quot;, &quot;bb&quot;, &quot;z&quot;]
+&lt;/pre&gt;</method>
+    <method name='polar'>&lt;p&gt;See Complex#polar.&lt;/p&gt;</method>
+    <method name='quo'>&lt;p&gt;Equivalent to &lt;tt&gt;Numeric#/&lt;/tt&gt;, but overridden in subclasses.&lt;/p&gt;</method>
+    <method name='real'>&lt;p&gt;The real part of a complex number, i.e. &lt;em&gt;self&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='remainder'>&lt;p&gt;If &lt;em&gt;num&lt;/em&gt; and &lt;em&gt;numeric&lt;/em&gt; have different signs, returns &lt;em&gt;mod&lt;/em&gt;-&lt;em&gt;numeric&lt;/em&gt;; otherwise, returns &lt;em&gt;mod&lt;/em&gt;. In both cases &lt;em&gt;mod&lt;/em&gt; is the value &lt;em&gt;num&lt;/em&gt;.&lt;tt&gt;modulo(&lt;/tt&gt;&lt;em&gt;numeric&lt;/em&gt;&lt;tt&gt;)&lt;/tt&gt;. The differences between &lt;tt&gt;remainder&lt;/tt&gt; and modulo (&lt;tt&gt;%&lt;/tt&gt;) are shown in the table under &lt;tt&gt;Numeric#divmod&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='round'>&lt;p&gt;Rounds &lt;em&gt;num&lt;/em&gt; to the nearest integer. &lt;tt&gt;Numeric&lt;/tt&gt; implements this by converting itself to a &lt;tt&gt;Float&lt;/tt&gt; and invoking &lt;tt&gt;Float#round&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='singleton_method_added'>&lt;p&gt;Trap attempts to add methods to &lt;tt&gt;Numeric&lt;/tt&gt; objects. Always raises a &lt;tt&gt;TypeError&lt;/tt&gt;&lt;/p&gt;</method>
+    <method name='step'>&lt;p&gt;Invokes &lt;em&gt;block&lt;/em&gt; with the sequence of numbers starting at &lt;em&gt;num&lt;/em&gt;, incremented by &lt;em&gt;step&lt;/em&gt; on each call. The loop finishes when the value to be passed to the block is greater than &lt;em&gt;limit&lt;/em&gt; (if &lt;em&gt;step&lt;/em&gt; is positive) or less than &lt;em&gt;limit&lt;/em&gt; (if &lt;em&gt;step&lt;/em&gt; is negative). If all the arguments are integers, the loop operates using an integer counter. If any of the arguments are floating point numbers, all are converted to floats, and the loop is executed &lt;em&gt;floor(n + n*epsilon)+ 1&lt;/em&gt; times, where &lt;em&gt;n = (limit - num)/step&lt;/em&gt;. Otherwise, the loop starts at &lt;em&gt;num&lt;/em&gt;, uses either the &lt;tt&gt;&lt;&lt;/tt&gt; or &lt;tt&gt;&gt;&lt;/tt&gt; operator to compare the counter against &lt;em&gt;limit&lt;/em&gt;, and increments itself using the &lt;tt&gt;+&lt;/tt&gt; operator.&lt;/p&gt;&lt;pre&gt;   1.step(10, 2) { |i| print i, &quot; &quot; }
+   Math::E.step(Math::PI, 0.2) { |f| print f, &quot; &quot; }
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   1 3 5 7 9
+   2.71828182845905 2.91828182845905 3.11828182845905
+&lt;/pre&gt;</method>
+    <method name='to_int'>&lt;p&gt;Invokes the child class&apos;s &lt;tt&gt;to_i&lt;/tt&gt; method to convert &lt;em&gt;num&lt;/em&gt; to an integer.&lt;/p&gt;</method>
+    <method name='truncate'>&lt;p&gt;Returns &lt;em&gt;num&lt;/em&gt; truncated to an integer. &lt;tt&gt;Numeric&lt;/tt&gt; implements this by converting its value to a float and invoking &lt;tt&gt;Float#truncate&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='zero?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;num&lt;/em&gt; has a zero value.&lt;/p&gt;</method>
+  </methods>
+</help>

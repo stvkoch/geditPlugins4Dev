@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<gconf>
+        <entry name="Closing@32@Bracket" mtime="1175710373" type="string">
+                <stringvalue>2/#696974748f8f/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Entity" mtime="1175123790" type="string">
+                <stringvalue>2/#ddddffff0000/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Block@32@Comment" mtime="1175123568" type="string">
+                <stringvalue>2/#6f7b6f7b6f7b/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="String" mtime="1175123452" type="string">
+                <stringvalue>2/#5555afaf3939/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Attribute" mtime="1175710369" type="string">
+                <stringvalue>2/#696974748f8f/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Tag" mtime="1175710378" type="string">
+                <stringvalue>2/#696974748f8f/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="DTD" mtime="1175123365" type="string">
+                <stringvalue>2/#696974748f8f/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+</gconf>

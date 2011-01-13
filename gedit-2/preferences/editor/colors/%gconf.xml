@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<gconf>
+        <entry name="selected_text_color" mtime="1175123311" type="string">
+                <stringvalue>#ffffffffffff</stringvalue>
+        </entry>
+        <entry name="selection_color" mtime="1175123303" type="string">
+                <stringvalue>#2b2b43437e7e</stringvalue>
+        </entry>
+        <entry name="text_color" mtime="1175124651" type="string">
+                <stringvalue>#d8c5d8c5d8c5</stringvalue>
+        </entry>
+        <entry name="background_color" mtime="1175123148" type="string">
+                <stringvalue>#16160d0d2b2b</stringvalue>
+        </entry>
+        <entry name="use_default_colors" mtime="1175122286" type="bool" value="false">
+        </entry>
+</gconf>

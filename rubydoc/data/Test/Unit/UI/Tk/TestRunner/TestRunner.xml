@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Runs a Test::Unit::TestSuite in a Tk UI. Obviously, this one requires you to have Tk and the Ruby Tk extension installed.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new TestRunner for running the passed suite.&lt;/p&gt;</method>
+    <method name='start'>&lt;p&gt;Begins the test run.&lt;/p&gt;</method>
+  </methods>
+</help>

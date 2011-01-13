@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment></comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='build_class_list'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='build_indices'>&lt;p&gt;Generate:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;a list of HtmlFile objects for each TopLevel object.&lt;/li&gt;&lt;li&gt;a list of HtmlClass objects for each first level class or module in the TopLevel objects&lt;/li&gt;&lt;li&gt;a complete list of all hyperlinkable terms (file, class, module, and method names)&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='gen_an_index'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='gen_class_index'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='gen_file_index'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='gen_into'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='gen_method_index'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='generate'>&lt;p&gt;Build the initial indices and output objects based on an array of TopLevel objects containing the extracted information.&lt;/p&gt;</method>
+    <method name='generate_xml'>&lt;p&gt;Generate all the HTML. For the one-file case, we generate all the information in to one big hash&lt;/p&gt;</method>
+  </methods>
+</help>

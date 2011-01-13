@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Provides some utilities common to most, if not all, TestRunners.&lt;/p&gt;</comment>
+  <methods>
+    <method name='run'>&lt;p&gt;Creates a new TestRunner and runs the suite.&lt;/p&gt;</method>
+    <method name='start_command_line_test'>&lt;p&gt;Takes care of the ARGV parsing and suite determination necessary for running one of the TestRunners from the command line.&lt;/p&gt;</method>
+  </methods>
+</help>

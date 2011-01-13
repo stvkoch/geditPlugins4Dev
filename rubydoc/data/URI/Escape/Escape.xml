@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='decode'>&lt;p&gt;Alias for #unescape&lt;/p&gt;</method>
+    <method name='encode'>&lt;p&gt;Alias for #escape&lt;/p&gt;</method>
+    <method name='escape'>&lt;h2&gt;Synopsis&lt;/h2&gt;&lt;pre&gt;  URI.escape(str [, unsafe])
+&lt;/pre&gt;&lt;h2&gt;Args&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;String to replaces in.&lt;/li&gt;&lt;li&gt;Regexp that matches all symbols that must be replaced with codes. By default uses &lt;tt&gt;REGEXP::UNSAFE&lt;/tt&gt;.&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Escapes the string, replacing all unsafe characters with codes.&lt;/p&gt;&lt;h2&gt;Usage&lt;/h2&gt;&lt;pre&gt;  require &apos;uri&apos;
+
+  enc_uri = URI.escape(&quot;http://example.com/?a=\11\15&quot;)
+  p enc_uri
+  # =&gt; &quot;http://example.com/?a=%09%0D&quot;
+
+  p URI.unescape(enc_uri)
+  # =&gt; &quot;http://example.com/?a=\t\r&quot;
+&lt;/pre&gt;</method>
+    <method name='unescape'>&lt;h2&gt;Synopsis&lt;/h2&gt;&lt;pre&gt;  URI.unescape(str)
+&lt;/pre&gt;&lt;h2&gt;Args&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Unescapes the string.&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Usage&lt;/h2&gt;&lt;pre&gt;  require &apos;uri&apos;
+
+  enc_uri = URI.escape(&quot;http://example.com/?a=\11\15&quot;)
+  p enc_uri
+  # =&gt; &quot;http://example.com/?a=%09%0D&quot;
+
+  p URI.unescape(enc_uri)
+  # =&gt; &quot;http://example.com/?a=\t\r&quot;
+&lt;/pre&gt;</method>
+  </methods>
+</help>

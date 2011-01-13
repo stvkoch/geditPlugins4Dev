@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A parsing event. The contents of the event are accessed as an +Array?, and the type is given either by the ...? methods, or by accessing the &lt;tt&gt;type&lt;/tt&gt; accessor. The contents of this object vary from event to event, but are identical to the arguments passed to +StreamListener+s for each event.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;The type of this event. Will be one of :tag_start, :tag_end, :text, :processing_instruction, :comment, :doctype, :attlistdecl, :entitydecl, :notationdecl, :entity, :cdata, :xmldecl, or :error.&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='attlistdecl?'>&lt;p&gt;Content: [ String text ]&lt;/p&gt;</method>
+    <method name='cdata?'>&lt;p&gt;Content: [ String text ]&lt;/p&gt;</method>
+    <method name='comment?'>&lt;p&gt;Content: [ String text ]&lt;/p&gt;</method>
+    <method name='doctype?'>&lt;p&gt;Content: [ String name, String pub_sys, String long_name, String uri ]&lt;/p&gt;</method>
+    <method name='elementdecl?'>&lt;p&gt;Content: [ String text ]&lt;/p&gt;</method>
+    <method name='end_element?'>&lt;p&gt;Content: [ String tag_name ]&lt;/p&gt;</method>
+    <method name='entity?'>&lt;p&gt;Content: [ String text ]&lt;/p&gt;</method>
+    <method name='entitydecl?'>&lt;p&gt;Due to the wonders of DTDs, an entity declaration can be just about anything. There&apos;s no way to normalize it; you&apos;ll have to interpret the content yourself. However, the following is true:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;If the entity declaration is an internal entity: [ String name, String value ]&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Content: [ String text ]&lt;/p&gt;</method>
+    <method name='error?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='event_type'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='instruction?'>&lt;p&gt;Content: [ String text ]&lt;/p&gt;</method>
+    <method name='notationdecl?'>&lt;p&gt;Content: [ String text ]&lt;/p&gt;</method>
+    <method name='start_element?'>&lt;p&gt;Content: [ String tag_name, Hash attributes ]&lt;/p&gt;</method>
+    <method name='text?'>&lt;p&gt;Content: [ String raw_text, String unnormalized_text ]&lt;/p&gt;</method>
+    <method name='xmldecl?'>&lt;p&gt;Content: [ String version, String encoding, String standalone ]&lt;/p&gt;</method>
+  </methods>
+</help>

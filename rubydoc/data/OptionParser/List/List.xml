@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Simple option list providing mapping from short and/or long option string to OptionParser::Switch and mapping from acceptable argument to matching pattern and converter pair. Also provides summary feature.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Just initializes all instance variables.&lt;/p&gt;</method>
+    <method name='accept'>&lt;p&gt;See OptionParser.accept.&lt;/p&gt;</method>
+    <method name='append'>&lt;p&gt;Appends &lt;tt&gt;switch&lt;/tt&gt; at the tail of the list, and associates short, long and negated long options. Arguments are:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;OptionParser::Switch instance to be inserted.&lt;/li&gt;&lt;li&gt;List of short style options.&lt;/li&gt;&lt;li&gt;List of long style options.&lt;/li&gt;&lt;li&gt;List of long style options with &quot;no-&quot; prefix.&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt;  append(switch, short_opts, long_opts, nolong_opts)
+&lt;/pre&gt;</method>
+    <method name='complete'>&lt;p&gt;Searches list &lt;tt&gt;id&lt;/tt&gt; for &lt;tt&gt;opt&lt;/tt&gt; and the optional patterns for completion &lt;tt&gt;pat&lt;/tt&gt;. If &lt;tt&gt;icase&lt;/tt&gt; is true, the search is case insensitive. The result is returned or yielded if a block is given. If it isn&apos;t found, nil is returned.&lt;/p&gt;</method>
+    <method name='prepend'>&lt;p&gt;Inserts &lt;tt&gt;switch&lt;/tt&gt; at the head of the list, and associates short, long and negated long options. Arguments are:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;OptionParser::Switch instance to be inserted.&lt;/li&gt;&lt;li&gt;List of short style options.&lt;/li&gt;&lt;li&gt;List of long style options.&lt;/li&gt;&lt;li&gt;List of long style options with &quot;no-&quot; prefix.&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt;  prepend(switch, short_opts, long_opts, nolong_opts)
+&lt;/pre&gt;</method>
+    <method name='reject'>&lt;p&gt;See OptionParser.reject.&lt;/p&gt;</method>
+    <method name='search'>&lt;p&gt;Searches &lt;tt&gt;key&lt;/tt&gt; in &lt;tt&gt;id&lt;/tt&gt; list. The result is returned or yielded if a block is given. If it isn&apos;t found, nil is returned.&lt;/p&gt;</method>
+    <method name='summarize'>&lt;p&gt;Creates the summary table, passing each line to the &lt;tt&gt;block&lt;/tt&gt; (without newline). The arguments &lt;tt&gt;args&lt;/tt&gt; are passed along to the summarize method which is called on every option.&lt;/p&gt;</method>
+  </methods>
+</help>

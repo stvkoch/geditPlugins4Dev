@@ -1,0 +1,9 @@
+[Gedit Plugin]
+Loader=python
+Module=tabconvert
+IAge=2
+Name=Tab Converter
+Description=Converts tabulator spaces to whitespace, and vice versa
+Authors=Frederic Back
+Copyright=Copyright © 2006 Frederic Back
+Website=http://www.stambouliote.de/projects/gedit_plugins.html

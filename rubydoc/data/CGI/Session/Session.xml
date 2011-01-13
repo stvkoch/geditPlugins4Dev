@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Class representing an HTTP session. See documentation for the file cgi/session.rb for an introduction to HTTP sessions.&lt;/p&gt;&lt;h2&gt;Lifecycle&lt;/h2&gt;&lt;p&gt;A CGI::Session instance is created from a CGI object. By default, this CGI::Session instance will start a new session if none currently exists, or continue the current session for this client if one does exist. The &lt;tt&gt;new_session&lt;/tt&gt; option can be used to either always or never create a new session. See #new() for more details.&lt;/p&gt;&lt;p&gt;#delete() deletes a session from session storage. It does not however remove the session id from the client. If the client makes another request with the same id, the effect will be to start a new session with the old session&apos;s id.&lt;/p&gt;&lt;h2&gt;Setting and retrieving session data.&lt;/h2&gt;&lt;p&gt;The Session class associates data with a session as key-value pairs. This data can be set and retrieved by indexing the Session instance using &apos;[]&apos;, much the same as hashes (although other hash methods are not supported).&lt;/p&gt;&lt;p&gt;When session processing has been completed for a request, the session should be closed using the close() method. This will store the session&apos;s state to persistent storage. If you want to store the session&apos;s state to persistent storage without finishing session processing for this request, call the update() method.&lt;/p&gt;&lt;h2&gt;Storing session state&lt;/h2&gt;&lt;p&gt;The caller can specify what form of storage to use for the session&apos;s data with the &lt;tt&gt;database_manager&lt;/tt&gt; option to CGI::Session::new. The following storage classes are provided as part of the standard library:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;stores data as plain text in a flat file. Only works with String data. This is the default storage type.&lt;/li&gt;&lt;li&gt;stores data in an in-memory hash. The data only persists for as long as the current ruby interpreter instance does.&lt;/li&gt;&lt;li&gt;stores data in Marshalled format. Provided by cgi/session/pstore.rb. Supports data of any type, and provides file-locking and transaction support.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Custom storage types can also be created by defining a class with the following methods:&lt;/p&gt;&lt;pre&gt;   new(session, options)
+   restore  # returns hash of session data.
+   update
+   close
+   delete
+&lt;/pre&gt;&lt;p&gt;Changing storage type mid-session does not work. Note in particular that by default the FileStore and PStore session data files have the same name. If your application switches from one to the other without making sure that filenames will be different and clients still have old sessions lying around in cookies, then things will break nastily!&lt;/p&gt;&lt;h2&gt;Maintaining the session id.&lt;/h2&gt;&lt;p&gt;Most session state is maintained on the server. However, a session id must be passed backwards and forwards between client and server to maintain a reference to this session state.&lt;/p&gt;&lt;p&gt;The simplest way to do this is via cookies. The CGI::Session class provides transparent support for session id communication via cookies if the client has cookies enabled.&lt;/p&gt;&lt;p&gt;If the client has cookies disabled, the session id must be included as a parameter of all requests sent by the client to the server. The CGI::Session class in conjunction with the CGI class will transparently add the session id as a hidden input field to all forms generated using the CGI#form() HTML generation method. No built-in support is provided for other mechanisms, such as URL re-writing. The caller is responsible for extracting the session id from the session_id attribute and manually encoding it in URLs and adding it as a hidden input to HTML forms created by other mechanisms. Also, session expiry is not automatically handled.&lt;/p&gt;&lt;h2&gt;Examples of use&lt;/h2&gt;&lt;h3&gt;Setting the user&apos;s name&lt;/h3&gt;&lt;pre&gt;  require &apos;cgi&apos;
+  require &apos;cgi/session&apos;
+  require &apos;cgi/session/pstore&apos;     # provides CGI::Session::PStore
+
+  cgi = CGI.new(&quot;html4&quot;)
+
+  session = CGI::Session.new(cgi,
+      &apos;database_manager&apos; =&gt; CGI::Session::PStore,  # use PStore
+      &apos;session_key&apos; =&gt; &apos;_rb_sess_id&apos;,              # custom session key
+      &apos;session_expires&apos; =&gt; Time.now + 30 * 60,     # 30 minute timeout
+      &apos;prefix&apos; =&gt; &apos;pstore_sid_&apos;)                   # PStore option
+  if cgi.has_key?(&apos;user_name&apos;) and cgi[&apos;user_name&apos;] != &apos;&apos;
+      # coerce to String: cgi[] returns the
+      # string-like CGI::QueryExtension::Value
+      session[&apos;user_name&apos;] = cgi[&apos;user_name&apos;].to_s
+  elsif !session[&apos;user_name&apos;]
+      session[&apos;user_name&apos;] = &quot;guest&quot;
+  end
+  session.close
+&lt;/pre&gt;&lt;h3&gt;Creating a new session safely&lt;/h3&gt;&lt;pre&gt;  require &apos;cgi&apos;
+  require &apos;cgi/session&apos;
+
+  cgi = CGI.new(&quot;html4&quot;)
+
+  # We make sure to delete an old session if one exists,
+  # not just to free resources, but to prevent the session
+  # from being maliciously hijacked later on.
+  begin
+      session = CGI::Session.new(cgi, &apos;new_session&apos; =&gt; false)
+      session.delete
+  rescue ArgumentError  # if no old session
+  end
+  session = CGI::Session.new(cgi, &apos;new_session&apos; =&gt; true)
+  session.close
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Create a new CGI::Session object for &lt;tt&gt;request&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;request&lt;/tt&gt; is an instance of the &lt;tt&gt;CGI&lt;/tt&gt; class (see cgi.rb). &lt;tt&gt;option&lt;/tt&gt; is a hash of options for initialising this CGI::Session instance. The following options are recognised:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the parameter name used for the session id. Defaults to &apos;_session_id&apos;.&lt;/li&gt;&lt;li&gt;the session id to use. If not provided, then it is retrieved from the &lt;tt&gt;session_key&lt;/tt&gt; parameter of the request, or automatically generated for a new session.&lt;/li&gt;&lt;li&gt;if true, force creation of a new session. If not set, a new session is only created if none currently exists. If false, a new session is never created, and if none currently exists and the &lt;tt&gt;session_id&lt;/tt&gt; option is not set, an ArgumentError is raised.&lt;/li&gt;&lt;li&gt;the name of the class providing storage facilities for session state persistence. Built-in support is provided for &lt;tt&gt;FileStore&lt;/tt&gt; (the default), &lt;tt&gt;MemoryStore&lt;/tt&gt;, and &lt;tt&gt;PStore&lt;/tt&gt; (from cgi/session/pstore.rb). See the documentation for these classes for more details.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;The following options are also recognised, but only apply if the session id is stored in a cookie.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the time the current session expires, as a &lt;tt&gt;Time&lt;/tt&gt; object. If not set, the session will terminate when the user&apos;s browser is closed.&lt;/li&gt;&lt;li&gt;the hostname domain for which this session is valid. If not set, defaults to the hostname of the server.&lt;/li&gt;&lt;li&gt;if &lt;tt&gt;true&lt;/tt&gt;, this session will only work over HTTPS.&lt;/li&gt;&lt;li&gt;the path for which this session applies. Defaults to the directory of the CGI script.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;tt&gt;option&lt;/tt&gt; is also passed on to the session storage class initialiser; see the documentation for each session storage class for the options they support.&lt;/p&gt;&lt;p&gt;The retrieved or created session is automatically added to &lt;tt&gt;request&lt;/tt&gt; as a cookie, and also to its &lt;tt&gt;output_hidden&lt;/tt&gt; table, which is used to add hidden input elements to forms.&lt;/p&gt;&lt;p&gt;&lt;b&gt;WARNING&lt;/b&gt; the &lt;tt&gt;output_hidden&lt;/tt&gt; fields are surrounded by a &lt;fieldset&gt; tag in HTML 4 generation, which is &lt;em&gt;not&lt;/em&gt; invisible on many browsers; you may wish to disable the use of fieldsets with code similar to the following (see http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-list/37805)&lt;/p&gt;&lt;pre&gt;  cgi = CGI.new(&quot;html4&quot;)
+  class &lt;&lt; cgi
+      undef_method :fieldset
+  end
+&lt;/pre&gt;</method>
+    <method name='[]'>&lt;p&gt;Retrieve the session data for key &lt;tt&gt;key&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='[]='>&lt;p&gt;Set the session date for key &lt;tt&gt;key&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;Store session data on the server and close the session storage. For some session storage types, this is a no-op.&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;Delete the session from storage. Also closes the storage.&lt;/p&gt;&lt;p&gt;Note that the session&apos;s data is &lt;em&gt;not&lt;/em&gt; automatically deleted upon the session expiring.&lt;/p&gt;</method>
+    <method name='update'>&lt;p&gt;Store session data on the server. For some session storage types, this is a no-op.&lt;/p&gt;</method>
+  </methods>
+</help>

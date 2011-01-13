@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='__attr_proxy'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_document_method'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_document_operation'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_method'>&lt;p&gt;Alias for #add_rpc_method&lt;/p&gt;</method>
+    <method name='add_method_as'>&lt;p&gt;Alias for #add_rpc_method_as&lt;/p&gt;</method>
+    <method name='add_method_with_soapaction'>&lt;p&gt;Alias for #add_rpc_method_with_soapaction&lt;/p&gt;</method>
+    <method name='add_method_with_soapaction_as'>&lt;p&gt;Alias for #add_rpc_method_with_soapaction_as&lt;/p&gt;</method>
+    <method name='add_rpc_method'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_rpc_method_as'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_rpc_method_with_soapaction'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_rpc_method_with_soapaction_as'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_rpc_operation'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='call'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='httpproxy'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='httpproxy='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='invoke'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='loadproperty'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='mandatorycharset'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='mandatorycharset='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='wiredump_dev'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='wiredump_dev='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='wiredump_file_base'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='wiredump_file_base='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

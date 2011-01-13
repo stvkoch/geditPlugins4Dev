@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;We contain the common stuff for contexts (which are containers) and other elements (methods, attributes and so on)&lt;/p&gt;</comment>
+  <methods>
+    <method name='attr_overridable'>&lt;p&gt;There&apos;s a wee trick we pull. Comment blocks can have directives that override the stuff we extract during the parse. So, we have a special class method, attr_overridable, that lets code objects list those directives. Wehn a comment is assigned, we then extract out any matching directives and update our object&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='comment='>&lt;p&gt;Update the comment, but don&apos;t overwrite a real comment with an empty one&lt;/p&gt;</method>
+    <method name='document_children='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='document_self='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='remove_classes_and_modules'>&lt;p&gt;Default callbacks to nothing, but this is overridden for classes and modules&lt;/p&gt;</method>
+    <method name='remove_methods_etc'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='start_doc'>&lt;p&gt;set and cleared by :startdoc: and :enddoc:, this is used to toggle the capturing of documentation&lt;/p&gt;</method>
+    <method name='stop_doc'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

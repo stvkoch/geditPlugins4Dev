@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Input conversion stopped due to an input byte that does not belong to the input codeset, or the output codeset does not contain the character.&lt;/p&gt;</comment>
+  <methods/>
+</help>

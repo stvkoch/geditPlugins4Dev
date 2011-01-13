@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Collects Test::Unit::Failure and Test::Unit::Error so that they can be displayed to the user. To this end, observers can be added to it, allowing the dynamic updating of, say, a UI.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Constructs a new, empty TestResult.&lt;/p&gt;</method>
+    <method name='add_assertion'>&lt;p&gt;Records an individual assertion.&lt;/p&gt;</method>
+    <method name='add_error'>&lt;p&gt;Records a Test::Unit::Error.&lt;/p&gt;</method>
+    <method name='add_failure'>&lt;p&gt;Records a Test::Unit::Failure.&lt;/p&gt;</method>
+    <method name='add_run'>&lt;p&gt;Records a test run.&lt;/p&gt;</method>
+    <method name='error_count'>&lt;p&gt;Returns the number of errors this TestResult has recorded.&lt;/p&gt;</method>
+    <method name='failure_count'>&lt;p&gt;Returns the number of failures this TestResult has recorded.&lt;/p&gt;</method>
+    <method name='passed?'>&lt;p&gt;Returns whether or not this TestResult represents successful completion.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Returns a string contain the recorded runs, assertions, failures and errors in this TestResult.&lt;/p&gt;</method>
+  </methods>
+</help>

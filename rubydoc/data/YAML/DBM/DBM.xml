@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='[]'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='[]='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='delete_if'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;Alias for #each_pair&lt;/p&gt;</method>
+    <method name='each_pair'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each_value'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='fetch'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='has_value?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='index'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='invert'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='reject'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='replace'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='select'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='shift'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='store'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_a'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_hash'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='update'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='values'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='values_at'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

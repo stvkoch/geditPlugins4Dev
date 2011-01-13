@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Test::Unit::Assertions contains the standard Test::Unit assertions. Assertions is included in Test::Unit::TestCase.&lt;/p&gt;&lt;p&gt;To include it in your own code and use its functionality, you simply need to rescue Test::Unit::AssertionFailedError. Additionally you may override add_assertion to get notified whenever an assertion is made.&lt;/p&gt;&lt;p&gt;Notes:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;The message to each assertion, if given, will be propagated with the failure.&lt;/li&gt;&lt;li&gt;It is easy to add your own assertions based on assert_block().&lt;/li&gt;&lt;/ul&gt;&lt;h1&gt;Example Custom Assertion&lt;/h1&gt;&lt;pre&gt;  def deny(boolean, message = nil)
+    message = build_message message, &apos;&lt;?&gt; is not false or nil.&apos;, boolean
+    assert_block message do
+      not boolean
+    end
+  end
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='use_pp='>&lt;p&gt;Select whether or not to use the pretty-printer. If this option is set to false before any assertions are made, pp.rb will not be required.&lt;/p&gt;</method>
+    <method name='assert'>&lt;p&gt;Asserts that &lt;tt&gt;boolean&lt;/tt&gt; is not false or nil.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert [1, 2].include?(5)
+&lt;/pre&gt;</method>
+    <method name='assert_block'>&lt;p&gt;The assertion upon which all other assertions are based. Passes if the block yields true.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_block &quot;Couldn&apos;t do the thing&quot; do
+    do_the_thing
+  end
+&lt;/pre&gt;</method>
+    <method name='assert_equal'>&lt;p&gt;Passes if &lt;tt&gt;expected&lt;/tt&gt; == +actual.&lt;/p&gt;&lt;p&gt;Note that the ordering of arguments is important, since a helpful error message is generated when this one fails that tells you the values of expected and actual.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_equal &apos;MY STRING&apos;, &apos;my string&apos;.upcase
+&lt;/pre&gt;</method>
+    <method name='assert_in_delta'>&lt;p&gt;Passes if &lt;tt&gt;expected_float&lt;/tt&gt; and &lt;tt&gt;actual_float&lt;/tt&gt; are equal within &lt;tt&gt;delta&lt;/tt&gt; tolerance.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_in_delta 0.05, (50000.0 / 10**6), 0.00001
+&lt;/pre&gt;</method>
+    <method name='assert_instance_of'>&lt;p&gt;Passes if &lt;tt&gt;object&lt;/tt&gt; .instance_of? &lt;tt&gt;klass&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_instance_of String, &apos;foo&apos;
+&lt;/pre&gt;</method>
+    <method name='assert_kind_of'>&lt;p&gt;Passes if &lt;tt&gt;object&lt;/tt&gt; .kind_of? &lt;tt&gt;klass&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_kind_of Object, &apos;foo&apos;
+&lt;/pre&gt;</method>
+    <method name='assert_match'>&lt;p&gt;Passes if &lt;tt&gt;string&lt;/tt&gt; =~ &lt;tt&gt;pattern&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_match(/\d+/, &apos;five, 6, seven&apos;)
+&lt;/pre&gt;</method>
+    <method name='assert_nil'>&lt;p&gt;Passes if &lt;tt&gt;object&lt;/tt&gt; is nil.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_nil [1, 2].uniq!
+&lt;/pre&gt;</method>
+    <method name='assert_no_match'>&lt;p&gt;Passes if &lt;tt&gt;regexp&lt;/tt&gt; !~ &lt;tt&gt;string&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_no_match(/two/, &apos;one 2 three&apos;)
+&lt;/pre&gt;</method>
+    <method name='assert_not_equal'>&lt;p&gt;Passes if &lt;tt&gt;expected&lt;/tt&gt; != &lt;tt&gt;actual&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_not_equal &apos;some string&apos;, 5
+&lt;/pre&gt;</method>
+    <method name='assert_not_nil'>&lt;p&gt;Passes if ! &lt;tt&gt;object&lt;/tt&gt; .nil?&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_not_nil &apos;1 two 3&apos;.sub!(/two/, &apos;2&apos;)
+&lt;/pre&gt;</method>
+    <method name='assert_not_same'>&lt;p&gt;Passes if ! &lt;tt&gt;actual&lt;/tt&gt; .equal? &lt;tt&gt;expected&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_not_same Object.new, Object.new
+&lt;/pre&gt;</method>
+    <method name='assert_nothing_raised'>&lt;p&gt;Passes if block does not raise an exception.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_nothing_raised do
+    [1, 2].uniq
+  end
+&lt;/pre&gt;</method>
+    <method name='assert_nothing_thrown'>&lt;p&gt;Passes if block does not throw anything.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt; assert_nothing_thrown do
+   [1, 2].uniq
+ end
+&lt;/pre&gt;</method>
+    <method name='assert_operator'>&lt;p&gt;Compares the +object1+ with +object2+ using &lt;tt&gt;operator&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;Passes if object1.&lt;em&gt;send&lt;/em&gt;(operator, object2) is true.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_operator 5, :&gt;=, 4
+&lt;/pre&gt;</method>
+    <method name='assert_raise'>&lt;p&gt;Passes if the block raises one of the given exceptions.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_raise RuntimeError, LoadError do
+    raise &apos;Boom!!!&apos;
+  end
+&lt;/pre&gt;</method>
+    <method name='assert_raises'>&lt;p&gt;Alias of assert_raise.&lt;/p&gt;&lt;p&gt;Will be deprecated in 1.9, and removed in 2.0.&lt;/p&gt;</method>
+    <method name='assert_respond_to'>&lt;p&gt;Passes if &lt;tt&gt;object&lt;/tt&gt; .respond_to? &lt;tt&gt;method&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_respond_to &apos;bugbear&apos;, :slice
+&lt;/pre&gt;</method>
+    <method name='assert_same'>&lt;p&gt;Passes if &lt;tt&gt;actual&lt;/tt&gt; .equal? &lt;tt&gt;expected&lt;/tt&gt; (i.e. they are the same instance).&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  o = Object.new
+  assert_same o, o
+&lt;/pre&gt;</method>
+    <method name='assert_send'>&lt;p&gt;Passes if the method send returns a true value.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;send_array&lt;/tt&gt; is composed of:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;A receiver&lt;/li&gt;&lt;li&gt;A method&lt;/li&gt;&lt;li&gt;Arguments to the method&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_send [[1, 2], :include?, 4]
+&lt;/pre&gt;</method>
+    <method name='assert_throws'>&lt;p&gt;Passes if the block throws &lt;tt&gt;expected_symbol&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  assert_throws :done do
+    throw :done
+  end
+&lt;/pre&gt;</method>
+    <method name='build_message'>&lt;p&gt;Builds a failure message. &lt;tt&gt;head&lt;/tt&gt; is added before the &lt;tt&gt;template&lt;/tt&gt; and &lt;tt&gt;arguments&lt;/tt&gt; replaces the &apos;?&apos;s positionally in the template.&lt;/p&gt;</method>
+    <method name='flunk'>&lt;p&gt;Flunk always fails.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  flunk &apos;Not done testing yet.&apos;
+&lt;/pre&gt;</method>
+  </methods>
+</help>

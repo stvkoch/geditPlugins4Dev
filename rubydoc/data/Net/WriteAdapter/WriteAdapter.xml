@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The writer adapter class&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='print'>&lt;p&gt;Alias for #write&lt;/p&gt;</method>
+    <method name='printf'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='puts'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='write'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

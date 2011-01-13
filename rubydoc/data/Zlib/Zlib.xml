@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;GZIP_SUPPORT&lt;/p&gt;</comment>
+  <methods>
+    <method name='adler32'>&lt;p&gt;Calculates Alder-32 checksum for &lt;tt&gt;string&lt;/tt&gt;, and returns updated value of &lt;tt&gt;adler&lt;/tt&gt;. If &lt;tt&gt;string&lt;/tt&gt; is omitted, it returns the Adler-32 initial value. If &lt;tt&gt;adler&lt;/tt&gt; is omitted, it assumes that the initial value is given to &lt;tt&gt;adler&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;FIXME: expression.&lt;/p&gt;</method>
+    <method name='crc32'>&lt;p&gt;Calculates CRC checksum for &lt;tt&gt;string&lt;/tt&gt;, and returns updated value of &lt;tt&gt;crc&lt;/tt&gt;. If &lt;tt&gt;string&lt;/tt&gt; is omitted, it returns the CRC initial value. If &lt;tt&gt;crc&lt;/tt&gt; is omitted, it assumes that the initial value is given to &lt;tt&gt;crc&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;FIXME: expression.&lt;/p&gt;</method>
+    <method name='crc_table'>&lt;p&gt;Returns the table for calculating CRC checksum as an array.&lt;/p&gt;</method>
+    <method name='zlib_version'>&lt;p&gt;Returns the string which represents the version of zlib library.&lt;/p&gt;</method>
+  </methods>
+</help>

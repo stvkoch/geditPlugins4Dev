@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add'>&lt;p&gt;Give priority to latter entry.&lt;/p&gt;</method>
+    <method name='clear'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_mapped_obj_class'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_mapped_soap_class'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='init'>&lt;p&gt;Give priority to former entry.&lt;/p&gt;</method>
+    <method name='obj2soap'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='soap2obj'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

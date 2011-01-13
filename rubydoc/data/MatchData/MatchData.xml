@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;&lt;tt&gt;MatchData&lt;/tt&gt; is the type of the special variable &lt;tt&gt;$~&lt;/tt&gt;, and is the type of the object returned by &lt;tt&gt;Regexp#match&lt;/tt&gt; and &lt;tt&gt;Regexp#last_match&lt;/tt&gt;. It encapsulates all the results of a pattern match, results normally accessed through the special variables &lt;tt&gt;$&amp;&lt;/tt&gt;, &lt;tt&gt;$&apos;&lt;/tt&gt;, &lt;tt&gt;$`&lt;/tt&gt;, &lt;tt&gt;$1&lt;/tt&gt;, &lt;tt&gt;$2&lt;/tt&gt;, and so on. &lt;tt&gt;Matchdata&lt;/tt&gt; is also known as &lt;tt&gt;MatchingData&lt;/tt&gt;.&lt;/p&gt;</comment>
+  <methods>
+    <method name='[]'>&lt;p&gt;Match Reference---&lt;tt&gt;MatchData&lt;/tt&gt; acts as an array, and may be accessed using the normal array indexing techniques. &lt;em&gt;mtch&lt;/em&gt;[0] is equivalent to the special variable &lt;tt&gt;$&amp;&lt;/tt&gt;, and returns the entire matched string. &lt;em&gt;mtch&lt;/em&gt;[1], &lt;em&gt;mtch&lt;/em&gt;[2], and so on return the values of the matched backreferences (portions of the pattern between parentheses).&lt;/p&gt;&lt;pre&gt;   m = /(.)(.)(\d+)(\d)/.match(&quot;THX1138.&quot;)
+   m[0]       #=&gt; &quot;HX1138&quot;
+   m[1, 2]    #=&gt; [&quot;H&quot;, &quot;X&quot;]
+   m[1..3]    #=&gt; [&quot;H&quot;, &quot;X&quot;, &quot;113&quot;]
+   m[-3, 2]   #=&gt; [&quot;X&quot;, &quot;113&quot;]
+&lt;/pre&gt;</method>
+    <method name='begin'>&lt;p&gt;Returns the offset of the start of the &lt;em&gt;n&lt;/em&gt;th element of the match array in the string.&lt;/p&gt;&lt;pre&gt;   m = /(.)(.)(\d+)(\d)/.match(&quot;THX1138.&quot;)
+   m.begin(0)   #=&gt; 1
+   m.begin(2)   #=&gt; 2
+&lt;/pre&gt;</method>
+    <method name='captures'>&lt;p&gt;Returns the array of captures; equivalent to &lt;tt&gt;mtch.to_a[1..-1]&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   f1,f2,f3,f4 = /(.)(.)(\d+)(\d)/.match(&quot;THX1138.&quot;).captures
+   f1    #=&gt; &quot;H&quot;
+   f2    #=&gt; &quot;X&quot;
+   f3    #=&gt; &quot;113&quot;
+   f4    #=&gt; &quot;8&quot;
+&lt;/pre&gt;</method>
+    <method name='end'>&lt;p&gt;Returns the offset of the character immediately following the end of the &lt;em&gt;n&lt;/em&gt;th element of the match array in the string.&lt;/p&gt;&lt;pre&gt;   m = /(.)(.)(\d+)(\d)/.match(&quot;THX1138.&quot;)
+   m.end(0)   #=&gt; 7
+   m.end(2)   #=&gt; 3
+&lt;/pre&gt;</method>
+    <method name='inspect'>&lt;p&gt;Returns a string representing &lt;em&gt;obj&lt;/em&gt;. The default &lt;tt&gt;to_s&lt;/tt&gt; prints the object&apos;s class and an encoding of the object id. As a special case, the top-level object that is the initial execution context of Ruby programs returns ``main.&apos;&apos;&lt;/p&gt;</method>
+    <method name='length'>&lt;p&gt;Returns the number of elements in the match array.&lt;/p&gt;&lt;pre&gt;   m = /(.)(.)(\d+)(\d)/.match(&quot;THX1138.&quot;)
+   m.length   #=&gt; 5
+   m.size     #=&gt; 5
+&lt;/pre&gt;</method>
+    <method name='offset'>&lt;p&gt;Returns a two-element array containing the beginning and ending offsets of the &lt;em&gt;n&lt;/em&gt;th match.&lt;/p&gt;&lt;pre&gt;   m = /(.)(.)(\d+)(\d)/.match(&quot;THX1138.&quot;)
+   m.offset(0)   #=&gt; [1, 7]
+   m.offset(4)   #=&gt; [6, 7]
+&lt;/pre&gt;</method>
+    <method name='post_match'>&lt;p&gt;Returns the portion of the original string after the current match. Equivalent to the special variable &lt;tt&gt;$&apos;&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   m = /(.)(.)(\d+)(\d)/.match(&quot;THX1138: The Movie&quot;)
+   m.post_match   #=&gt; &quot;: The Movie&quot;
+&lt;/pre&gt;</method>
+    <method name='pre_match'>&lt;p&gt;Returns the portion of the original string before the current match. Equivalent to the special variable &lt;tt&gt;$`&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   m = /(.)(.)(\d+)(\d)/.match(&quot;THX1138.&quot;)
+   m.pre_match   #=&gt; &quot;T&quot;
+&lt;/pre&gt;</method>
+    <method name='pretty_print'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='select'>&lt;p&gt;Uses each &lt;em&gt;index&lt;/em&gt; to access the matching values, returning an array of the corresponding matches.&lt;/p&gt;&lt;pre&gt;   m = /(.)(.)(\d+)(\d)/.match(&quot;THX1138: The Movie&quot;)
+   m.to_a               #=&gt; [&quot;HX1138&quot;, &quot;H&quot;, &quot;X&quot;, &quot;113&quot;, &quot;8&quot;]
+   m.select(0, 2, -2)   #=&gt; [&quot;HX1138&quot;, &quot;X&quot;, &quot;113&quot;]
+&lt;/pre&gt;</method>
+    <method name='size'>&lt;p&gt;Returns the number of elements in the match array.&lt;/p&gt;&lt;pre&gt;   m = /(.)(.)(\d+)(\d)/.match(&quot;THX1138.&quot;)
+   m.length   #=&gt; 5
+   m.size     #=&gt; 5
+&lt;/pre&gt;</method>
+    <method name='string'>&lt;p&gt;Returns a frozen copy of the string passed in to &lt;tt&gt;match&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   m = /(.)(.)(\d+)(\d)/.match(&quot;THX1138.&quot;)
+   m.string   #=&gt; &quot;THX1138.&quot;
+&lt;/pre&gt;</method>
+    <method name='to_a'>&lt;p&gt;Returns the array of matches.&lt;/p&gt;&lt;pre&gt;   m = /(.)(.)(\d+)(\d)/.match(&quot;THX1138.&quot;)
+   m.to_a   #=&gt; [&quot;HX1138&quot;, &quot;H&quot;, &quot;X&quot;, &quot;113&quot;, &quot;8&quot;]
+&lt;/pre&gt;&lt;p&gt;Because &lt;tt&gt;to_a&lt;/tt&gt; is called when expanding &lt;tt&gt;*&lt;/tt&gt;&lt;em&gt;variable&lt;/em&gt;, there&apos;s a useful assignment shortcut for extracting matched fields. This is slightly slower than accessing the fields directly (as an intermediate array is generated).&lt;/p&gt;&lt;pre&gt;   all,f1,f2,f3 = *(/(.)(.)(\d+)(\d)/.match(&quot;THX1138.&quot;))
+   all   #=&gt; &quot;HX1138&quot;
+   f1    #=&gt; &quot;H&quot;
+   f2    #=&gt; &quot;X&quot;
+   f3    #=&gt; &quot;113&quot;
+&lt;/pre&gt;</method>
+    <method name='to_s'>&lt;p&gt;Returns the entire matched string.&lt;/p&gt;&lt;pre&gt;   m = /(.)(.)(\d+)(\d)/.match(&quot;THX1138.&quot;)
+   m.to_s   #=&gt; &quot;HX1138&quot;
+&lt;/pre&gt;</method>
+    <method name='values_at'>&lt;p&gt;Uses each &lt;em&gt;index&lt;/em&gt; to access the matching values, returning an array of the corresponding matches.&lt;/p&gt;&lt;pre&gt;   m = /(.)(.)(\d+)(\d)/.match(&quot;THX1138: The Movie&quot;)
+   m.to_a               #=&gt; [&quot;HX1138&quot;, &quot;H&quot;, &quot;X&quot;, &quot;113&quot;, &quot;8&quot;]
+   m.select(0, 2, -2)   #=&gt; [&quot;HX1138&quot;, &quot;X&quot;, &quot;113&quot;]
+&lt;/pre&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The &lt;tt&gt;Enumerable&lt;/tt&gt; mixin provides collection classes with several traversal and searching methods, and with the ability to sort. The class must provide a method &lt;tt&gt;each&lt;/tt&gt;, which yields successive members of the collection. If &lt;tt&gt;Enumerable#max&lt;/tt&gt;, &lt;tt&gt;#min&lt;/tt&gt;, or &lt;tt&gt;#sort&lt;/tt&gt; is used, the objects in the collection must also implement a meaningful &lt;tt&gt;&lt;=&gt;&lt;/tt&gt; operator, as these methods rely on an ordering between members of the collection.&lt;/p&gt;</comment>
+  <methods>
+    <method name='all?'>&lt;p&gt;Passes each element of the collection to the given block. The method returns &lt;tt&gt;true&lt;/tt&gt; if the block never returns &lt;tt&gt;false&lt;/tt&gt; or &lt;tt&gt;nil&lt;/tt&gt;. If the block is not given, Ruby adds an implicit block of &lt;tt&gt;{|obj| obj}&lt;/tt&gt; (that is &lt;tt&gt;all?&lt;/tt&gt; will return &lt;tt&gt;true&lt;/tt&gt; only if none of the collection members are &lt;tt&gt;false&lt;/tt&gt; or &lt;tt&gt;nil&lt;/tt&gt;.)&lt;/p&gt;&lt;pre&gt;   %w{ ant bear cat}.all? {|word| word.length &gt;= 3}   #=&gt; true
+   %w{ ant bear cat}.all? {|word| word.length &gt;= 4}   #=&gt; false
+   [ nil, true, 99 ].all?                             #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='any?'>&lt;p&gt;Passes each element of the collection to the given block. The method returns &lt;tt&gt;true&lt;/tt&gt; if the block ever returns a value other than &lt;tt&gt;false&lt;/tt&gt; or &lt;tt&gt;nil&lt;/tt&gt;. If the block is not given, Ruby adds an implicit block of &lt;tt&gt;{|obj| obj}&lt;/tt&gt; (that is &lt;tt&gt;any?&lt;/tt&gt; will return &lt;tt&gt;true&lt;/tt&gt; if at least one of the collection members is not &lt;tt&gt;false&lt;/tt&gt; or &lt;tt&gt;nil&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   %w{ ant bear cat}.any? {|word| word.length &gt;= 3}   #=&gt; true
+   %w{ ant bear cat}.any? {|word| word.length &gt;= 4}   #=&gt; true
+   [ nil, true, 99 ].any?                             #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='collect'>&lt;p&gt;Returns a new array with the results of running &lt;em&gt;block&lt;/em&gt; once for every element in &lt;em&gt;enum&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   (1..4).collect {|i| i*i }   #=&gt; [1, 4, 9, 16]
+   (1..4).collect { &quot;cat&quot;  }   #=&gt; [&quot;cat&quot;, &quot;cat&quot;, &quot;cat&quot;, &quot;cat&quot;]
+&lt;/pre&gt;</method>
+    <method name='detect'>&lt;p&gt;Passes each entry in &lt;em&gt;enum&lt;/em&gt; to &lt;em&gt;block&lt;/em&gt;. Returns the first for which &lt;em&gt;block&lt;/em&gt; is not &lt;tt&gt;false&lt;/tt&gt;. If no object matches, calls &lt;em&gt;ifnone&lt;/em&gt; and returns its result when it is specified, or returns &lt;tt&gt;nil&lt;/tt&gt;&lt;/p&gt;&lt;pre&gt;   (1..10).detect  {|i| i % 5 == 0 and i % 7 == 0 }   #=&gt; nil
+   (1..100).detect {|i| i % 5 == 0 and i % 7 == 0 }   #=&gt; 35
+&lt;/pre&gt;</method>
+    <method name='each_cons'>&lt;p&gt;Iterates the given block for each array of consecutive &lt;n&gt; elements.&lt;/p&gt;&lt;p&gt;e.g.:&lt;/p&gt;&lt;pre&gt;    (1..10).each_cons(3) {|a| p a}
+    # outputs below
+    [1, 2, 3]
+    [2, 3, 4]
+    [3, 4, 5]
+    [4, 5, 6]
+    [5, 6, 7]
+    [6, 7, 8]
+    [7, 8, 9]
+    [8, 9, 10]
+&lt;/pre&gt;</method>
+    <method name='each_slice'>&lt;p&gt;Iterates the given block for each slice of &lt;n&gt; elements.&lt;/p&gt;&lt;p&gt;e.g.:&lt;/p&gt;&lt;pre&gt;    (1..10).each_slice(3) {|a| p a}
+    # outputs below
+    [1, 2, 3]
+    [4, 5, 6]
+    [7, 8, 9]
+    [10]
+&lt;/pre&gt;</method>
+    <method name='each_with_index'>&lt;p&gt;Calls &lt;em&gt;block&lt;/em&gt; with two arguments, the item and its index, for each item in &lt;em&gt;enum&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   hash = Hash.new
+   %w(cat dog wombat).each_with_index {|item, index|
+     hash[item] = index
+   }
+   hash   #=&gt; {&quot;cat&quot;=&gt;0, &quot;wombat&quot;=&gt;2, &quot;dog&quot;=&gt;1}
+&lt;/pre&gt;</method>
+    <method name='entries'>&lt;p&gt;Returns an array containing the items in &lt;em&gt;enum&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   (1..7).to_a                       #=&gt; [1, 2, 3, 4, 5, 6, 7]
+   { &apos;a&apos;=&gt;1, &apos;b&apos;=&gt;2, &apos;c&apos;=&gt;3 }.to_a   #=&gt; [[&quot;a&quot;, 1], [&quot;b&quot;, 2], [&quot;c&quot;, 3]]
+&lt;/pre&gt;</method>
+    <method name='enum_cons'>&lt;p&gt;Returns Enumerable::Enumerator.new(self, :each_cons, n).&lt;/p&gt;</method>
+    <method name='enum_slice'>&lt;p&gt;Returns Enumerable::Enumerator.new(self, :each_slice, n).&lt;/p&gt;</method>
+    <method name='enum_with_index'>&lt;p&gt;Returns Enumerable::Enumerator.new(self, :each_with_index).&lt;/p&gt;</method>
+    <method name='find'>&lt;p&gt;Passes each entry in &lt;em&gt;enum&lt;/em&gt; to &lt;em&gt;block&lt;/em&gt;. Returns the first for which &lt;em&gt;block&lt;/em&gt; is not &lt;tt&gt;false&lt;/tt&gt;. If no object matches, calls &lt;em&gt;ifnone&lt;/em&gt; and returns its result when it is specified, or returns &lt;tt&gt;nil&lt;/tt&gt;&lt;/p&gt;&lt;pre&gt;   (1..10).detect  {|i| i % 5 == 0 and i % 7 == 0 }   #=&gt; nil
+   (1..100).detect {|i| i % 5 == 0 and i % 7 == 0 }   #=&gt; 35
+&lt;/pre&gt;</method>
+    <method name='find_all'>&lt;p&gt;Returns an array containing all elements of &lt;em&gt;enum&lt;/em&gt; for which &lt;em&gt;block&lt;/em&gt; is not &lt;tt&gt;false&lt;/tt&gt; (see also &lt;tt&gt;Enumerable#reject&lt;/tt&gt;).&lt;/p&gt;&lt;pre&gt;   (1..10).find_all {|i|  i % 3 == 0 }   #=&gt; [3, 6, 9]
+&lt;/pre&gt;</method>
+    <method name='grep'>&lt;p&gt;Returns an array of every element in &lt;em&gt;enum&lt;/em&gt; for which &lt;tt&gt;Pattern === element&lt;/tt&gt;. If the optional &lt;em&gt;block&lt;/em&gt; is supplied, each matching element is passed to it, and the block&apos;s result is stored in the output array.&lt;/p&gt;&lt;pre&gt;   (1..100).grep 38..44   #=&gt; [38, 39, 40, 41, 42, 43, 44]
+   c = IO.constants
+   c.grep(/SEEK/)         #=&gt; [&quot;SEEK_END&quot;, &quot;SEEK_SET&quot;, &quot;SEEK_CUR&quot;]
+   res = c.grep(/SEEK/) {|v| IO.const_get(v) }
+   res                    #=&gt; [2, 0, 1]
+&lt;/pre&gt;</method>
+    <method name='include?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if any member of &lt;em&gt;enum&lt;/em&gt; equals &lt;em&gt;obj&lt;/em&gt;. Equality is tested using &lt;tt&gt;==&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   IO.constants.include? &quot;SEEK_SET&quot;          #=&gt; true
+   IO.constants.include? &quot;SEEK_NO_FURTHER&quot;   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='inject'>&lt;p&gt;Combines the elements of &lt;em&gt;enum&lt;/em&gt; by applying the block to an accumulator value (&lt;em&gt;memo&lt;/em&gt;) and each element in turn. At each step, &lt;em&gt;memo&lt;/em&gt; is set to the value returned by the block. The first form lets you supply an initial value for &lt;em&gt;memo&lt;/em&gt;. The second form uses the first element of the collection as a the initial value (and skips that element while iterating).&lt;/p&gt;&lt;pre&gt;   # Sum some numbers
+   (5..10).inject {|sum, n| sum + n }              #=&gt; 45
+   # Multiply some numbers
+   (5..10).inject(1) {|product, n| product * n }   #=&gt; 151200
+
+   # find the longest word
+   longest = %w{ cat sheep bear }.inject do |memo,word|
+      memo.length &gt; word.length ? memo : word
+   end
+   longest                                         #=&gt; &quot;sheep&quot;
+
+   # find the length of the longest word
+   longest = %w{ cat sheep bear }.inject(0) do |memo,word|
+      memo &gt;= word.length ? memo : word.length
+   end
+   longest                                         #=&gt; 5
+&lt;/pre&gt;</method>
+    <method name='map'>&lt;p&gt;Returns a new array with the results of running &lt;em&gt;block&lt;/em&gt; once for every element in &lt;em&gt;enum&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   (1..4).collect {|i| i*i }   #=&gt; [1, 4, 9, 16]
+   (1..4).collect { &quot;cat&quot;  }   #=&gt; [&quot;cat&quot;, &quot;cat&quot;, &quot;cat&quot;, &quot;cat&quot;]
+&lt;/pre&gt;</method>
+    <method name='max'>&lt;p&gt;Returns the object in &lt;em&gt;enum&lt;/em&gt; with the maximum value. The first form assumes all objects implement &lt;tt&gt;Comparable&lt;/tt&gt;; the second uses the block to return &lt;em&gt;a &lt;=&gt; b&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   a = %w(albatross dog horse)
+   a.max                                  #=&gt; &quot;horse&quot;
+   a.max {|a,b| a.length &lt;=&gt; b.length }   #=&gt; &quot;albatross&quot;
+&lt;/pre&gt;</method>
+    <method name='member?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if any member of &lt;em&gt;enum&lt;/em&gt; equals &lt;em&gt;obj&lt;/em&gt;. Equality is tested using &lt;tt&gt;==&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   IO.constants.include? &quot;SEEK_SET&quot;          #=&gt; true
+   IO.constants.include? &quot;SEEK_NO_FURTHER&quot;   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='min'>&lt;p&gt;Returns the object in &lt;em&gt;enum&lt;/em&gt; with the minimum value. The first form assumes all objects implement &lt;tt&gt;Comparable&lt;/tt&gt;; the second uses the block to return &lt;em&gt;a &lt;=&gt; b&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   a = %w(albatross dog horse)
+   a.min                                  #=&gt; &quot;albatross&quot;
+   a.min {|a,b| a.length &lt;=&gt; b.length }   #=&gt; &quot;dog&quot;
+&lt;/pre&gt;</method>
+    <method name='partition'>&lt;p&gt;Returns two arrays, the first containing the elements of &lt;em&gt;enum&lt;/em&gt; for which the block evaluates to true, the second containing the rest.&lt;/p&gt;&lt;pre&gt;   (1..6).partition {|i| (i&amp;1).zero?}   #=&gt; [[2, 4, 6], [1, 3, 5]]
+&lt;/pre&gt;</method>
+    <method name='reject'>&lt;p&gt;Returns an array for all elements of &lt;em&gt;enum&lt;/em&gt; for which &lt;em&gt;block&lt;/em&gt; is false (see also &lt;tt&gt;Enumerable#find_all&lt;/tt&gt;).&lt;/p&gt;&lt;pre&gt;   (1..10).reject {|i|  i % 3 == 0 }   #=&gt; [1, 2, 4, 5, 7, 8, 10]
+&lt;/pre&gt;</method>
+    <method name='select'>&lt;p&gt;Returns an array containing all elements of &lt;em&gt;enum&lt;/em&gt; for which &lt;em&gt;block&lt;/em&gt; is not &lt;tt&gt;false&lt;/tt&gt; (see also &lt;tt&gt;Enumerable#reject&lt;/tt&gt;).&lt;/p&gt;&lt;pre&gt;   (1..10).find_all {|i|  i % 3 == 0 }   #=&gt; [3, 6, 9]
+&lt;/pre&gt;</method>
+    <method name='sort'>&lt;p&gt;Returns an array containing the items in &lt;em&gt;enum&lt;/em&gt; sorted, either according to their own &lt;tt&gt;&lt;=&gt;&lt;/tt&gt; method, or by using the results of the supplied block. The block should return -1, 0, or +1 depending on the comparison between &lt;em&gt;a&lt;/em&gt; and &lt;em&gt;b&lt;/em&gt;. As of Ruby 1.8, the method &lt;tt&gt;Enumerable#sort_by&lt;/tt&gt; implements a built-in Schwartzian Transform, useful when key computation or comparison is expensive..&lt;/p&gt;&lt;pre&gt;   %w(rhea kea flea).sort         #=&gt; [&quot;flea&quot;, &quot;kea&quot;, &quot;rhea&quot;]
+   (1..10).sort {|a,b| b &lt;=&gt; a}   #=&gt; [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+&lt;/pre&gt;</method>
+    <method name='sort_by'>&lt;p&gt;Sorts &lt;em&gt;enum&lt;/em&gt; using a set of keys generated by mapping the values in &lt;em&gt;enum&lt;/em&gt; through the given block.&lt;/p&gt;&lt;pre&gt;   %w{ apple pear fig }.sort_by {|word| word.length}
+                #=&gt; [&quot;fig&quot;, &quot;pear&quot;, &quot;apple&quot;]
+&lt;/pre&gt;&lt;p&gt;The current implementation of &lt;tt&gt;sort_by&lt;/tt&gt; generates an array of tuples containing the original collection element and the mapped value. This makes &lt;tt&gt;sort_by&lt;/tt&gt; fairly expensive when the keysets are simple&lt;/p&gt;&lt;pre&gt;   require &apos;benchmark&apos;
+   include Benchmark
+
+   a = (1..100000).map {rand(100000)}
+
+   bm(10) do |b|
+     b.report(&quot;Sort&quot;)    { a.sort }
+     b.report(&quot;Sort by&quot;) { a.sort_by {|a| a} }
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   user     system      total        real
+   Sort        0.180000   0.000000   0.180000 (  0.175469)
+   Sort by     1.980000   0.040000   2.020000 (  2.013586)
+&lt;/pre&gt;&lt;p&gt;However, consider the case where comparing the keys is a non-trivial operation. The following code sorts some files on modification time using the basic &lt;tt&gt;sort&lt;/tt&gt; method.&lt;/p&gt;&lt;pre&gt;   files = Dir[&quot;*&quot;]
+   sorted = files.sort {|a,b| File.new(a).mtime &lt;=&gt; File.new(b).mtime}
+   sorted   #=&gt; [&quot;mon&quot;, &quot;tues&quot;, &quot;wed&quot;, &quot;thurs&quot;]
+&lt;/pre&gt;&lt;p&gt;This sort is inefficient: it generates two new &lt;tt&gt;File&lt;/tt&gt; objects during every comparison. A slightly better technique is to use the &lt;tt&gt;Kernel#test&lt;/tt&gt; method to generate the modification times directly.&lt;/p&gt;&lt;pre&gt;   files = Dir[&quot;*&quot;]
+   sorted = files.sort { |a,b|
+     test(?M, a) &lt;=&gt; test(?M, b)
+   }
+   sorted   #=&gt; [&quot;mon&quot;, &quot;tues&quot;, &quot;wed&quot;, &quot;thurs&quot;]
+&lt;/pre&gt;&lt;p&gt;This still generates many unnecessary &lt;tt&gt;Time&lt;/tt&gt; objects. A more efficient technique is to cache the sort keys (modification times in this case) before the sort. Perl users often call this approach a Schwartzian Transform, after Randal Schwartz. We construct a temporary array, where each element is an array containing our sort key along with the filename. We sort this array, and then extract the filename from the result.&lt;/p&gt;&lt;pre&gt;   sorted = Dir[&quot;*&quot;].collect { |f|
+      [test(?M, f), f]
+   }.sort.collect { |f| f[1] }
+   sorted   #=&gt; [&quot;mon&quot;, &quot;tues&quot;, &quot;wed&quot;, &quot;thurs&quot;]
+&lt;/pre&gt;&lt;p&gt;This is exactly what &lt;tt&gt;sort_by&lt;/tt&gt; does internally.&lt;/p&gt;&lt;pre&gt;   sorted = Dir[&quot;*&quot;].sort_by {|f| test(?M, f)}
+   sorted   #=&gt; [&quot;mon&quot;, &quot;tues&quot;, &quot;wed&quot;, &quot;thurs&quot;]
+&lt;/pre&gt;</method>
+    <method name='to_a'>&lt;p&gt;Returns an array containing the items in &lt;em&gt;enum&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   (1..7).to_a                       #=&gt; [1, 2, 3, 4, 5, 6, 7]
+   { &apos;a&apos;=&gt;1, &apos;b&apos;=&gt;2, &apos;c&apos;=&gt;3 }.to_a   #=&gt; [[&quot;a&quot;, 1], [&quot;b&quot;, 2], [&quot;c&quot;, 3]]
+&lt;/pre&gt;</method>
+    <method name='to_set'>&lt;p&gt;Makes a set from the enumerable object with given arguments. Needs to +require &quot;set&quot;+ to use this method.&lt;/p&gt;</method>
+    <method name='zip'>&lt;p&gt;Converts any arguments to arrays, then merges elements of &lt;em&gt;enum&lt;/em&gt; with corresponding elements from each argument. This generates a sequence of &lt;tt&gt;enum#size&lt;/tt&gt; &lt;em&gt;n&lt;/em&gt;-element arrays, where &lt;em&gt;n&lt;/em&gt; is one more that the count of arguments. If the size of any argument is less than &lt;tt&gt;enum#size&lt;/tt&gt;, &lt;tt&gt;nil&lt;/tt&gt; values are supplied. If a block given, it is invoked for each output array, otherwise an array of arrays is returned.&lt;/p&gt;&lt;pre&gt;   a = [ 4, 5, 6 ]
+   b = [ 7, 8, 9 ]
+
+   (1..3).zip(a, b)      #=&gt; [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+   &quot;cat\ndog&quot;.zip([1])   #=&gt; [[&quot;cat\n&quot;, 1], [&quot;dog&quot;, nil]]
+   (1..3).zip            #=&gt; [[1], [2], [3]]
+&lt;/pre&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Filter A method to require&lt;/p&gt;&lt;pre&gt;   each()
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='+'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='&lt;'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='&gt;'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='&gt;&gt;'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='input='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_a'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='|'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

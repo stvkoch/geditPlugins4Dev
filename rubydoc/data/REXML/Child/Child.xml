@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A Child object is something contained by a parent, and this class contains methods to support that. Most user code will not use this class directly.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Constructor. Any inheritors of this class should call super to make sure this method is called.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;if supplied, the parent of this child will be set to the supplied value, and self will be added to the parent&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='bytes'>&lt;p&gt;This doesn&apos;t yet handle encodings&lt;/p&gt;</method>
+    <method name='document'>&lt;ul&gt;&lt;li&gt;the document this child belongs to, or nil if this child&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;belongs to no document&lt;/p&gt;</method>
+    <method name='next_sibling='>&lt;p&gt;Sets the next sibling of this child. This can be used to insert a child after some other child.&lt;/p&gt;&lt;pre&gt; a = Element.new(&quot;a&quot;)
+ b = a.add_element(&quot;b&quot;)
+ c = Element.new(&quot;c&quot;)
+ b.next_sibling = c
+ # =&gt; &lt;a&gt;&lt;b/&gt;&lt;c/&gt;&lt;/a&gt;
+&lt;/pre&gt;</method>
+    <method name='parent='>&lt;p&gt;Sets the parent of this child to the supplied argument.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Must be a Parent object. If this object is the same object as the existing parent of this child, no action is taken. Otherwise, this child is removed from the current parent (if one exists), and is added to the new parent.&lt;/li&gt;&lt;li&gt;The parent added&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='previous_sibling='>&lt;p&gt;Sets the previous sibling of this child. This can be used to insert a child before some other child.&lt;/p&gt;&lt;pre&gt; a = Element.new(&quot;a&quot;)
+ b = a.add_element(&quot;b&quot;)
+ c = Element.new(&quot;c&quot;)
+ b.previous_sibling = c
+ # =&gt; &lt;a&gt;&lt;b/&gt;&lt;c/&gt;&lt;/a&gt;
+&lt;/pre&gt;</method>
+    <method name='remove'>&lt;p&gt;Removes this child from the parent.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;self&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='replace_with'>&lt;p&gt;Replaces this object with another object. Basically, calls Parent.replace_child&lt;/p&gt;&lt;ul&gt;&lt;li&gt;self&lt;/li&gt;&lt;/ul&gt;</method>
+  </methods>
+</help>

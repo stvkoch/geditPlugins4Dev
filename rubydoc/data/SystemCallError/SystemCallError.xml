@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='==='>&lt;p&gt;Return &lt;tt&gt;true&lt;/tt&gt; if the receiver is a generic &lt;tt&gt;SystemCallError&lt;/tt&gt;, or if the error numbers &lt;em&gt;self&lt;/em&gt; and &lt;em&gt;other&lt;/em&gt; are the same.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;If &lt;em&gt;errno&lt;/em&gt; corresponds to a known system error code, constructs the appropriate &lt;tt&gt;Errno&lt;/tt&gt; class for that error, otherwise constructs a generic &lt;tt&gt;SystemCallError&lt;/tt&gt; object. The error number is subsequently available via the &lt;tt&gt;errno&lt;/tt&gt; method.&lt;/p&gt;</method>
+    <method name='errno'>&lt;p&gt;Return this SystemCallError&apos;s error number.&lt;/p&gt;</method>
+  </methods>
+</help>

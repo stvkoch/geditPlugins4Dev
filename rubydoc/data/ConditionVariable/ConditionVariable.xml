@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;ConditionVariable objects augment class Mutex. Using condition variables, it is possible to suspend while in the middle of a critical section until a resource becomes available.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  require &apos;thread&apos;
+
+  mutex = Mutex.new
+  resource = ConditionVariable.new
+
+  a = Thread.new {
+    mutex.synchronize {
+      # Thread &apos;a&apos; now needs the resource
+      resource.wait(mutex)
+      # &apos;a&apos; can now have the resource
+    }
+  }
+
+  b = Thread.new {
+    mutex.synchronize {
+      # Thread &apos;b&apos; has finished using the resource
+      resource.signal
+    }
+  }
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new ConditionVariable&lt;/p&gt;</method>
+    <method name='broadcast'>&lt;p&gt;Wakes up all threads waiting for this lock.&lt;/p&gt;</method>
+    <method name='signal'>&lt;p&gt;Wakes up the first thread in line waiting for this lock.&lt;/p&gt;</method>
+    <method name='wait'>&lt;p&gt;Releases the lock held in &lt;tt&gt;mutex&lt;/tt&gt; and waits; reacquires the lock on wakeup.&lt;/p&gt;</method>
+  </methods>
+</help>

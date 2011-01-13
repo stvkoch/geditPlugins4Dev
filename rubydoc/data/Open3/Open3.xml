@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Open3 grants you access to stdin, stdout, and stderr when running another program. Example:&lt;/p&gt;&lt;pre&gt;  require &quot;open3&quot;
+  include Open3
+
+  stdin, stdout, stderr = popen3(&apos;nroff -man&apos;)
+&lt;/pre&gt;&lt;p&gt;Open3.popen3 can also take a block which will receive stdin, stdout and stderr as parameters. This ensures stdin, stdout and stderr are closed once the block exits. Example:&lt;/p&gt;&lt;pre&gt;  require &quot;open3&quot;
+
+  Open3.popen3(&apos;nroff -man&apos;) { |stdin, stdout, stderr| ... }
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='popen3'>&lt;p&gt;Open stdin, stdout, and stderr streams and start external executable. Non-block form:&lt;/p&gt;&lt;pre&gt;  require &apos;open3&apos;
+
+  [stdin, stdout, stderr] = Open3.popen3(cmd)
+&lt;/pre&gt;&lt;p&gt;Block form:&lt;/p&gt;&lt;pre&gt;  require &apos;open3&apos;
+
+  Open3.popen3(cmd) { |stdin, stdout, stderr| ... }
+&lt;/pre&gt;&lt;p&gt;The parameter &lt;tt&gt;cmd&lt;/tt&gt; is passed directly to Kernel#exec.&lt;/p&gt;</method>
+  </methods>
+</help>

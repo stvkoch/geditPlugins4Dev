@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This class needs:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Documentation&lt;/li&gt;&lt;li&gt;Work! Not all types of attlists are intelligently parsed, so we just&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;spew back out what we get in. This works, but it would be better if we formatted the output ourselves.&lt;/p&gt;&lt;p&gt;AttlistDecls provide &lt;b&gt;just&lt;/b&gt; enough support to allow namespace declarations. If you need some sort of generalized support, or have an interesting idea about how to map the hideous, terrible design of DTD AttlistDecls onto an intuitive Ruby interface, let me know. I&apos;m desperate for anything to make DTDs more palateable.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Create an AttlistDecl, pulling the information from a Source. Notice that this isn&apos;t very convenient; to create an AttlistDecl, you basically have to format it yourself, and then have the initializer parse it. Sorry, but for the forseeable future, DTD support in REXML is pretty weak on convenience. Have I mentioned how much I hate DTDs?&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;Access the attlist attribute/value pairs.&lt;/p&gt;&lt;pre&gt; value = attlist_decl[ attribute_name ]
+&lt;/pre&gt;</method>
+    <method name='each'>&lt;p&gt;Itterate over the key/value pairs:&lt;/p&gt;&lt;pre&gt; attlist_decl.each { |attribute_name, attribute_value| ... }
+&lt;/pre&gt;</method>
+    <method name='include?'>&lt;p&gt;Whether an attlist declaration includes the given attribute definition&lt;/p&gt;&lt;pre&gt; if attlist_decl.include? &quot;xmlns:foobar&quot;
+&lt;/pre&gt;</method>
+    <method name='node_type'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='write'>&lt;p&gt;Write out exactly what we got in.&lt;/p&gt;</method>
+  </methods>
+</help>

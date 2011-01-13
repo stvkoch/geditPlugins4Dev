@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Wrap a ClassModule context&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='&lt;=&gt;'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='build_attribute_list'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='class_attribute_values'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='http_url'>&lt;p&gt;return the relative file name to store this class in, which is also its url&lt;/p&gt;</method>
+    <method name='index_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parent_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='value_hash'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='write_on'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

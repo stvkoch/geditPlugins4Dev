@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The Forwardable module provides delegation of specified methods to a designated object, using the methods #def_delegator and #def_delegators.&lt;/p&gt;&lt;p&gt;For example, say you have a class RecordCollection which contains an array &lt;tt&gt;@records&lt;/tt&gt;. You could provide the lookup method #record_number(), which simply calls #[] on the &lt;tt&gt;@records&lt;/tt&gt; array, like this:&lt;/p&gt;&lt;pre&gt;  class RecordCollection
+    extend Forwardable
+    def_delegator :@records, :[], :record_number
+  end
+&lt;/pre&gt;&lt;p&gt;Further, if you wish to provide the methods #size, #&lt;&lt;, and #map, all of which delegate to @records, this is how you can do it:&lt;/p&gt;&lt;pre&gt;  class RecordCollection
+    # extend Forwardable, but we did that above
+    def_delegators :@records, :size, :&lt;&lt;, :map
+  end
+&lt;/pre&gt;&lt;p&gt;Also see the example at forwardable.rb.&lt;/p&gt;</comment>
+  <methods>
+    <method name='def_delegator'>&lt;p&gt;Alias for #def_instance_delegator&lt;/p&gt;</method>
+    <method name='def_delegators'>&lt;p&gt;Alias for #def_instance_delegators&lt;/p&gt;</method>
+    <method name='def_instance_delegator'>&lt;p&gt;Defines a method &lt;em&gt;method&lt;/em&gt; which delegates to &lt;em&gt;obj&lt;/em&gt; (i.e. it calls the method of the same name in &lt;em&gt;obj&lt;/em&gt;). If &lt;em&gt;new_name&lt;/em&gt; is provided, it is used as the name for the delegate method.&lt;/p&gt;&lt;p&gt;See the examples at Forwardable and forwardable.rb.&lt;/p&gt;</method>
+    <method name='def_instance_delegators'>&lt;p&gt;Shortcut for defining multiple delegator methods, but with no provision for using a different name. The following two code samples have the same effect:&lt;/p&gt;&lt;pre&gt;  def_delegators :@records, :size, :&lt;&lt;, :map
+
+  def_delegator :@records, :size
+  def_delegator :@records, :&lt;&lt;
+  def_delegator :@records, :map
+&lt;/pre&gt;&lt;p&gt;See the examples at Forwardable and forwardable.rb.&lt;/p&gt;</method>
+  </methods>
+</help>

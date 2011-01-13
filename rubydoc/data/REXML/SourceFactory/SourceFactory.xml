@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Generates Source-s. USE THIS CLASS.&lt;/p&gt;</comment>
+  <methods>
+    <method name='create_from'>&lt;p&gt;Generates a Source object @param arg Either a String, or an IO @return a Source, or nil if a bad argument was given&lt;/p&gt;</method>
+  </methods>
+</help>

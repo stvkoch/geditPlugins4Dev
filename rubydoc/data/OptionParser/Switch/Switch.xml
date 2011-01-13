@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Individual switch class. Not important to the user.&lt;/p&gt;&lt;p&gt;Defined within Switch are several Switch-derived classes: NoArgument, RequiredArgument, etc.&lt;/p&gt;</comment>
+  <methods>
+    <method name='guess'>&lt;p&gt;Guesses argument style from &lt;tt&gt;arg&lt;/tt&gt;. Returns corresponding OptionParser::Switch class (OptionalArgument, etc.).&lt;/p&gt;</method>
+    <method name='incompatible_argument_styles'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='pattern'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='summarize'>&lt;p&gt;Produces the summary text. Each line of the summary is yielded to the block (without newline).&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Already summarized short style options keyed hash.&lt;/li&gt;&lt;li&gt;Already summarized long style options keyed hash.&lt;/li&gt;&lt;li&gt;Width of left side (option part). In other words, the right side (description part) starts after &lt;tt&gt;width&lt;/tt&gt; columns.&lt;/li&gt;&lt;li&gt;Maximum width of left side -&gt; the options are filled within &lt;tt&gt;max&lt;/tt&gt; columns.&lt;/li&gt;&lt;li&gt;Prefix string indents all summarized lines.&lt;/li&gt;&lt;/ul&gt;</method>
+  </methods>
+</help>

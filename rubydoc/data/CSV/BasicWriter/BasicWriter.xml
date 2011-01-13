@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='close_on_terminate'>&lt;p&gt;Tell this writer to close the IO when terminated (Triggered by invoking CSV::BasicWriter#close).&lt;/p&gt;</method>
+  </methods>
+</help>

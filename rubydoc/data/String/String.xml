@@ -1,0 +1,486 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A &lt;tt&gt;String&lt;/tt&gt; object holds and manipulates an arbitrary sequence of bytes, typically representing characters. String objects may be created using &lt;tt&gt;String::new&lt;/tt&gt; or as literals.&lt;/p&gt;&lt;p&gt;Because of aliasing issues, users of strings should be aware of the methods that modify the contents of a &lt;tt&gt;String&lt;/tt&gt; object. Typically, methods with names ending in ``!&apos;&apos; modify their receiver, while those without a ``!&apos;&apos; return a new &lt;tt&gt;String&lt;/tt&gt;. However, there are exceptions, such as &lt;tt&gt;String#[]=&lt;/tt&gt;.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Returns a new string object containing a copy of &lt;em&gt;str&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='yaml_new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='%'>&lt;p&gt;Format---Uses &lt;em&gt;str&lt;/em&gt; as a format specification, and returns the result of applying it to &lt;em&gt;arg&lt;/em&gt;. If the format specification contains more than one substitution, then &lt;em&gt;arg&lt;/em&gt; must be an &lt;tt&gt;Array&lt;/tt&gt; containing the values to be substituted. See &lt;tt&gt;Kernel::sprintf&lt;/tt&gt; for details of the format string.&lt;/p&gt;&lt;pre&gt;   &quot;%05d&quot; % 123                       #=&gt; &quot;00123&quot;
+   &quot;%-5s: %08x&quot; % [ &quot;ID&quot;, self.id ]   #=&gt; &quot;ID   : 200e14d6&quot;
+&lt;/pre&gt;</method>
+    <method name='*'>&lt;p&gt;Copy---Returns a new &lt;tt&gt;String&lt;/tt&gt; containing &lt;em&gt;integer&lt;/em&gt; copies of the receiver.&lt;/p&gt;&lt;pre&gt;   &quot;Ho! &quot; * 3   #=&gt; &quot;Ho! Ho! Ho! &quot;
+&lt;/pre&gt;</method>
+    <method name='+'>&lt;p&gt;Concatenation---Returns a new &lt;tt&gt;String&lt;/tt&gt; containing &lt;em&gt;other_str&lt;/em&gt; concatenated to &lt;em&gt;str&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   &quot;Hello from &quot; + self.to_s   #=&gt; &quot;Hello from main&quot;
+&lt;/pre&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Append---Concatenates the given object to &lt;em&gt;str&lt;/em&gt;. If the object is a &lt;tt&gt;Fixnum&lt;/tt&gt; between 0 and 255, it is converted to a character before concatenation.&lt;/p&gt;&lt;pre&gt;   a = &quot;hello &quot;
+   a &lt;&lt; &quot;world&quot;   #=&gt; &quot;hello world&quot;
+   a.concat(33)   #=&gt; &quot;hello world!&quot;
+&lt;/pre&gt;</method>
+    <method name='&lt;=&gt;'>&lt;p&gt;Comparison---Returns -1 if &lt;em&gt;other_str&lt;/em&gt; is less than, 0 if &lt;em&gt;other_str&lt;/em&gt; is equal to, and +1 if &lt;em&gt;other_str&lt;/em&gt; is greater than &lt;em&gt;str&lt;/em&gt;. If the strings are of different lengths, and the strings are equal when compared up to the shortest length, then the longer string is considered greater than the shorter one. If the variable &lt;tt&gt;$=&lt;/tt&gt; is &lt;tt&gt;false&lt;/tt&gt;, the comparison is based on comparing the binary values of each character in the string. In older versions of Ruby, setting &lt;tt&gt;$=&lt;/tt&gt; allowed case-insensitive comparisons; this is now deprecated in favor of using &lt;tt&gt;String#casecmp&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;=&gt;&lt;/tt&gt; is the basis for the methods &lt;tt&gt;&lt;&lt;/tt&gt;, &lt;tt&gt;&lt;=&lt;/tt&gt;, &lt;tt&gt;&gt;&lt;/tt&gt;, &lt;tt&gt;&gt;=&lt;/tt&gt;, and &lt;tt&gt;between?&lt;/tt&gt;, included from module &lt;tt&gt;Comparable&lt;/tt&gt;. The method &lt;tt&gt;String#==&lt;/tt&gt; does not use &lt;tt&gt;Comparable#==&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   &quot;abcdef&quot; &lt;=&gt; &quot;abcde&quot;     #=&gt; 1
+   &quot;abcdef&quot; &lt;=&gt; &quot;abcdef&quot;    #=&gt; 0
+   &quot;abcdef&quot; &lt;=&gt; &quot;abcdefg&quot;   #=&gt; -1
+   &quot;abcdef&quot; &lt;=&gt; &quot;ABCDEF&quot;    #=&gt; 1
+&lt;/pre&gt;</method>
+    <method name='=='>&lt;p&gt;Equality---If &lt;em&gt;obj&lt;/em&gt; is not a &lt;tt&gt;String&lt;/tt&gt;, returns &lt;tt&gt;false&lt;/tt&gt;. Otherwise, returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;str&lt;/em&gt; &lt;tt&gt;&lt;=&gt;&lt;/tt&gt; &lt;em&gt;obj&lt;/em&gt; returns zero.&lt;/p&gt;</method>
+    <method name='=~'>&lt;p&gt;Match---If &lt;em&gt;obj&lt;/em&gt; is a &lt;tt&gt;Regexp&lt;/tt&gt;, use it as a pattern to match against &lt;em&gt;str&lt;/em&gt;,and returns the position the match starts, or &lt;tt&gt;nil&lt;/tt&gt; if there is no match. Otherwise, invokes &lt;em&gt;obj.=~&lt;/em&gt;, passing &lt;em&gt;str&lt;/em&gt; as an argument. The default &lt;tt&gt;=~&lt;/tt&gt; in &lt;tt&gt;Object&lt;/tt&gt; returns &lt;tt&gt;false&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   &quot;cat o&apos; 9 tails&quot; =~ /\d/   #=&gt; 7
+   &quot;cat o&apos; 9 tails&quot; =~ 9      #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='[]'>&lt;p&gt;Element Reference---If passed a single &lt;tt&gt;Fixnum&lt;/tt&gt;, returns the code of the character at that position. If passed two &lt;tt&gt;Fixnum&lt;/tt&gt; objects, returns a substring starting at the offset given by the first, and a length given by the second. If given a range, a substring containing characters at offsets given by the range is returned. In all three cases, if an offset is negative, it is counted from the end of &lt;em&gt;str&lt;/em&gt;. Returns &lt;tt&gt;nil&lt;/tt&gt; if the initial offset falls outside the string, the length is negative, or the beginning of the range is greater than the end.&lt;/p&gt;&lt;p&gt;If a &lt;tt&gt;Regexp&lt;/tt&gt; is supplied, the matching portion of &lt;em&gt;str&lt;/em&gt; is returned. If a numeric parameter follows the regular expression, that component of the &lt;tt&gt;MatchData&lt;/tt&gt; is returned instead. If a &lt;tt&gt;String&lt;/tt&gt; is given, that string is returned if it occurs in &lt;em&gt;str&lt;/em&gt;. In both cases, &lt;tt&gt;nil&lt;/tt&gt; is returned if there is no match.&lt;/p&gt;&lt;pre&gt;   a = &quot;hello there&quot;
+   a[1]                   #=&gt; 101
+   a[1,3]                 #=&gt; &quot;ell&quot;
+   a[1..3]                #=&gt; &quot;ell&quot;
+   a[-3,2]                #=&gt; &quot;er&quot;
+   a[-4..-2]              #=&gt; &quot;her&quot;
+   a[12..-1]              #=&gt; nil
+   a[-2..-4]              #=&gt; &quot;&quot;
+   a[/[aeiou](.)\1/]      #=&gt; &quot;ell&quot;
+   a[/[aeiou](.)\1/, 0]   #=&gt; &quot;ell&quot;
+   a[/[aeiou](.)\1/, 1]   #=&gt; &quot;l&quot;
+   a[/[aeiou](.)\1/, 2]   #=&gt; nil
+   a[&quot;lo&quot;]                #=&gt; &quot;lo&quot;
+   a[&quot;bye&quot;]               #=&gt; nil
+&lt;/pre&gt;</method>
+    <method name='[]='>&lt;p&gt;Element Assignment---Replaces some or all of the content of &lt;em&gt;str&lt;/em&gt;. The portion of the string affected is determined using the same criteria as &lt;tt&gt;String#[]&lt;/tt&gt;. If the replacement string is not the same length as the text it is replacing, the string will be adjusted accordingly. If the regular expression or string is used as the index doesn&apos;t match a position in the string, &lt;tt&gt;IndexError&lt;/tt&gt; is raised. If the regular expression form is used, the optional second &lt;tt&gt;Fixnum&lt;/tt&gt; allows you to specify which portion of the match to replace (effectively using the &lt;tt&gt;MatchData&lt;/tt&gt; indexing rules. The forms that take a &lt;tt&gt;Fixnum&lt;/tt&gt; will raise an &lt;tt&gt;IndexError&lt;/tt&gt; if the value is out of range; the &lt;tt&gt;Range&lt;/tt&gt; form will raise a &lt;tt&gt;RangeError&lt;/tt&gt;, and the &lt;tt&gt;Regexp&lt;/tt&gt; and &lt;tt&gt;String&lt;/tt&gt; forms will silently ignore the assignment.&lt;/p&gt;</method>
+    <method name='block_scanf'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='capitalize'>&lt;p&gt;Returns a copy of &lt;em&gt;str&lt;/em&gt; with the first character converted to uppercase and the remainder to lowercase.&lt;/p&gt;&lt;pre&gt;   &quot;hello&quot;.capitalize    #=&gt; &quot;Hello&quot;
+   &quot;HELLO&quot;.capitalize    #=&gt; &quot;Hello&quot;
+   &quot;123ABC&quot;.capitalize   #=&gt; &quot;123abc&quot;
+&lt;/pre&gt;</method>
+    <method name='capitalize!'>&lt;p&gt;Modifies &lt;em&gt;str&lt;/em&gt; by converting the first character to uppercase and the remainder to lowercase. Returns &lt;tt&gt;nil&lt;/tt&gt; if no changes are made.&lt;/p&gt;&lt;pre&gt;   a = &quot;hello&quot;
+   a.capitalize!   #=&gt; &quot;Hello&quot;
+   a               #=&gt; &quot;Hello&quot;
+   a.capitalize!   #=&gt; nil
+&lt;/pre&gt;</method>
+    <method name='casecmp'>&lt;p&gt;Case-insensitive version of &lt;tt&gt;String#&lt;=&gt;&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   &quot;abcdef&quot;.casecmp(&quot;abcde&quot;)     #=&gt; 1
+   &quot;aBcDeF&quot;.casecmp(&quot;abcdef&quot;)    #=&gt; 0
+   &quot;abcdef&quot;.casecmp(&quot;abcdefg&quot;)   #=&gt; -1
+   &quot;abcdef&quot;.casecmp(&quot;ABCDEF&quot;)    #=&gt; 0
+&lt;/pre&gt;</method>
+    <method name='center'>&lt;p&gt;If &lt;em&gt;integer&lt;/em&gt; is greater than the length of &lt;em&gt;str&lt;/em&gt;, returns a new &lt;tt&gt;String&lt;/tt&gt; of length &lt;em&gt;integer&lt;/em&gt; with &lt;em&gt;str&lt;/em&gt; centered and padded with &lt;em&gt;padstr&lt;/em&gt;; otherwise, returns &lt;em&gt;str&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   &quot;hello&quot;.center(4)         #=&gt; &quot;hello&quot;
+   &quot;hello&quot;.center(20)        #=&gt; &quot;       hello        &quot;
+   &quot;hello&quot;.center(20, &apos;123&apos;) #=&gt; &quot;1231231hello12312312&quot;
+&lt;/pre&gt;</method>
+    <method name='chomp'>&lt;p&gt;Returns a new &lt;tt&gt;String&lt;/tt&gt; with the given record separator removed from the end of &lt;em&gt;str&lt;/em&gt; (if present). If &lt;tt&gt;$/&lt;/tt&gt; has not been changed from the default Ruby record separator, then &lt;tt&gt;chomp&lt;/tt&gt; also removes carriage return characters (that is it will remove &lt;tt&gt;\n&lt;/tt&gt;, &lt;tt&gt;\r&lt;/tt&gt;, and &lt;tt&gt;\r\n&lt;/tt&gt;).&lt;/p&gt;&lt;pre&gt;   &quot;hello&quot;.chomp            #=&gt; &quot;hello&quot;
+   &quot;hello\n&quot;.chomp          #=&gt; &quot;hello&quot;
+   &quot;hello\r\n&quot;.chomp        #=&gt; &quot;hello&quot;
+   &quot;hello\n\r&quot;.chomp        #=&gt; &quot;hello\n&quot;
+   &quot;hello\r&quot;.chomp          #=&gt; &quot;hello&quot;
+   &quot;hello \n there&quot;.chomp   #=&gt; &quot;hello \n there&quot;
+   &quot;hello&quot;.chomp(&quot;llo&quot;)     #=&gt; &quot;he&quot;
+&lt;/pre&gt;</method>
+    <method name='chomp!'>&lt;p&gt;Modifies &lt;em&gt;str&lt;/em&gt; in place as described for &lt;tt&gt;String#chomp&lt;/tt&gt;, returning &lt;em&gt;str&lt;/em&gt;, or &lt;tt&gt;nil&lt;/tt&gt; if no modifications were made.&lt;/p&gt;</method>
+    <method name='chop'>&lt;p&gt;Returns a new &lt;tt&gt;String&lt;/tt&gt; with the last character removed. If the string ends with &lt;tt&gt;\r\n&lt;/tt&gt;, both characters are removed. Applying &lt;tt&gt;chop&lt;/tt&gt; to an empty string returns an empty string. &lt;tt&gt;String#chomp&lt;/tt&gt; is often a safer alternative, as it leaves the string unchanged if it doesn&apos;t end in a record separator.&lt;/p&gt;&lt;pre&gt;   &quot;string\r\n&quot;.chop   #=&gt; &quot;string&quot;
+   &quot;string\n\r&quot;.chop   #=&gt; &quot;string\n&quot;
+   &quot;string\n&quot;.chop     #=&gt; &quot;string&quot;
+   &quot;string&quot;.chop       #=&gt; &quot;strin&quot;
+   &quot;x&quot;.chop.chop       #=&gt; &quot;&quot;
+&lt;/pre&gt;</method>
+    <method name='chop!'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='concat'>&lt;p&gt;Append---Concatenates the given object to &lt;em&gt;str&lt;/em&gt;. If the object is a &lt;tt&gt;Fixnum&lt;/tt&gt; between 0 and 255, it is converted to a character before concatenation.&lt;/p&gt;&lt;pre&gt;   a = &quot;hello &quot;
+   a &lt;&lt; &quot;world&quot;   #=&gt; &quot;hello world&quot;
+   a.concat(33)   #=&gt; &quot;hello world!&quot;
+&lt;/pre&gt;</method>
+    <method name='count'>&lt;p&gt;Each &lt;em&gt;other_str&lt;/em&gt; parameter defines a set of characters to count. The intersection of these sets defines the characters to count in &lt;em&gt;str&lt;/em&gt;. Any &lt;em&gt;other_str&lt;/em&gt; that starts with a caret (^) is negated. The sequence c1--c2 means all characters between c1 and c2.&lt;/p&gt;&lt;pre&gt;   a = &quot;hello world&quot;
+   a.count &quot;lo&quot;            #=&gt; 5
+   a.count &quot;lo&quot;, &quot;o&quot;       #=&gt; 2
+   a.count &quot;hello&quot;, &quot;^l&quot;   #=&gt; 4
+   a.count &quot;ej-m&quot;          #=&gt; 4
+&lt;/pre&gt;</method>
+    <method name='crypt'>&lt;p&gt;Applies a one-way cryptographic hash to &lt;em&gt;str&lt;/em&gt; by invoking the standard library function &lt;tt&gt;crypt&lt;/tt&gt;. The argument is the salt string, which should be two characters long, each character drawn from &lt;tt&gt;[a-zA-Z0-9./]&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;Returns a copy of &lt;em&gt;str&lt;/em&gt; with all characters in the intersection of its arguments deleted. Uses the same rules for building the set of characters as &lt;tt&gt;String#count&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   &quot;hello&quot;.delete &quot;l&quot;,&quot;lo&quot;        #=&gt; &quot;heo&quot;
+   &quot;hello&quot;.delete &quot;lo&quot;            #=&gt; &quot;he&quot;
+   &quot;hello&quot;.delete &quot;aeiou&quot;, &quot;^e&quot;   #=&gt; &quot;hell&quot;
+   &quot;hello&quot;.delete &quot;ej-m&quot;          #=&gt; &quot;ho&quot;
+&lt;/pre&gt;</method>
+    <method name='delete!'>&lt;p&gt;Performs a &lt;tt&gt;delete&lt;/tt&gt; operation in place, returning &lt;em&gt;str&lt;/em&gt;, or &lt;tt&gt;nil&lt;/tt&gt; if &lt;em&gt;str&lt;/em&gt; was not modified.&lt;/p&gt;</method>
+    <method name='downcase'>&lt;p&gt;Returns a copy of &lt;em&gt;str&lt;/em&gt; with all uppercase letters replaced with their lowercase counterparts. The operation is locale insensitive---only characters ``A&apos;&apos; to ``Z&apos;&apos; are affected.&lt;/p&gt;&lt;pre&gt;   &quot;hEllO&quot;.downcase   #=&gt; &quot;hello&quot;
+&lt;/pre&gt;</method>
+    <method name='downcase!'>&lt;p&gt;Downcases the contents of &lt;em&gt;str&lt;/em&gt;, returning &lt;tt&gt;nil&lt;/tt&gt; if no changes were made.&lt;/p&gt;</method>
+    <method name='dump'>&lt;p&gt;Produces a version of &lt;em&gt;str&lt;/em&gt; with all nonprinting characters replaced by &lt;tt&gt;\nnn&lt;/tt&gt; notation and all special characters escaped.&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;Splits &lt;em&gt;str&lt;/em&gt; using the supplied parameter as the record separator (&lt;tt&gt;$/&lt;/tt&gt; by default), passing each substring in turn to the supplied block. If a zero-length record separator is supplied, the string is split on &lt;tt&gt;\n&lt;/tt&gt; characters, except that multiple successive newlines are appended together.&lt;/p&gt;&lt;pre&gt;   print &quot;Example one\n&quot;
+   &quot;hello\nworld&quot;.each {|s| p s}
+   print &quot;Example two\n&quot;
+   &quot;hello\nworld&quot;.each(&apos;l&apos;) {|s| p s}
+   print &quot;Example three\n&quot;
+   &quot;hello\n\n\nworld&quot;.each(&apos;&apos;) {|s| p s}
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Example one
+   &quot;hello\n&quot;
+   &quot;world&quot;
+   Example two
+   &quot;hel&quot;
+   &quot;l&quot;
+   &quot;o\nworl&quot;
+   &quot;d&quot;
+   Example three
+   &quot;hello\n\n\n&quot;
+   &quot;world&quot;
+&lt;/pre&gt;</method>
+    <method name='each_byte'>&lt;p&gt;Passes each byte in &lt;em&gt;str&lt;/em&gt; to the given block.&lt;/p&gt;&lt;pre&gt;   &quot;hello&quot;.each_byte {|c| print c, &apos; &apos; }
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   104 101 108 108 111
+&lt;/pre&gt;</method>
+    <method name='each_char'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each_line'>&lt;p&gt;Splits &lt;em&gt;str&lt;/em&gt; using the supplied parameter as the record separator (&lt;tt&gt;$/&lt;/tt&gt; by default), passing each substring in turn to the supplied block. If a zero-length record separator is supplied, the string is split on &lt;tt&gt;\n&lt;/tt&gt; characters, except that multiple successive newlines are appended together.&lt;/p&gt;&lt;pre&gt;   print &quot;Example one\n&quot;
+   &quot;hello\nworld&quot;.each {|s| p s}
+   print &quot;Example two\n&quot;
+   &quot;hello\nworld&quot;.each(&apos;l&apos;) {|s| p s}
+   print &quot;Example three\n&quot;
+   &quot;hello\n\n\nworld&quot;.each(&apos;&apos;) {|s| p s}
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Example one
+   &quot;hello\n&quot;
+   &quot;world&quot;
+   Example two
+   &quot;hel&quot;
+   &quot;l&quot;
+   &quot;o\nworl&quot;
+   &quot;d&quot;
+   Example three
+   &quot;hello\n\n\n&quot;
+   &quot;world&quot;
+&lt;/pre&gt;</method>
+    <method name='empty?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;str&lt;/em&gt; has a length of zero.&lt;/p&gt;&lt;pre&gt;   &quot;hello&quot;.empty?   #=&gt; false
+   &quot;&quot;.empty?        #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='end_regexp'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='eql?'>&lt;p&gt;Two strings are equal if the have the same length and content.&lt;/p&gt;</method>
+    <method name='gsub'>&lt;p&gt;Returns a copy of &lt;em&gt;str&lt;/em&gt; with &lt;em&gt;all&lt;/em&gt; occurrences of &lt;em&gt;pattern&lt;/em&gt; replaced with either &lt;em&gt;replacement&lt;/em&gt; or the value of the block. The &lt;em&gt;pattern&lt;/em&gt; will typically be a &lt;tt&gt;Regexp&lt;/tt&gt;; if it is a &lt;tt&gt;String&lt;/tt&gt; then no regular expression metacharacters will be interpreted (that is &lt;tt&gt;/\d/&lt;/tt&gt; will match a digit, but &lt;tt&gt;&apos;\d&apos;&lt;/tt&gt; will match a backslash followed by a &apos;d&apos;).&lt;/p&gt;&lt;p&gt;If a string is used as the replacement, special variables from the match (such as &lt;tt&gt;$&amp;&lt;/tt&gt; and &lt;tt&gt;$1&lt;/tt&gt;) cannot be substituted into it, as substitution into the string occurs before the pattern match starts. However, the sequences &lt;tt&gt;\1&lt;/tt&gt;, &lt;tt&gt;\2&lt;/tt&gt;, and so on may be used to interpolate successive groups in the match.&lt;/p&gt;&lt;p&gt;In the block form, the current match string is passed in as a parameter, and variables such as &lt;tt&gt;$1&lt;/tt&gt;, &lt;tt&gt;$2&lt;/tt&gt;, &lt;tt&gt;$`&lt;/tt&gt;, &lt;tt&gt;$&amp;&lt;/tt&gt;, and &lt;tt&gt;$&apos;&lt;/tt&gt; will be set appropriately. The value returned by the block will be substituted for the match on each call.&lt;/p&gt;&lt;p&gt;The result inherits any tainting in the original string or any supplied replacement string.&lt;/p&gt;&lt;pre&gt;   &quot;hello&quot;.gsub(/[aeiou]/, &apos;*&apos;)              #=&gt; &quot;h*ll*&quot;
+   &quot;hello&quot;.gsub(/([aeiou])/, &apos;&lt;\1&gt;&apos;)         #=&gt; &quot;h&lt;e&gt;ll&lt;o&gt;&quot;
+   &quot;hello&quot;.gsub(/./) {|s| s[0].to_s + &apos; &apos;}   #=&gt; &quot;104 101 108 108 111 &quot;
+&lt;/pre&gt;</method>
+    <method name='gsub!'>&lt;p&gt;Performs the substitutions of &lt;tt&gt;String#gsub&lt;/tt&gt; in place, returning &lt;em&gt;str&lt;/em&gt;, or &lt;tt&gt;nil&lt;/tt&gt; if no substitutions were performed.&lt;/p&gt;</method>
+    <method name='hash'>&lt;p&gt;Return a hash based on the string&apos;s length and content.&lt;/p&gt;</method>
+    <method name='hex'>&lt;p&gt;Treats leading characters from &lt;em&gt;str&lt;/em&gt; as a string of hexadecimal digits (with an optional sign and an optional &lt;tt&gt;0x&lt;/tt&gt;) and returns the corresponding number. Zero is returned on error.&lt;/p&gt;&lt;pre&gt;   &quot;0x0a&quot;.hex     #=&gt; 10
+   &quot;-1234&quot;.hex    #=&gt; -4660
+   &quot;0&quot;.hex        #=&gt; 0
+   &quot;wombat&quot;.hex   #=&gt; 0
+&lt;/pre&gt;</method>
+    <method name='include?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;str&lt;/em&gt; contains the given string or character.&lt;/p&gt;&lt;pre&gt;   &quot;hello&quot;.include? &quot;lo&quot;   #=&gt; true
+   &quot;hello&quot;.include? &quot;ol&quot;   #=&gt; false
+   &quot;hello&quot;.include? ?h     #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='index'>&lt;p&gt;Returns the index of the first occurrence of the given &lt;em&gt;substring&lt;/em&gt;, character (&lt;em&gt;fixnum&lt;/em&gt;), or pattern (&lt;em&gt;regexp&lt;/em&gt;) in &lt;em&gt;str&lt;/em&gt;. Returns &lt;tt&gt;nil&lt;/tt&gt; if not found. If the second parameter is present, it specifies the position in the string to begin the search.&lt;/p&gt;&lt;pre&gt;   &quot;hello&quot;.index(&apos;e&apos;)             #=&gt; 1
+   &quot;hello&quot;.index(&apos;lo&apos;)            #=&gt; 3
+   &quot;hello&quot;.index(&apos;a&apos;)             #=&gt; nil
+   &quot;hello&quot;.index(101)             #=&gt; 1
+   &quot;hello&quot;.index(/[aeiou]/, -3)   #=&gt; 4
+&lt;/pre&gt;</method>
+    <method name='initialize_copy'>&lt;p&gt;Replaces the contents and taintedness of &lt;em&gt;str&lt;/em&gt; with the corresponding values in &lt;em&gt;other_str&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   s = &quot;hello&quot;         #=&gt; &quot;hello&quot;
+   s.replace &quot;world&quot;   #=&gt; &quot;world&quot;
+&lt;/pre&gt;</method>
+    <method name='insert'>&lt;p&gt;Inserts &lt;em&gt;other_str&lt;/em&gt; before the character at the given &lt;em&gt;index&lt;/em&gt;, modifying &lt;em&gt;str&lt;/em&gt;. Negative indices count from the end of the string, and insert &lt;em&gt;after&lt;/em&gt; the given character. The intent is insert &lt;em&gt;aString&lt;/em&gt; so that it starts at the given &lt;em&gt;index&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   &quot;abcd&quot;.insert(0, &apos;X&apos;)    #=&gt; &quot;Xabcd&quot;
+   &quot;abcd&quot;.insert(3, &apos;X&apos;)    #=&gt; &quot;abcXd&quot;
+   &quot;abcd&quot;.insert(4, &apos;X&apos;)    #=&gt; &quot;abcdX&quot;
+   &quot;abcd&quot;.insert(-3, &apos;X&apos;)   #=&gt; &quot;abXcd&quot;
+   &quot;abcd&quot;.insert(-1, &apos;X&apos;)   #=&gt; &quot;abcdX&quot;
+&lt;/pre&gt;</method>
+    <method name='inspect'>&lt;p&gt;Returns a printable version of &lt;em&gt;str&lt;/em&gt;, with special characters escaped.&lt;/p&gt;&lt;pre&gt;   str = &quot;hello&quot;
+   str[3] = 8
+   str.inspect       #=&gt; &quot;hel\010o&quot;
+&lt;/pre&gt;</method>
+    <method name='intern'>&lt;p&gt;Returns the &lt;tt&gt;Symbol&lt;/tt&gt; corresponding to &lt;em&gt;str&lt;/em&gt;, creating the symbol if it did not previously exist. See &lt;tt&gt;Symbol#id2name&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   &quot;Koala&quot;.intern         #=&gt; :Koala
+   s = &apos;cat&apos;.to_sym       #=&gt; :cat
+   s == :cat              #=&gt; true
+   s = &apos;@cat&apos;.to_sym      #=&gt; :@cat
+   s == :@cat             #=&gt; true
+&lt;/pre&gt;&lt;p&gt;This can also be used to create symbols that cannot be represented using the &lt;tt&gt;:xxx&lt;/tt&gt; notation.&lt;/p&gt;&lt;pre&gt;   &apos;cat and dog&apos;.to_sym   #=&gt; :&quot;cat and dog&quot;
+&lt;/pre&gt;</method>
+    <method name='is_binary_data?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='is_complex_yaml?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='iseuc'>&lt;p&gt;Returns whether &lt;tt&gt;self&lt;/tt&gt;&apos;s encoding is EUC-JP or not.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; don&apos;t expect this return value is MatchData.&lt;/p&gt;</method>
+    <method name='issjis'>&lt;p&gt;Returns whether &lt;tt&gt;self&lt;/tt&gt;&apos;s encoding is Shift_JIS or not.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; don&apos;t expect this return value is MatchData.&lt;/p&gt;</method>
+    <method name='isutf8'>&lt;p&gt;Returns whether &lt;tt&gt;self&lt;/tt&gt;&apos;s encoding is UTF-8 or not.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; don&apos;t expect this return value is MatchData.&lt;/p&gt;</method>
+    <method name='jcount'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='jlength'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='jsize'>&lt;p&gt;Alias for #jlength&lt;/p&gt;</method>
+    <method name='kconv'>&lt;p&gt;Convert &lt;tt&gt;self&lt;/tt&gt; to out_code. &lt;tt&gt;out_code&lt;/tt&gt; and &lt;tt&gt;in_code&lt;/tt&gt; are given as constants of Kconv.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; This method decode MIME encoded string and convert halfwidth katakana to fullwidth katakana. If you don&apos;t want to decode them, use NKF.nkf.&lt;/p&gt;</method>
+    <method name='length'>&lt;p&gt;Returns the length of &lt;em&gt;str&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='ljust'>&lt;p&gt;If &lt;em&gt;integer&lt;/em&gt; is greater than the length of &lt;em&gt;str&lt;/em&gt;, returns a new &lt;tt&gt;String&lt;/tt&gt; of length &lt;em&gt;integer&lt;/em&gt; with &lt;em&gt;str&lt;/em&gt; left justified and padded with &lt;em&gt;padstr&lt;/em&gt;; otherwise, returns &lt;em&gt;str&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   &quot;hello&quot;.ljust(4)            #=&gt; &quot;hello&quot;
+   &quot;hello&quot;.ljust(20)           #=&gt; &quot;hello               &quot;
+   &quot;hello&quot;.ljust(20, &apos;1234&apos;)   #=&gt; &quot;hello123412341234123&quot;
+&lt;/pre&gt;</method>
+    <method name='lstrip'>&lt;p&gt;Returns a copy of &lt;em&gt;str&lt;/em&gt; with leading whitespace removed. See also &lt;tt&gt;String#rstrip&lt;/tt&gt; and &lt;tt&gt;String#strip&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   &quot;  hello  &quot;.lstrip   #=&gt; &quot;hello  &quot;
+   &quot;hello&quot;.lstrip       #=&gt; &quot;hello&quot;
+&lt;/pre&gt;</method>
+    <method name='lstrip!'>&lt;p&gt;Removes leading whitespace from &lt;em&gt;str&lt;/em&gt;, returning &lt;tt&gt;nil&lt;/tt&gt; if no change was made. See also &lt;tt&gt;String#rstrip!&lt;/tt&gt; and &lt;tt&gt;String#strip!&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   &quot;  hello  &quot;.lstrip   #=&gt; &quot;hello  &quot;
+   &quot;hello&quot;.lstrip!      #=&gt; nil
+&lt;/pre&gt;</method>
+    <method name='match'>&lt;p&gt;Converts &lt;em&gt;pattern&lt;/em&gt; to a &lt;tt&gt;Regexp&lt;/tt&gt; (if it isn&apos;t already one), then invokes its &lt;tt&gt;match&lt;/tt&gt; method on &lt;em&gt;str&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   &apos;hello&apos;.match(&apos;(.)\1&apos;)      #=&gt; #&lt;MatchData:0x401b3d30&gt;
+   &apos;hello&apos;.match(&apos;(.)\1&apos;)[0]   #=&gt; &quot;ll&quot;
+   &apos;hello&apos;.match(/(.)\1/)[0]   #=&gt; &quot;ll&quot;
+   &apos;hello&apos;.match(&apos;xx&apos;)         #=&gt; nil
+&lt;/pre&gt;</method>
+    <method name='mbchar?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='next'>&lt;p&gt;Returns the successor to &lt;em&gt;str&lt;/em&gt;. The successor is calculated by incrementing characters starting from the rightmost alphanumeric (or the rightmost character if there are no alphanumerics) in the string. Incrementing a digit always results in another digit, and incrementing a letter results in another letter of the same case. Incrementing nonalphanumerics uses the underlying character set&apos;s collating sequence.&lt;/p&gt;&lt;p&gt;If the increment generates a ``carry,&apos;&apos; the character to the left of it is incremented. This process repeats until there is no carry, adding an additional character if necessary.&lt;/p&gt;&lt;pre&gt;   &quot;abcd&quot;.succ        #=&gt; &quot;abce&quot;
+   &quot;THX1138&quot;.succ     #=&gt; &quot;THX1139&quot;
+   &quot;&lt;&lt;koala&gt;&gt;&quot;.succ   #=&gt; &quot;&lt;&lt;koalb&gt;&gt;&quot;
+   &quot;1999zzz&quot;.succ     #=&gt; &quot;2000aaa&quot;
+   &quot;ZZZ9999&quot;.succ     #=&gt; &quot;AAAA0000&quot;
+   &quot;***&quot;.succ         #=&gt; &quot;**+&quot;
+&lt;/pre&gt;</method>
+    <method name='next!'>&lt;p&gt;Equivalent to &lt;tt&gt;String#succ&lt;/tt&gt;, but modifies the receiver in place.&lt;/p&gt;</method>
+    <method name='oct'>&lt;p&gt;Treats leading characters of &lt;em&gt;str&lt;/em&gt; as a string of octal digits (with an optional sign) and returns the corresponding number. Returns 0 if the conversion fails.&lt;/p&gt;&lt;pre&gt;   &quot;123&quot;.oct       #=&gt; 83
+   &quot;-377&quot;.oct      #=&gt; -255
+   &quot;bad&quot;.oct       #=&gt; 0
+   &quot;0377bad&quot;.oct   #=&gt; 255
+&lt;/pre&gt;</method>
+    <method name='quote'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='replace'>&lt;p&gt;Replaces the contents and taintedness of &lt;em&gt;str&lt;/em&gt; with the corresponding values in &lt;em&gt;other_str&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   s = &quot;hello&quot;         #=&gt; &quot;hello&quot;
+   s.replace &quot;world&quot;   #=&gt; &quot;world&quot;
+&lt;/pre&gt;</method>
+    <method name='reverse'>&lt;p&gt;Returns a new string with the characters from &lt;em&gt;str&lt;/em&gt; in reverse order.&lt;/p&gt;&lt;pre&gt;   &quot;stressed&quot;.reverse   #=&gt; &quot;desserts&quot;
+&lt;/pre&gt;</method>
+    <method name='reverse!'>&lt;p&gt;Reverses &lt;em&gt;str&lt;/em&gt; in place.&lt;/p&gt;</method>
+    <method name='rindex'>&lt;p&gt;Returns the index of the last occurrence of the given &lt;em&gt;substring&lt;/em&gt;, character (&lt;em&gt;fixnum&lt;/em&gt;), or pattern (&lt;em&gt;regexp&lt;/em&gt;) in &lt;em&gt;str&lt;/em&gt;. Returns &lt;tt&gt;nil&lt;/tt&gt; if not found. If the second parameter is present, it specifies the position in the string to end the search---characters beyond this point will not be considered.&lt;/p&gt;&lt;pre&gt;   &quot;hello&quot;.rindex(&apos;e&apos;)             #=&gt; 1
+   &quot;hello&quot;.rindex(&apos;l&apos;)             #=&gt; 3
+   &quot;hello&quot;.rindex(&apos;a&apos;)             #=&gt; nil
+   &quot;hello&quot;.rindex(101)             #=&gt; 1
+   &quot;hello&quot;.rindex(/[aeiou]/, -2)   #=&gt; 1
+&lt;/pre&gt;</method>
+    <method name='rjust'>&lt;p&gt;If &lt;em&gt;integer&lt;/em&gt; is greater than the length of &lt;em&gt;str&lt;/em&gt;, returns a new &lt;tt&gt;String&lt;/tt&gt; of length &lt;em&gt;integer&lt;/em&gt; with &lt;em&gt;str&lt;/em&gt; right justified and padded with &lt;em&gt;padstr&lt;/em&gt;; otherwise, returns &lt;em&gt;str&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   &quot;hello&quot;.rjust(4)            #=&gt; &quot;hello&quot;
+   &quot;hello&quot;.rjust(20)           #=&gt; &quot;               hello&quot;
+   &quot;hello&quot;.rjust(20, &apos;1234&apos;)   #=&gt; &quot;123412341234123hello&quot;
+&lt;/pre&gt;</method>
+    <method name='rstrip'>&lt;p&gt;Returns a copy of &lt;em&gt;str&lt;/em&gt; with trailing whitespace removed. See also &lt;tt&gt;String#lstrip&lt;/tt&gt; and &lt;tt&gt;String#strip&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   &quot;  hello  &quot;.rstrip   #=&gt; &quot;  hello&quot;
+   &quot;hello&quot;.rstrip       #=&gt; &quot;hello&quot;
+&lt;/pre&gt;</method>
+    <method name='rstrip!'>&lt;p&gt;Removes trailing whitespace from &lt;em&gt;str&lt;/em&gt;, returning &lt;tt&gt;nil&lt;/tt&gt; if no change was made. See also &lt;tt&gt;String#lstrip!&lt;/tt&gt; and &lt;tt&gt;String#strip!&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   &quot;  hello  &quot;.rstrip   #=&gt; &quot;  hello&quot;
+   &quot;hello&quot;.rstrip!      #=&gt; nil
+&lt;/pre&gt;</method>
+    <method name='scan'>&lt;p&gt;Both forms iterate through &lt;em&gt;str&lt;/em&gt;, matching the pattern (which may be a &lt;tt&gt;Regexp&lt;/tt&gt; or a &lt;tt&gt;String&lt;/tt&gt;). For each match, a result is generated and either added to the result array or passed to the block. If the pattern contains no groups, each individual result consists of the matched string, &lt;tt&gt;$&amp;&lt;/tt&gt;. If the pattern contains groups, each individual result is itself an array containing one entry per group.&lt;/p&gt;&lt;pre&gt;   a = &quot;cruel world&quot;
+   a.scan(/\w+/)        #=&gt; [&quot;cruel&quot;, &quot;world&quot;]
+   a.scan(/.../)        #=&gt; [&quot;cru&quot;, &quot;el &quot;, &quot;wor&quot;]
+   a.scan(/(...)/)      #=&gt; [[&quot;cru&quot;], [&quot;el &quot;], [&quot;wor&quot;]]
+   a.scan(/(..)(..)/)   #=&gt; [[&quot;cr&quot;, &quot;ue&quot;], [&quot;l &quot;, &quot;wo&quot;]]
+&lt;/pre&gt;&lt;p&gt;And the block form:&lt;/p&gt;&lt;pre&gt;   a.scan(/\w+/) {|w| print &quot;&lt;&lt;#{w}&gt;&gt; &quot; }
+   print &quot;\n&quot;
+   a.scan(/(.)(.)/) {|x,y| print y, x }
+   print &quot;\n&quot;
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   &lt;&lt;cruel&gt;&gt; &lt;&lt;world&gt;&gt;
+   rceu lowlr
+&lt;/pre&gt;</method>
+    <method name='scanf'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;Returns the length of &lt;em&gt;str&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='slice'>&lt;p&gt;Element Reference---If passed a single &lt;tt&gt;Fixnum&lt;/tt&gt;, returns the code of the character at that position. If passed two &lt;tt&gt;Fixnum&lt;/tt&gt; objects, returns a substring starting at the offset given by the first, and a length given by the second. If given a range, a substring containing characters at offsets given by the range is returned. In all three cases, if an offset is negative, it is counted from the end of &lt;em&gt;str&lt;/em&gt;. Returns &lt;tt&gt;nil&lt;/tt&gt; if the initial offset falls outside the string, the length is negative, or the beginning of the range is greater than the end.&lt;/p&gt;&lt;p&gt;If a &lt;tt&gt;Regexp&lt;/tt&gt; is supplied, the matching portion of &lt;em&gt;str&lt;/em&gt; is returned. If a numeric parameter follows the regular expression, that component of the &lt;tt&gt;MatchData&lt;/tt&gt; is returned instead. If a &lt;tt&gt;String&lt;/tt&gt; is given, that string is returned if it occurs in &lt;em&gt;str&lt;/em&gt;. In both cases, &lt;tt&gt;nil&lt;/tt&gt; is returned if there is no match.&lt;/p&gt;&lt;pre&gt;   a = &quot;hello there&quot;
+   a[1]                   #=&gt; 101
+   a[1,3]                 #=&gt; &quot;ell&quot;
+   a[1..3]                #=&gt; &quot;ell&quot;
+   a[-3,2]                #=&gt; &quot;er&quot;
+   a[-4..-2]              #=&gt; &quot;her&quot;
+   a[12..-1]              #=&gt; nil
+   a[-2..-4]              #=&gt; &quot;&quot;
+   a[/[aeiou](.)\1/]      #=&gt; &quot;ell&quot;
+   a[/[aeiou](.)\1/, 0]   #=&gt; &quot;ell&quot;
+   a[/[aeiou](.)\1/, 1]   #=&gt; &quot;l&quot;
+   a[/[aeiou](.)\1/, 2]   #=&gt; nil
+   a[&quot;lo&quot;]                #=&gt; &quot;lo&quot;
+   a[&quot;bye&quot;]               #=&gt; nil
+&lt;/pre&gt;</method>
+    <method name='slice!'>&lt;p&gt;Deletes the specified portion from &lt;em&gt;str&lt;/em&gt;, and returns the portion deleted. The forms that take a &lt;tt&gt;Fixnum&lt;/tt&gt; will raise an &lt;tt&gt;IndexError&lt;/tt&gt; if the value is out of range; the &lt;tt&gt;Range&lt;/tt&gt; form will raise a &lt;tt&gt;RangeError&lt;/tt&gt;, and the &lt;tt&gt;Regexp&lt;/tt&gt; and &lt;tt&gt;String&lt;/tt&gt; forms will silently ignore the assignment.&lt;/p&gt;&lt;pre&gt;   string = &quot;this is a string&quot;
+   string.slice!(2)        #=&gt; 105
+   string.slice!(3..6)     #=&gt; &quot; is &quot;
+   string.slice!(/s.*t/)   #=&gt; &quot;sa st&quot;
+   string.slice!(&quot;r&quot;)      #=&gt; &quot;r&quot;
+   string                  #=&gt; &quot;thing&quot;
+&lt;/pre&gt;</method>
+    <method name='split'>&lt;p&gt;Divides &lt;em&gt;str&lt;/em&gt; into substrings based on a delimiter, returning an array of these substrings.&lt;/p&gt;&lt;p&gt;If &lt;em&gt;pattern&lt;/em&gt; is a &lt;tt&gt;String&lt;/tt&gt;, then its contents are used as the delimiter when splitting &lt;em&gt;str&lt;/em&gt;. If &lt;em&gt;pattern&lt;/em&gt; is a single space, &lt;em&gt;str&lt;/em&gt; is split on whitespace, with leading whitespace and runs of contiguous whitespace characters ignored.&lt;/p&gt;&lt;p&gt;If &lt;em&gt;pattern&lt;/em&gt; is a &lt;tt&gt;Regexp&lt;/tt&gt;, &lt;em&gt;str&lt;/em&gt; is divided where the pattern matches. Whenever the pattern matches a zero-length string, &lt;em&gt;str&lt;/em&gt; is split into individual characters.&lt;/p&gt;&lt;p&gt;If &lt;em&gt;pattern&lt;/em&gt; is omitted, the value of &lt;tt&gt;$;&lt;/tt&gt; is used. If &lt;tt&gt;$;&lt;/tt&gt; is &lt;tt&gt;nil&lt;/tt&gt; (which is the default), &lt;em&gt;str&lt;/em&gt; is split on whitespace as if ` &apos; were specified.&lt;/p&gt;&lt;p&gt;If the &lt;em&gt;limit&lt;/em&gt; parameter is omitted, trailing null fields are suppressed. If &lt;em&gt;limit&lt;/em&gt; is a positive number, at most that number of fields will be returned (if &lt;em&gt;limit&lt;/em&gt; is &lt;tt&gt;1&lt;/tt&gt;, the entire string is returned as the only entry in an array). If negative, there is no limit to the number of fields returned, and trailing null fields are not suppressed.&lt;/p&gt;&lt;pre&gt;   &quot; now&apos;s  the time&quot;.split        #=&gt; [&quot;now&apos;s&quot;, &quot;the&quot;, &quot;time&quot;]
+   &quot; now&apos;s  the time&quot;.split(&apos; &apos;)   #=&gt; [&quot;now&apos;s&quot;, &quot;the&quot;, &quot;time&quot;]
+   &quot; now&apos;s  the time&quot;.split(/ /)   #=&gt; [&quot;&quot;, &quot;now&apos;s&quot;, &quot;&quot;, &quot;the&quot;, &quot;time&quot;]
+   &quot;1, 2.34,56, 7&quot;.split(%r{,\s*}) #=&gt; [&quot;1&quot;, &quot;2.34&quot;, &quot;56&quot;, &quot;7&quot;]
+   &quot;hello&quot;.split(//)               #=&gt; [&quot;h&quot;, &quot;e&quot;, &quot;l&quot;, &quot;l&quot;, &quot;o&quot;]
+   &quot;hello&quot;.split(//, 3)            #=&gt; [&quot;h&quot;, &quot;e&quot;, &quot;llo&quot;]
+   &quot;hi mom&quot;.split(%r{\s*})         #=&gt; [&quot;h&quot;, &quot;i&quot;, &quot;m&quot;, &quot;o&quot;, &quot;m&quot;]
+
+   &quot;mellow yellow&quot;.split(&quot;ello&quot;)   #=&gt; [&quot;m&quot;, &quot;w y&quot;, &quot;w&quot;]
+   &quot;1,2,,3,4,,&quot;.split(&apos;,&apos;)         #=&gt; [&quot;1&quot;, &quot;2&quot;, &quot;&quot;, &quot;3&quot;, &quot;4&quot;]
+   &quot;1,2,,3,4,,&quot;.split(&apos;,&apos;, 4)      #=&gt; [&quot;1&quot;, &quot;2&quot;, &quot;&quot;, &quot;3,4,,&quot;]
+   &quot;1,2,,3,4,,&quot;.split(&apos;,&apos;, -4)     #=&gt; [&quot;1&quot;, &quot;2&quot;, &quot;&quot;, &quot;3&quot;, &quot;4&quot;, &quot;&quot;, &quot;&quot;]
+&lt;/pre&gt;</method>
+    <method name='squeeze'>&lt;p&gt;Builds a set of characters from the &lt;em&gt;other_str&lt;/em&gt; parameter(s) using the procedure described for &lt;tt&gt;String#count&lt;/tt&gt;. Returns a new string where runs of the same character that occur in this set are replaced by a single character. If no arguments are given, all runs of identical characters are replaced by a single character.&lt;/p&gt;&lt;pre&gt;   &quot;yellow moon&quot;.squeeze                  #=&gt; &quot;yelow mon&quot;
+   &quot;  now   is  the&quot;.squeeze(&quot; &quot;)         #=&gt; &quot; now is the&quot;
+   &quot;putters shoot balls&quot;.squeeze(&quot;m-z&quot;)   #=&gt; &quot;puters shot balls&quot;
+&lt;/pre&gt;</method>
+    <method name='squeeze!'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='strip'>&lt;p&gt;Returns a copy of &lt;em&gt;str&lt;/em&gt; with leading and trailing whitespace removed.&lt;/p&gt;&lt;pre&gt;   &quot;    hello    &quot;.strip   #=&gt; &quot;hello&quot;
+   &quot;\tgoodbye\r\n&quot;.strip   #=&gt; &quot;goodbye&quot;
+&lt;/pre&gt;</method>
+    <method name='strip!'>&lt;p&gt;Removes leading and trailing whitespace from &lt;em&gt;str&lt;/em&gt;. Returns &lt;tt&gt;nil&lt;/tt&gt; if &lt;em&gt;str&lt;/em&gt; was not altered.&lt;/p&gt;</method>
+    <method name='sub'>&lt;p&gt;Returns a copy of &lt;em&gt;str&lt;/em&gt; with the &lt;em&gt;first&lt;/em&gt; occurrence of &lt;em&gt;pattern&lt;/em&gt; replaced with either &lt;em&gt;replacement&lt;/em&gt; or the value of the block. The &lt;em&gt;pattern&lt;/em&gt; will typically be a &lt;tt&gt;Regexp&lt;/tt&gt;; if it is a &lt;tt&gt;String&lt;/tt&gt; then no regular expression metacharacters will be interpreted (that is &lt;tt&gt;/\d/&lt;/tt&gt; will match a digit, but &lt;tt&gt;&apos;\d&apos;&lt;/tt&gt; will match a backslash followed by a &apos;d&apos;).&lt;/p&gt;&lt;p&gt;If the method call specifies &lt;em&gt;replacement&lt;/em&gt;, special variables such as &lt;tt&gt;$&amp;&lt;/tt&gt; will not be useful, as substitution into the string occurs before the pattern match starts. However, the sequences &lt;tt&gt;\1&lt;/tt&gt;, &lt;tt&gt;\2&lt;/tt&gt;, etc., may be used.&lt;/p&gt;&lt;p&gt;In the block form, the current match string is passed in as a parameter, and variables such as &lt;tt&gt;$1&lt;/tt&gt;, &lt;tt&gt;$2&lt;/tt&gt;, &lt;tt&gt;$`&lt;/tt&gt;, &lt;tt&gt;$&amp;&lt;/tt&gt;, and &lt;tt&gt;$&apos;&lt;/tt&gt; will be set appropriately. The value returned by the block will be substituted for the match on each call.&lt;/p&gt;&lt;p&gt;The result inherits any tainting in the original string or any supplied replacement string.&lt;/p&gt;&lt;pre&gt;   &quot;hello&quot;.sub(/[aeiou]/, &apos;*&apos;)               #=&gt; &quot;h*llo&quot;
+   &quot;hello&quot;.sub(/([aeiou])/, &apos;&lt;\1&gt;&apos;)          #=&gt; &quot;h&lt;e&gt;llo&quot;
+   &quot;hello&quot;.sub(/./) {|s| s[0].to_s + &apos; &apos; }   #=&gt; &quot;104 ello&quot;
+&lt;/pre&gt;</method>
+    <method name='sub!'>&lt;p&gt;Performs the substitutions of &lt;tt&gt;String#sub&lt;/tt&gt; in place, returning &lt;em&gt;str&lt;/em&gt;, or &lt;tt&gt;nil&lt;/tt&gt; if no substitutions were performed.&lt;/p&gt;</method>
+    <method name='succ'>&lt;p&gt;Returns the successor to &lt;em&gt;str&lt;/em&gt;. The successor is calculated by incrementing characters starting from the rightmost alphanumeric (or the rightmost character if there are no alphanumerics) in the string. Incrementing a digit always results in another digit, and incrementing a letter results in another letter of the same case. Incrementing nonalphanumerics uses the underlying character set&apos;s collating sequence.&lt;/p&gt;&lt;p&gt;If the increment generates a ``carry,&apos;&apos; the character to the left of it is incremented. This process repeats until there is no carry, adding an additional character if necessary.&lt;/p&gt;&lt;pre&gt;   &quot;abcd&quot;.succ        #=&gt; &quot;abce&quot;
+   &quot;THX1138&quot;.succ     #=&gt; &quot;THX1139&quot;
+   &quot;&lt;&lt;koala&gt;&gt;&quot;.succ   #=&gt; &quot;&lt;&lt;koalb&gt;&gt;&quot;
+   &quot;1999zzz&quot;.succ     #=&gt; &quot;2000aaa&quot;
+   &quot;ZZZ9999&quot;.succ     #=&gt; &quot;AAAA0000&quot;
+   &quot;***&quot;.succ         #=&gt; &quot;**+&quot;
+&lt;/pre&gt;</method>
+    <method name='succ!'>&lt;p&gt;Equivalent to &lt;tt&gt;String#succ&lt;/tt&gt;, but modifies the receiver in place.&lt;/p&gt;</method>
+    <method name='sum'>&lt;p&gt;Returns a basic &lt;em&gt;n&lt;/em&gt;-bit checksum of the characters in &lt;em&gt;str&lt;/em&gt;, where &lt;em&gt;n&lt;/em&gt; is the optional &lt;tt&gt;Fixnum&lt;/tt&gt; parameter, defaulting to 16. The result is simply the sum of the binary value of each character in &lt;em&gt;str&lt;/em&gt; modulo &lt;tt&gt;2n - 1&lt;/tt&gt;. This is not a particularly good checksum.&lt;/p&gt;</method>
+    <method name='swapcase'>&lt;p&gt;Returns a copy of &lt;em&gt;str&lt;/em&gt; with uppercase alphabetic characters converted to lowercase and lowercase characters converted to uppercase.&lt;/p&gt;&lt;pre&gt;   &quot;Hello&quot;.swapcase          #=&gt; &quot;hELLO&quot;
+   &quot;cYbEr_PuNk11&quot;.swapcase   #=&gt; &quot;CyBeR_pUnK11&quot;
+&lt;/pre&gt;</method>
+    <method name='swapcase!'>&lt;p&gt;Equivalent to &lt;tt&gt;String#swapcase&lt;/tt&gt;, but modifies the receiver in place, returning &lt;em&gt;str&lt;/em&gt;, or &lt;tt&gt;nil&lt;/tt&gt; if no changes were made.&lt;/p&gt;</method>
+    <method name='to_f'>&lt;p&gt;Returns the result of interpreting leading characters in &lt;em&gt;str&lt;/em&gt; as a floating point number. Extraneous characters past the end of a valid number are ignored. If there is not a valid number at the start of &lt;em&gt;str&lt;/em&gt;, &lt;tt&gt;0.0&lt;/tt&gt; is returned. This method never raises an exception.&lt;/p&gt;&lt;pre&gt;   &quot;123.45e1&quot;.to_f        #=&gt; 1234.5
+   &quot;45.67 degrees&quot;.to_f   #=&gt; 45.67
+   &quot;thx1138&quot;.to_f         #=&gt; 0.0
+&lt;/pre&gt;</method>
+    <method name='to_i'>&lt;p&gt;Returns the result of interpreting leading characters in &lt;em&gt;str&lt;/em&gt; as an integer base &lt;em&gt;base&lt;/em&gt; (2, 8, 10, or 16). Extraneous characters past the end of a valid number are ignored. If there is not a valid number at the start of &lt;em&gt;str&lt;/em&gt;, &lt;tt&gt;0&lt;/tt&gt; is returned. This method never raises an exception.&lt;/p&gt;&lt;pre&gt;   &quot;12345&quot;.to_i             #=&gt; 12345
+   &quot;99 red balloons&quot;.to_i   #=&gt; 99
+   &quot;0a&quot;.to_i                #=&gt; 0
+   &quot;0a&quot;.to_i(16)            #=&gt; 10
+   &quot;hello&quot;.to_i             #=&gt; 0
+   &quot;1100101&quot;.to_i(2)        #=&gt; 101
+   &quot;1100101&quot;.to_i(8)        #=&gt; 294977
+   &quot;1100101&quot;.to_i(10)       #=&gt; 1100101
+   &quot;1100101&quot;.to_i(16)       #=&gt; 17826049
+&lt;/pre&gt;</method>
+    <method name='to_s'>&lt;p&gt;Returns the receiver.&lt;/p&gt;</method>
+    <method name='to_str'>&lt;p&gt;Returns the receiver.&lt;/p&gt;</method>
+    <method name='to_sym'>&lt;p&gt;Returns the &lt;tt&gt;Symbol&lt;/tt&gt; corresponding to &lt;em&gt;str&lt;/em&gt;, creating the symbol if it did not previously exist. See &lt;tt&gt;Symbol#id2name&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   &quot;Koala&quot;.intern         #=&gt; :Koala
+   s = &apos;cat&apos;.to_sym       #=&gt; :cat
+   s == :cat              #=&gt; true
+   s = &apos;@cat&apos;.to_sym      #=&gt; :@cat
+   s == :@cat             #=&gt; true
+&lt;/pre&gt;&lt;p&gt;This can also be used to create symbols that cannot be represented using the &lt;tt&gt;:xxx&lt;/tt&gt; notation.&lt;/p&gt;&lt;pre&gt;   &apos;cat and dog&apos;.to_sym   #=&gt; :&quot;cat and dog&quot;
+&lt;/pre&gt;</method>
+    <method name='to_yaml'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='toeuc'>&lt;p&gt;Convert &lt;tt&gt;self&lt;/tt&gt; to EUC-JP&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; This method decode MIME encoded string and convert halfwidth katakana to fullwidth katakana. If you don&apos;t want it, use NKF.nkf(&apos;-exm0&apos;, str).&lt;/p&gt;</method>
+    <method name='tojis'>&lt;p&gt;Convert &lt;tt&gt;self&lt;/tt&gt; to ISO-2022-JP&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; This method decode MIME encoded string and convert halfwidth katakana to fullwidth katakana. If you don&apos;t want it, use NKF.nkf(&apos;-jxm0&apos;, str).&lt;/p&gt;</method>
+    <method name='tosjis'>&lt;p&gt;Convert &lt;tt&gt;self&lt;/tt&gt; to Shift_JIS&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; This method decode MIME encoded string and convert halfwidth katakana to fullwidth katakana. If you don&apos;t want it, use NKF.nkf(&apos;-sxm0&apos;, str).&lt;/p&gt;</method>
+    <method name='toutf16'>&lt;p&gt;Convert &lt;tt&gt;self&lt;/tt&gt; to UTF-16&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; This method decode MIME encoded string and convert halfwidth katakana to fullwidth katakana. If you don&apos;t want it, use NKF.nkf(&apos;-w16xm0&apos;, str).&lt;/p&gt;</method>
+    <method name='toutf8'>&lt;p&gt;Convert &lt;tt&gt;self&lt;/tt&gt; to UTF-8&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; This method decode MIME encoded string and convert halfwidth katakana to fullwidth katakana. If you don&apos;t want it, use NKF.nkf(&apos;-wxm0&apos;, str).&lt;/p&gt;</method>
+    <method name='tr'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='tr!'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='tr_s'>&lt;p&gt;Processes a copy of &lt;em&gt;str&lt;/em&gt; as described under &lt;tt&gt;String#tr&lt;/tt&gt;, then removes duplicate characters in regions that were affected by the translation.&lt;/p&gt;&lt;pre&gt;   &quot;hello&quot;.tr_s(&apos;l&apos;, &apos;r&apos;)     #=&gt; &quot;hero&quot;
+   &quot;hello&quot;.tr_s(&apos;el&apos;, &apos;*&apos;)    #=&gt; &quot;h*o&quot;
+   &quot;hello&quot;.tr_s(&apos;el&apos;, &apos;hx&apos;)   #=&gt; &quot;hhxo&quot;
+&lt;/pre&gt;</method>
+    <method name='tr_s!'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='unpack'>&lt;p&gt;Decodes &lt;em&gt;str&lt;/em&gt; (which may contain binary data) according to the format string, returning an array of each value extracted. The format string consists of a sequence of single-character directives, summarized in the table at the end of this entry. Each directive may be followed by a number, indicating the number of times to repeat with this directive. An asterisk (``&lt;tt&gt;*&lt;/tt&gt;&apos;&apos;) will use up all remaining elements. The directives &lt;tt&gt;sSiIlL&lt;/tt&gt; may each be followed by an underscore (``&lt;tt&gt;_&lt;/tt&gt;&apos;&apos;) to use the underlying platform&apos;s native size for the specified type; otherwise, it uses a platform-independent consistent size. Spaces are ignored in the format string. See also &lt;tt&gt;Array#pack&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   &quot;abc \0\0abc \0\0&quot;.unpack(&apos;A6Z6&apos;)   #=&gt; [&quot;abc&quot;, &quot;abc &quot;]
+   &quot;abc \0\0&quot;.unpack(&apos;a3a3&apos;)           #=&gt; [&quot;abc&quot;, &quot; \000\000&quot;]
+   &quot;abc \0abc \0&quot;.unpack(&apos;Z*Z*&apos;)       #=&gt; [&quot;abc &quot;, &quot;abc &quot;]
+   &quot;aa&quot;.unpack(&apos;b8B8&apos;)                 #=&gt; [&quot;10000110&quot;, &quot;01100001&quot;]
+   &quot;aaa&quot;.unpack(&apos;h2H2c&apos;)               #=&gt; [&quot;16&quot;, &quot;61&quot;, 97]
+   &quot;\xfe\xff\xfe\xff&quot;.unpack(&apos;sS&apos;)     #=&gt; [-2, 65534]
+   &quot;now=20is&quot;.unpack(&apos;M*&apos;)             #=&gt; [&quot;now is&quot;]
+   &quot;whole&quot;.unpack(&apos;xax2aX2aX1aX2a&apos;)    #=&gt; [&quot;h&quot;, &quot;e&quot;, &quot;l&quot;, &quot;l&quot;, &quot;o&quot;]
+&lt;/pre&gt;&lt;p&gt;This table summarizes the various formats and the Ruby classes returned by each.&lt;/p&gt;&lt;pre&gt;   Format | Returns | Function
+   -------+---------+-----------------------------------------
+     A    | String  | with trailing nulls and spaces removed
+   -------+---------+-----------------------------------------
+     a    | String  | string
+   -------+---------+-----------------------------------------
+     B    | String  | extract bits from each character (msb first)
+   -------+---------+-----------------------------------------
+     b    | String  | extract bits from each character (lsb first)
+   -------+---------+-----------------------------------------
+     C    | Fixnum  | extract a character as an unsigned integer
+   -------+---------+-----------------------------------------
+     c    | Fixnum  | extract a character as an integer
+   -------+---------+-----------------------------------------
+     d,D  | Float   | treat sizeof(double) characters as
+          |         | a native double
+   -------+---------+-----------------------------------------
+     E    | Float   | treat sizeof(double) characters as
+          |         | a double in little-endian byte order
+   -------+---------+-----------------------------------------
+     e    | Float   | treat sizeof(float) characters as
+          |         | a float in little-endian byte order
+   -------+---------+-----------------------------------------
+     f,F  | Float   | treat sizeof(float) characters as
+          |         | a native float
+   -------+---------+-----------------------------------------
+     G    | Float   | treat sizeof(double) characters as
+          |         | a double in network byte order
+   -------+---------+-----------------------------------------
+     g    | Float   | treat sizeof(float) characters as a
+          |         | float in network byte order
+   -------+---------+-----------------------------------------
+     H    | String  | extract hex nibbles from each character
+          |         | (most significant first)
+   -------+---------+-----------------------------------------
+     h    | String  | extract hex nibbles from each character
+          |         | (least significant first)
+   -------+---------+-----------------------------------------
+     I    | Integer | treat sizeof(int) (modified by _)
+          |         | successive characters as an unsigned
+          |         | native integer
+   -------+---------+-----------------------------------------
+     i    | Integer | treat sizeof(int) (modified by _)
+          |         | successive characters as a signed
+          |         | native integer
+   -------+---------+-----------------------------------------
+     L    | Integer | treat four (modified by _) successive
+          |         | characters as an unsigned native
+          |         | long integer
+   -------+---------+-----------------------------------------
+     l    | Integer | treat four (modified by _) successive
+          |         | characters as a signed native
+          |         | long integer
+   -------+---------+-----------------------------------------
+     M    | String  | quoted-printable
+   -------+---------+-----------------------------------------
+     m    | String  | base64-encoded
+   -------+---------+-----------------------------------------
+     N    | Integer | treat four characters as an unsigned
+          |         | long in network byte order
+   -------+---------+-----------------------------------------
+     n    | Fixnum  | treat two characters as an unsigned
+          |         | short in network byte order
+   -------+---------+-----------------------------------------
+     P    | String  | treat sizeof(char *) characters as a
+          |         | pointer, and  return \emph{len} characters
+          |         | from the referenced location
+   -------+---------+-----------------------------------------
+     p    | String  | treat sizeof(char *) characters as a
+          |         | pointer to a  null-terminated string
+   -------+---------+-----------------------------------------
+     Q    | Integer | treat 8 characters as an unsigned
+          |         | quad word (64 bits)
+   -------+---------+-----------------------------------------
+     q    | Integer | treat 8 characters as a signed
+          |         | quad word (64 bits)
+   -------+---------+-----------------------------------------
+     S    | Fixnum  | treat two (different if _ used)
+          |         | successive characters as an unsigned
+          |         | short in native byte order
+   -------+---------+-----------------------------------------
+     s    | Fixnum  | Treat two (different if _ used)
+          |         | successive characters as a signed short
+          |         | in native byte order
+   -------+---------+-----------------------------------------
+     U    | Integer | UTF-8 characters as unsigned integers
+   -------+---------+-----------------------------------------
+     u    | String  | UU-encoded
+   -------+---------+-----------------------------------------
+     V    | Fixnum  | treat four characters as an unsigned
+          |         | long in little-endian byte order
+   -------+---------+-----------------------------------------
+     v    | Fixnum  | treat two characters as an unsigned
+          |         | short in little-endian byte order
+   -------+---------+-----------------------------------------
+     w    | Integer | BER-compressed integer (see Array.pack)
+   -------+---------+-----------------------------------------
+     X    | ---     | skip backward one character
+   -------+---------+-----------------------------------------
+     x    | ---     | skip forward one character
+   -------+---------+-----------------------------------------
+     Z    | String  | with trailing nulls removed
+          |         | upto first null with *
+   -------+---------+-----------------------------------------
+     @    | ---     | skip to the offset given by the
+          |         | length argument
+   -------+---------+-----------------------------------------
+&lt;/pre&gt;</method>
+    <method name='upcase'>&lt;p&gt;Returns a copy of &lt;em&gt;str&lt;/em&gt; with all lowercase letters replaced with their uppercase counterparts. The operation is locale insensitive---only characters ``a&apos;&apos; to ``z&apos;&apos; are affected.&lt;/p&gt;&lt;pre&gt;   &quot;hEllO&quot;.upcase   #=&gt; &quot;HELLO&quot;
+&lt;/pre&gt;</method>
+    <method name='upcase!'>&lt;p&gt;Upcases the contents of &lt;em&gt;str&lt;/em&gt;, returning &lt;tt&gt;nil&lt;/tt&gt; if no changes were made.&lt;/p&gt;</method>
+    <method name='upto'>&lt;p&gt;Iterates through successive values, starting at &lt;em&gt;str&lt;/em&gt; and ending at &lt;em&gt;other_str&lt;/em&gt; inclusive, passing each value in turn to the block. The &lt;tt&gt;String#succ&lt;/tt&gt; method is used to generate each value.&lt;/p&gt;&lt;pre&gt;   &quot;a8&quot;.upto(&quot;b6&quot;) {|s| print s, &apos; &apos; }
+   for s in &quot;a8&quot;..&quot;b6&quot;
+     print s, &apos; &apos;
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   a8 a9 b0 b1 b2 b3 b4 b5 b6
+   a8 a9 b0 b1 b2 b3 b4 b5 b6
+&lt;/pre&gt;</method>
+  </methods>
+</help>

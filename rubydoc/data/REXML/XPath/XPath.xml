@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Wrapper class. Use this class to access the XPath functions.&lt;/p&gt;</comment>
+  <methods>
+    <method name='each'>&lt;p&gt;Itterates over nodes that match the given path, calling the supplied block with the match.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;The context element&lt;/li&gt;&lt;li&gt;The xpath to search for. If not supplied or nil, defaults to &apos;*&apos;&lt;/li&gt;&lt;li&gt;If supplied, a Hash which defines a namespace mapping&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; XPath.each( node ) { |el| ... }
+ XPath.each( node, &apos;/*[@attr=&apos;v&apos;]&apos; ) { |el| ... }
+ XPath.each( node, &apos;ancestor::x&apos; ) { |el| ... }
+&lt;/pre&gt;</method>
+    <method name='first'>&lt;p&gt;Finds and returns the first node that matches the supplied xpath.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;The context element&lt;/li&gt;&lt;li&gt;The xpath to search for. If not supplied or nil, returns the first node matching &apos;*&apos;.&lt;/li&gt;&lt;li&gt;If supplied, a Hash which defines a namespace mapping.&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; XPath.first( node )
+ XPath.first( doc, &quot;//b&quot;} )
+ XPath.first( node, &quot;a/x:b&quot;, { &quot;x&quot;=&gt;&quot;http://doofus&quot; } )
+&lt;/pre&gt;</method>
+    <method name='match'>&lt;p&gt;Returns an array of nodes matching a given XPath.&lt;/p&gt;</method>
+  </methods>
+</help>

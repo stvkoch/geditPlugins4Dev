@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The &lt;tt&gt;Find&lt;/tt&gt; module supports the top-down traversal of a set of file paths.&lt;/p&gt;&lt;p&gt;For example, to total the size of all files under your home directory, ignoring anything in a &quot;dot&quot; directory (e.g. $HOME/.ssh):&lt;/p&gt;&lt;pre&gt;  require &apos;find&apos;
+
+  total_size = 0
+
+  Find.find(ENV[&quot;HOME&quot;]) do |path|
+    if FileTest.directory?(path)
+      if File.basename(path)[0] == ?.
+        Find.prune       # Don&apos;t look any further into this directory.
+      else
+        next
+      end
+    else
+      total_size += FileTest.size(path)
+    end
+  end
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='find'>&lt;p&gt;Calls the associated block with the name of every file and directory listed as arguments, then recursively on their subdirectories, and so on.&lt;/p&gt;&lt;p&gt;See the &lt;tt&gt;Find&lt;/tt&gt; module documentation for an example.&lt;/p&gt;</method>
+    <method name='prune'>&lt;p&gt;Skips the current file or directory, restarting the loop with the next entry. If the current file is a directory, that directory will not be recursively entered. Meaningful only within the block associated with Find::find.&lt;/p&gt;&lt;p&gt;See the &lt;tt&gt;Find&lt;/tt&gt; module documentation for an example.&lt;/p&gt;</method>
+  </methods>
+</help>

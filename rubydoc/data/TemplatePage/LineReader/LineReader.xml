@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Simple class to read lines out of a string&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;we&apos;re initialized with an array of lines&lt;/p&gt;</method>
+    <method name='dup'>&lt;p&gt;Return a copy of ourselves that can be modified without affecting us&lt;/p&gt;</method>
+    <method name='read'>&lt;p&gt;read the next line&lt;/p&gt;</method>
+    <method name='read_up_to'>&lt;p&gt;Return a list of lines up to the line that matches a pattern. That last line is discarded.&lt;/p&gt;</method>
+  </methods>
+</help>

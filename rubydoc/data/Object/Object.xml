@@ -1,0 +1,282 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;&lt;tt&gt;Object&lt;/tt&gt; is the parent class of all classes in Ruby. Its methods are therefore available to all objects unless explicitly overridden.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;Object&lt;/tt&gt; mixes in the &lt;tt&gt;Kernel&lt;/tt&gt; module, making the built-in kernel functions globally accessible. Although the instance methods of &lt;tt&gt;Object&lt;/tt&gt; are defined by the &lt;tt&gt;Kernel&lt;/tt&gt; module, we have chosen to document them here for clarity.&lt;/p&gt;&lt;p&gt;In the descriptions of Object&apos;s methods, the parameter &lt;em&gt;symbol&lt;/em&gt; refers to a symbol, which is either a quoted string or a &lt;tt&gt;Symbol&lt;/tt&gt; (such as &lt;tt&gt;:name&lt;/tt&gt;).&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Not documented&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;Equality---At the &lt;tt&gt;Object&lt;/tt&gt; level, &lt;tt&gt;==&lt;/tt&gt; returns &lt;tt&gt;true&lt;/tt&gt; only if &lt;em&gt;obj&lt;/em&gt; and &lt;em&gt;other&lt;/em&gt; are the same object. Typically, this method is overridden in descendent classes to provide class-specific meaning.&lt;/p&gt;&lt;p&gt;Unlike &lt;tt&gt;==&lt;/tt&gt;, the &lt;tt&gt;equal?&lt;/tt&gt; method should never be overridden by subclasses: it is used to determine object identity (that is, &lt;tt&gt;a.equal?(b)&lt;/tt&gt; iff &lt;tt&gt;a&lt;/tt&gt; is the same object as &lt;tt&gt;b&lt;/tt&gt;).&lt;/p&gt;&lt;p&gt;The &lt;tt&gt;eql?&lt;/tt&gt; method returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;obj&lt;/em&gt; and &lt;em&gt;anObject&lt;/em&gt; have the same value. Used by &lt;tt&gt;Hash&lt;/tt&gt; to test members for equality. For objects of class &lt;tt&gt;Object&lt;/tt&gt;, &lt;tt&gt;eql?&lt;/tt&gt; is synonymous with &lt;tt&gt;==&lt;/tt&gt;. Subclasses normally continue this tradition, but there are exceptions. &lt;tt&gt;Numeric&lt;/tt&gt; types, for example, perform type conversion across &lt;tt&gt;==&lt;/tt&gt;, but not across &lt;tt&gt;eql?&lt;/tt&gt;, so:&lt;/p&gt;&lt;pre&gt;   1 == 1.0     #=&gt; true
+   1.eql? 1.0   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='==='>&lt;p&gt;Case Equality---For class &lt;tt&gt;Object&lt;/tt&gt;, effectively the same as calling &lt;tt&gt;#==&lt;/tt&gt;, but typically overridden by descendents to provide meaningful semantics in &lt;tt&gt;case&lt;/tt&gt; statements.&lt;/p&gt;</method>
+    <method name='=~'>&lt;p&gt;Pattern Match---Overridden by descendents (notably &lt;tt&gt;Regexp&lt;/tt&gt; and &lt;tt&gt;String&lt;/tt&gt;) to provide meaningful pattern-match semantics.&lt;/p&gt;</method>
+    <method name='__id__'>&lt;p&gt;Document-method: object_id&lt;/p&gt;&lt;p&gt;Returns an integer identifier for &lt;em&gt;obj&lt;/em&gt;. The same number will be returned on all calls to &lt;tt&gt;id&lt;/tt&gt; for a given object, and no two active objects will share an id. &lt;tt&gt;Object#object_id&lt;/tt&gt; is a different concept from the &lt;tt&gt;:name&lt;/tt&gt; notation, which returns the symbol id of &lt;tt&gt;name&lt;/tt&gt;. Replaces the deprecated &lt;tt&gt;Object#id&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='__send__'>&lt;p&gt;Invokes the method identified by &lt;em&gt;symbol&lt;/em&gt;, passing it any arguments specified. You can use &lt;tt&gt;__send__&lt;/tt&gt; if the name &lt;tt&gt;send&lt;/tt&gt; clashes with an existing method in &lt;em&gt;obj&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   class Klass
+     def hello(*args)
+       &quot;Hello &quot; + args.join(&apos; &apos;)
+     end
+   end
+   k = Klass.new
+   k.send :hello, &quot;gentle&quot;, &quot;readers&quot;   #=&gt; &quot;Hello gentle readers&quot;
+&lt;/pre&gt;</method>
+    <method name='class'>&lt;p&gt;Returns the class of &lt;em&gt;obj&lt;/em&gt;, now preferred over &lt;tt&gt;Object#type&lt;/tt&gt;, as an object&apos;s type in Ruby is only loosely tied to that object&apos;s class. This method must always be called with an explicit receiver, as &lt;tt&gt;class&lt;/tt&gt; is also a reserved word in Ruby.&lt;/p&gt;&lt;pre&gt;   1.class      #=&gt; Fixnum
+   self.class   #=&gt; Object
+&lt;/pre&gt;</method>
+    <method name='clone'>&lt;p&gt;Produces a shallow copy of &lt;em&gt;obj&lt;/em&gt;---the instance variables of &lt;em&gt;obj&lt;/em&gt; are copied, but not the objects they reference. Copies the frozen and tainted state of &lt;em&gt;obj&lt;/em&gt;. See also the discussion under &lt;tt&gt;Object#dup&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   class Klass
+      attr_accessor :str
+   end
+   s1 = Klass.new      #=&gt; #&lt;Klass:0x401b3a38&gt;
+   s1.str = &quot;Hello&quot;    #=&gt; &quot;Hello&quot;
+   s2 = s1.clone       #=&gt; #&lt;Klass:0x401b3998 @str=&quot;Hello&quot;&gt;
+   s2.str[1,4] = &quot;i&quot;   #=&gt; &quot;i&quot;
+   s1.inspect          #=&gt; &quot;#&lt;Klass:0x401b3a38 @str=\&quot;Hi\&quot;&gt;&quot;
+   s2.inspect          #=&gt; &quot;#&lt;Klass:0x401b3998 @str=\&quot;Hi\&quot;&gt;&quot;
+&lt;/pre&gt;&lt;p&gt;This method may have class-specific behavior. If so, that behavior will be documented under the #&lt;tt&gt;initialize_copy&lt;/tt&gt; method of the class.&lt;/p&gt;</method>
+    <method name='dclone'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='display'>&lt;p&gt;Prints &lt;em&gt;obj&lt;/em&gt; on the given port (default &lt;tt&gt;$&gt;&lt;/tt&gt;). Equivalent to:&lt;/p&gt;&lt;pre&gt;   def display(port=$&gt;)
+     port.write self
+   end
+&lt;/pre&gt;&lt;p&gt;For example:&lt;/p&gt;&lt;pre&gt;   1.display
+   &quot;cat&quot;.display
+   [ 4, 5, 6 ].display
+   puts
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   1cat456
+&lt;/pre&gt;</method>
+    <method name='dup'>&lt;p&gt;Produces a shallow copy of &lt;em&gt;obj&lt;/em&gt;---the instance variables of &lt;em&gt;obj&lt;/em&gt; are copied, but not the objects they reference. &lt;tt&gt;dup&lt;/tt&gt; copies the tainted state of &lt;em&gt;obj&lt;/em&gt;. See also the discussion under &lt;tt&gt;Object#clone&lt;/tt&gt;. In general, &lt;tt&gt;clone&lt;/tt&gt; and &lt;tt&gt;dup&lt;/tt&gt; may have different semantics in descendent classes. While &lt;tt&gt;clone&lt;/tt&gt; is used to duplicate an object, including its internal state, &lt;tt&gt;dup&lt;/tt&gt; typically uses the class of the descendent object to create the new instance.&lt;/p&gt;&lt;p&gt;This method may have class-specific behavior. If so, that behavior will be documented under the #&lt;tt&gt;initialize_copy&lt;/tt&gt; method of the class.&lt;/p&gt;</method>
+    <method name='enum_for'>&lt;p&gt;Returns Enumerable::Enumerator.new(self, method, *args).&lt;/p&gt;&lt;p&gt;e.g.:&lt;/p&gt;&lt;pre&gt;   str = &quot;xyz&quot;
+
+   enum = str.enum_for(:each_byte)
+   a = enum.map {|b| &apos;%02x&apos; % b } #=&gt; [&quot;78&quot;, &quot;79&quot;, &quot;7a&quot;]
+
+   # protects an array from being modified
+   a = [1, 2, 3]
+   some_method(a.to_enum)
+&lt;/pre&gt;</method>
+    <method name='eql?'>&lt;p&gt;Equality---At the &lt;tt&gt;Object&lt;/tt&gt; level, &lt;tt&gt;==&lt;/tt&gt; returns &lt;tt&gt;true&lt;/tt&gt; only if &lt;em&gt;obj&lt;/em&gt; and &lt;em&gt;other&lt;/em&gt; are the same object. Typically, this method is overridden in descendent classes to provide class-specific meaning.&lt;/p&gt;&lt;p&gt;Unlike &lt;tt&gt;==&lt;/tt&gt;, the &lt;tt&gt;equal?&lt;/tt&gt; method should never be overridden by subclasses: it is used to determine object identity (that is, &lt;tt&gt;a.equal?(b)&lt;/tt&gt; iff &lt;tt&gt;a&lt;/tt&gt; is the same object as &lt;tt&gt;b&lt;/tt&gt;).&lt;/p&gt;&lt;p&gt;The &lt;tt&gt;eql?&lt;/tt&gt; method returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;obj&lt;/em&gt; and &lt;em&gt;anObject&lt;/em&gt; have the same value. Used by &lt;tt&gt;Hash&lt;/tt&gt; to test members for equality. For objects of class &lt;tt&gt;Object&lt;/tt&gt;, &lt;tt&gt;eql?&lt;/tt&gt; is synonymous with &lt;tt&gt;==&lt;/tt&gt;. Subclasses normally continue this tradition, but there are exceptions. &lt;tt&gt;Numeric&lt;/tt&gt; types, for example, perform type conversion across &lt;tt&gt;==&lt;/tt&gt;, but not across &lt;tt&gt;eql?&lt;/tt&gt;, so:&lt;/p&gt;&lt;pre&gt;   1 == 1.0     #=&gt; true
+   1.eql? 1.0   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='equal?'>&lt;p&gt;Equality---At the &lt;tt&gt;Object&lt;/tt&gt; level, &lt;tt&gt;==&lt;/tt&gt; returns &lt;tt&gt;true&lt;/tt&gt; only if &lt;em&gt;obj&lt;/em&gt; and &lt;em&gt;other&lt;/em&gt; are the same object. Typically, this method is overridden in descendent classes to provide class-specific meaning.&lt;/p&gt;&lt;p&gt;Unlike &lt;tt&gt;==&lt;/tt&gt;, the &lt;tt&gt;equal?&lt;/tt&gt; method should never be overridden by subclasses: it is used to determine object identity (that is, &lt;tt&gt;a.equal?(b)&lt;/tt&gt; iff &lt;tt&gt;a&lt;/tt&gt; is the same object as &lt;tt&gt;b&lt;/tt&gt;).&lt;/p&gt;&lt;p&gt;The &lt;tt&gt;eql?&lt;/tt&gt; method returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;obj&lt;/em&gt; and &lt;em&gt;anObject&lt;/em&gt; have the same value. Used by &lt;tt&gt;Hash&lt;/tt&gt; to test members for equality. For objects of class &lt;tt&gt;Object&lt;/tt&gt;, &lt;tt&gt;eql?&lt;/tt&gt; is synonymous with &lt;tt&gt;==&lt;/tt&gt;. Subclasses normally continue this tradition, but there are exceptions. &lt;tt&gt;Numeric&lt;/tt&gt; types, for example, perform type conversion across &lt;tt&gt;==&lt;/tt&gt;, but not across &lt;tt&gt;eql?&lt;/tt&gt;, so:&lt;/p&gt;&lt;pre&gt;   1 == 1.0     #=&gt; true
+   1.eql? 1.0   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='extend'>&lt;p&gt;Adds to &lt;em&gt;obj&lt;/em&gt; the instance methods from each module given as a parameter.&lt;/p&gt;&lt;pre&gt;   module Mod
+     def hello
+       &quot;Hello from Mod.\n&quot;
+     end
+   end
+
+   class Klass
+     def hello
+       &quot;Hello from Klass.\n&quot;
+     end
+   end
+
+   k = Klass.new
+   k.hello         #=&gt; &quot;Hello from Klass.\n&quot;
+   k.extend(Mod)   #=&gt; #&lt;Klass:0x401b3bc8&gt;
+   k.hello         #=&gt; &quot;Hello from Mod.\n&quot;
+&lt;/pre&gt;</method>
+    <method name='freeze'>&lt;p&gt;Prevents further modifications to &lt;em&gt;obj&lt;/em&gt;. A &lt;tt&gt;TypeError&lt;/tt&gt; will be raised if modification is attempted. There is no way to unfreeze a frozen object. See also &lt;tt&gt;Object#frozen?&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   a = [ &quot;a&quot;, &quot;b&quot;, &quot;c&quot; ]
+   a.freeze
+   a &lt;&lt; &quot;z&quot;
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   prog.rb:3:in `&lt;&lt;&apos;: can&apos;t modify frozen array (TypeError)
+    from prog.rb:3
+&lt;/pre&gt;</method>
+    <method name='frozen?'>&lt;p&gt;Returns the freeze status of &lt;em&gt;obj&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   a = [ &quot;a&quot;, &quot;b&quot;, &quot;c&quot; ]
+   a.freeze    #=&gt; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]
+   a.frozen?   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='hash'>&lt;p&gt;Generates a &lt;tt&gt;Fixnum&lt;/tt&gt; hash value for this object. This function must have the property that &lt;tt&gt;a.eql?(b)&lt;/tt&gt; implies &lt;tt&gt;a.hash == b.hash&lt;/tt&gt;. The hash value is used by class &lt;tt&gt;Hash&lt;/tt&gt;. Any hash value that exceeds the capacity of a &lt;tt&gt;Fixnum&lt;/tt&gt; will be truncated before being used.&lt;/p&gt;</method>
+    <method name='id'>&lt;p&gt;Soon-to-be deprecated version of &lt;tt&gt;Object#object_id&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;Returns a string containing a human-readable representation of &lt;em&gt;obj&lt;/em&gt;. If not overridden, uses the &lt;tt&gt;to_s&lt;/tt&gt; method to generate the string.&lt;/p&gt;&lt;pre&gt;   [ 1, 2, 3..4, &apos;five&apos; ].inspect   #=&gt; &quot;[1, 2, 3..4, \&quot;five\&quot;]&quot;
+   Time.new.inspect                 #=&gt; &quot;Wed Apr 09 08:54:39 CDT 2003&quot;
+&lt;/pre&gt;</method>
+    <method name='instance_eval'>&lt;p&gt;Evaluates a string containing Ruby source code, or the given block, within the context of the receiver (&lt;em&gt;obj&lt;/em&gt;). In order to set the context, the variable &lt;tt&gt;self&lt;/tt&gt; is set to &lt;em&gt;obj&lt;/em&gt; while the code is executing, giving the code access to &lt;em&gt;obj&lt;/em&gt;&apos;s instance variables. In the version of &lt;tt&gt;instance_eval&lt;/tt&gt; that takes a &lt;tt&gt;String&lt;/tt&gt;, the optional second and third parameters supply a filename and starting line number that are used when reporting compilation errors.&lt;/p&gt;&lt;pre&gt;   class Klass
+     def initialize
+       @secret = 99
+     end
+   end
+   k = Klass.new
+   k.instance_eval { @secret }   #=&gt; 99
+&lt;/pre&gt;</method>
+    <method name='instance_of?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;obj&lt;/em&gt; is an instance of the given class. See also &lt;tt&gt;Object#kind_of?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='instance_variable_get'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='instance_variable_set'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='instance_variables'>&lt;p&gt;Returns an array of instance variable names for the receiver. Note that simply defining an accessor does not create the corresponding instance variable.&lt;/p&gt;&lt;pre&gt;   class Fred
+     attr_accessor :a1
+     def initialize
+       @iv = 3
+     end
+   end
+   Fred.new.instance_variables   #=&gt; [&quot;@iv&quot;]
+&lt;/pre&gt;</method>
+    <method name='is_a?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;class&lt;/em&gt; is the class of &lt;em&gt;obj&lt;/em&gt;, or if &lt;em&gt;class&lt;/em&gt; is one of the superclasses of &lt;em&gt;obj&lt;/em&gt; or modules included in &lt;em&gt;obj&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   module M;    end
+   class A
+     include M
+   end
+   class B &lt; A; end
+   class C &lt; B; end
+   b = B.new
+   b.instance_of? A   #=&gt; false
+   b.instance_of? B   #=&gt; true
+   b.instance_of? C   #=&gt; false
+   b.instance_of? M   #=&gt; false
+   b.kind_of? A       #=&gt; true
+   b.kind_of? B       #=&gt; true
+   b.kind_of? C       #=&gt; false
+   b.kind_of? M       #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='kind_of?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;class&lt;/em&gt; is the class of &lt;em&gt;obj&lt;/em&gt;, or if &lt;em&gt;class&lt;/em&gt; is one of the superclasses of &lt;em&gt;obj&lt;/em&gt; or modules included in &lt;em&gt;obj&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   module M;    end
+   class A
+     include M
+   end
+   class B &lt; A; end
+   class C &lt; B; end
+   b = B.new
+   b.instance_of? A   #=&gt; false
+   b.instance_of? B   #=&gt; true
+   b.instance_of? C   #=&gt; false
+   b.instance_of? M   #=&gt; false
+   b.kind_of? A       #=&gt; true
+   b.kind_of? B       #=&gt; true
+   b.kind_of? C       #=&gt; false
+   b.kind_of? M       #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='method'>&lt;p&gt;Looks up the named method as a receiver in &lt;em&gt;obj&lt;/em&gt;, returning a &lt;tt&gt;Method&lt;/tt&gt; object (or raising &lt;tt&gt;NameError&lt;/tt&gt;). The &lt;tt&gt;Method&lt;/tt&gt; object acts as a closure in &lt;em&gt;obj&lt;/em&gt;&apos;s object instance, so instance variables and the value of &lt;tt&gt;self&lt;/tt&gt; remain available.&lt;/p&gt;&lt;pre&gt;   class Demo
+     def initialize(n)
+       @iv = n
+     end
+     def hello()
+       &quot;Hello, @iv = #{@iv}&quot;
+     end
+   end
+
+   k = Demo.new(99)
+   m = k.method(:hello)
+   m.call   #=&gt; &quot;Hello, @iv = 99&quot;
+
+   l = Demo.new(&apos;Fred&apos;)
+   m = l.method(&quot;hello&quot;)
+   m.call   #=&gt; &quot;Hello, @iv = Fred&quot;
+&lt;/pre&gt;</method>
+    <method name='methods'>&lt;p&gt;Returns a list of the names of methods publicly accessible in &lt;em&gt;obj&lt;/em&gt;. This will include all the methods accessible in &lt;em&gt;obj&lt;/em&gt;&apos;s ancestors.&lt;/p&gt;&lt;pre&gt;   class Klass
+     def kMethod()
+     end
+   end
+   k = Klass.new
+   k.methods[0..9]    #=&gt; [&quot;kMethod&quot;, &quot;freeze&quot;, &quot;nil?&quot;, &quot;is_a?&quot;,
+                           &quot;class&quot;, &quot;instance_variable_set&quot;,
+                            &quot;methods&quot;, &quot;extend&quot;, &quot;&lt;em&gt;send&lt;/em&gt;&quot;, &quot;instance_eval&quot;]
+   k.methods.length   #=&gt; 42
+&lt;/pre&gt;</method>
+    <method name='nil?'>&lt;p&gt;call_seq:&lt;/p&gt;&lt;pre&gt;  nil.nil?               =&gt; true
+  &lt;anything_else&gt;.nil?   =&gt; false
+&lt;/pre&gt;&lt;p&gt;Only the object &lt;em&gt;nil&lt;/em&gt; responds &lt;tt&gt;true&lt;/tt&gt; to &lt;tt&gt;nil?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='object_id'>&lt;p&gt;Returns an integer identifier for &lt;em&gt;obj&lt;/em&gt;. The same number will be returned on all calls to &lt;tt&gt;id&lt;/tt&gt; for a given object, and no two active objects will share an id. &lt;tt&gt;Object#object_id&lt;/tt&gt; is a different concept from the &lt;tt&gt;:name&lt;/tt&gt; notation, which returns the symbol id of &lt;tt&gt;name&lt;/tt&gt;. Replaces the deprecated &lt;tt&gt;Object#id&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='private_methods'>&lt;p&gt;Returns the list of private methods accessible to &lt;em&gt;obj&lt;/em&gt;. If the &lt;em&gt;all&lt;/em&gt; parameter is set to &lt;tt&gt;false&lt;/tt&gt;, only those methods in the receiver will be listed.&lt;/p&gt;</method>
+    <method name='protected_methods'>&lt;p&gt;Returns the list of protected methods accessible to &lt;em&gt;obj&lt;/em&gt;. If the &lt;em&gt;all&lt;/em&gt; parameter is set to &lt;tt&gt;false&lt;/tt&gt;, only those methods in the receiver will be listed.&lt;/p&gt;</method>
+    <method name='public_methods'>&lt;p&gt;Returns the list of public methods accessible to &lt;em&gt;obj&lt;/em&gt;. If the &lt;em&gt;all&lt;/em&gt; parameter is set to &lt;tt&gt;false&lt;/tt&gt;, only those methods in the receiver will be listed.&lt;/p&gt;</method>
+    <method name='remove_instance_variable'>&lt;p&gt;Removes the named instance variable from &lt;em&gt;obj&lt;/em&gt;, returning that variable&apos;s value.&lt;/p&gt;&lt;pre&gt;   class Dummy
+     attr_reader :var
+     def initialize
+       @var = 99
+     end
+     def remove
+       remove_instance_variable(:@var)
+     end
+   end
+   d = Dummy.new
+   d.var      #=&gt; 99
+   d.remove   #=&gt; 99
+   d.var      #=&gt; nil
+&lt;/pre&gt;</method>
+    <method name='respond_to?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt;&gt; if &lt;em&gt;obj&lt;/em&gt; responds to the given method. Private methods are included in the search only if the optional second parameter evaluates to &lt;tt&gt;true&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='send'>&lt;p&gt;Invokes the method identified by &lt;em&gt;symbol&lt;/em&gt;, passing it any arguments specified. You can use &lt;tt&gt;__send__&lt;/tt&gt; if the name &lt;tt&gt;send&lt;/tt&gt; clashes with an existing method in &lt;em&gt;obj&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   class Klass
+     def hello(*args)
+       &quot;Hello &quot; + args.join(&apos; &apos;)
+     end
+   end
+   k = Klass.new
+   k.send :hello, &quot;gentle&quot;, &quot;readers&quot;   #=&gt; &quot;Hello gentle readers&quot;
+&lt;/pre&gt;</method>
+    <method name='singleton_method_added'>&lt;p&gt;Invoked as a callback whenever a singleton method is added to the receiver.&lt;/p&gt;&lt;pre&gt;   module Chatty
+     def Chatty.singleton_method_added(id)
+       puts &quot;Adding #{id.id2name}&quot;
+     end
+     def self.one()     end
+     def two()          end
+     def Chatty.three() end
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Adding singleton_method_added
+   Adding one
+   Adding three
+&lt;/pre&gt;</method>
+    <method name='singleton_method_removed'>&lt;p&gt;Invoked as a callback whenever a singleton method is removed from the receiver.&lt;/p&gt;&lt;pre&gt;   module Chatty
+     def Chatty.singleton_method_removed(id)
+       puts &quot;Removing #{id.id2name}&quot;
+     end
+     def self.one()     end
+     def two()          end
+     def Chatty.three() end
+     class &lt;&lt;self
+       remove_method :three
+       remove_method :one
+     end
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Removing three
+   Removing one
+&lt;/pre&gt;</method>
+    <method name='singleton_method_undefined'>&lt;p&gt;Invoked as a callback whenever a singleton method is undefined in the receiver.&lt;/p&gt;&lt;pre&gt;   module Chatty
+     def Chatty.singleton_method_undefined(id)
+       puts &quot;Undefining #{id.id2name}&quot;
+     end
+     def Chatty.one()   end
+     class &lt;&lt; self
+        undef_method(:one)
+     end
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Undefining one
+&lt;/pre&gt;</method>
+    <method name='singleton_methods'>&lt;p&gt;Returns an array of the names of singleton methods for &lt;em&gt;obj&lt;/em&gt;. If the optional &lt;em&gt;all&lt;/em&gt; parameter is true, the list will include methods in modules included in &lt;em&gt;obj&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   module Other
+     def three() end
+   end
+
+   class Single
+     def Single.four() end
+   end
+
+   a = Single.new
+
+   def a.one()
+   end
+
+   class &lt;&lt; a
+     include Other
+     def two()
+     end
+   end
+
+   Single.singleton_methods    #=&gt; [&quot;four&quot;]
+   a.singleton_methods(false)  #=&gt; [&quot;two&quot;, &quot;one&quot;]
+   a.singleton_methods         #=&gt; [&quot;two&quot;, &quot;one&quot;, &quot;three&quot;]
+&lt;/pre&gt;</method>
+    <method name='taint'>&lt;p&gt;Marks &lt;em&gt;obj&lt;/em&gt; as tainted---if the &lt;tt&gt;$SAFE&lt;/tt&gt; level is set appropriately, many method calls which might alter the running programs environment will refuse to accept tainted strings.&lt;/p&gt;</method>
+    <method name='tainted?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the object is tainted.&lt;/p&gt;</method>
+    <method name='to_a'>&lt;p&gt;Returns an array representation of &lt;em&gt;obj&lt;/em&gt;. For objects of class &lt;tt&gt;Object&lt;/tt&gt; and others that don&apos;t explicitly override the method, the return value is an array containing &lt;tt&gt;self&lt;/tt&gt;. However, this latter behavior will soon be obsolete.&lt;/p&gt;&lt;pre&gt;   self.to_a       #=&gt; -:1: warning: default `to_a&apos; will be obsolete
+   &quot;hello&quot;.to_a    #=&gt; [&quot;hello&quot;]
+   Time.new.to_a   #=&gt; [39, 54, 8, 9, 4, 2003, 3, 99, true, &quot;CDT&quot;]
+&lt;/pre&gt;</method>
+    <method name='to_enum'>&lt;p&gt;Returns Enumerable::Enumerator.new(self, method, *args).&lt;/p&gt;&lt;p&gt;e.g.:&lt;/p&gt;&lt;pre&gt;   str = &quot;xyz&quot;
+
+   enum = str.enum_for(:each_byte)
+   a = enum.map {|b| &apos;%02x&apos; % b } #=&gt; [&quot;78&quot;, &quot;79&quot;, &quot;7a&quot;]
+
+   # protects an array from being modified
+   a = [1, 2, 3]
+   some_method(a.to_enum)
+&lt;/pre&gt;</method>
+    <method name='to_s'>&lt;p&gt;Returns a string representing &lt;em&gt;obj&lt;/em&gt;. The default &lt;tt&gt;to_s&lt;/tt&gt; prints the object&apos;s class and an encoding of the object id. As a special case, the top-level object that is the initial execution context of Ruby programs returns ``main.&apos;&apos;&lt;/p&gt;</method>
+    <method name='to_yaml'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_yaml_properties'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_yaml_style'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='type'>&lt;p&gt;Deprecated synonym for &lt;tt&gt;Object#class&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='untaint'>&lt;p&gt;Removes the taint from &lt;em&gt;obj&lt;/em&gt;.&lt;/p&gt;</method>
+  </methods>
+</help>

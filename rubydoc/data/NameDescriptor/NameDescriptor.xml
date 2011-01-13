@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Break argument into its constituent class or module names, an optional method type, and a method name&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;arg may be&lt;/p&gt;&lt;ul&gt;&lt;li&gt;a class or module name (optionally qualified with other class or module names (Kernel, File::Stat etc)&lt;/li&gt;&lt;li&gt;a method name&lt;/li&gt;&lt;li&gt;a method name qualified by a optionally fully qualified class or module name&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;We&apos;re fairly casual about delimiters: folks can say Kernel::puts, Kernel.puts, or Kernel\#puts for example. There&apos;s one exception: if you say IO::read, we look for a class method, but if you say IO.read, we look for an instance method&lt;/p&gt;</method>
+    <method name='full_class_name'>&lt;p&gt;Return the full class name (with &apos;::&apos; between the components) or &quot;&quot; if there&apos;s no class name&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='exit_value'>&lt;p&gt;call_seq:&lt;/p&gt;&lt;pre&gt;  local_jump_error.exit_value  =&gt; obj
+&lt;/pre&gt;&lt;p&gt;Returns the exit value associated with this &lt;tt&gt;LocalJumpError&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='reason'>&lt;p&gt;The reason this block was terminated: :break, :redo, :retry, :next, :return, or :noreason.&lt;/p&gt;</method>
+  </methods>
+</help>

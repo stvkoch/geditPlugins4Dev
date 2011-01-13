@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='obj2soap'>&lt;ul&gt;&lt;li&gt;is converted to Array of Array, not 2-D Array.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;To create M-D Array, you must call Mapping.ary2md.&lt;/p&gt;</method>
+    <method name='soap2obj'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

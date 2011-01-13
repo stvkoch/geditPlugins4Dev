@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;YAML Generic Model container&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='transform'>&lt;p&gt;Transform this node fully into a native type&lt;/p&gt;</method>
+  </methods>
+</help>

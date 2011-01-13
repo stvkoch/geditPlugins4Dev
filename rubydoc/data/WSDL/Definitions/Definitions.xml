@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='array_complextype'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='exception_complextype'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='fault_complextype'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='soap_rpc_complextypes'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_type'>&lt;p&gt;ToDo: simpletype must be accepted...&lt;/p&gt;</method>
+    <method name='binding'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='bindings'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='collect_attributes'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='collect_complextypes'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='collect_elements'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='collect_faulttypes'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='collect_simpletypes'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='message'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='messages'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse_attr'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='porttype'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='porttype_binding'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='porttypes'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='service'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='services'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='soap_rpc_complextypes'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='targetnamespace='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

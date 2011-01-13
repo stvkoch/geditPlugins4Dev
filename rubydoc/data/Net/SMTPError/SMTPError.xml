@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Module mixed in to all SMTP error classes&lt;/p&gt;</comment>
+  <methods/>
+</help>

@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This class implements a pretty printing algorithm. It finds line breaks and nice indentations for grouped structure.&lt;/p&gt;&lt;p&gt;By default, the class assumes that primitive elements are strings and each byte in the strings have single column in width. But it can be used for other situations by giving suitable arguments for some methods:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;newline object and space generation block for PrettyPrint.new&lt;/li&gt;&lt;li&gt;optional width argument for PrettyPrint#text&lt;/li&gt;&lt;li&gt;PrettyPrint#breakable&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;There are several candidate uses:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;text formatting using proportional fonts&lt;/li&gt;&lt;li&gt;multibyte characters which has columns different to number of bytes&lt;/li&gt;&lt;li&gt;non-string formatting&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Bugs&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Box based formatting?&lt;/li&gt;&lt;li&gt;Other (better) model/algorithm?&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;References&lt;/h2&gt;&lt;p&gt;Christian Lindig, Strictly Pretty, March 2000, http://www.st.cs.uni-sb.de/~lindig/papers/#pretty&lt;/p&gt;&lt;p&gt;Philip Wadler, A prettier printer, March 1998, http://homepages.inf.ed.ac.uk/wadler/topics/language-design.html#prettier&lt;/p&gt;&lt;h2&gt;Author&lt;/h2&gt;&lt;p&gt;Tanaka Akira &lt;akr@m17n.org&gt;&lt;/p&gt;</comment>
+  <methods>
+    <method name='format'>&lt;p&gt;This is a convenience method which is same as follows:&lt;/p&gt;&lt;pre&gt;  begin
+    q = PrettyPrint.new(output, maxwidth, newline, &amp;genspace)
+    ...
+    q.flush
+    output
+  end
+&lt;/pre&gt;</method>
+    <method name='new'>&lt;p&gt;Creates a buffer for pretty printing.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;output&lt;/tt&gt; is an output target. If it is not specified, &apos;&apos; is assumed. It should have a &lt;&lt; method which accepts the first argument &lt;tt&gt;obj&lt;/tt&gt; of PrettyPrint#text, the first argument &lt;tt&gt;sep&lt;/tt&gt; of PrettyPrint#breakable, the first argument &lt;tt&gt;newline&lt;/tt&gt; of PrettyPrint.new, and the result of a given block for PrettyPrint.new.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;maxwidth&lt;/tt&gt; specifies maximum line length. If it is not specified, 79 is assumed. However actual outputs may overflow &lt;tt&gt;maxwidth&lt;/tt&gt; if long non-breakable texts are provided.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;newline&lt;/tt&gt; is used for line breaks. &quot;\n&quot; is used if it is not specified.&lt;/p&gt;&lt;p&gt;The block is used to generate spaces. {|width| &apos; &apos; * width} is used if it is not given.&lt;/p&gt;</method>
+    <method name='singleline_format'>&lt;p&gt;This is similar to PrettyPrint::format but the result has no breaks.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;maxwidth&lt;/tt&gt;, &lt;tt&gt;newline&lt;/tt&gt; and &lt;tt&gt;genspace&lt;/tt&gt; are ignored.&lt;/p&gt;&lt;p&gt;The invocation of &lt;tt&gt;breakable&lt;/tt&gt; in the block doesn&apos;t break a line and is treated as just an invocation of &lt;tt&gt;text&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='break_outmost_groups'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='breakable'>&lt;p&gt;This tells &quot;you can break a line here if necessary&quot;, and a &lt;tt&gt;width&lt;/tt&gt;\-column text &lt;tt&gt;sep&lt;/tt&gt; is inserted if a line is not broken at the point.&lt;/p&gt;&lt;p&gt;If &lt;tt&gt;sep&lt;/tt&gt; is not specified, &quot; &quot; is used.&lt;/p&gt;&lt;p&gt;If &lt;tt&gt;width&lt;/tt&gt; is not specified, +sep.length+ is used. You will have to specify this when &lt;tt&gt;sep&lt;/tt&gt; is a multibyte character, for example.&lt;/p&gt;</method>
+    <method name='current_group'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='fill_breakable'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='first?'>&lt;p&gt;first? is a predicate to test the call is a first call to first? with current group.&lt;/p&gt;&lt;p&gt;It is useful to format comma separated values as:&lt;/p&gt;&lt;pre&gt;  q.group(1, &apos;[&apos;, &apos;]&apos;) {
+    xxx.each {|yyy|
+      unless q.first?
+        q.text &apos;,&apos;
+        q.breakable
+      end
+      ... pretty printing yyy ...
+    }
+  }
+&lt;/pre&gt;&lt;p&gt;first? is obsoleted in 1.8.2.&lt;/p&gt;</method>
+    <method name='flush'>&lt;p&gt;outputs buffered data.&lt;/p&gt;</method>
+    <method name='group'>&lt;p&gt;Groups line break hints added in the block. The line break hints are all to be used or not.&lt;/p&gt;&lt;p&gt;If &lt;tt&gt;indent&lt;/tt&gt; is specified, the method call is regarded as nested by nest(indent) { ... }.&lt;/p&gt;&lt;p&gt;If &lt;tt&gt;open_obj&lt;/tt&gt; is specified, &lt;tt&gt;text open_obj, open_width&lt;/tt&gt; is called before grouping. If &lt;tt&gt;close_obj&lt;/tt&gt; is specified, &lt;tt&gt;text close_obj, close_width&lt;/tt&gt; is called after grouping.&lt;/p&gt;</method>
+    <method name='group_sub'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='nest'>&lt;p&gt;Increases left margin after newline with &lt;tt&gt;indent&lt;/tt&gt; for line breaks added in the block.&lt;/p&gt;</method>
+    <method name='text'>&lt;p&gt;This adds &lt;tt&gt;obj&lt;/tt&gt; as a text of &lt;tt&gt;width&lt;/tt&gt; columns in width.&lt;/p&gt;&lt;p&gt;If &lt;tt&gt;width&lt;/tt&gt; is not specified, obj.length is used.&lt;/p&gt;</method>
+  </methods>
+</help>

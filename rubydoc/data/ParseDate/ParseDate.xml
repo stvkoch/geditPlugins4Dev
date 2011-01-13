@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='parsedate'>&lt;p&gt;Parse a string representation of a date into values. For example:&lt;/p&gt;&lt;pre&gt;  require &apos;parsedate&apos;
+
+  ParseDate.parsedate &quot;Tuesday, July 5th, 2007, 18:35:20 UTC&quot;
+  # =&gt; [2007, 7, 5, 18, 35, 20, &quot;UTC&quot;, 2]
+&lt;/pre&gt;&lt;p&gt;The order is of the form [year, month, day of month, hour, minute, second, timezone, day of week].&lt;/p&gt;&lt;p&gt;ParseDate.parsedate can also take a second argument, &lt;tt&gt;comp&lt;/tt&gt;, which is a boolean telling the method to compensate for dates with years expressed as two digits. Example:&lt;/p&gt;&lt;pre&gt;  require &apos;parsedate&apos;
+
+  ParseDate.parsedate &quot;Mon Dec 25 00 06:53:24 UTC&quot;, true
+  # =&gt; [2000, 12, 25, 6, 53, 24, &quot;UTC&quot;, 1]
+&lt;/pre&gt;</method>
+  </methods>
+</help>

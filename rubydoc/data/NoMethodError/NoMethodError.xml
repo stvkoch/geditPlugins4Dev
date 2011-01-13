@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Construct a NoMethodError exception for a method of the given name called with the given arguments. The name may be accessed using the &lt;tt&gt;#name&lt;/tt&gt; method on the resulting object, and the arguments using the &lt;tt&gt;#args&lt;/tt&gt; method.&lt;/p&gt;</method>
+    <method name='args'>&lt;p&gt;Return the arguments passed in as the third parameter to the constructor.&lt;/p&gt;</method>
+  </methods>
+</help>

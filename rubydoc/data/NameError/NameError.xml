@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Construct a new NameError exception. If given the &lt;em&gt;name&lt;/em&gt; parameter may subsequently be examined using the &lt;tt&gt;NameError.name&lt;/tt&gt; method.&lt;/p&gt;</method>
+    <method name='name'>&lt;p&gt;Return the name associated with this NameError exception.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Produce a nicely-formated string representing the &lt;tt&gt;NameError&lt;/tt&gt;.&lt;/p&gt;</method>
+  </methods>
+</help>

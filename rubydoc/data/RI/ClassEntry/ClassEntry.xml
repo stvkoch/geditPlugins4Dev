@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_path'>&lt;p&gt;We found this class in more tha one place, so add in the name from there.&lt;/p&gt;</method>
+    <method name='all_method_names'>&lt;p&gt;Return a list of all out method names&lt;/p&gt;</method>
+    <method name='classes_and_modules'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='contained_class_named'>&lt;p&gt;Return an exact match to a particular name&lt;/p&gt;</method>
+    <method name='contained_modules_matching'>&lt;p&gt;Return a list of any classes or modules that we contain that match a given string&lt;/p&gt;</method>
+    <method name='full_name'>&lt;p&gt;Return our full name&lt;/p&gt;</method>
+    <method name='load_from'>&lt;p&gt;read in our methods and any classes and modules in our namespace. Methods are stored in files called name-c|i.yaml, where the &apos;name&apos; portion is the external form of the method name and the c|i is a class|instance flag&lt;/p&gt;</method>
+    <method name='methods_matching'>&lt;p&gt;return the list of local methods matching name We&apos;re split into two because we need distinct behavior when called from the &lt;em&gt;toplevel&lt;/em&gt;&lt;/p&gt;</method>
+    <method name='recursively_find_methods_matching'>&lt;p&gt;Find methods matching &apos;name&apos; in ourselves and in any classes we contain&lt;/p&gt;</method>
+  </methods>
+</help>

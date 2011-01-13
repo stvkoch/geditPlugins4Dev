@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Create a new &lt;tt&gt;SystemExit&lt;/tt&gt; exception with the given status.&lt;/p&gt;</method>
+    <method name='status'>&lt;p&gt;Return the status value associated with this system exit.&lt;/p&gt;</method>
+    <method name='success?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if exiting successful, &lt;tt&gt;false&lt;/tt&gt; if not.&lt;/p&gt;</method>
+  </methods>
+</help>

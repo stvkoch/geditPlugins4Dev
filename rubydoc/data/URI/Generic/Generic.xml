@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Base class for all URI classes.&lt;/p&gt;</comment>
+  <methods>
+    <method name='build'>&lt;h2&gt;Synopsis&lt;/h2&gt;&lt;p&gt;See #new&lt;/p&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Creates a new URI::Generic instance from components of URI::Generic with check. Components are: scheme, userinfo, host, port, registry, path, opaque, query and fragment. You can provide arguments either by an Array or a Hash. See #new for hash keys to use or for order of array items.&lt;/p&gt;</method>
+    <method name='build2'>&lt;h2&gt;Synopsis&lt;/h2&gt;&lt;p&gt;See #new&lt;/p&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;At first, tries to create a new URI::Generic instance using URI::Generic::build. But, if exception URI::InvalidComponentError is raised, then it URI::Escape.escape all URI components and tries again.&lt;/p&gt;</method>
+    <method name='component'>&lt;p&gt;Components of the URI in the order.&lt;/p&gt;</method>
+    <method name='default_port'>&lt;p&gt;Returns default port&lt;/p&gt;</method>
+    <method name='new'>&lt;h2&gt;Args&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Protocol scheme, i.e. &apos;http&apos;,&apos;ftp&apos;,&apos;mailto&apos; and so on.&lt;/li&gt;&lt;li&gt;User name and password, i.e. &apos;sdmitry:bla&apos;&lt;/li&gt;&lt;li&gt;Server host name&lt;/li&gt;&lt;li&gt;Server port&lt;/li&gt;&lt;li&gt;DOC: FIXME!&lt;/li&gt;&lt;li&gt;Path on server&lt;/li&gt;&lt;li&gt;DOC: FIXME!&lt;/li&gt;&lt;li&gt;Query data&lt;/li&gt;&lt;li&gt;A part of URI after &apos;#&apos; sign&lt;/li&gt;&lt;li&gt;Check arguments [false by default]&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Creates a new URI::Generic instance from ``generic&apos;&apos; components without check.&lt;/p&gt;</method>
+    <method name='use_registry'>&lt;p&gt;DOC: FIXME!&lt;/p&gt;</method>
+    <method name='+'>&lt;p&gt;Alias for #merge&lt;/p&gt;</method>
+    <method name='-'>&lt;p&gt;Alias for #route_from&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;Compares to URI&apos;s&lt;/p&gt;</method>
+    <method name='absolute'>&lt;p&gt;Alias for #absolute?&lt;/p&gt;</method>
+    <method name='absolute?'>&lt;p&gt;Checks if URI is an absolute one&lt;/p&gt;</method>
+    <method name='coerce'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='component'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='default_port'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='eql?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_proxy'>&lt;p&gt;returns a proxy URI. The proxy URI is obtained from environment variables such as http_proxy, ftp_proxy, no_proxy, etc. If there is no proper proxy, nil is returned.&lt;/p&gt;&lt;p&gt;Note that capitalized variables (HTTP_PROXY, FTP_PROXY, NO_PROXY, etc.) are examined too.&lt;/p&gt;&lt;p&gt;But http_proxy and HTTP_PROXY is treated specially under CGI environment. It&apos;s because HTTP_PROXY may be set by Proxy: header. So HTTP_PROXY is not used. http_proxy is not used too if the variable is case insensitive. CGI_HTTP_PROXY can be used instead.&lt;/p&gt;</method>
+    <method name='fragment='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='hash'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='hierarchical?'>&lt;p&gt;Checks if URI has a path&lt;/p&gt;</method>
+    <method name='host='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='merge'>&lt;h2&gt;Args&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;URI or String&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Merges two URI&apos;s.&lt;/p&gt;&lt;h2&gt;Usage&lt;/h2&gt;&lt;pre&gt;  require &apos;uri&apos;
+
+  uri = URI.parse(&quot;http://my.example.com&quot;)
+  p uri.merge(&quot;/main.rbx?page=1&quot;)
+  # =&gt;  #&lt;URI::HTTP:0x2021f3b0 URL:http://my.example.com/main.rbx?page=1&gt;
+&lt;/pre&gt;</method>
+    <method name='merge!'>&lt;h2&gt;Args&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;URI or String&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Destructive form of #merge&lt;/p&gt;&lt;h2&gt;Usage&lt;/h2&gt;&lt;pre&gt;  require &apos;uri&apos;
+
+  uri = URI.parse(&quot;http://my.example.com&quot;)
+  uri.merge!(&quot;/main.rbx?page=1&quot;)
+  p uri
+  # =&gt;  #&lt;URI::HTTP:0x2021f3b0 URL:http://my.example.com/main.rbx?page=1&gt;
+&lt;/pre&gt;</method>
+    <method name='normalize'>&lt;p&gt;Returns normalized URI&lt;/p&gt;</method>
+    <method name='normalize!'>&lt;p&gt;Destructive version of #normalize&lt;/p&gt;</method>
+    <method name='opaque='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='password'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='password='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='path='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='port='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='query='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='registry='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='relative?'>&lt;p&gt;Checks if URI is relative&lt;/p&gt;</method>
+    <method name='route_from'>&lt;h2&gt;Args&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;URI or String&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Calculates relative path from oth to self&lt;/p&gt;&lt;h2&gt;Usage&lt;/h2&gt;&lt;pre&gt;  require &apos;uri&apos;
+
+  uri = URI.parse(&apos;http://my.example.com/main.rbx?page=1&apos;)
+  p uri.route_from(&apos;http://my.example.com&apos;)
+  #=&gt; #&lt;URI::Generic:0x20218858 URL:/main.rbx?page=1&gt;
+&lt;/pre&gt;</method>
+    <method name='route_to'>&lt;h2&gt;Args&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;URI or String&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Calculates relative path to oth from self&lt;/p&gt;&lt;h2&gt;Usage&lt;/h2&gt;&lt;pre&gt;  require &apos;uri&apos;
+
+  uri = URI.parse(&apos;http://my.example.com&apos;)
+  p uri.route_to(&apos;http://my.example.com/main.rbx?page=1&apos;)
+  #=&gt; #&lt;URI::Generic:0x2020c2f6 URL:/main.rbx?page=1&gt;
+&lt;/pre&gt;</method>
+    <method name='scheme='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='select'>&lt;h2&gt;Args&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Multiple Symbol arguments defined in URI::HTTP&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Selects specified components from URI&lt;/p&gt;&lt;h2&gt;Usage&lt;/h2&gt;&lt;pre&gt;  require &apos;uri&apos;
+
+  uri = URI.parse(&apos;http://myuser:mypass@my.example.com/test.rbx&apos;)
+  p uri.select(:userinfo, :host, :path)
+  # =&gt; [&quot;myuser:mypass&quot;, &quot;my.example.com&quot;, &quot;/test.rbx&quot;]
+&lt;/pre&gt;</method>
+    <method name='to_s'>&lt;p&gt;Constructs String from URI&lt;/p&gt;</method>
+    <method name='user'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='user='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='userinfo'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='userinfo='>&lt;p&gt;Sets userinfo, argument is string like &apos;name:pass&apos;&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The &lt;tt&gt;GC&lt;/tt&gt; module provides an interface to Ruby&apos;s mark and sweep garbage collection mechanism. Some of the underlying methods are also available via the &lt;tt&gt;ObjectSpace&lt;/tt&gt; module.&lt;/p&gt;</comment>
+  <methods>
+    <method name='disable'>&lt;p&gt;Disables garbage collection, returning &lt;tt&gt;true&lt;/tt&gt; if garbage collection was already disabled.&lt;/p&gt;&lt;pre&gt;   GC.disable   #=&gt; false
+   GC.disable   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='enable'>&lt;p&gt;Enables garbage collection, returning &lt;tt&gt;true&lt;/tt&gt; if garbage collection was previously disabled.&lt;/p&gt;&lt;pre&gt;   GC.disable   #=&gt; false
+   GC.enable    #=&gt; true
+   GC.enable    #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='start'>&lt;p&gt;Initiates garbage collection, unless manually disabled.&lt;/p&gt;</method>
+    <method name='garbage_collect'>&lt;p&gt;Initiates garbage collection, unless manually disabled.&lt;/p&gt;</method>
+  </methods>
+</help>

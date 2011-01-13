@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='raise_for_undefined_entity?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='do_validate'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='do_validate='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='ignore_unknown_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='ignore_unknown_element='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='rss'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

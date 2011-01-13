@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A class which provides filtering of children for Elements, and XPath search support. You are expected to only encounter this class as the &lt;tt&gt;element.elements&lt;/tt&gt; object. Therefore, you are &lt;em&gt;not&lt;/em&gt; expected to instantiate this yourself.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Constructor&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the parent Element&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Alias for #add&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;Fetches a child element. Filters only Element children, regardless of the XPath match.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the search parameter. This is either an Integer, which will be used to find the index&apos;th child Element, or an XPath, which will be used to search for the Element. &lt;em&gt;Because of the nature of XPath searches, any element in the connected XML document can be fetched through any other element.&lt;/em&gt; &lt;b&gt;The Integer index is 1-based, not 0-based.&lt;/b&gt; This means that the first child element is at index 1, not 0, and the +n+th element is at index &lt;tt&gt;n&lt;/tt&gt;, not &lt;tt&gt;n-1&lt;/tt&gt;. This is because XPath indexes element children starting from 1, not 0, and the indexes should be the same.&lt;/li&gt;&lt;li&gt;optional, and only used in the first argument is an Integer. In that case, the index&apos;th child Element that has the supplied name will be returned. Note again that the indexes start at 1.&lt;/li&gt;&lt;li&gt;the first matching Element, or nil if no child matched&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; doc = Document.new &apos;&lt;a&gt;&lt;b/&gt;&lt;c id=&quot;1&quot;/&gt;&lt;c id=&quot;2&quot;/&gt;&lt;d/&gt;&lt;/a&gt;&apos;
+ doc.root.elements[1]       #-&gt; &lt;b/&gt;
+ doc.root.elements[&apos;c&apos;]     #-&gt; &lt;c id=&quot;1&quot;/&gt;
+ doc.root.elements[2,&apos;c&apos;]   #-&gt; &lt;c id=&quot;2&quot;/&gt;
+&lt;/pre&gt;</method>
+    <method name='[]='>&lt;p&gt;Sets an element, replacing any previous matching element. If no existing element is found ,the element is added.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Used to find a matching element to replace. See []().&lt;/li&gt;&lt;li&gt;The element to replace the existing element with the previous element&lt;/li&gt;&lt;li&gt;nil if no previous element was found.&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; doc = Document.new &apos;&lt;a/&gt;&apos;
+ doc.root.elements[10] = Element.new(&apos;b&apos;)    #-&gt; &lt;a&gt;&lt;b/&gt;&lt;/a&gt;
+ doc.root.elements[1]                        #-&gt; &lt;b/&gt;
+ doc.root.elements[1] = Element.new(&apos;c&apos;)     #-&gt; &lt;a&gt;&lt;c/&gt;&lt;/a&gt;
+ doc.root.elements[&apos;c&apos;] = Element.new(&apos;d&apos;)   #-&gt; &lt;a&gt;&lt;d/&gt;&lt;/a&gt;
+&lt;/pre&gt;</method>
+    <method name='add'>&lt;p&gt;Adds an element&lt;/p&gt;&lt;ul&gt;&lt;li&gt;if supplied, is either an Element, String, or Source (see Element.initialize). If not supplied or nil, a new, default Element will be constructed&lt;/li&gt;&lt;li&gt;the added Element&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; a = Element.new &apos;a&apos;
+ a.elements.add Element.new &apos;b&apos;  #-&gt; &lt;a&gt;&lt;b/&gt;&lt;/a&gt;
+ a.elements.add &apos;c&apos;              #-&gt; &lt;a&gt;&lt;b/&gt;&lt;c/&gt;&lt;/a&gt;
+&lt;/pre&gt;</method>
+    <method name='delete'>&lt;p&gt;Deletes a child Element&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Either an Element, which is removed directly; an xpath, where the first matching child is removed; or an Integer, where the n&apos;th Element is removed.&lt;/li&gt;&lt;li&gt;the removed child&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; doc = Document.new &apos;&lt;a&gt;&lt;b/&gt;&lt;c/&gt;&lt;c id=&quot;1&quot;/&gt;&lt;/a&gt;&apos;
+ b = doc.root.elements[1]
+ doc.root.elements.delete b           #-&gt; &lt;a&gt;&lt;c/&gt;&lt;c id=&quot;1&quot;/&gt;&lt;/a&gt;
+ doc.elements.delete(&quot;a/c[@id=&apos;1&apos;]&quot;)  #-&gt; &lt;a&gt;&lt;c/&gt;&lt;/a&gt;
+ doc.root.elements.delete 1           #-&gt; &lt;a/&gt;
+&lt;/pre&gt;</method>
+    <method name='delete_all'>&lt;p&gt;Removes multiple elements. Filters for Element children, regardless of XPath matching.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;all elements matching this String path are removed.&lt;/li&gt;&lt;li&gt;an Array of Elements that have been removed&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; doc = Document.new &apos;&lt;a&gt;&lt;c/&gt;&lt;c/&gt;&lt;c/&gt;&lt;c/&gt;&lt;/a&gt;&apos;
+ deleted = doc.elements.delete_all &apos;a/c&apos; #-&gt; [&lt;c/&gt;, &lt;c/&gt;, &lt;c/&gt;, &lt;c/&gt;]
+&lt;/pre&gt;</method>
+    <method name='each'>&lt;p&gt;Iterates through all of the child Elements, optionally filtering them by a given XPath&lt;/p&gt;&lt;ul&gt;&lt;li&gt;optional. If supplied, this is a String XPath, and is used to filter the children, so that only matching children are yielded. Note that XPaths are automatically filtered for Elements, so that non-Element children will not be yielded&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; doc = Document.new &apos;&lt;a&gt;&lt;b/&gt;&lt;c/&gt;&lt;d/&gt;sean&lt;b/&gt;&lt;c/&gt;&lt;d/&gt;&lt;/a&gt;&apos;
+ doc.root.each {|e|p e}       #-&gt; Yields b, c, d, b, c, d elements
+ doc.root.each(&apos;b&apos;) {|e|p e}  #-&gt; Yields b, b elements
+ doc.root.each(&apos;child::node()&apos;)  {|e|p e}
+ #-&gt; Yields &lt;b/&gt;, &lt;c/&gt;, &lt;d/&gt;, &lt;b/&gt;, &lt;c/&gt;, &lt;d/&gt;
+ XPath.each(doc.root, &apos;child::node()&apos;, &amp;block)
+ #-&gt; Yields &lt;b/&gt;, &lt;c/&gt;, &lt;d/&gt;, sean, &lt;b/&gt;, &lt;c/&gt;, &lt;d/&gt;
+&lt;/pre&gt;</method>
+    <method name='empty?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if there are no &lt;tt&gt;Element&lt;/tt&gt; children, &lt;tt&gt;false&lt;/tt&gt; otherwise&lt;/p&gt;</method>
+    <method name='index'>&lt;p&gt;Returns the index of the supplied child (starting at 1), or -1 if the element is not a child&lt;/p&gt;&lt;ul&gt;&lt;li&gt;an &lt;tt&gt;Element&lt;/tt&gt; child&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='size'>&lt;p&gt;Returns the number of &lt;tt&gt;Element&lt;/tt&gt; children of the parent object.&lt;/p&gt;&lt;pre&gt; doc = Document.new &apos;&lt;a&gt;sean&lt;b/&gt;elliott&lt;b/&gt;russell&lt;b/&gt;&lt;/a&gt;&apos;
+ doc.root.size            #-&gt; 6, 3 element and 3 text nodes
+ doc.root.elements.size   #-&gt; 3
+&lt;/pre&gt;</method>
+    <method name='to_a'>&lt;p&gt;Returns an Array of Element children. An XPath may be supplied to filter the children. Only Element children are returned, even if the supplied XPath matches non-Element children.&lt;/p&gt;&lt;pre&gt; doc = Document.new &apos;&lt;a&gt;sean&lt;b/&gt;elliott&lt;c/&gt;&lt;/a&gt;&apos;
+ doc.root.elements.to_a                  #-&gt; [ &lt;b/&gt;, &lt;c/&gt; ]
+ doc.root.elements.to_a(&quot;child::node()&quot;) #-&gt; [ &lt;b/&gt;, &lt;c/&gt; ]
+ XPath.match(doc.root, &quot;child::node()&quot;)  #-&gt; [ sean, &lt;b/&gt;, elliott, &lt;c/&gt; ]
+&lt;/pre&gt;</method>
+  </methods>
+</help>

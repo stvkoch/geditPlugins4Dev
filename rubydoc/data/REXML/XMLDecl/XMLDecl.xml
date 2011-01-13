@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;NEEDS DOCUMENTATION&lt;/p&gt;</comment>
+  <methods>
+    <method name='default'>&lt;p&gt;Only use this if you do not want the XML declaration to be written; this object is ignored by the XML writer. Otherwise, instantiate your own XMLDecl and add it to the document.&lt;/p&gt;&lt;p&gt;Note that XML 1.1 documents &lt;b&gt;must&lt;/b&gt; include an XML declaration&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='clone'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='dowrite'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encoding='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='node_type'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='nowrite'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='write'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='xmldecl'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

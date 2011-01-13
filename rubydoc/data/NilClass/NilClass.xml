@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The class of the singleton object &lt;tt&gt;nil&lt;/tt&gt;.&lt;/p&gt;</comment>
+  <methods>
+    <method name='&amp;'>&lt;p&gt;And---Returns &lt;tt&gt;false&lt;/tt&gt;. &lt;em&gt;obj&lt;/em&gt; is always evaluated as it is the argument to a method call---there is no short-circuit evaluation in this case.&lt;/p&gt;</method>
+    <method name='^'>&lt;p&gt;Exclusive Or---If &lt;em&gt;obj&lt;/em&gt; is &lt;tt&gt;nil&lt;/tt&gt; or &lt;tt&gt;false&lt;/tt&gt;, returns &lt;tt&gt;false&lt;/tt&gt;; otherwise, returns &lt;tt&gt;true&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;Always returns the string &quot;nil&quot;.&lt;/p&gt;</method>
+    <method name='nil?'>&lt;p&gt;call_seq:&lt;/p&gt;&lt;pre&gt;  nil.nil?               =&gt; true
+&lt;/pre&gt;&lt;p&gt;Only the object &lt;em&gt;nil&lt;/em&gt; responds &lt;tt&gt;true&lt;/tt&gt; to &lt;tt&gt;nil?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='to_a'>&lt;p&gt;Always returns an empty array.&lt;/p&gt;&lt;pre&gt;   nil.to_a   #=&gt; []
+&lt;/pre&gt;</method>
+    <method name='to_f'>&lt;p&gt;Always returns zero.&lt;/p&gt;&lt;pre&gt;   nil.to_f   #=&gt; 0.0
+&lt;/pre&gt;</method>
+    <method name='to_i'>&lt;p&gt;Always returns zero.&lt;/p&gt;&lt;pre&gt;   nil.to_i   #=&gt; 0
+&lt;/pre&gt;</method>
+    <method name='to_s'>&lt;p&gt;Always returns the empty string.&lt;/p&gt;&lt;pre&gt;   nil.to_s   #=&gt; &quot;&quot;
+&lt;/pre&gt;</method>
+    <method name='to_yaml'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='|'>&lt;p&gt;Or---Returns &lt;tt&gt;false&lt;/tt&gt; if &lt;em&gt;obj&lt;/em&gt; is &lt;tt&gt;nil&lt;/tt&gt; or &lt;tt&gt;false&lt;/tt&gt;; &lt;tt&gt;true&lt;/tt&gt; otherwise.&lt;/p&gt;</method>
+  </methods>
+</help>

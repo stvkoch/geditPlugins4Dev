@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A Context is something that can hold modules, classes, methods, attributes, aliases, requires, and includes. Classes, modules, and files are all Contexts.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='&lt;=&gt;'>&lt;p&gt;allow us to sort modules by name&lt;/p&gt;</method>
+    <method name='add_alias'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_attribute'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_class'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_class_or_module'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_constant'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_include'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_method'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_module'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_require'>&lt;p&gt;Requires always get added to the top-level (file) context&lt;/p&gt;</method>
+    <method name='add_to'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='classes'>&lt;p&gt;map the class hash to an array externally&lt;/p&gt;</method>
+    <method name='defined_in?'>&lt;p&gt;Return true if at least part of this thing was defined in &lt;tt&gt;file&lt;/tt&gt;&lt;/p&gt;</method>
+    <method name='each_attribute'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each_classmodule'>&lt;p&gt;Iterate over all the classes and modules in this object&lt;/p&gt;</method>
+    <method name='each_constant'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each_method'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_enclosing_module_named'>&lt;p&gt;find a module at a higher scope&lt;/p&gt;</method>
+    <method name='find_local_symbol'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_module_named'>&lt;p&gt;Find a named module&lt;/p&gt;</method>
+    <method name='find_symbol'>&lt;p&gt;Look up the given symbol. If method is non-nil, then we assume the symbol references a module that contains that method&lt;/p&gt;</method>
+    <method name='initialize_classes_and_modules'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='initialize_methods_etc'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='modules'>&lt;p&gt;map the module hash to an array externally&lt;/p&gt;</method>
+    <method name='ongoing_visibility='>&lt;p&gt;Change the default visibility for new methods&lt;/p&gt;</method>
+    <method name='record_location'>&lt;p&gt;Record the file that we happen to find it in&lt;/p&gt;</method>
+    <method name='remove_classes_and_modules'>&lt;p&gt;and remove classes and modules when we see a :nodoc: all&lt;/p&gt;</method>
+    <method name='remove_methods_etc'>&lt;p&gt;If a class&apos;s documentation is turned off after we&apos;ve started collecting methods etc., we need to remove the ones we have&lt;/p&gt;</method>
+    <method name='set_current_section'>&lt;p&gt;Handle sections&lt;/p&gt;</method>
+    <method name='set_visibility_for'>&lt;p&gt;Given an array &lt;tt&gt;methods&lt;/tt&gt; of method names, set the visibility of the corresponding AnyMethod object&lt;/p&gt;</method>
+    <method name='toplevel'>&lt;p&gt;Return the toplevel that owns us&lt;/p&gt;</method>
+  </methods>
+</help>

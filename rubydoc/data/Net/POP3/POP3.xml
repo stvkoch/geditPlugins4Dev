@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;h1&gt;Net::POP3&lt;/h1&gt;&lt;h2&gt;What is This Library?&lt;/h2&gt;&lt;p&gt;This library provides functionality for retrieving email via POP3, the Post Office Protocol version 3. For details of POP3, see [RFC1939] (http://www.ietf.org/rfc/rfc1939.txt).&lt;/p&gt;&lt;h2&gt;Examples&lt;/h2&gt;&lt;h3&gt;Retrieving Messages&lt;/h3&gt;&lt;p&gt;This example retrieves messages from the server and deletes them on the server.&lt;/p&gt;&lt;p&gt;Messages are written to files named &apos;inbox/1&apos;, &apos;inbox/2&apos;, .... Replace &apos;pop.example.com&apos; with your POP3 server address, and &apos;YourAccount&apos; and &apos;YourPassword&apos; with the appropriate account details.&lt;/p&gt;&lt;pre&gt;    require &apos;net/pop&apos;
+
+    pop = Net::POP3.new(&apos;pop.example.com&apos;)
+    pop.start(&apos;YourAccount&apos;, &apos;YourPassword&apos;)             # (1)
+    if pop.mails.empty?
+      puts &apos;No mail.&apos;
+    else
+      i = 0
+      pop.each_mail do |m|   # or &quot;pop.mails.each ...&quot;   # (2)
+        File.open(&quot;inbox/#{i}&quot;, &apos;w&apos;) do |f|
+          f.write m.pop
+        end
+        m.delete
+        i += 1
+      end
+      puts &quot;#{pop.mails.size} mails popped.&quot;
+    end
+    pop.finish                                           # (3)
+&lt;/pre&gt;&lt;ul&gt;&lt;li&gt;Call Net::POP3#start and start POP session.&lt;/li&gt;&lt;li&gt;Access messages by using POP3#each_mail and/or POP3#mails.&lt;/li&gt;&lt;li&gt;Close POP session by calling POP3#finish or use the block form of #start.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Shortened Code&lt;/h3&gt;&lt;p&gt;The example above is very verbose. You can shorten the code by using some utility methods. First, the block form of Net::POP3.start can be used instead of POP3.new, POP3#start and POP3#finish.&lt;/p&gt;&lt;pre&gt;    require &apos;net/pop&apos;
+
+    Net::POP3.start(&apos;pop.example.com&apos;, 110,
+                    &apos;YourAccount&apos;, &apos;YourPassword&apos;) do |pop|
+      if pop.mails.empty?
+        puts &apos;No mail.&apos;
+      else
+        i = 0
+        pop.each_mail do |m|   # or &quot;pop.mails.each ...&quot;
+          File.open(&quot;inbox/#{i}&quot;, &apos;w&apos;) do |f|
+            f.write m.pop
+          end
+          m.delete
+          i += 1
+        end
+        puts &quot;#{pop.mails.size} mails popped.&quot;
+      end
+    end
+&lt;/pre&gt;&lt;p&gt;POP3#delete_all is an alternative for #each_mail and #delete.&lt;/p&gt;&lt;pre&gt;    require &apos;net/pop&apos;
+
+    Net::POP3.start(&apos;pop.example.com&apos;, 110,
+                    &apos;YourAccount&apos;, &apos;YourPassword&apos;) do |pop|
+      if pop.mails.empty?
+        puts &apos;No mail.&apos;
+      else
+        i = 1
+        pop.delete_all do |m|
+          File.open(&quot;inbox/#{i}&quot;, &apos;w&apos;) do |f|
+            f.write m.pop
+          end
+          i += 1
+        end
+      end
+    end
+&lt;/pre&gt;&lt;p&gt;And here is an even shorter example.&lt;/p&gt;&lt;pre&gt;    require &apos;net/pop&apos;
+
+    i = 0
+    Net::POP3.delete_all(&apos;pop.example.com&apos;, 110,
+                         &apos;YourAccount&apos;, &apos;YourPassword&apos;) do |m|
+      File.open(&quot;inbox/#{i}&quot;, &apos;w&apos;) do |f|
+        f.write m.pop
+      end
+      i += 1
+    end
+&lt;/pre&gt;&lt;h3&gt;Memory Space Issues&lt;/h3&gt;&lt;p&gt;All the examples above get each message as one big string. This example avoids this.&lt;/p&gt;&lt;pre&gt;    require &apos;net/pop&apos;
+
+    i = 1
+    Net::POP3.delete_all(&apos;pop.example.com&apos;, 110,
+                         &apos;YourAccount&apos;, &apos;YourPassword&apos;) do |m|
+      File.open(&quot;inbox/#{i}&quot;, &apos;w&apos;) do |f|
+        m.pop do |chunk|    # get a message little by little.
+          f.write chunk
+        end
+        i += 1
+      end
+    end
+&lt;/pre&gt;&lt;h3&gt;Using APOP&lt;/h3&gt;&lt;p&gt;The net/pop library supports APOP authentication. To use APOP, use the Net::APOP class instead of the Net::POP3 class. You can use the utility method, Net::POP3.APOP(). For example:&lt;/p&gt;&lt;pre&gt;    require &apos;net/pop&apos;
+
+    # Use APOP authentication if $isapop == true
+    pop = Net::POP3.APOP($is_apop).new(&apos;apop.example.com&apos;, 110)
+    pop.start(YourAccount&apos;, &apos;YourPassword&apos;) do |pop|
+      # Rest of the code is the same.
+    end
+&lt;/pre&gt;&lt;h3&gt;Fetch Only Selected Mail Using &apos;UIDL&apos; POP Command&lt;/h3&gt;&lt;p&gt;If your POP server provides UIDL functionality, you can grab only selected mails from the POP server. e.g.&lt;/p&gt;&lt;pre&gt;    def need_pop?( id )
+      # determine if we need pop this mail...
+    end
+
+    Net::POP3.start(&apos;pop.example.com&apos;, 110,
+                    &apos;Your account&apos;, &apos;Your password&apos;) do |pop|
+      pop.mails.select { |m| need_pop?(m.unique_id) }.each do |m|
+        do_something(m.pop)
+      end
+    end
+&lt;/pre&gt;&lt;p&gt;The POPMail#unique_id() method returns the unique-id of the message as a String. Normally the unique-id is a hash of the message.&lt;/p&gt;</comment>
+  <methods>
+    <method name='APOP'>&lt;p&gt;Returns the APOP class if &lt;tt&gt;isapop&lt;/tt&gt; is true; otherwise, returns the POP class. For example:&lt;/p&gt;&lt;pre&gt;    # Example 1
+    pop = Net::POP3::APOP($is_apop).new(addr, port)
+
+    # Example 2
+    Net::POP3::APOP($is_apop).start(addr, port) do |pop|
+      ....
+    end
+&lt;/pre&gt;</method>
+    <method name='auth_only'>&lt;p&gt;Opens a POP3 session, attempts authentication, and quits.&lt;/p&gt;&lt;p&gt;This method raises POPAuthenticationError if authentication fails.&lt;/p&gt;&lt;h3&gt;Example: normal POP3&lt;/h3&gt;&lt;pre&gt;    Net::POP3.auth_only(&apos;pop.example.com&apos;, 110,
+                        &apos;YourAccount&apos;, &apos;YourPassword&apos;)
+&lt;/pre&gt;&lt;h3&gt;Example: APOP&lt;/h3&gt;&lt;pre&gt;    Net::POP3.auth_only(&apos;pop.example.com&apos;, 110,
+                        &apos;YourAccount&apos;, &apos;YourPassword&apos;, true)
+&lt;/pre&gt;</method>
+    <method name='default_port'>&lt;p&gt;The default port for POP3 connections, port 110&lt;/p&gt;</method>
+    <method name='delete_all'>&lt;p&gt;Starts a POP3 session and deletes all messages on the server. If a block is given, each POPMail object is yielded to it before being deleted.&lt;/p&gt;&lt;p&gt;This method raises a POPAuthenticationError if authentication fails.&lt;/p&gt;&lt;h3&gt;Example&lt;/h3&gt;&lt;pre&gt;    Net::POP3.delete_all(&apos;pop.example.com&apos;, 110,
+                         &apos;YourAccount&apos;, &apos;YourPassword&apos;) do |m|
+      file.write m.pop
+    end
+&lt;/pre&gt;</method>
+    <method name='foreach'>&lt;p&gt;Starts a POP3 session and iterates over each POPMail object, yielding it to the &lt;tt&gt;block&lt;/tt&gt;. This method is equivalent to:&lt;/p&gt;&lt;pre&gt;    Net::POP3.start(address, port, account, password) do |pop|
+      pop.each_mail do |m|
+        yield m
+      end
+    end
+&lt;/pre&gt;&lt;p&gt;This method raises a POPAuthenticationError if authentication fails.&lt;/p&gt;&lt;h3&gt;Example&lt;/h3&gt;&lt;pre&gt;    Net::POP3.foreach(&apos;pop.example.com&apos;, 110,
+                      &apos;YourAccount&apos;, &apos;YourPassword&apos;) do |m|
+      file.write m.pop
+      m.delete if $DELETE
+    end
+&lt;/pre&gt;</method>
+    <method name='new'>&lt;p&gt;Creates a new POP3 object.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;address&lt;/tt&gt; is the hostname or ip address of your POP3 server.&lt;/p&gt;&lt;p&gt;The optional &lt;tt&gt;port&lt;/tt&gt; is the port to connect to; it defaults to 110.&lt;/p&gt;&lt;p&gt;The optional &lt;tt&gt;isapop&lt;/tt&gt; specifies whether this connection is going to use APOP authentication; it defaults to &lt;tt&gt;false&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;This method does &lt;b&gt;not&lt;/b&gt; open the TCP connection.&lt;/p&gt;</method>
+    <method name='start'>&lt;p&gt;Creates a new POP3 object and open the connection. Equivalent to&lt;/p&gt;&lt;pre&gt;  Net::POP3.new(address, port, isapop).start(account, password)
+&lt;/pre&gt;&lt;p&gt;If &lt;tt&gt;block&lt;/tt&gt; is provided, yields the newly-opened POP3 object to it, and automatically closes it at the end of the session.&lt;/p&gt;&lt;h3&gt;Example&lt;/h3&gt;&lt;pre&gt;   Net::POP3.start(addr, port, account, password) do |pop|
+     pop.each_mail do |m|
+       file.write m.pop
+       m.delete
+     end
+   end
+&lt;/pre&gt;</method>
+    <method name='active?'>&lt;p&gt;Alias for #started?&lt;/p&gt;</method>
+    <method name='apop?'>&lt;p&gt;Does this instance use APOP authentication?&lt;/p&gt;</method>
+    <method name='auth_only'>&lt;p&gt;Starts a pop3 session, attempts authentication, and quits. This method must not be called while POP3 session is opened. This method raises POPAuthenticationError if authentication fails.&lt;/p&gt;</method>
+    <method name='delete_all'>&lt;p&gt;Deletes all messages on the server.&lt;/p&gt;&lt;p&gt;If called with a block, yields each message in turn before deleting it.&lt;/p&gt;&lt;h3&gt;Example&lt;/h3&gt;&lt;pre&gt;    n = 1
+    pop.delete_all do |m|
+      File.open(&quot;inbox/#{n}&quot;) do |f|
+        f.write m.pop
+      end
+      n += 1
+    end
+&lt;/pre&gt;&lt;p&gt;This method raises a POPError if an error occurs.&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;Alias for #each_mail&lt;/p&gt;</method>
+    <method name='each_mail'>&lt;p&gt;Yields each message to the passed-in block in turn. Equivalent to:&lt;/p&gt;&lt;pre&gt;  pop3.mails.each do |popmail|
+    ....
+  end
+&lt;/pre&gt;&lt;p&gt;This method raises a POPError if an error occurs.&lt;/p&gt;</method>
+    <method name='finish'>&lt;p&gt;Finishes a POP3 session and closes TCP connection.&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;Provide human-readable stringification of class state.&lt;/p&gt;</method>
+    <method name='mails'>&lt;p&gt;Returns an array of Net::POPMail objects, representing all the messages on the server. This array is renewed when the session restarts; otherwise, it is fetched from the server the first time this method is called (directly or indirectly) and cached.&lt;/p&gt;&lt;p&gt;This method raises a POPError if an error occurs.&lt;/p&gt;</method>
+    <method name='n_bytes'>&lt;p&gt;Returns the total size in bytes of all the messages on the POP server.&lt;/p&gt;</method>
+    <method name='n_mails'>&lt;p&gt;Returns the number of messages on the POP server.&lt;/p&gt;</method>
+    <method name='read_timeout='>&lt;p&gt;Set the read timeout.&lt;/p&gt;</method>
+    <method name='reset'>&lt;p&gt;Resets the session. This clears all &quot;deleted&quot; marks from messages.&lt;/p&gt;&lt;p&gt;This method raises a POPError if an error occurs.&lt;/p&gt;</method>
+    <method name='set_debug_output'>&lt;p&gt;&lt;b&gt;WARNING&lt;/b&gt;: This method causes a serious security hole. Use this method only for debugging.&lt;/p&gt;&lt;p&gt;Set an output stream for debugging.&lt;/p&gt;&lt;h3&gt;Example&lt;/h3&gt;&lt;pre&gt;  pop = Net::POP.new(addr, port)
+  pop.set_debug_output $stderr
+  pop.start(account, passwd) do |pop|
+    ....
+  end
+&lt;/pre&gt;</method>
+    <method name='start'>&lt;p&gt;Starts a POP3 session.&lt;/p&gt;&lt;p&gt;When called with block, gives a POP3 object to the block and closes the session after block call finishes.&lt;/p&gt;&lt;p&gt;This method raises a POPAuthenticationError if authentication fails.&lt;/p&gt;</method>
+    <method name='started?'>&lt;p&gt;&lt;tt&gt;true&lt;/tt&gt; if the POP3 session has started.&lt;/p&gt;</method>
+  </methods>
+</help>

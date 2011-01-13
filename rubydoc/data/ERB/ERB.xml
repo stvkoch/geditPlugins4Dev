@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;h1&gt;ERB -- Ruby Templating&lt;/h1&gt;&lt;h2&gt;Introduction&lt;/h2&gt;&lt;p&gt;ERB provides an easy to use but powerful templating system for Ruby. Using ERB, actual Ruby code can be added to any plain text document for the purposes of generating document information details and/or flow control.&lt;/p&gt;&lt;p&gt;A very simple example is this:&lt;/p&gt;&lt;pre&gt;  require &apos;erb&apos;
+
+  x = 42
+  template = ERB.new &lt;&lt;-EOF
+    The value of x is: &lt;%= x %&gt;
+  EOF
+  puts template.result(binding)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Prints:&lt;/em&gt; The value of x is: 42&lt;/p&gt;&lt;p&gt;More complex examples are given below.&lt;/p&gt;&lt;h2&gt;Recognized Tags&lt;/h2&gt;&lt;p&gt;ERB recognizes certain tags in the provided template and converts them based on the rules below:&lt;/p&gt;&lt;pre&gt;  &lt;% Ruby code -- inline with output %&gt;
+  &lt;%= Ruby expression -- replace with result %&gt;
+  &lt;%# comment -- ignored -- useful in testing %&gt;
+  % a line of Ruby code -- treated as &lt;% line %&gt; (optional -- see ERB.new)
+  %% replaced with % if first thing on a line and % processing is used
+  &lt;%% or %%&gt; -- replace with &lt;% or %&gt; respectively
+&lt;/pre&gt;&lt;p&gt;All other text is passed through ERB filtering unchanged.&lt;/p&gt;&lt;h2&gt;Options&lt;/h2&gt;&lt;p&gt;There are several settings you can change when you use ERB:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the nature of the tags that are recognized;&lt;/li&gt;&lt;li&gt;the value of &lt;tt&gt;$SAFE&lt;/tt&gt; under which the template is run;&lt;/li&gt;&lt;li&gt;the binding used to resolve local variables in the template.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;See the ERB.new and ERB#result methods for more detail.&lt;/p&gt;&lt;h2&gt;Examples&lt;/h2&gt;&lt;h3&gt;Plain Text&lt;/h3&gt;&lt;p&gt;ERB is useful for any generic templating situation. Note that in this example, we use the convenient &quot;% at start of line&quot; tag, and we quote the template literally with &lt;tt&gt;%q{...}&lt;/tt&gt; to avoid trouble with the backslash.&lt;/p&gt;&lt;pre&gt;  require &quot;erb&quot;
+
+  # Create template.
+  template = %q{
+    From:  James Edward Gray II &lt;james@grayproductions.net&gt;
+    To:  &lt;%= to %&gt;
+    Subject:  Addressing Needs
+
+    &lt;%= to[/\w+/] %&gt;:
+
+    Just wanted to send a quick note assuring that your needs are being
+    addressed.
+
+    I want you to know that my team will keep working on the issues,
+    especially:
+
+    &lt;%# ignore numerous minor requests -- focus on priorities %&gt;
+    % priorities.each do |priority|
+      * &lt;%= priority %&gt;
+    % end
+
+    Thanks for your patience.
+
+    James Edward Gray II
+  }.gsub(/^  /, &apos;&apos;)
+
+  message = ERB.new(template, 0, &quot;%&lt;&gt;&quot;)
+
+  # Set up template data.
+  to = &quot;Community Spokesman &lt;spokesman@ruby_community.org&gt;&quot;
+  priorities = [ &quot;Run Ruby Quiz&quot;,
+                 &quot;Document Modules&quot;,
+                 &quot;Answer Questions on Ruby Talk&quot; ]
+
+  # Produce result.
+  email = message.result
+  puts email
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Generates:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;  From:  James Edward Gray II &lt;james@grayproductions.net&gt;
+  To:  Community Spokesman &lt;spokesman@ruby_community.org&gt;
+  Subject:  Addressing Needs
+
+  Community:
+
+  Just wanted to send a quick note assuring that your needs are being addressed.
+
+  I want you to know that my team will keep working on the issues, especially:
+
+      * Run Ruby Quiz
+      * Document Modules
+      * Answer Questions on Ruby Talk
+
+  Thanks for your patience.
+
+  James Edward Gray II
+&lt;/pre&gt;&lt;h3&gt;Ruby in HTML&lt;/h3&gt;&lt;p&gt;ERB is often used in &lt;tt&gt;.rhtml&lt;/tt&gt; files (HTML with embedded Ruby). Notice the need in this example to provide a special binding when the template is run, so that the instance variables in the Product object can be resolved.&lt;/p&gt;&lt;pre&gt;  require &quot;erb&quot;
+
+  # Build template data class.
+  class Product
+    def initialize( code, name, desc, cost )
+      @code = code
+      @name = name
+      @desc = desc
+      @cost = cost
+
+      @features = [ ]
+    end
+
+    def add_feature( feature )
+      @features &lt;&lt; feature
+    end
+
+    # Support templating of member data.
+    def get_binding
+      binding
+    end
+
+    # ...
+  end
+
+  # Create template.
+  template = %{
+    &lt;html&gt;
+      &lt;head&gt;&lt;title&gt;Ruby Toys -- &lt;%= @name %&gt;&lt;/title&gt;&lt;/head&gt;
+      &lt;body&gt;
+
+        &lt;h1&gt;&lt;%= @name %&gt; (&lt;%= @code %&gt;)&lt;/h1&gt;
+        &lt;p&gt;&lt;%= @desc %&gt;&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;% @features.each do |f| %&gt;
+            &lt;li&gt;&lt;b&gt;&lt;%= f %&gt;&lt;/b&gt;&lt;/li&gt;
+          &lt;% end %&gt;
+        &lt;/ul&gt;
+
+        &lt;p&gt;
+          &lt;% if @cost &lt; 10 %&gt;
+            &lt;b&gt;Only &lt;%= @cost %&gt;!!!&lt;/b&gt;
+          &lt;% else %&gt;
+             Call for a price, today!
+          &lt;% end %&gt;
+        &lt;/p&gt;
+
+      &lt;/body&gt;
+    &lt;/html&gt;
+  }.gsub(/^  /, &apos;&apos;)
+
+  rhtml = ERB.new(template)
+
+  # Set up template data.
+  toy = Product.new( &quot;TZ-1002&quot;,
+                     &quot;Rubysapien&quot;,
+                     &quot;Geek&apos;s Best Friend!  Responds to Ruby commands...&quot;,
+                     999.95 )
+  toy.add_feature(&quot;Listens for verbal commands in the Ruby language!&quot;)
+  toy.add_feature(&quot;Ignores Perl, Java, and all C variants.&quot;)
+  toy.add_feature(&quot;Karate-Chop Action!!!&quot;)
+  toy.add_feature(&quot;Matz signature on left leg.&quot;)
+  toy.add_feature(&quot;Gem studded eyes... Rubies, of course!&quot;)
+
+  # Produce result.
+  rhtml.run(toy.get_binding)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Generates (some blank lines removed):&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   &lt;html&gt;
+     &lt;head&gt;&lt;title&gt;Ruby Toys -- Rubysapien&lt;/title&gt;&lt;/head&gt;
+     &lt;body&gt;
+
+       &lt;h1&gt;Rubysapien (TZ-1002)&lt;/h1&gt;
+       &lt;p&gt;Geek&apos;s Best Friend!  Responds to Ruby commands...&lt;/p&gt;
+
+       &lt;ul&gt;
+           &lt;li&gt;&lt;b&gt;Listens for verbal commands in the Ruby language!&lt;/b&gt;&lt;/li&gt;
+           &lt;li&gt;&lt;b&gt;Ignores Perl, Java, and all C variants.&lt;/b&gt;&lt;/li&gt;
+           &lt;li&gt;&lt;b&gt;Karate-Chop Action!!!&lt;/b&gt;&lt;/li&gt;
+           &lt;li&gt;&lt;b&gt;Matz signature on left leg.&lt;/b&gt;&lt;/li&gt;
+           &lt;li&gt;&lt;b&gt;Gem studded eyes... Rubies, of course!&lt;/b&gt;&lt;/li&gt;
+       &lt;/ul&gt;
+
+       &lt;p&gt;
+            Call for a price, today!
+       &lt;/p&gt;
+
+     &lt;/body&gt;
+   &lt;/html&gt;
+&lt;/pre&gt;&lt;h2&gt;Notes&lt;/h2&gt;&lt;p&gt;There are a variety of templating solutions available in various Ruby projects:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;ERB&apos;s big brother, eRuby, works the same but is written in C for speed;&lt;/li&gt;&lt;li&gt;Amrita (smart at producing HTML/XML);&lt;/li&gt;&lt;li&gt;cs/Template (written in C for speed);&lt;/li&gt;&lt;li&gt;RDoc, distributed with Ruby, uses its own template engine, which can be reused elsewhere;&lt;/li&gt;&lt;li&gt;and others; search the RAA.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Rails, the web application framework, uses ERB to create views.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Constructs a new ERB object with the template specified in &lt;em&gt;str&lt;/em&gt;.&lt;/p&gt;&lt;p&gt;An ERB object works by building a chunk of Ruby code that will output the completed template when run. If &lt;em&gt;safe_level&lt;/em&gt; is set to a non-nil value, ERB code will be run in a separate thread with &lt;b&gt;$SAFE&lt;/b&gt; set to the provided level.&lt;/p&gt;&lt;p&gt;If &lt;em&gt;trim_mode&lt;/em&gt; is passed a String containing one or more of the following modifiers, ERB will adjust its code generation as listed:&lt;/p&gt;&lt;pre&gt;    %  enables Ruby code processing for lines beginning with %
+    &lt;&gt; omit newline for lines starting with &lt;% and ending in %&gt;
+    &gt;  omit newline for lines ending in %&gt;
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;eoutvar&lt;/em&gt; can be used to set the name of the variable ERB will build up its output in. This is useful when you need to run multiple ERB templates through the same binding and/or when you want to control where output ends up. Pass the name of the variable to be used inside a String.&lt;/p&gt;&lt;h3&gt;Example&lt;/h3&gt;&lt;pre&gt; require &quot;erb&quot;
+
+ # build data class
+ class Listings
+   PRODUCT = { :name =&gt; &quot;Chicken Fried Steak&quot;,
+               :desc =&gt; &quot;A well messages pattie, breaded and fried.&quot;,
+               :cost =&gt; 9.95 }
+
+   attr_reader :product, :price
+
+   def initialize( product = &quot;&quot;, price = &quot;&quot; )
+     @product = product
+     @price = price
+   end
+
+   def build
+     b = binding
+     # create and run templates, filling member data variebles
+     ERB.new(&lt;&lt;-&apos;END_PRODUCT&apos;.gsub(/^\s+/, &quot;&quot;), 0, &quot;&quot;, &quot;@product&quot;).result b
+       &lt;%= PRODUCT[:name] %&gt;
+       &lt;%= PRODUCT[:desc] %&gt;
+     END_PRODUCT
+     ERB.new(&lt;&lt;-&apos;END_PRICE&apos;.gsub(/^\s+/, &quot;&quot;), 0, &quot;&quot;, &quot;@price&quot;).result b
+       &lt;%= PRODUCT[:name] %&gt; -- &lt;%= PRODUCT[:cost] %&gt;
+       &lt;%= PRODUCT[:desc] %&gt;
+     END_PRICE
+   end
+ end
+
+ # setup template data
+ listings = Listings.new
+ listings.build
+
+ puts listings.product + &quot;\n&quot; + listings.price
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Generates&lt;/em&gt;&lt;/p&gt;&lt;pre&gt; Chicken Fried Steak
+ A well messages pattie, breaded and fried.
+
+ Chicken Fried Steak -- 9.95
+ A well messages pattie, breaded and fried.
+&lt;/pre&gt;</method>
+    <method name='version'>&lt;p&gt;Returns revision information for the erb.rb module.&lt;/p&gt;</method>
+    <method name='result'>&lt;p&gt;Executes the generated ERB code to produce a completed template, returning the results of that code. (See ERB#new for details on how this process can be affected by &lt;em&gt;safe_level&lt;/em&gt;.)&lt;/p&gt;&lt;p&gt;&lt;em&gt;b&lt;/em&gt; accepts a Binding or Proc object which is used to set the context of code evaluation.&lt;/p&gt;</method>
+    <method name='run'>&lt;p&gt;Generate results and print them. (see ERB#result)&lt;/p&gt;</method>
+    <method name='set_eoutvar'>&lt;p&gt;Can be used to set &lt;em&gt;eoutvar&lt;/em&gt; as described in ERB#new. It&apos;s probably easier to just use the constructor though, since calling this method requires the setup of an ERB &lt;em&gt;compiler&lt;/em&gt; object.&lt;/p&gt;</method>
+  </methods>
+</help>

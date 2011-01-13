@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A Context is built by the parser to represent a container: contexts hold classes, modules, methods, require lists and include lists. ClassModule and TopLevel are the context objects we process here&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_table_of_sections'>&lt;p&gt;create table of contents if we contain sections&lt;/p&gt;</method>
+    <method name='aref_to'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='as_href'>&lt;p&gt;return a reference to outselves to be used as an href= the form depends on whether we&apos;re all in one file or in multiple files&lt;/p&gt;</method>
+    <method name='build_alias_summary_list'>&lt;p&gt;Build a list of aliases for which we couldn&apos;t find a corresponding method&lt;/p&gt;</method>
+    <method name='build_class_list'>&lt;p&gt;Build the structured list of classes and modules contained in this context.&lt;/p&gt;</method>
+    <method name='build_constants_summary_list'>&lt;p&gt;Build a list of constants&lt;/p&gt;</method>
+    <method name='build_include_list'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='build_method_detail_list'>&lt;p&gt;Build an array of arrays of method details. The outer array has up to six entries, public, private, and protected for both class methods, the other for instance methods. The inner arrays contain a hash for each method&lt;/p&gt;</method>
+    <method name='build_method_summary_list'>&lt;p&gt;Build a summary list of all the methods in this context&lt;/p&gt;</method>
+    <method name='build_requires_list'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='collect_methods'>&lt;p&gt;Create a list of HtmlMethod objects for each method in the corresponding context object. If the @options.show_all variable is set (corresponding to the &lt;tt&gt;--all&lt;/tt&gt; option, we include all methods, otherwise just the public ones.&lt;/p&gt;</method>
+    <method name='diagram_reference'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='document_self'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_symbol'>&lt;p&gt;Find a symbol in ourselves or our parent&lt;/p&gt;</method>
+    <method name='href'>&lt;p&gt;convenience method to build a hyperlink&lt;/p&gt;</method>
+    <method name='potentially_referenced_list'>&lt;p&gt;Build a list from an array of &lt;em&gt;Htmlxxx&lt;/em&gt; items. Look up each in the AllReferences hash: if we find a corresponding entry, we generate a hyperlink to it, otherwise just output the name. However, some names potentially need massaging. For example, you may require a Ruby file without the .rb extension, but the file names we know about may have it. To deal with this, we pass in a block which performs the massaging, returning an array of alternative names to match&lt;/p&gt;</method>
+    <method name='url'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

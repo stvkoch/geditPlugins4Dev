@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Lexical analyzer for Ruby source&lt;/p&gt;</comment>
+  <methods>
+    <method name='debug?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='char_no'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_read'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='getc'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='getc_of_rests'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='gets'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='identify_comment'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='identify_gvar'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='identify_here_document'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='identify_identifier'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='identify_number'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='identify_quotation'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='identify_string'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='lex'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='lex_init'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='lex_int2'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='line_no'>&lt;p&gt;io functions&lt;/p&gt;</method>
+    <method name='peek'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='peek_equal?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='read_escape'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='skip_inner_expression'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='token'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='ungetc'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

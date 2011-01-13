@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='apply'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encoding_method'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='register'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='check_encoding'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='decode_ascii'>&lt;p&gt;Convert to UTF-8&lt;/p&gt;</method>
+    <method name='decode_eucjp'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='decode_iconv'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='decode_sjis'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='decode_unile'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='decode_utf16'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='decode_utf8'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encode_ascii'>&lt;p&gt;Convert from UTF-8&lt;/p&gt;</method>
+    <method name='encode_eucjp'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encode_iconv'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encode_sjis'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encode_unile'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encode_utf16'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encode_utf8'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encoding='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

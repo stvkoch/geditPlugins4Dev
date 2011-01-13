@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;RFC1738 section 3.3.&lt;/p&gt;</comment>
+  <methods>
+    <method name='build'>&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Create a new URI::HTTP object from components of URI::HTTP with check. It is scheme, userinfo, host, port, path, query and fragment. It provided by an Array of a Hash.&lt;/p&gt;</method>
+    <method name='new'>&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Create a new URI::HTTP object from ``generic&apos;&apos; components with no check.&lt;/p&gt;</method>
+    <method name='request_uri'>&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Returns: path + &apos;?&apos; + query&lt;/p&gt;</method>
+  </methods>
+</help>

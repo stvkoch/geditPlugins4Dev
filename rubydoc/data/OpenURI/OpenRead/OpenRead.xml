@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Mixin for HTTP and FTP URIs.&lt;/p&gt;</comment>
+  <methods>
+    <method name='open'>&lt;p&gt;OpenURI::OpenRead#open provides `open&apos; for URI::HTTP and URI::FTP.&lt;/p&gt;&lt;p&gt;OpenURI::OpenRead#open takes optional 3 arguments as: OpenURI::OpenRead#open([mode [, perm]] [, options]) [{|io| ... }]&lt;/p&gt;&lt;p&gt;`mode&apos;, `perm&apos; is same as Kernel#open.&lt;/p&gt;&lt;p&gt;However, `mode&apos; must be read mode because OpenURI::OpenRead#open doesn&apos;t support write mode (yet). Also `perm&apos; is just ignored because it is meaningful only for file creation.&lt;/p&gt;&lt;p&gt;`options&apos; must be a hash.&lt;/p&gt;&lt;p&gt;Each pairs which key is a string in the hash specify a extra header field for HTTP. I.e. it is ignored for FTP without HTTP proxy.&lt;/p&gt;&lt;p&gt;The hash may include other options which key is a symbol:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Synopsis:&lt;/li&gt;&lt;pre&gt;  :proxy =&gt; &quot;http://proxy.foo.com:8000/&quot;
+  :proxy =&gt; URI.parse(&quot;http://proxy.foo.com:8000/&quot;)
+  :proxy =&gt; true
+  :proxy =&gt; false
+  :proxy =&gt; nil
+&lt;/pre&gt;&lt;p&gt;If :proxy option is specified, the value should be String, URI, boolean or nil. When String or URI is given, it is treated as proxy URI. When true is given or the option itself is not specified, environment variable `scheme_proxy&apos; is examined. `scheme&apos; is replaced by `http&apos;, `https&apos; or `ftp&apos;. When false or nil is given, the environment variables are ignored and connection will be made to a server directly.&lt;/p&gt;&lt;li&gt;Synopsis:&lt;/li&gt;&lt;pre&gt;  :http_basic_authentication=&gt;[user, password]
+&lt;/pre&gt;&lt;p&gt;If :http_basic_authentication is specified, the value should be an array which contains 2 strings: username and password. It is used for HTTP Basic authentication defined by RFC 2617.&lt;/p&gt;&lt;li&gt;Synopsis:&lt;/li&gt;&lt;pre&gt;  :content_length_proc =&gt; lambda {|content_length| ... }
+&lt;/pre&gt;&lt;p&gt;If :content_length_proc option is specified, the option value procedure is called before actual transfer is started. It takes one argument which is expected content length in bytes.&lt;/p&gt;&lt;p&gt;If two or more transfer is done by HTTP redirection, the procedure is called only one for a last transfer.&lt;/p&gt;&lt;p&gt;When expected content length is unknown, the procedure is called with nil. It is happen when HTTP response has no Content-Length header.&lt;/p&gt;&lt;li&gt;Synopsis:&lt;/li&gt;&lt;pre&gt;  :progress_proc =&gt; lambda {|size| ...}
+&lt;/pre&gt;&lt;p&gt;If :progress_proc option is specified, the proc is called with one argument each time when `open&apos; gets content fragment from network. The argument `size&apos; `size&apos; is a accumulated transfered size in bytes.&lt;/p&gt;&lt;p&gt;If two or more transfer is done by HTTP redirection, the procedure is called only one for a last transfer.&lt;/p&gt;&lt;p&gt;:progress_proc and :content_length_proc are intended to be used for progress bar. For example, it can be implemented as follows using Ruby/ProgressBar.&lt;/p&gt;&lt;pre&gt;  pbar = nil
+  open(&quot;http://...&quot;,
+    :content_length_proc =&gt; lambda {|t|
+      if t &amp;&amp; 0 &lt; t
+        pbar = ProgressBar.new(&quot;...&quot;, t)
+        pbar.file_transfer_mode
+      end
+    },
+    :progress_proc =&gt; lambda {|s|
+      pbar.set s if pbar
+    }) {|f| ... }
+&lt;/pre&gt;&lt;/ul&gt;&lt;p&gt;OpenURI::OpenRead#open returns an IO like object if block is not given. Otherwise it yields the IO object and return the value of the block. The IO object is extended with OpenURI::Meta.&lt;/p&gt;</method>
+    <method name='read'>&lt;p&gt;OpenURI::OpenRead#read([options]) reads a content referenced by self and returns the content as string. The string is extended with OpenURI::Meta. The argument `options&apos; is same as OpenURI::OpenRead#open.&lt;/p&gt;</method>
+  </methods>
+</help>

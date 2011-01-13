@@ -1,0 +1,436 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A &lt;tt&gt;Module&lt;/tt&gt; is a collection of methods and constants. The methods in a module may be instance methods or module methods. Instance methods appear as methods in a class when the module is included, module methods do not. Conversely, module methods may be called without creating an encapsulating object, while instance methods may not. (See &lt;tt&gt;Module#module_function&lt;/tt&gt;)&lt;/p&gt;&lt;p&gt;In the descriptions that follow, the parameter &lt;em&gt;syml&lt;/em&gt; refers to a symbol, which is either a quoted string or a &lt;tt&gt;Symbol&lt;/tt&gt; (such as &lt;tt&gt;:name&lt;/tt&gt;).&lt;/p&gt;&lt;pre&gt;   module Mod
+     include Math
+     CONST = 1
+     def meth
+       #  ...
+     end
+   end
+   Mod.class              #=&gt; Module
+   Mod.constants          #=&gt; [&quot;E&quot;, &quot;PI&quot;, &quot;CONST&quot;]
+   Mod.instance_methods   #=&gt; [&quot;meth&quot;]
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='constants'>&lt;p&gt;Returns an array of the names of all constants defined in the system. This list includes the names of all modules and classes.&lt;/p&gt;&lt;pre&gt;   p Module.constants.sort[1..5]
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   [&quot;ARGV&quot;, &quot;ArgumentError&quot;, &quot;Array&quot;, &quot;Bignum&quot;, &quot;Binding&quot;]
+&lt;/pre&gt;</method>
+    <method name='nesting'>&lt;p&gt;Returns the list of &lt;tt&gt;Modules&lt;/tt&gt; nested at the point of call.&lt;/p&gt;&lt;pre&gt;   module M1
+     module M2
+       $a = Module.nesting
+     end
+   end
+   $a           #=&gt; [M1::M2, M1]
+   $a[0].name   #=&gt; &quot;M1::M2&quot;
+&lt;/pre&gt;</method>
+    <method name='new'>&lt;p&gt;Creates a new anonymous module. If a block is given, it is passed the module object, and the block is evaluated in the context of this module using &lt;tt&gt;module_eval&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   Fred = Module.new do
+     def meth1
+       &quot;hello&quot;
+     end
+     def meth2
+       &quot;bye&quot;
+     end
+   end
+   a = &quot;my string&quot;
+   a.extend(Fred)   #=&gt; &quot;my string&quot;
+   a.meth1          #=&gt; &quot;hello&quot;
+   a.meth2          #=&gt; &quot;bye&quot;
+&lt;/pre&gt;</method>
+    <method name='&lt;'>&lt;p&gt;Returns true if &lt;em&gt;mod&lt;/em&gt; is a subclass of &lt;em&gt;other&lt;/em&gt;. Returns &lt;tt&gt;nil&lt;/tt&gt; if there&apos;s no relationship between the two. (Think of the relationship in terms of the class definition: &quot;class A&lt;B&quot; implies &quot;A&lt;B&quot;).&lt;/p&gt;</method>
+    <method name='&lt;='>&lt;p&gt;Returns true if &lt;em&gt;mod&lt;/em&gt; is a subclass of &lt;em&gt;other&lt;/em&gt; or is the same as &lt;em&gt;other&lt;/em&gt;. Returns &lt;tt&gt;nil&lt;/tt&gt; if there&apos;s no relationship between the two. (Think of the relationship in terms of the class definition: &quot;class A&lt;B&quot; implies &quot;A&lt;B&quot;).&lt;/p&gt;</method>
+    <method name='&lt;=&gt;'>&lt;p&gt;Comparison---Returns -1 if &lt;em&gt;mod&lt;/em&gt; includes &lt;em&gt;other_mod&lt;/em&gt;, 0 if &lt;em&gt;mod&lt;/em&gt; is the same as &lt;em&gt;other_mod&lt;/em&gt;, and +1 if &lt;em&gt;mod&lt;/em&gt; is included by &lt;em&gt;other_mod&lt;/em&gt; or if &lt;em&gt;mod&lt;/em&gt; has no relationship with &lt;em&gt;other_mod&lt;/em&gt;. Returns &lt;tt&gt;nil&lt;/tt&gt; if &lt;em&gt;other_mod&lt;/em&gt; is not a module.&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;Equality---At the &lt;tt&gt;Object&lt;/tt&gt; level, &lt;tt&gt;==&lt;/tt&gt; returns &lt;tt&gt;true&lt;/tt&gt; only if &lt;em&gt;obj&lt;/em&gt; and &lt;em&gt;other&lt;/em&gt; are the same object. Typically, this method is overridden in descendent classes to provide class-specific meaning.&lt;/p&gt;&lt;p&gt;Unlike &lt;tt&gt;==&lt;/tt&gt;, the &lt;tt&gt;equal?&lt;/tt&gt; method should never be overridden by subclasses: it is used to determine object identity (that is, &lt;tt&gt;a.equal?(b)&lt;/tt&gt; iff &lt;tt&gt;a&lt;/tt&gt; is the same object as &lt;tt&gt;b&lt;/tt&gt;).&lt;/p&gt;&lt;p&gt;The &lt;tt&gt;eql?&lt;/tt&gt; method returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;obj&lt;/em&gt; and &lt;em&gt;anObject&lt;/em&gt; have the same value. Used by &lt;tt&gt;Hash&lt;/tt&gt; to test members for equality. For objects of class &lt;tt&gt;Object&lt;/tt&gt;, &lt;tt&gt;eql?&lt;/tt&gt; is synonymous with &lt;tt&gt;==&lt;/tt&gt;. Subclasses normally continue this tradition, but there are exceptions. &lt;tt&gt;Numeric&lt;/tt&gt; types, for example, perform type conversion across &lt;tt&gt;==&lt;/tt&gt;, but not across &lt;tt&gt;eql?&lt;/tt&gt;, so:&lt;/p&gt;&lt;pre&gt;   1 == 1.0     #=&gt; true
+   1.eql? 1.0   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='==='>&lt;p&gt;Case Equality---Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;anObject&lt;/em&gt; is an instance of &lt;em&gt;mod&lt;/em&gt; or one of &lt;em&gt;mod&lt;/em&gt;&apos;s descendents. Of limited use for modules, but can be used in &lt;tt&gt;case&lt;/tt&gt; statements to classify objects by class.&lt;/p&gt;</method>
+    <method name='&gt;'>&lt;p&gt;Returns true if &lt;em&gt;mod&lt;/em&gt; is an ancestor of &lt;em&gt;other&lt;/em&gt;. Returns &lt;tt&gt;nil&lt;/tt&gt; if there&apos;s no relationship between the two. (Think of the relationship in terms of the class definition: &quot;class A&lt;B&quot; implies &quot;B&gt;A&quot;).&lt;/p&gt;</method>
+    <method name='&gt;='>&lt;p&gt;Returns true if &lt;em&gt;mod&lt;/em&gt; is an ancestor of &lt;em&gt;other&lt;/em&gt;, or the two modules are the same. Returns &lt;tt&gt;nil&lt;/tt&gt; if there&apos;s no relationship between the two. (Think of the relationship in terms of the class definition: &quot;class A&lt;B&quot; implies &quot;B&gt;A&quot;).&lt;/p&gt;</method>
+    <method name='alias_method'>&lt;p&gt;Makes &lt;em&gt;new_name&lt;/em&gt; a new copy of the method &lt;em&gt;old_name&lt;/em&gt;. This can be used to retain access to methods that are overridden.&lt;/p&gt;&lt;pre&gt;   module Mod
+     alias_method :orig_exit, :exit
+     def exit(code=0)
+       puts &quot;Exiting with code #{code}&quot;
+       orig_exit(code)
+     end
+   end
+   include Mod
+   exit(99)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Exiting with code 99
+&lt;/pre&gt;</method>
+    <method name='ancestors'>&lt;p&gt;Returns a list of modules included in &lt;em&gt;mod&lt;/em&gt; (including &lt;em&gt;mod&lt;/em&gt; itself).&lt;/p&gt;&lt;pre&gt;   module Mod
+     include Math
+     include Comparable
+   end
+
+   Mod.ancestors    #=&gt; [Mod, Comparable, Math]
+   Math.ancestors   #=&gt; [Math]
+&lt;/pre&gt;</method>
+    <method name='append_features'>&lt;p&gt;When this module is included in another, Ruby calls &lt;tt&gt;append_features&lt;/tt&gt; in this module, passing it the receiving module in &lt;em&gt;mod&lt;/em&gt;. Ruby&apos;s default implementation is to add the constants, methods, and module variables of this module to &lt;em&gt;mod&lt;/em&gt; if this module has not already been added to &lt;em&gt;mod&lt;/em&gt; or one of its ancestors. See also &lt;tt&gt;Module#include&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='attr'>&lt;p&gt;Defines a named attribute for this module, where the name is &lt;em&gt;symbol.&lt;/em&gt;&lt;tt&gt;id2name&lt;/tt&gt;, creating an instance variable (&lt;tt&gt;@name&lt;/tt&gt;) and a corresponding access method to read it. If the optional &lt;em&gt;writable&lt;/em&gt; argument is &lt;tt&gt;true&lt;/tt&gt;, also creates a method called &lt;tt&gt;name=&lt;/tt&gt; to set the attribute.&lt;/p&gt;&lt;pre&gt;   module Mod
+     attr  :size, true
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;is equivalent to:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   module Mod
+     def size
+       @size
+     end
+     def size=(val)
+       @size = val
+     end
+   end
+&lt;/pre&gt;</method>
+    <method name='attr_accessor'>&lt;p&gt;Equivalent to calling ``&lt;tt&gt;attr&lt;/tt&gt;&lt;em&gt;symbol&lt;/em&gt;&lt;tt&gt;, true&lt;/tt&gt;&apos;&apos; on each &lt;em&gt;symbol&lt;/em&gt; in turn.&lt;/p&gt;&lt;pre&gt;   module Mod
+     attr_accessor(:one, :two)
+   end
+   Mod.instance_methods.sort   #=&gt; [&quot;one&quot;, &quot;one=&quot;, &quot;two&quot;, &quot;two=&quot;]
+&lt;/pre&gt;</method>
+    <method name='attr_reader'>&lt;p&gt;Creates instance variables and corresponding methods that return the value of each instance variable. Equivalent to calling ``&lt;tt&gt;attr&lt;/tt&gt;&lt;em&gt;:name&lt;/em&gt;&apos;&apos; on each name in turn.&lt;/p&gt;</method>
+    <method name='attr_writer'>&lt;p&gt;Creates an accessor method to allow assignment to the attribute &lt;em&gt;aSymbol&lt;/em&gt;&lt;tt&gt;.id2name&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='autoload'>&lt;p&gt;Registers &lt;em&gt;filename&lt;/em&gt; to be loaded (using &lt;tt&gt;Kernel::require&lt;/tt&gt;) the first time that &lt;em&gt;name&lt;/em&gt; (which may be a &lt;tt&gt;String&lt;/tt&gt; or a symbol) is accessed in the namespace of &lt;em&gt;mod&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   module A
+   end
+   A.autoload(:B, &quot;b&quot;)
+   A::B.doit            # autoloads &quot;b&quot;
+&lt;/pre&gt;</method>
+    <method name='autoload?'>&lt;p&gt;Returns &lt;em&gt;filename&lt;/em&gt; to be loaded if &lt;em&gt;name&lt;/em&gt; is registered as &lt;tt&gt;autoload&lt;/tt&gt; in the namespace of &lt;em&gt;mod&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   module A
+   end
+   A.autoload(:B, &quot;b&quot;)
+   A.autoload?(:B)            # =&gt; &quot;b&quot;
+&lt;/pre&gt;</method>
+    <method name='class_eval'>&lt;p&gt;Evaluates the string or block in the context of &lt;em&gt;mod&lt;/em&gt;. This can be used to add methods to a class. &lt;tt&gt;module_eval&lt;/tt&gt; returns the result of evaluating its argument. The optional &lt;em&gt;filename&lt;/em&gt; and &lt;em&gt;lineno&lt;/em&gt; parameters set the text for error messages.&lt;/p&gt;&lt;pre&gt;   class Thing
+   end
+   a = %q{def hello() &quot;Hello there!&quot; end}
+   Thing.module_eval(a)
+   puts Thing.new.hello()
+   Thing.module_eval(&quot;invalid code&quot;, &quot;dummy&quot;, 123)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Hello there!
+   dummy:123:in `module_eval&apos;: undefined local variable
+       or method `code&apos; for Thing:Class
+&lt;/pre&gt;</method>
+    <method name='class_variable_get'>&lt;p&gt;Returns the value of the given class variable (or throws a &lt;tt&gt;NameError&lt;/tt&gt; exception). The &lt;tt&gt;@@&lt;/tt&gt; part of the variable name should be included for regular class variables&lt;/p&gt;&lt;pre&gt;   class Fred
+     @@foo = 99
+   end
+
+   def Fred.foo
+     class_variable_get(:@@foo)     #=&gt; 99
+   end
+&lt;/pre&gt;</method>
+    <method name='class_variable_set'>&lt;p&gt;Sets the class variable names by &lt;em&gt;symbol&lt;/em&gt; to &lt;em&gt;object&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   class Fred
+     @@foo = 99
+     def foo
+       @@foo
+     end
+   end
+
+   def Fred.foo
+     class_variable_set(:@@foo, 101)      #=&gt; 101
+   end
+   Fred.foo
+   Fred.new.foo                             #=&gt; 101
+&lt;/pre&gt;</method>
+    <method name='class_variables'>&lt;p&gt;Returns an array of the names of class variables in &lt;em&gt;mod&lt;/em&gt; and the ancestors of &lt;em&gt;mod&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   class One
+     @@var1 = 1
+   end
+   class Two &lt; One
+     @@var2 = 2
+   end
+   One.class_variables   #=&gt; [&quot;@@var1&quot;]
+   Two.class_variables   #=&gt; [&quot;@@var2&quot;, &quot;@@var1&quot;]
+&lt;/pre&gt;</method>
+    <method name='const_defined?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if a constant with the given name is defined by &lt;em&gt;mod&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   Math.const_defined? &quot;PI&quot;   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='const_get'>&lt;p&gt;Returns the value of the named constant in &lt;em&gt;mod&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   Math.const_get(:PI)   #=&gt; 3.14159265358979
+&lt;/pre&gt;</method>
+    <method name='const_missing'>&lt;p&gt;Invoked when a reference is made to an undefined constant in &lt;em&gt;mod&lt;/em&gt;. It is passed a symbol for the undefined constant, and returns a value to be used for that constant. The following code is a (very bad) example: if reference is made to an undefined constant, it attempts to load a file whose name is the lowercase version of the constant (thus class &lt;tt&gt;Fred&lt;/tt&gt; is assumed to be in file &lt;tt&gt;fred.rb&lt;/tt&gt;). If found, it returns the value of the loaded class. It therefore implements a perverse kind of autoload facility.&lt;/p&gt;&lt;pre&gt;  def Object.const_missing(name)
+    @looked_for ||= {}
+    str_name = name.to_s
+    raise &quot;Class not found: #{name}&quot; if @looked_for[str_name]
+    @looked_for[str_name] = 1
+    file = str_name.downcase
+    require file
+    klass = const_get(name)
+    return klass if klass
+    raise &quot;Class not found: #{name}&quot;
+  end
+&lt;/pre&gt;</method>
+    <method name='const_set'>&lt;p&gt;Sets the named constant to the given object, returning that object. Creates a new constant if no constant with the given name previously existed.&lt;/p&gt;&lt;pre&gt;   Math.const_set(&quot;HIGH_SCHOOL_PI&quot;, 22.0/7.0)   #=&gt; 3.14285714285714
+   Math::HIGH_SCHOOL_PI - Math::PI              #=&gt; 0.00126448926734968
+&lt;/pre&gt;</method>
+    <method name='constants'>&lt;p&gt;Returns an array of the names of the constants accessible in &lt;em&gt;mod&lt;/em&gt;. This includes the names of constants in any included modules (example at start of section).&lt;/p&gt;</method>
+    <method name='define_method'>&lt;p&gt;Defines an instance method in the receiver. The &lt;em&gt;method&lt;/em&gt; parameter can be a &lt;tt&gt;Proc&lt;/tt&gt; or &lt;tt&gt;Method&lt;/tt&gt; object. If a block is specified, it is used as the method body. This block is evaluated using &lt;tt&gt;instance_eval&lt;/tt&gt;, a point that is tricky to demonstrate because &lt;tt&gt;define_method&lt;/tt&gt; is private. (This is why we resort to the &lt;tt&gt;send&lt;/tt&gt; hack in this example.)&lt;/p&gt;&lt;pre&gt;   class A
+     def fred
+       puts &quot;In Fred&quot;
+     end
+     def create_method(name, &amp;block)
+       self.class.send(:define_method, name, &amp;block)
+     end
+     define_method(:wilma) { puts &quot;Charge it!&quot; }
+   end
+   class B &lt; A
+     define_method(:barney, instance_method(:fred))
+   end
+   a = B.new
+   a.barney
+   a.wilma
+   a.create_method(:betty) { p self }
+   a.betty
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   In Fred
+   Charge it!
+   #&lt;B:0x401b39e8&gt;
+&lt;/pre&gt;</method>
+    <method name='extend_object'>&lt;p&gt;Extends the specified object by adding this module&apos;s constants and methods (which are added as singleton methods). This is the callback method used by &lt;tt&gt;Object#extend&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   module Picky
+     def Picky.extend_object(o)
+       if String === o
+         puts &quot;Can&apos;t add Picky to a String&quot;
+       else
+         puts &quot;Picky added to #{o.class}&quot;
+         super
+       end
+     end
+   end
+   (s = Array.new).extend Picky  # Call Object.extend
+   (s = &quot;quick brown fox&quot;).extend Picky
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Picky added to Array
+   Can&apos;t add Picky to a String
+&lt;/pre&gt;</method>
+    <method name='extended'>&lt;p&gt;Not documented&lt;/p&gt;</method>
+    <method name='freeze'>&lt;p&gt;Prevents further modifications to &lt;em&gt;mod&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='include'>&lt;p&gt;Invokes &lt;tt&gt;Module.append_features&lt;/tt&gt; on each parameter in turn.&lt;/p&gt;</method>
+    <method name='include?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;module&lt;/em&gt; is included in &lt;em&gt;mod&lt;/em&gt; or one of &lt;em&gt;mod&lt;/em&gt;&apos;s ancestors.&lt;/p&gt;&lt;pre&gt;   module A
+   end
+   class B
+     include A
+   end
+   class C &lt; B
+   end
+   B.include?(A)   #=&gt; true
+   C.include?(A)   #=&gt; true
+   A.include?(A)   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='included'>&lt;p&gt;Callback invoked whenever the receiver is included in another module or class. This should be used in preference to &lt;tt&gt;Module.append_features&lt;/tt&gt; if your code wants to perform some action when a module is included in another.&lt;/p&gt;&lt;pre&gt;       module A
+         def A.included(mod)
+           puts &quot;#{self} included in #{mod}&quot;
+         end
+       end
+       module Enumerable
+         include A
+       end
+&lt;/pre&gt;</method>
+    <method name='included_modules'>&lt;p&gt;Returns the list of modules included in &lt;em&gt;mod&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   module Mixin
+   end
+
+   module Outer
+     include Mixin
+   end
+
+   Mixin.included_modules   #=&gt; []
+   Outer.included_modules   #=&gt; [Mixin]
+&lt;/pre&gt;</method>
+    <method name='instance_method'>&lt;p&gt;Returns an &lt;tt&gt;UnboundMethod&lt;/tt&gt; representing the given instance method in &lt;em&gt;mod&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   class Interpreter
+     def do_a() print &quot;there, &quot;; end
+     def do_d() print &quot;Hello &quot;;  end
+     def do_e() print &quot;!\n&quot;;     end
+     def do_v() print &quot;Dave&quot;;    end
+     Dispatcher = {
+      ?a =&gt; instance_method(:do_a),
+      ?d =&gt; instance_method(:do_d),
+      ?e =&gt; instance_method(:do_e),
+      ?v =&gt; instance_method(:do_v)
+     }
+     def interpret(string)
+       string.each_byte {|b| Dispatcher[b].bind(self).call }
+     end
+   end
+
+   interpreter = Interpreter.new
+   interpreter.interpret(&apos;dave&apos;)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Hello there, Dave!
+&lt;/pre&gt;</method>
+    <method name='instance_methods'>&lt;p&gt;Returns an array containing the names of public instance methods in the receiver. For a module, these are the public methods; for a class, they are the instance (not singleton) methods. With no argument, or with an argument that is &lt;tt&gt;false&lt;/tt&gt;, the instance methods in &lt;em&gt;mod&lt;/em&gt; are returned, otherwise the methods in &lt;em&gt;mod&lt;/em&gt; and &lt;em&gt;mod&lt;/em&gt;&apos;s superclasses are returned.&lt;/p&gt;&lt;pre&gt;   module A
+     def method1()  end
+   end
+   class B
+     def method2()  end
+   end
+   class C &lt; B
+     def method3()  end
+   end
+
+   A.instance_methods                #=&gt; [&quot;method1&quot;]
+   B.instance_methods(false)         #=&gt; [&quot;method2&quot;]
+   C.instance_methods(false)         #=&gt; [&quot;method3&quot;]
+   C.instance_methods(true).length   #=&gt; 43
+&lt;/pre&gt;</method>
+    <method name='method_added'>&lt;p&gt;Not documented&lt;/p&gt;</method>
+    <method name='method_defined?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named method is defined by &lt;em&gt;mod&lt;/em&gt; (or its included modules and, if &lt;em&gt;mod&lt;/em&gt; is a class, its ancestors). Public and protected methods are matched.&lt;/p&gt;&lt;pre&gt;   module A
+     def method1()  end
+   end
+   class B
+     def method2()  end
+   end
+   class C &lt; B
+     include A
+     def method3()  end
+   end
+
+   A.method_defined? :method1    #=&gt; true
+   C.method_defined? &quot;method1&quot;   #=&gt; true
+   C.method_defined? &quot;method2&quot;   #=&gt; true
+   C.method_defined? &quot;method3&quot;   #=&gt; true
+   C.method_defined? &quot;method4&quot;   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='method_removed'>&lt;p&gt;Not documented&lt;/p&gt;</method>
+    <method name='method_undefined'>&lt;p&gt;Not documented&lt;/p&gt;</method>
+    <method name='module_eval'>&lt;p&gt;Evaluates the string or block in the context of &lt;em&gt;mod&lt;/em&gt;. This can be used to add methods to a class. &lt;tt&gt;module_eval&lt;/tt&gt; returns the result of evaluating its argument. The optional &lt;em&gt;filename&lt;/em&gt; and &lt;em&gt;lineno&lt;/em&gt; parameters set the text for error messages.&lt;/p&gt;&lt;pre&gt;   class Thing
+   end
+   a = %q{def hello() &quot;Hello there!&quot; end}
+   Thing.module_eval(a)
+   puts Thing.new.hello()
+   Thing.module_eval(&quot;invalid code&quot;, &quot;dummy&quot;, 123)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Hello there!
+   dummy:123:in `module_eval&apos;: undefined local variable
+       or method `code&apos; for Thing:Class
+&lt;/pre&gt;</method>
+    <method name='module_function'>&lt;p&gt;Creates module functions for the named methods. These functions may be called with the module as a receiver, and also become available as instance methods to classes that mix in the module. Module functions are copies of the original, and so may be changed independently. The instance-method versions are made private. If used with no arguments, subsequently defined methods become module functions.&lt;/p&gt;&lt;pre&gt;   module Mod
+     def one
+       &quot;This is one&quot;
+     end
+     module_function :one
+   end
+   class Cls
+     include Mod
+     def callOne
+       one
+     end
+   end
+   Mod.one     #=&gt; &quot;This is one&quot;
+   c = Cls.new
+   c.callOne   #=&gt; &quot;This is one&quot;
+   module Mod
+     def one
+       &quot;This is the new one&quot;
+     end
+   end
+   Mod.one     #=&gt; &quot;This is one&quot;
+   c.callOne   #=&gt; &quot;This is the new one&quot;
+&lt;/pre&gt;</method>
+    <method name='name'>&lt;p&gt;Returns the name of the module &lt;em&gt;mod&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='private'>&lt;p&gt;With no arguments, sets the default visibility for subsequently defined methods to private. With arguments, sets the named methods to have private visibility.&lt;/p&gt;&lt;pre&gt;   module Mod
+     def a()  end
+     def b()  end
+     private
+     def c()  end
+     private :a
+   end
+   Mod.private_instance_methods   #=&gt; [&quot;a&quot;, &quot;c&quot;]
+&lt;/pre&gt;</method>
+    <method name='private_class_method'>&lt;p&gt;Makes existing class methods private. Often used to hide the default constructor &lt;tt&gt;new&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   class SimpleSingleton  # Not thread safe
+     private_class_method :new
+     def SimpleSingleton.create(*args, &amp;block)
+       @me = new(*args, &amp;block) if ! @me
+       @me
+     end
+   end
+&lt;/pre&gt;</method>
+    <method name='private_instance_methods'>&lt;p&gt;Returns a list of the private instance methods defined in &lt;em&gt;mod&lt;/em&gt;. If the optional parameter is not &lt;tt&gt;false&lt;/tt&gt;, the methods of any ancestors are included.&lt;/p&gt;&lt;pre&gt;   module Mod
+     def method1()  end
+     private :method1
+     def method2()  end
+   end
+   Mod.instance_methods           #=&gt; [&quot;method2&quot;]
+   Mod.private_instance_methods   #=&gt; [&quot;method1&quot;]
+&lt;/pre&gt;</method>
+    <method name='private_method_defined?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named private method is defined by _ mod_ (or its included modules and, if &lt;em&gt;mod&lt;/em&gt; is a class, its ancestors).&lt;/p&gt;&lt;pre&gt;   module A
+     def method1()  end
+   end
+   class B
+     private
+     def method2()  end
+   end
+   class C &lt; B
+     include A
+     def method3()  end
+   end
+
+   A.method_defined? :method1            #=&gt; true
+   C.private_method_defined? &quot;method1&quot;   #=&gt; false
+   C.private_method_defined? &quot;method2&quot;   #=&gt; true
+   C.method_defined? &quot;method2&quot;           #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='protected'>&lt;p&gt;With no arguments, sets the default visibility for subsequently defined methods to protected. With arguments, sets the named methods to have protected visibility.&lt;/p&gt;</method>
+    <method name='protected_instance_methods'>&lt;p&gt;Returns a list of the protected instance methods defined in &lt;em&gt;mod&lt;/em&gt;. If the optional parameter is not &lt;tt&gt;false&lt;/tt&gt;, the methods of any ancestors are included.&lt;/p&gt;</method>
+    <method name='protected_method_defined?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named protected method is defined by &lt;em&gt;mod&lt;/em&gt; (or its included modules and, if &lt;em&gt;mod&lt;/em&gt; is a class, its ancestors).&lt;/p&gt;&lt;pre&gt;   module A
+     def method1()  end
+   end
+   class B
+     protected
+     def method2()  end
+   end
+   class C &lt; B
+     include A
+     def method3()  end
+   end
+
+   A.method_defined? :method1              #=&gt; true
+   C.protected_method_defined? &quot;method1&quot;   #=&gt; false
+   C.protected_method_defined? &quot;method2&quot;   #=&gt; true
+   C.method_defined? &quot;method2&quot;             #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='public'>&lt;p&gt;With no arguments, sets the default visibility for subsequently defined methods to public. With arguments, sets the named methods to have public visibility.&lt;/p&gt;</method>
+    <method name='public_class_method'>&lt;p&gt;Makes a list of existing class methods public.&lt;/p&gt;</method>
+    <method name='public_instance_methods'>&lt;p&gt;Returns a list of the public instance methods defined in &lt;em&gt;mod&lt;/em&gt;. If the optional parameter is not &lt;tt&gt;false&lt;/tt&gt;, the methods of any ancestors are included.&lt;/p&gt;</method>
+    <method name='public_method_defined?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named public method is defined by &lt;em&gt;mod&lt;/em&gt; (or its included modules and, if &lt;em&gt;mod&lt;/em&gt; is a class, its ancestors).&lt;/p&gt;&lt;pre&gt;   module A
+     def method1()  end
+   end
+   class B
+     protected
+     def method2()  end
+   end
+   class C &lt; B
+     include A
+     def method3()  end
+   end
+
+   A.method_defined? :method1           #=&gt; true
+   C.public_method_defined? &quot;method1&quot;   #=&gt; true
+   C.public_method_defined? &quot;method2&quot;   #=&gt; false
+   C.method_defined? &quot;method2&quot;          #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='remove_class_variable'>&lt;p&gt;Removes the definition of the &lt;em&gt;sym&lt;/em&gt;, returning that constant&apos;s value.&lt;/p&gt;&lt;pre&gt;   class Dummy
+     @@var = 99
+     puts @@var
+     remove_class_variable(:@@var)
+     puts(defined? @@var)
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   99
+   nil
+&lt;/pre&gt;</method>
+    <method name='remove_const'>&lt;p&gt;Removes the definition of the given constant, returning that constant&apos;s value. Predefined classes and singleton objects (such as &lt;em&gt;true&lt;/em&gt;) cannot be removed.&lt;/p&gt;</method>
+    <method name='remove_method'>&lt;p&gt;Removes the method identified by &lt;em&gt;symbol&lt;/em&gt; from the current class. For an example, see &lt;tt&gt;Module.undef_method&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Return a string representing this module or class. For basic classes and modules, this is the name. For singletons, we show information on the thing we&apos;re attached to as well.&lt;/p&gt;</method>
+    <method name='undef_method'>&lt;p&gt;Prevents the current class from responding to calls to the named method. Contrast this with &lt;tt&gt;remove_method&lt;/tt&gt;, which deletes the method from the particular class; Ruby will still search superclasses and mixed-in modules for a possible receiver.&lt;/p&gt;&lt;pre&gt;   class Parent
+     def hello
+       puts &quot;In parent&quot;
+     end
+   end
+   class Child &lt; Parent
+     def hello
+       puts &quot;In child&quot;
+     end
+   end
+
+   c = Child.new
+   c.hello
+
+   class Child
+     remove_method :hello  # remove from child, still in parent
+   end
+   c.hello
+
+   class Child
+     undef_method :hello   # prevent any calls to &apos;hello&apos;
+   end
+   c.hello
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   In child
+   In parent
+   prog.rb:23: undefined method `hello&apos; for #&lt;Child:0x401b3bb4&gt; (NoMethodError)
+&lt;/pre&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;CSV formatted string/stream reader.&lt;/p&gt;&lt;p&gt;EXAMPLE&lt;/p&gt;&lt;pre&gt;  read CSV lines untill the first column is &apos;stop&apos;.
+
+  CSV::Reader.parse(File.open(&apos;bigdata&apos;, &apos;rb&apos;)) do |row|
+    p row
+    break if !row[0].is_null &amp;&amp; row[0].data == &apos;stop&apos;
+  end
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='create'>&lt;p&gt;Returns reader instance.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse'>&lt;p&gt;Parse CSV data and get lines. Given block is called for each parsed row. Block value is always nil. Rows are not cached for performance reason.&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='shift'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

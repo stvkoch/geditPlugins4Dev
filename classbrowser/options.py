@@ -39,15 +39,13 @@ class Options(gobject.GObject):
 
         # default values
         self.verbose = False
-        self.autocollapse = True
-        self.jumpToTagOnMiddleClick = False
         self.colours = {
             "class" : gtk.gdk.Color(50000,20000,20000),
             "define": gtk.gdk.Color(60000,0,0),
             "enumerator": gtk.gdk.Color(0,0,0),
             "member" : gtk.gdk.Color(0,0,60000),
             "function" : gtk.gdk.Color(50000,0,60000),
-            "namespace" : gtk.gdk.Color(0,20000,0),
+
         }
     
         # create gconf directory if not set yet
@@ -60,35 +58,17 @@ class Options(gobject.GObject):
             self.verbose = client.get_bool(self.__gconfDir+"/verbose") \
                 or self.verbose 
 
-            self.autocollapse = client.get_bool(self.__gconfDir+"/autocollapse") \
-                or self.autocollapse 
-
-            self.jumpToTagOnMiddleClick = client.get_bool(self.__gconfDir+"/jumpToTagOnMiddleClick") \
-                or self.jumpToTagOnMiddleClick 
-
             for i in self.colours:
                 col = client.get_string(self.__gconfDir+"/colour_"+i)
                 if col: self.colours[i] = gtk.gdk.color_parse(col)
 
         except Exception, e: # catch, just in case
             print e
-            
-    def __del__(self):
-        # write changes to gconf
-        client = gconf.client_get_default()
-        client.set_bool(self.__gconfDir+"/verbose", self.verbose)
-        client.set_bool(self.__gconfDir+"/autocollapse", self.autocollapse)
-        client.set_bool(self.__gconfDir+"/jumpToTagOnMiddleClick", self.jumpToTagOnMiddleClick)
-        for i in self.colours:
-            client.set_string(self.__gconfDir+"/colour_"+i, self.color_to_hex(self.colours[i]))
-
+        
     def create_configure_dialog(self):
         win = gtk.Window()
         win.connect("delete-event",lambda w,e: w.destroy())
-        win.set_title("Class Browser Preferences")
-        win.set_position(gtk.WIN_POS_CENTER)
-        win.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
-        win.set_border_width(6)
+        win.set_title("Preferences")
         vbox = gtk.VBox() 
 
         #--------------------------------  
@@ -97,23 +77,11 @@ class Options(gobject.GObject):
         notebook.set_border_width(6)
         vbox.pack_start(notebook)
 
-        vbox2 = gtk.VBox(spacing=6)
-        vbox2.set_border_width(6)
-        
-        box = gtk.HBox()
-        autocollapse = gtk.CheckButton("Auto-_collapse symbol tree")
-        autocollapse.set_active(self.autocollapse)
-        box.pack_start(autocollapse,False,False,6)
-        vbox2.pack_start(box,False)
+        vbox2 = gtk.VBox()
+        vbox2.set_border_width(6) 
 
         box = gtk.HBox()
-        jumpToTagOnMiddleClick = gtk.CheckButton("_Jump to tag on middle click")
-        jumpToTagOnMiddleClick.set_active(self.jumpToTagOnMiddleClick)
-        box.pack_start(jumpToTagOnMiddleClick,False,False,6)
-        vbox2.pack_start(box,False)
-        
-        box = gtk.HBox()
-        verbose = gtk.CheckButton("Show _debug information")
+        verbose = gtk.CheckButton("show debug information")
         verbose.set_active(self.verbose)
         box.pack_start(verbose,False,False,6)
         vbox2.pack_start(box,False)
@@ -121,16 +89,16 @@ class Options(gobject.GObject):
         notebook.append_page(vbox2,gtk.Label("General"))
 
         #--------------------------------       
-        vbox2 = gtk.VBox(spacing=6)
+        vbox2 = gtk.VBox()
         vbox2.set_border_width(6)
 
         button = {}
         for i in self.colours:
-            box = gtk.HBox(spacing=6)
+            box = gtk.HBox()
             button[i] = gtk.ColorButton()
             button[i].set_color(self.colours[i])
-            box.pack_end(button[i],False)
-            box.pack_start(gtk.Label(i.capitalize() + " :"), False, False, 6)
+            box.pack_start(button[i],False)
+            box.pack_start(gtk.Label(i),False,False,6)
             vbox2.pack_start(box)
 
         notebook.append_page(vbox2,gtk.Label("Colours"))
@@ -139,17 +107,13 @@ class Options(gobject.GObject):
 
             # set class attributes
             self.verbose = verbose.get_active()
-            self.autocollapse = autocollapse.get_active()
-            self.jumpToTagOnMiddleClick = jumpToTagOnMiddleClick.get_active()
             for i in self.colours:
                 self.colours[i] = button[i].get_color()
-                
+
             # write changes to gconf
             client = gconf.client_get_default()
 
             client.set_bool(self.__gconfDir+"/verbose", self.verbose)
-            client.set_bool(self.__gconfDir+"/autocollapse", self.autocollapse)
-            client.set_bool(self.__gconfDir+"/jumpToTagOnMiddleClick", self.jumpToTagOnMiddleClick)
             for i in self.colours:
                 client.set_string(self.__gconfDir+"/colour_"+i, self.color_to_hex(self.colours[i]))
 
@@ -157,16 +121,13 @@ class Options(gobject.GObject):
             self.emit("options-changed")
             win.destroy()
 
-        box = gtk.HButtonBox()
-        box.set_spacing(6)
-        box.set_border_width(6)
-        box.set_layout(gtk.BUTTONBOX_END)
-        b = gtk.Button(None,gtk.STOCK_CANCEL)
-        b.connect("clicked",lambda w,win: win.destroy(),win)
-        box.add(b)
+        box = gtk.HBox()
         b = gtk.Button(None,gtk.STOCK_OK)
         b.connect("clicked",setValues)
-        box.add(b)
+        box.pack_end(b,False)
+        b = gtk.Button(None,gtk.STOCK_CANCEL)
+        b.connect("clicked",lambda w,win: win.destroy(),win)
+        box.pack_end(b,False)
         vbox.pack_start(box,False)
 
         win.add(vbox)

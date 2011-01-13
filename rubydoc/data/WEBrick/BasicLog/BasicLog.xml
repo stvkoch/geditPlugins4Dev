@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='debug'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='debug?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='error'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='error?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='fatal'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='fatal?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='info'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='info?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='log'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='warn'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='warn?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A paging display module. Uses the ri_formatter class to do the actual presentation&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='display_class_info'></method>
+    <method name='display_class_list'></method>
+    <method name='display_method_info'></method>
+    <method name='display_method_list'>&lt;p&gt;Display a list of method names&lt;/p&gt;</method>
+    <method name='display_usage'></method>
+    <method name='list_known_classes'></method>
+    <method name='list_known_names'></method>
+  </methods>
+</help>

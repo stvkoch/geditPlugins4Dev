@@ -1,0 +1,311 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;h2&gt;What Is This Library?&lt;/h2&gt;&lt;p&gt;This library provides your program functions to access WWW documents via HTTP, Hyper Text Transfer Protocol version 1.1. For details of HTTP, refer [RFC2616] (http://www.ietf.org/rfc/rfc2616.txt).&lt;/p&gt;&lt;h2&gt;Examples&lt;/h2&gt;&lt;h3&gt;Getting Document From WWW Server&lt;/h3&gt;&lt;p&gt;Example #1: Simple GET+print&lt;/p&gt;&lt;pre&gt;    require &apos;net/http&apos;
+    Net::HTTP.get_print &apos;www.example.com&apos;, &apos;/index.html&apos;
+&lt;/pre&gt;&lt;p&gt;Example #2: Simple GET+print by URL&lt;/p&gt;&lt;pre&gt;    require &apos;net/http&apos;
+    require &apos;uri&apos;
+    Net::HTTP.get_print URI.parse(&apos;http://www.example.com/index.html&apos;)
+&lt;/pre&gt;&lt;p&gt;Example #3: More generic GET+print&lt;/p&gt;&lt;pre&gt;    require &apos;net/http&apos;
+    require &apos;uri&apos;
+
+    url = URI.parse(&apos;http://www.example.com/index.html&apos;)
+    res = Net::HTTP.start(url.host, url.port) {|http|
+      http.get(&apos;/index.html&apos;)
+    }
+    puts res.body
+&lt;/pre&gt;&lt;p&gt;Example #4: More generic GET+print&lt;/p&gt;&lt;pre&gt;    require &apos;net/http&apos;
+
+    url = URI.parse(&apos;http://www.example.com/index.html&apos;)
+    req = Net::HTTP::Get.new(url.path)
+    res = Net::HTTP.start(url.host, url.port) {|http|
+      http.request(req)
+    }
+    puts res.body
+&lt;/pre&gt;&lt;h3&gt;Posting Form Data&lt;/h3&gt;&lt;pre&gt;    require &apos;net/http&apos;
+    require &apos;uri&apos;
+
+    #1: Simple POST
+    res = Net::HTTP.post_form(URI.parse(&apos;http://www.example.com/search.cgi&apos;),
+                              {&apos;q&apos;=&gt;&apos;ruby&apos;, &apos;max&apos;=&gt;&apos;50&apos;})
+    puts res.body
+
+    #2: POST with basic authentication
+    res = Net::HTTP.post_form(URI.parse(&apos;http://jack:pass@www.example.com/todo.cgi&apos;),
+                                        {&apos;from&apos;=&gt;&apos;2005-01-01&apos;, &apos;to&apos;=&gt;&apos;2005-03-31&apos;})
+    puts res.body
+
+    #3: Detailed control
+    url = URI.parse(&apos;http://www.example.com/todo.cgi&apos;)
+    req = Net::HTTP::Post.new(url.path)
+    req.basic_auth &apos;jack&apos;, &apos;pass&apos;
+    req.set_form_data({&apos;from&apos;=&gt;&apos;2005-01-01&apos;, &apos;to&apos;=&gt;&apos;2005-03-31&apos;}, &apos;;&apos;)
+    res = Net::HTTP.new(url.host, url.port).start {|http| http.request(req) }
+    case res
+    when Net::HTTPSuccess, Net::HTTPRedirection
+      # OK
+    else
+      res.error!
+    end
+&lt;/pre&gt;&lt;h3&gt;Accessing via Proxy&lt;/h3&gt;&lt;p&gt;Net::HTTP.Proxy creates http proxy class. It has same methods of Net::HTTP but its instances always connect to proxy, instead of given host.&lt;/p&gt;&lt;pre&gt;    require &apos;net/http&apos;
+
+    proxy_addr = &apos;your.proxy.host&apos;
+    proxy_port = 8080
+            :
+    Net::HTTP::Proxy(proxy_addr, proxy_port).start(&apos;www.example.com&apos;) {|http|
+      # always connect to your.proxy.addr:8080
+            :
+    }
+&lt;/pre&gt;&lt;p&gt;Since Net::HTTP.Proxy returns Net::HTTP itself when proxy_addr is nil, there&apos;s no need to change code if there&apos;s proxy or not.&lt;/p&gt;&lt;p&gt;There are two additional parameters in Net::HTTP.Proxy which allow to specify proxy user name and password:&lt;/p&gt;&lt;pre&gt;    Net::HTTP::Proxy(proxy_addr, proxy_port, proxy_user = nil, proxy_pass = nil)
+&lt;/pre&gt;&lt;p&gt;You may use them to work with authorization-enabled proxies:&lt;/p&gt;&lt;pre&gt;    require &apos;net/http&apos;
+    require &apos;uri&apos;
+
+    proxy_host = &apos;your.proxy.host&apos;
+    proxy_port = 8080
+    uri = URI.parse(ENV[&apos;http_proxy&apos;])
+    proxy_user, proxy_pass = uri.userinfo.split(/:/) if uri.userinfo
+    Net::HTTP::Proxy(proxy_host, proxy_port,
+                     proxy_user, proxy_pass).start(&apos;www.example.com&apos;) {|http|
+      # always connect to your.proxy.addr:8080 using specified username and password
+            :
+    }
+&lt;/pre&gt;&lt;p&gt;Note that net/http never rely on HTTP_PROXY environment variable. If you want to use proxy, set it explicitly.&lt;/p&gt;&lt;h3&gt;Following Redirection&lt;/h3&gt;&lt;pre&gt;    require &apos;net/http&apos;
+    require &apos;uri&apos;
+
+    def fetch(uri_str, limit = 10)
+      # You should choose better exception.
+      raise ArgumentError, &apos;HTTP redirect too deep&apos; if limit == 0
+
+      response = Net::HTTP.get_response(URI.parse(uri_str))
+      case response
+      when Net::HTTPSuccess     then response
+      when Net::HTTPRedirection then fetch(response[&apos;location&apos;], limit - 1)
+      else
+        response.error!
+      end
+    end
+
+    print fetch(&apos;http://www.ruby-lang.org&apos;)
+&lt;/pre&gt;&lt;p&gt;Net::HTTPSuccess and Net::HTTPRedirection is a HTTPResponse class. All HTTPResponse objects belong to its own response class which indicate HTTP result status. For details of response classes, see section &quot;HTTP Response Classes&quot;.&lt;/p&gt;&lt;h3&gt;Basic Authentication&lt;/h3&gt;&lt;pre&gt;    require &apos;net/http&apos;
+
+    Net::HTTP.start(&apos;www.example.com&apos;) {|http|
+      req = Net::HTTP::Get.new(&apos;/secret-page.html&apos;)
+      req.basic_auth &apos;account&apos;, &apos;password&apos;
+      response = http.request(req)
+      print response.body
+    }
+&lt;/pre&gt;&lt;h3&gt;HTTP Request Classes&lt;/h3&gt;&lt;p&gt;Here is HTTP request class hierarchy.&lt;/p&gt;&lt;pre&gt;  Net::HTTPRequest
+      Net::HTTP::Get
+      Net::HTTP::Head
+      Net::HTTP::Post
+      Net::HTTP::Put
+      Net::HTTP::Proppatch
+      Net::HTTP::Lock
+      Net::HTTP::Unlock
+      Net::HTTP::Options
+      Net::HTTP::Propfind
+      Net::HTTP::Delete
+      Net::HTTP::Move
+      Net::HTTP::Copy
+      Net::HTTP::Mkcol
+      Net::HTTP::Trace
+&lt;/pre&gt;&lt;h3&gt;HTTP Response Classes&lt;/h3&gt;&lt;p&gt;Here is HTTP response class hierarchy. All classes are defined in Net module.&lt;/p&gt;&lt;pre&gt;  HTTPResponse
+      HTTPUnknownResponse
+      HTTPInformation                    # 1xx
+          HTTPContinue                       # 100
+          HTTPSwitchProtocl                  # 101
+      HTTPSuccess                        # 2xx
+          HTTPOK                             # 200
+          HTTPCreated                        # 201
+          HTTPAccepted                       # 202
+          HTTPNonAuthoritativeInformation    # 203
+          HTTPNoContent                      # 204
+          HTTPResetContent                   # 205
+          HTTPPartialContent                 # 206
+      HTTPRedirection                    # 3xx
+          HTTPMultipleChoice                 # 300
+          HTTPMovedPermanently               # 301
+          HTTPFound                          # 302
+          HTTPSeeOther                       # 303
+          HTTPNotModified                    # 304
+          HTTPUseProxy                       # 305
+          HTTPTemporaryRedirect              # 307
+      HTTPClientError                    # 4xx
+          HTTPBadRequest                     # 400
+          HTTPUnauthorized                   # 401
+          HTTPPaymentRequired                # 402
+          HTTPForbidden                      # 403
+          HTTPNotFound                       # 404
+          HTTPMethodNotAllowed               # 405
+          HTTPNotAcceptable                  # 406
+          HTTPProxyAuthenticationRequired    # 407
+          HTTPRequestTimeOut                 # 408
+          HTTPConflict                       # 409
+          HTTPGone                           # 410
+          HTTPLengthRequired                 # 411
+          HTTPPreconditionFailed             # 412
+          HTTPRequestEntityTooLarge          # 413
+          HTTPRequestURITooLong              # 414
+          HTTPUnsupportedMediaType           # 415
+          HTTPRequestedRangeNotSatisfiable   # 416
+          HTTPExpectationFailed              # 417
+      HTTPServerError                    # 5xx
+          HTTPInternalServerError            # 500
+          HTTPNotImplemented                 # 501
+          HTTPBadGateway                     # 502
+          HTTPServiceUnavailable             # 503
+          HTTPGatewayTimeOut                 # 504
+          HTTPVersionNotSupported            # 505
+&lt;/pre&gt;&lt;h2&gt;Switching Net::HTTP versions&lt;/h2&gt;&lt;p&gt;You can use net/http.rb 1.1 features (bundled with Ruby 1.6) by calling HTTP.version_1_1. Calling Net::HTTP.version_1_2 allows you to use 1.2 features again.&lt;/p&gt;&lt;pre&gt;    # example
+    Net::HTTP.start {|http1| ...(http1 has 1.2 features)... }
+
+    Net::HTTP.version_1_1
+    Net::HTTP.start {|http2| ...(http2 has 1.1 features)... }
+
+    Net::HTTP.version_1_2
+    Net::HTTP.start {|http3| ...(http3 has 1.2 features)... }
+&lt;/pre&gt;&lt;p&gt;This function is NOT thread-safe.&lt;/p&gt;</comment>
+  <methods>
+    <method name='Proxy'>&lt;p&gt;Creates an HTTP proxy class. Arguments are address/port of proxy host and username/password if authorization on proxy server is required. You can replace the HTTP class with created proxy class.&lt;/p&gt;&lt;p&gt;If ADDRESS is nil, this method returns self (Net::HTTP).&lt;/p&gt;&lt;pre&gt;    # Example
+    proxy_class = Net::HTTP::Proxy(&apos;proxy.example.com&apos;, 8080)
+                    :
+    proxy_class.start(&apos;www.ruby-lang.org&apos;) {|http|
+      # connecting proxy.foo.org:8080
+                    :
+    }
+&lt;/pre&gt;</method>
+    <method name='default_port'>&lt;p&gt;The default port to use for HTTP requests; defaults to 80.&lt;/p&gt;</method>
+    <method name='get'>&lt;p&gt;Send a GET request to the target and return the response as a string. The target can either be specified as (&lt;tt&gt;uri&lt;/tt&gt;), or as (&lt;tt&gt;host&lt;/tt&gt;, &lt;tt&gt;path&lt;/tt&gt;, &lt;tt&gt;port&lt;/tt&gt; = 80); so:&lt;/p&gt;&lt;pre&gt;   print Net::HTTP.get(URI.parse(&apos;http://www.example.com/index.html&apos;))
+&lt;/pre&gt;&lt;p&gt;or:&lt;/p&gt;&lt;pre&gt;   print Net::HTTP.get(&apos;www.example.com&apos;, &apos;/index.html&apos;)
+&lt;/pre&gt;</method>
+    <method name='get_print'>&lt;p&gt;Get body from target and output it to +$stdout+. The target can either be specified as (&lt;tt&gt;uri&lt;/tt&gt;), or as (&lt;tt&gt;host&lt;/tt&gt;, &lt;tt&gt;path&lt;/tt&gt;, &lt;tt&gt;port&lt;/tt&gt; = 80); so:&lt;/p&gt;&lt;pre&gt;   Net::HTTP.get_print URI.parse(&apos;http://www.example.com/index.html&apos;)
+&lt;/pre&gt;&lt;p&gt;or:&lt;/p&gt;&lt;pre&gt;   Net::HTTP.get_print &apos;www.example.com&apos;, &apos;/index.html&apos;
+&lt;/pre&gt;</method>
+    <method name='get_response'>&lt;p&gt;Send a GET request to the target and return the response as a Net::HTTPResponse object. The target can either be specified as (&lt;tt&gt;uri&lt;/tt&gt;), or as (&lt;tt&gt;host&lt;/tt&gt;, &lt;tt&gt;path&lt;/tt&gt;, &lt;tt&gt;port&lt;/tt&gt; = 80); so:&lt;/p&gt;&lt;pre&gt;   res = Net::HTTP.get_response(URI.parse(&apos;http://www.example.com/index.html&apos;))
+   print res.body
+&lt;/pre&gt;&lt;p&gt;or:&lt;/p&gt;&lt;pre&gt;   res = Net::HTTP.get_response(&apos;www.example.com&apos;, &apos;/index.html&apos;)
+   print res.body
+&lt;/pre&gt;</method>
+    <method name='http_default_port'>&lt;p&gt;The default port to use for HTTP requests; defaults to 80.&lt;/p&gt;</method>
+    <method name='https_default_port'>&lt;p&gt;The default port to use for HTTPS requests; defaults to 443.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Creates a new Net::HTTP object for the specified &lt;tt&gt;address&lt;/tt&gt;. This method does not open the TCP connection.&lt;/p&gt;</method>
+    <method name='post_form'>&lt;p&gt;Posts HTML form data to the &lt;tt&gt;URL&lt;/tt&gt;. Form data must be represented as a Hash of String to String, e.g:&lt;/p&gt;&lt;pre&gt;  { &quot;cmd&quot; =&gt; &quot;search&quot;, &quot;q&quot; =&gt; &quot;ruby&quot;, &quot;max&quot; =&gt; &quot;50&quot; }
+&lt;/pre&gt;&lt;p&gt;This method also does Basic Authentication iff &lt;tt&gt;URL&lt;/tt&gt;.user exists.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  require &apos;net/http&apos;
+  require &apos;uri&apos;
+
+  HTTP.post_form URI.parse(&apos;http://www.example.com/search.cgi&apos;),
+                 { &quot;q&quot; =&gt; &quot;ruby&quot;, &quot;max&quot; =&gt; &quot;50&quot; }
+&lt;/pre&gt;</method>
+    <method name='proxy_class?'>&lt;p&gt;returns true if self is a class which was created by HTTP::Proxy.&lt;/p&gt;</method>
+    <method name='ssl_context_accessor'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='start'>&lt;p&gt;creates a new Net::HTTP object and opens its TCP connection and HTTP session. If the optional block is given, the newly created Net::HTTP object is passed to it and closed when the block finishes. In this case, the return value of this method is the return value of the block. If no block is given, the return value of this method is the newly created Net::HTTP object itself, and the caller is responsible for closing it upon completion.&lt;/p&gt;</method>
+    <method name='version_1_1'>&lt;p&gt;Turns on net/http 1.1 (ruby 1.6) features. Defaults to OFF in ruby 1.8.&lt;/p&gt;</method>
+    <method name='version_1_1?'>&lt;p&gt;true if net/http is in version 1.1 compatible mode. Defaults to true.&lt;/p&gt;</method>
+    <method name='version_1_2'>&lt;p&gt;Turns on net/http 1.2 (ruby 1.8) features. Defaults to ON in ruby 1.8.&lt;/p&gt;&lt;p&gt;I strongly recommend to call this method always.&lt;/p&gt;&lt;pre&gt;  require &apos;net/http&apos;
+  Net::HTTP.version_1_2
+&lt;/pre&gt;</method>
+    <method name='version_1_2?'>&lt;p&gt;true if net/http is in version 1.2 mode. Defaults to true.&lt;/p&gt;</method>
+    <method name='active?'>&lt;p&gt;Alias for #started?&lt;/p&gt;</method>
+    <method name='copy'>&lt;p&gt;Sends a COPY request to the &lt;tt&gt;path&lt;/tt&gt; and gets a response, as an HTTPResponse object.&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;Sends a DELETE request to the &lt;tt&gt;path&lt;/tt&gt; and gets a response, as an HTTPResponse object.&lt;/p&gt;</method>
+    <method name='finish'>&lt;p&gt;Finishes HTTP session and closes TCP connection. Raises IOError if not started.&lt;/p&gt;</method>
+    <method name='get'>&lt;p&gt;Gets data from &lt;tt&gt;path&lt;/tt&gt; on the connected-to host. &lt;tt&gt;header&lt;/tt&gt; must be a Hash like { &apos;Accept&apos; =&gt; &apos;*/*&apos;, ... }.&lt;/p&gt;&lt;p&gt;In version 1.1 (ruby 1.6), this method returns a pair of objects, a Net::HTTPResponse object and the entity body string. In version 1.2 (ruby 1.8), this method returns a Net::HTTPResponse object.&lt;/p&gt;&lt;p&gt;If called with a block, yields each fragment of the entity body in turn as a string as it is read from the socket. Note that in this case, the returned response object will &lt;b&gt;not&lt;/b&gt; contain a (meaningful) body.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;dest&lt;/tt&gt; argument is obsolete. It still works but you must not use it.&lt;/p&gt;&lt;p&gt;In version 1.1, this method might raise an exception for 3xx (redirect). In this case you can get a HTTPResponse object by &quot;anException.response&quot;.&lt;/p&gt;&lt;p&gt;In version 1.2, this method never raises exception.&lt;/p&gt;&lt;pre&gt;    # version 1.1 (bundled with Ruby 1.6)
+    response, body = http.get(&apos;/index.html&apos;)
+
+    # version 1.2 (bundled with Ruby 1.8 or later)
+    response = http.get(&apos;/index.html&apos;)
+
+    # using block
+    File.open(&apos;result.txt&apos;, &apos;w&apos;) {|f|
+      http.get(&apos;/~foo/&apos;) do |str|
+        f.write str
+      end
+    }
+&lt;/pre&gt;</method>
+    <method name='get2'>&lt;p&gt;Alias for #request_get&lt;/p&gt;</method>
+    <method name='head'>&lt;p&gt;Gets only the header from &lt;tt&gt;path&lt;/tt&gt; on the connected-to host. &lt;tt&gt;header&lt;/tt&gt; is a Hash like { &apos;Accept&apos; =&gt; &apos;*/*&apos;, ... }.&lt;/p&gt;&lt;p&gt;This method returns a Net::HTTPResponse object.&lt;/p&gt;&lt;p&gt;In version 1.1, this method might raise an exception for 3xx (redirect). On the case you can get a HTTPResponse object by &quot;anException.response&quot;. In version 1.2, this method never raises an exception.&lt;/p&gt;&lt;pre&gt;    response = nil
+    Net::HTTP.start(&apos;some.www.server&apos;, 80) {|http|
+      response = http.head(&apos;/index.html&apos;)
+    }
+    p response[&apos;content-type&apos;]
+&lt;/pre&gt;</method>
+    <method name='head2'>&lt;p&gt;Alias for #request_head&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='lock'>&lt;p&gt;Sends a LOCK request to the &lt;tt&gt;path&lt;/tt&gt; and gets a response, as an HTTPResponse object.&lt;/p&gt;</method>
+    <method name='mkcol'>&lt;p&gt;Sends a MKCOL request to the &lt;tt&gt;path&lt;/tt&gt; and gets a response, as an HTTPResponse object.&lt;/p&gt;</method>
+    <method name='move'>&lt;p&gt;Sends a MOVE request to the &lt;tt&gt;path&lt;/tt&gt; and gets a response, as an HTTPResponse object.&lt;/p&gt;</method>
+    <method name='options'>&lt;p&gt;Sends a OPTIONS request to the &lt;tt&gt;path&lt;/tt&gt; and gets a response, as an HTTPResponse object.&lt;/p&gt;</method>
+    <method name='peer_cert'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='post'>&lt;p&gt;Posts &lt;tt&gt;data&lt;/tt&gt; (must be a String) to &lt;tt&gt;path&lt;/tt&gt;. &lt;tt&gt;header&lt;/tt&gt; must be a Hash like { &apos;Accept&apos; =&gt; &apos;*/*&apos;, ... }.&lt;/p&gt;&lt;p&gt;In version 1.1 (ruby 1.6), this method returns a pair of objects, a Net::HTTPResponse object and an entity body string. In version 1.2 (ruby 1.8), this method returns a Net::HTTPResponse object.&lt;/p&gt;&lt;p&gt;If called with a block, yields each fragment of the entity body in turn as a string as it are read from the socket. Note that in this case, the returned response object will &lt;b&gt;not&lt;/b&gt; contain a (meaningful) body.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;dest&lt;/tt&gt; argument is obsolete. It still works but you must not use it.&lt;/p&gt;&lt;p&gt;In version 1.1, this method might raise an exception for 3xx (redirect). In this case you can get an HTTPResponse object by &quot;anException.response&quot;. In version 1.2, this method never raises exception.&lt;/p&gt;&lt;pre&gt;    # version 1.1
+    response, body = http.post(&apos;/cgi-bin/search.rb&apos;, &apos;query=foo&apos;)
+
+    # version 1.2
+    response = http.post(&apos;/cgi-bin/search.rb&apos;, &apos;query=foo&apos;)
+
+    # using block
+    File.open(&apos;result.txt&apos;, &apos;w&apos;) {|f|
+      http.post(&apos;/cgi-bin/search.rb&apos;, &apos;query=foo&apos;) do |str|
+        f.write str
+      end
+    }
+&lt;/pre&gt;&lt;p&gt;You should set Content-Type: header field for POST. If no Content-Type: field given, this method uses &quot;application/x-www-form-urlencoded&quot; by default.&lt;/p&gt;</method>
+    <method name='post2'>&lt;p&gt;Alias for #request_post&lt;/p&gt;</method>
+    <method name='propfind'>&lt;p&gt;Sends a PROPFIND request to the &lt;tt&gt;path&lt;/tt&gt; and gets a response, as an HTTPResponse object.&lt;/p&gt;</method>
+    <method name='proppatch'>&lt;p&gt;Sends a PROPPATCH request to the &lt;tt&gt;path&lt;/tt&gt; and gets a response, as an HTTPResponse object.&lt;/p&gt;</method>
+    <method name='proxy?'>&lt;p&gt;True if self is a HTTP proxy class.&lt;/p&gt;</method>
+    <method name='proxy_address'>&lt;p&gt;Address of proxy host. If self does not use a proxy, nil.&lt;/p&gt;</method>
+    <method name='proxy_pass'>&lt;p&gt;User password for accessing proxy. If self does not use a proxy, nil.&lt;/p&gt;</method>
+    <method name='proxy_port'>&lt;p&gt;Port number of proxy host. If self does not use a proxy, nil.&lt;/p&gt;</method>
+    <method name='proxy_user'>&lt;p&gt;User name for accessing proxy. If self does not use a proxy, nil.&lt;/p&gt;</method>
+    <method name='proxyaddr'>&lt;p&gt;Alias for #proxy_address&lt;/p&gt;</method>
+    <method name='proxyport'>&lt;p&gt;Alias for #proxy_port&lt;/p&gt;</method>
+    <method name='read_timeout='>&lt;p&gt;Setter for the read_timeout attribute.&lt;/p&gt;</method>
+    <method name='request'>&lt;p&gt;Sends an HTTPRequest object REQUEST to the HTTP server. This method also sends DATA string if REQUEST is a post/put request. Giving DATA for get/head request causes ArgumentError.&lt;/p&gt;&lt;p&gt;When called with a block, yields an HTTPResponse object. The body of this response will not have been read yet; the caller can process it using HTTPResponse#read_body, if desired.&lt;/p&gt;&lt;p&gt;Returns a HTTPResponse object.&lt;/p&gt;&lt;p&gt;This method never raises Net::* exceptions.&lt;/p&gt;</method>
+    <method name='request_get'>&lt;p&gt;Sends a GET request to the &lt;tt&gt;path&lt;/tt&gt; and gets a response, as an HTTPResponse object.&lt;/p&gt;&lt;p&gt;When called with a block, yields an HTTPResponse object. The body of this response will not have been read yet; the caller can process it using HTTPResponse#read_body, if desired.&lt;/p&gt;&lt;p&gt;Returns the response.&lt;/p&gt;&lt;p&gt;This method never raises Net::* exceptions.&lt;/p&gt;&lt;pre&gt;    response = http.request_get(&apos;/index.html&apos;)
+    # The entity body is already read here.
+    p response[&apos;content-type&apos;]
+    puts response.body
+
+    # using block
+    http.request_get(&apos;/index.html&apos;) {|response|
+      p response[&apos;content-type&apos;]
+      response.read_body do |str|   # read body now
+        print str
+      end
+    }
+&lt;/pre&gt;</method>
+    <method name='request_head'>&lt;p&gt;Sends a HEAD request to the &lt;tt&gt;path&lt;/tt&gt; and gets a response, as an HTTPResponse object.&lt;/p&gt;&lt;p&gt;Returns the response.&lt;/p&gt;&lt;p&gt;This method never raises Net::* exceptions.&lt;/p&gt;&lt;pre&gt;    response = http.request_head(&apos;/index.html&apos;)
+    p response[&apos;content-type&apos;]
+&lt;/pre&gt;</method>
+    <method name='request_post'>&lt;p&gt;Sends a POST request to the &lt;tt&gt;path&lt;/tt&gt; and gets a response, as an HTTPResponse object.&lt;/p&gt;&lt;p&gt;When called with a block, yields an HTTPResponse object. The body of this response will not have been read yet; the caller can process it using HTTPResponse#read_body, if desired.&lt;/p&gt;&lt;p&gt;Returns the response.&lt;/p&gt;&lt;p&gt;This method never raises Net::* exceptions.&lt;/p&gt;&lt;pre&gt;    # example
+    response = http.request_post(&apos;/cgi-bin/nice.rb&apos;, &apos;datadatadata...&apos;)
+    p response.status
+    puts response.body          # body is already read
+
+    # using block
+    http.request_post(&apos;/cgi-bin/nice.rb&apos;, &apos;datadatadata...&apos;) {|response|
+      p response.status
+      p response[&apos;content-type&apos;]
+      response.read_body do |str|   # read body now
+        print str
+      end
+    }
+&lt;/pre&gt;</method>
+    <method name='send_request'>&lt;p&gt;Sends an HTTP request to the HTTP server. This method also sends DATA string if DATA is given.&lt;/p&gt;&lt;p&gt;Returns a HTTPResponse object.&lt;/p&gt;&lt;p&gt;This method never raises Net::* exceptions.&lt;/p&gt;&lt;pre&gt;   response = http.send_request(&apos;GET&apos;, &apos;/index.html&apos;)
+   puts response.body
+&lt;/pre&gt;</method>
+    <method name='set_debug_output'>&lt;p&gt;&lt;b&gt;WARNING&lt;/b&gt; This method causes serious security hole. Never use this method in production code.&lt;/p&gt;&lt;p&gt;Set an output stream for debugging.&lt;/p&gt;&lt;pre&gt;  http = Net::HTTP.new
+  http.set_debug_output $stderr
+  http.start { .... }
+&lt;/pre&gt;</method>
+    <method name='ssl_timeout'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='ssl_timeout='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='start'>&lt;p&gt;Opens TCP connection and HTTP session.&lt;/p&gt;&lt;p&gt;When this method is called with block, gives a HTTP object to the block and closes the TCP connection / HTTP session after the block executed.&lt;/p&gt;&lt;p&gt;When called with a block, returns the return value of the block; otherwise, returns self.&lt;/p&gt;</method>
+    <method name='started?'>&lt;p&gt;returns true if the HTTP session is started.&lt;/p&gt;</method>
+    <method name='timeout='>&lt;p&gt;Alias for #ssl_timeout=&lt;/p&gt;</method>
+    <method name='trace'>&lt;p&gt;Sends a TRACE request to the &lt;tt&gt;path&lt;/tt&gt; and gets a response, as an HTTPResponse object.&lt;/p&gt;</method>
+    <method name='unlock'>&lt;p&gt;Sends a UNLOCK request to the &lt;tt&gt;path&lt;/tt&gt; and gets a response, as an HTTPResponse object.&lt;/p&gt;</method>
+    <method name='use_ssl'>&lt;p&gt;Alias for #use_ssl?&lt;/p&gt;</method>
+    <method name='use_ssl='>&lt;p&gt;Turn on/off SSL. This flag must be set before starting session. If you change use_ssl value after session started, a Net::HTTP object raises IOError.&lt;/p&gt;</method>
+    <method name='use_ssl?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

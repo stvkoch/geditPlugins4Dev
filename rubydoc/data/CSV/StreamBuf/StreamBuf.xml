@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Buffered stream.&lt;/p&gt;&lt;p&gt;EXAMPLE 1 -- an IO.&lt;/p&gt;&lt;pre&gt;  class MyBuf &lt; StreamBuf
+    # Do initialize myself before a super class.  Super class might call my
+    # method &apos;read&apos;. (Could be awful for C++ user. :-)
+    def initialize(s)
+      @s = s
+      super()
+    end
+
+    # define my own &apos;read&apos; method.
+    # CAUTION: Returning nil means EnfOfStream.
+    def read(size)
+      @s.read(size)
+    end
+
+    # release buffers. in Ruby which has GC, you do not have to call this...
+    def terminate
+      @s = nil
+      super()
+    end
+  end
+
+  buf = MyBuf.new(STDIN)
+  my_str = &apos;&apos;
+  p buf[0, 0]               # =&gt; &apos;&apos; (null string)
+  p buf[0]                  # =&gt; 97 (char code of &apos;a&apos;)
+  p buf[0, 1]               # =&gt; &apos;a&apos;
+  my_str = buf[0, 5]
+  p my_str                  # =&gt; &apos;abcde&apos; (5 chars)
+  p buf[0, 6]               # =&gt; &quot;abcde\n&quot; (6 chars)
+  p buf[0, 7]               # =&gt; &quot;abcde\n&quot; (6 chars)
+  p buf.drop(3)             # =&gt; 3 (dropped chars)
+  p buf.get(0, 2)           # =&gt; &apos;de&apos; (2 chars)
+  p buf.is_eos?             # =&gt; false (is not EOS here)
+  p buf.drop(5)             # =&gt; 3 (dropped chars)
+  p buf.is_eos?             # =&gt; true (is EOS here)
+  p buf[0]                  # =&gt; nil (is EOS here)
+&lt;/pre&gt;&lt;p&gt;EXAMPLE 2 -- String.&lt;/p&gt;&lt;pre&gt;  This is a conceptual example.  No pros with this.
+
+  class StrBuf &lt; StreamBuf
+    def initialize(s)
+      @str = s
+      @idx = 0
+      super()
+    end
+
+    def read(size)
+      str = @str[@idx, size]
+      @idx += str.size
+      str
+    end
+  end
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;WARN: Do not instantiate this class directly. Define your own class which derives this class and define &apos;read&apos; instance method.&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;get a char or a partial string from the stream. idx: index of a string to specify a start point of a string to get. unlike String instance, idx &lt; 0 returns nil. n: size of a string to get. returns char at idx if n == nil. returns a partial string, from idx to (idx + n) if n != nil. at EOF, the string size could not equal to arg n.&lt;/p&gt;</method>
+    <method name='drop'>&lt;p&gt;drop a string from the stream. returns dropped size. at EOF, dropped size might not equals to arg n. Once you drop the head of the stream, access to the dropped part via [] or get returns nil.&lt;/p&gt;</method>
+    <method name='get'>&lt;p&gt;Alias for #[]&lt;/p&gt;</method>
+    <method name='is_eos?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

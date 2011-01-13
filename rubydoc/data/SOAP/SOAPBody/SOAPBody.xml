@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Add method definitions for RPC to common definition in element.rb&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='encode'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='fault'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='fault='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='outparams'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='request'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='response'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='root_node'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

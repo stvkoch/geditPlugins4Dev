@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Encapsulates a test failure. Created by Test::Unit::TestCase when an assertion fails.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new Failure with the given location and message.&lt;/p&gt;</method>
+    <method name='long_display'>&lt;p&gt;Returns a verbose version of the error description.&lt;/p&gt;</method>
+    <method name='short_display'>&lt;p&gt;Returns a brief version of the error description.&lt;/p&gt;</method>
+    <method name='single_character_display'>&lt;p&gt;Returns a single character representation of a failure.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Overridden to return long_display.&lt;/p&gt;</method>
+  </methods>
+</help>

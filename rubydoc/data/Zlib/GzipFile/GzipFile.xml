@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Zlib::GzipFile is an abstract class for handling a gzip formatted compressed file. The operations are defined in the subclasses, Zlib::GzipReader for reading, and Zlib::GzipWriter for writing.&lt;/p&gt;&lt;p&gt;GzipReader should be used by associating an IO, or IO-like, object.&lt;/p&gt;</comment>
+  <methods>
+    <method name='wrap'>&lt;p&gt;See Zlib::GzipReader#wrap and Zlib::GzipWriter#wrap.&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;Closes the GzipFile object. This method calls close method of the associated IO object. Returns the associated IO object.&lt;/p&gt;</method>
+    <method name='closed?'>&lt;p&gt;Same as IO.&lt;/p&gt;</method>
+    <method name='comment'>&lt;p&gt;Returns comments recorded in the gzip file header, or nil if the comments is not present.&lt;/p&gt;</method>
+    <method name='crc'>&lt;p&gt;Returns CRC value of the uncompressed data.&lt;/p&gt;</method>
+    <method name='finish'>&lt;p&gt;Closes the GzipFile object. Unlike Zlib::GzipFile#close, this method never calls the close method of the associated IO object. Returns the associated IO object.&lt;/p&gt;</method>
+    <method name='level'>&lt;p&gt;Returns compression level.&lt;/p&gt;</method>
+    <method name='mtime'>&lt;p&gt;Returns last modification time recorded in the gzip file header.&lt;/p&gt;</method>
+    <method name='orig_name'>&lt;p&gt;Returns original filename recorded in the gzip file header, or &lt;tt&gt;nil&lt;/tt&gt; if original filename is not present.&lt;/p&gt;</method>
+    <method name='os_code'>&lt;p&gt;Returns OS code number recorded in the gzip file header.&lt;/p&gt;</method>
+    <method name='sync'>&lt;p&gt;Same as IO.&lt;/p&gt;</method>
+    <method name='sync='>&lt;p&gt;Same as IO. If flag is &lt;tt&gt;true&lt;/tt&gt;, the associated IO object must respond to the &lt;tt&gt;flush&lt;/tt&gt; method. While &lt;tt&gt;sync&lt;/tt&gt; mode is &lt;tt&gt;true&lt;/tt&gt;, the compression ratio decreases sharply.&lt;/p&gt;</method>
+    <method name='to_io'>&lt;p&gt;Same as IO.&lt;/p&gt;</method>
+  </methods>
+</help>

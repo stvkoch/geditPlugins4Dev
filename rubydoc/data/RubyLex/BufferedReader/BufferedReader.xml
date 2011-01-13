@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Read an input stream character by character. We allow for unlimited ungetting of characters just read.&lt;/p&gt;&lt;p&gt;We simplify the implementation greatly by reading the entire input into a buffer initially, and then simply traversing it using pointers.&lt;/p&gt;&lt;p&gt;We also have to allow for the &lt;em&gt;here document diversion&lt;/em&gt;. This little gem comes about when the lexer encounters a here document. At this point we effectively need to split the input stream into two parts: one to read the body of the here document, the other to read the rest of the input line where the here document was initially encountered. For example, we might have&lt;/p&gt;&lt;pre&gt;  do_something(&lt;&lt;-A, &lt;&lt;-B)
+    stuff
+    for
+  A
+    stuff
+    for
+  B
+&lt;/pre&gt;&lt;p&gt;When the lexer encounters the &lt;&lt;A, it reads until the end of the line, and keeps it around for later. It then reads the body of the here document. Once complete, it needs to read the rest of the original line, but then skip the here document body.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='column'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='divert_read_from'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_read'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='getc'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='getc_already_read'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='peek'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='peek_equal'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='ungetc'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

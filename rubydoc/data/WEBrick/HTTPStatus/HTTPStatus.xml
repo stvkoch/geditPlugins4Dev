@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='[]'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='client_error?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='error?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='info?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='reason_phrase'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='redirect?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='server_error?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='success?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

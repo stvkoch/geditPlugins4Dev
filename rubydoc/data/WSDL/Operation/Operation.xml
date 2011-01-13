@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='input_info'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inputname'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inputparts'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='output_info'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='outputname'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='outputparts'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse_attr'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='targetnamespace'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

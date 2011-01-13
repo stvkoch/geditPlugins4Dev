@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Usage:&lt;/p&gt;&lt;p&gt;add dependency R_method(obj, dependant)&lt;/p&gt;&lt;pre&gt;  add(obj, dependant, method = :finalize, *opt)
+  add_dependency(obj, dependant, method = :finalize, *opt)
+&lt;/pre&gt;&lt;p&gt;delete dependency R_method(obj, dependant)&lt;/p&gt;&lt;pre&gt;  delete(obj_or_id, dependant, method = :finalize)
+  delete_dependency(obj_or_id, dependant, method = :finalize)
+&lt;/pre&gt;&lt;p&gt;delete dependency R_*(obj, dependant)&lt;/p&gt;&lt;pre&gt;  delete_all_dependency(obj_or_id, dependant)
+&lt;/pre&gt;&lt;p&gt;delete dependency R_method(*, dependant)&lt;/p&gt;&lt;pre&gt;  delete_by_dependant(dependant, method = :finalize)
+&lt;/pre&gt;&lt;p&gt;delete dependency R_*(*, dependant)&lt;/p&gt;&lt;pre&gt;  delete_all_by_dependant(dependant)
+&lt;/pre&gt;&lt;p&gt;delete all dependency R_*(*, *)&lt;/p&gt;&lt;pre&gt;  delete_all
+&lt;/pre&gt;&lt;p&gt;finalize the dependant connected by dependency R_method(obj, dependtant).&lt;/p&gt;&lt;pre&gt;  finalize(obj_or_id, dependant, method = :finalize)
+  finalize_dependency(obj_or_id, dependant, method = :finalize)
+&lt;/pre&gt;&lt;p&gt;finalize all dependants connected by dependency R_*(obj, dependtant).&lt;/p&gt;&lt;pre&gt;  finalize_all_dependency(obj_or_id, dependant)
+&lt;/pre&gt;&lt;p&gt;finalize the dependant connected by dependency R_method(*, dependtant).&lt;/p&gt;&lt;pre&gt;  finalize_by_dependant(dependant, method = :finalize)
+&lt;/pre&gt;&lt;p&gt;finalize all dependants connected by dependency R_*(*, dependant).&lt;/p&gt;&lt;pre&gt;  finalize_all_by_dependant(dependant)
+&lt;/pre&gt;&lt;p&gt;finalize all dependency registered to the Finalizer.&lt;/p&gt;&lt;pre&gt;  finalize_all
+&lt;/pre&gt;&lt;p&gt;stop invoking Finalizer on GC.&lt;/p&gt;&lt;pre&gt;  safe{..}
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='add_dependency'>&lt;p&gt;add dependency R_method(obj, dependant)&lt;/p&gt;</method>
+    <method name='delete_all_by_dependant'>&lt;p&gt;delete dependency R_*(*, dependant)&lt;/p&gt;</method>
+    <method name='delete_all_dependency'>&lt;p&gt;delete dependency R_*(obj, dependant)&lt;/p&gt;</method>
+    <method name='delete_by_dependant'>&lt;p&gt;delete dependency R_method(*, dependant)&lt;/p&gt;</method>
+    <method name='delete_dependency'>&lt;p&gt;delete dependency R_method(obj, dependant)&lt;/p&gt;</method>
+    <method name='finalize_all'>&lt;p&gt;finalize all dependants registered to the Finalizer.&lt;/p&gt;</method>
+    <method name='finalize_all_by_dependant'>&lt;p&gt;finalize all dependants connected by dependency R_*(*, dependtant)&lt;/p&gt;</method>
+    <method name='finalize_all_dependency'>&lt;p&gt;finalize all dependants connected by dependency R_*(obj, dependtant)&lt;/p&gt;</method>
+    <method name='finalize_by_dependant'>&lt;p&gt;finalize the dependant connected by dependency R_method(*, dependtant)&lt;/p&gt;</method>
+    <method name='finalize_dependency'>&lt;p&gt;finalize the depandant connected by dependency R_method(obj, dependtant)&lt;/p&gt;</method>
+    <method name='safe'>&lt;p&gt;method to call finalize_* safely.&lt;/p&gt;</method>
+  </methods>
+</help>

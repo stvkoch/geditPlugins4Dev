@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A TupleEntry is a Tuple (i.e. a possible entry in some Tuplespace) together with expiry and cancellation data.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a TupleEntry based on &lt;tt&gt;ary&lt;/tt&gt; with an optional renewer or expiry time &lt;tt&gt;sec&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;A renewer must implement the &lt;tt&gt;renew&lt;/tt&gt; method which returns a Numeric, nil, or true to indicate when the tuple has expired.&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;Retrieves &lt;tt&gt;key&lt;/tt&gt; from the tuple.&lt;/p&gt;</method>
+    <method name='alive?'>&lt;p&gt;A TupleEntry is dead when it is canceled or expired.&lt;/p&gt;</method>
+    <method name='cancel'>&lt;p&gt;Marks this TupleEntry as canceled.&lt;/p&gt;</method>
+    <method name='canceled?'>&lt;p&gt;Returns the canceled status.&lt;/p&gt;</method>
+    <method name='expired?'>&lt;p&gt;Has this tuple expired? (true/false).&lt;/p&gt;&lt;p&gt;A tuple has expired when its expiry timer based on the &lt;tt&gt;sec&lt;/tt&gt; argument to #initialize runs out.&lt;/p&gt;</method>
+    <method name='fetch'>&lt;p&gt;Fetches &lt;tt&gt;key&lt;/tt&gt; from the tuple.&lt;/p&gt;</method>
+    <method name='make_expires'>&lt;p&gt;Returns an expiry Time based on &lt;tt&gt;sec&lt;/tt&gt; which can be one of:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt;sec&lt;/tt&gt; seconds into the future&lt;/li&gt;&lt;li&gt;the expiry time is the start of 1970 (i.e. expired)&lt;/li&gt;&lt;li&gt;it is Tue Jan 19 03:14:07 GMT Standard Time 2038 (i.e. when UNIX clocks will die)&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='make_tuple'>&lt;p&gt;Creates a Rinda::Tuple for &lt;tt&gt;ary&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='renew'>&lt;p&gt;Reset the expiry time according to &lt;tt&gt;sec_or_renewer&lt;/tt&gt;.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;it is set to expire in the far future.&lt;/li&gt;&lt;li&gt;it has expired.&lt;/li&gt;&lt;li&gt;it will expire in that many seconds.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Otherwise the argument refers to some kind of renewer object which will reset its expiry time.&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;The size of the tuple.&lt;/p&gt;</method>
+    <method name='value'>&lt;p&gt;Return the object which makes up the tuple itself: the Array or Hash.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Monitors provide means of mutual exclusion for Thread programming. A critical region is created by means of the synchronize method, which takes a block. The condition variables (created with #new_cond) may be used to control the execution of a monitor with #signal and #wait.&lt;/p&gt;&lt;p&gt;the Monitor class wraps MonitorMixin, and provides aliases&lt;/p&gt;&lt;pre&gt; alias try_enter try_mon_enter
+ alias enter mon_enter
+ alias exit mon_exit
+&lt;/pre&gt;&lt;p&gt;to access its methods more concisely.&lt;/p&gt;</comment>
+  <methods/>
+</help>

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Adds named attributes to an object.&lt;/p&gt;</comment>
+  <methods>
+    <method name='fully_expanded_name'>&lt;p&gt;Fully expand the name, even if the prefix wasn&apos;t specified in the source file.&lt;/p&gt;</method>
+    <method name='has_name?'>&lt;p&gt;Compares names optionally WITH namespaces&lt;/p&gt;</method>
+    <method name='name='>&lt;p&gt;Sets the name and the expanded name&lt;/p&gt;</method>
+  </methods>
+</help>

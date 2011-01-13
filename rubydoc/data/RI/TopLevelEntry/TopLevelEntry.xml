@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A TopLevelEntry is like a class entry, but when asked to search for methods searches all classes, not just itself&lt;/p&gt;</comment>
+  <methods>
+    <method name='full_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='methods_matching'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='module_named'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

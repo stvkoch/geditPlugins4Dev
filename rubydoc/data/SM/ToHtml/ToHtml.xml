@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='accept_blank_line'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='accept_heading'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='accept_list_end'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='accept_list_item'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='accept_list_start'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='accept_paragraph'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='accept_rule'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='accept_verbatim'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_tag'>&lt;p&gt;Add a new set of HTML tags for an attribute. We allow separate start and end tags for flexibility&lt;/p&gt;</method>
+    <method name='annotate'>&lt;p&gt;Given an HTML tag, decorate it with class information and the like if required. This is a no-op in the base class, but is overridden in HTML output classes that implement style sheets&lt;/p&gt;</method>
+    <method name='end_accepting'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='init_tags'>&lt;p&gt;Set up the standard mapping of attributes to HTML tags&lt;/p&gt;</method>
+    <method name='start_accepting'>&lt;p&gt;Here&apos;s the client side of the visitor pattern&lt;/p&gt;</method>
+    <method name='wrap'>&lt;p&gt;This is a higher speed (if messier) version of wrap&lt;/p&gt;</method>
+  </methods>
+</help>

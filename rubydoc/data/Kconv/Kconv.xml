@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Kanji Converter for Ruby.&lt;/p&gt;</comment>
+  <methods>
+    <method name='guess'>&lt;p&gt;Guess input encoding by NKF.guess2&lt;/p&gt;</method>
+    <method name='guess_old'>&lt;p&gt;Guess input encoding by NKF.guess1&lt;/p&gt;</method>
+    <method name='iseuc'>&lt;p&gt;Returns whether input encoding is EUC-JP or not.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; don&apos;t expect this return value is MatchData.&lt;/p&gt;</method>
+    <method name='issjis'>&lt;p&gt;Returns whether input encoding is Shift_JIS or not.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; don&apos;t expect this return value is MatchData.&lt;/p&gt;</method>
+    <method name='isutf8'>&lt;p&gt;Returns whether input encoding is UTF-8 or not.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; don&apos;t expect this return value is MatchData.&lt;/p&gt;</method>
+    <method name='kconv'>&lt;p&gt;Convert &lt;tt&gt;str&lt;/tt&gt; to out_code. &lt;tt&gt;out_code&lt;/tt&gt; and &lt;tt&gt;in_code&lt;/tt&gt; are given as constants of Kconv.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; This method decode MIME encoded string and convert halfwidth katakana to fullwidth katakana. If you don&apos;t want to decode them, use NKF.nkf.&lt;/p&gt;</method>
+    <method name='toeuc'>&lt;p&gt;Convert &lt;tt&gt;str&lt;/tt&gt; to EUC-JP&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; This method decode MIME encoded string and convert halfwidth katakana to fullwidth katakana. If you don&apos;t want it, use NKF.nkf(&apos;-exm0&apos;, str).&lt;/p&gt;</method>
+    <method name='tojis'>&lt;p&gt;Convert &lt;tt&gt;str&lt;/tt&gt; to ISO-2022-JP&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; This method decode MIME encoded string and convert halfwidth katakana to fullwidth katakana. If you don&apos;t want it, use NKF.nkf(&apos;-jxm0&apos;, str).&lt;/p&gt;</method>
+    <method name='tosjis'>&lt;p&gt;Convert &lt;tt&gt;str&lt;/tt&gt; to Shift_JIS&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; This method decode MIME encoded string and convert halfwidth katakana to fullwidth katakana. If you don&apos;t want it, use NKF.nkf(&apos;-sxm0&apos;, str).&lt;/p&gt;</method>
+    <method name='toutf16'>&lt;p&gt;Convert &lt;tt&gt;str&lt;/tt&gt; to UTF-16&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; This method decode MIME encoded string and convert halfwidth katakana to fullwidth katakana. If you don&apos;t want it, use NKF.nkf(&apos;-w16xm0&apos;, str).&lt;/p&gt;</method>
+    <method name='toutf8'>&lt;p&gt;Convert &lt;tt&gt;str&lt;/tt&gt; to UTF-8&lt;/p&gt;&lt;p&gt;&lt;b&gt;Note&lt;/b&gt; This method decode MIME encoded string and convert halfwidth katakana to fullwidth katakana. If you don&apos;t want it, use NKF.nkf(&apos;-wxm0&apos;, str).&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A &lt;tt&gt;Hash&lt;/tt&gt; is a collection of key-value pairs. It is similar to an &lt;tt&gt;Array&lt;/tt&gt;, except that indexing is done via arbitrary keys of any object type, not an integer index. The order in which you traverse a hash by either key or value may seem arbitrary, and will generally not be in the insertion order.&lt;/p&gt;&lt;p&gt;Hashes have a &lt;em&gt;default value&lt;/em&gt; that is returned when accessing keys that do not exist in the hash. By default, that value is &lt;tt&gt;nil&lt;/tt&gt;.&lt;/p&gt;</comment>
+  <methods>
+    <method name='[]'>&lt;p&gt;Creates a new hash populated with the given objects. Equivalent to the literal &lt;tt&gt;{ &lt;em&gt;key&lt;/em&gt;, &lt;em&gt;value&lt;/em&gt;, ... }&lt;/tt&gt;. Keys and values occur in pairs, so there must be an even number of arguments.&lt;/p&gt;&lt;pre&gt;   Hash[&quot;a&quot;, 100, &quot;b&quot;, 200]       #=&gt; {&quot;a&quot;=&gt;100, &quot;b&quot;=&gt;200}
+   Hash[&quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200]   #=&gt; {&quot;a&quot;=&gt;100, &quot;b&quot;=&gt;200}
+   { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }     #=&gt; {&quot;a&quot;=&gt;100, &quot;b&quot;=&gt;200}
+&lt;/pre&gt;</method>
+    <method name='new'>&lt;p&gt;Returns a new, empty hash. If this hash is subsequently accessed by a key that doesn&apos;t correspond to a hash entry, the value returned depends on the style of &lt;tt&gt;new&lt;/tt&gt; used to create the hash. In the first form, the access returns &lt;tt&gt;nil&lt;/tt&gt;. If &lt;em&gt;obj&lt;/em&gt; is specified, this single object will be used for all &lt;em&gt;default values&lt;/em&gt;. If a block is specified, it will be called with the hash object and the key, and should return the default value. It is the block&apos;s responsibility to store the value in the hash if required.&lt;/p&gt;&lt;pre&gt;   h = Hash.new(&quot;Go Fish&quot;)
+   h[&quot;a&quot;] = 100
+   h[&quot;b&quot;] = 200
+   h[&quot;a&quot;]           #=&gt; 100
+   h[&quot;c&quot;]           #=&gt; &quot;Go Fish&quot;
+   # The following alters the single default object
+   h[&quot;c&quot;].upcase!   #=&gt; &quot;GO FISH&quot;
+   h[&quot;d&quot;]           #=&gt; &quot;GO FISH&quot;
+   h.keys           #=&gt; [&quot;a&quot;, &quot;b&quot;]
+
+   # While this creates a new default object each time
+   h = Hash.new { |hash, key| hash[key] = &quot;Go Fish: #{key}&quot; }
+   h[&quot;c&quot;]           #=&gt; &quot;Go Fish: c&quot;
+   h[&quot;c&quot;].upcase!   #=&gt; &quot;GO FISH: C&quot;
+   h[&quot;d&quot;]           #=&gt; &quot;Go Fish: d&quot;
+   h.keys           #=&gt; [&quot;c&quot;, &quot;d&quot;]
+&lt;/pre&gt;</method>
+    <method name='=='>&lt;p&gt;Equality---Two hashes are equal if they each contain the same number of keys and if each key-value pair is equal to (according to &lt;tt&gt;Object#==&lt;/tt&gt;) the corresponding elements in the other hash.&lt;/p&gt;&lt;pre&gt;   h1 = { &quot;a&quot; =&gt; 1, &quot;c&quot; =&gt; 2 }
+   h2 = { 7 =&gt; 35, &quot;c&quot; =&gt; 2, &quot;a&quot; =&gt; 1 }
+   h3 = { &quot;a&quot; =&gt; 1, &quot;c&quot; =&gt; 2, 7 =&gt; 35 }
+   h4 = { &quot;a&quot; =&gt; 1, &quot;d&quot; =&gt; 2, &quot;f&quot; =&gt; 35 }
+   h1 == h2   #=&gt; false
+   h2 == h3   #=&gt; true
+   h3 == h4   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='[]'>&lt;p&gt;Element Reference---Retrieves the &lt;em&gt;value&lt;/em&gt; object corresponding to the &lt;em&gt;key&lt;/em&gt; object. If not found, returns the a default value (see &lt;tt&gt;Hash::new&lt;/tt&gt; for details).&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h[&quot;a&quot;]   #=&gt; 100
+   h[&quot;c&quot;]   #=&gt; nil
+&lt;/pre&gt;</method>
+    <method name='[]='>&lt;p&gt;Element Assignment---Associates the value given by &lt;em&gt;value&lt;/em&gt; with the key given by &lt;em&gt;key&lt;/em&gt;. &lt;em&gt;key&lt;/em&gt; should not have its value changed while it is in use as a key (a &lt;tt&gt;String&lt;/tt&gt; passed as a key will be duplicated and frozen).&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h[&quot;a&quot;] = 9
+   h[&quot;c&quot;] = 4
+   h   #=&gt; {&quot;a&quot;=&gt;9, &quot;b&quot;=&gt;200, &quot;c&quot;=&gt;4}
+&lt;/pre&gt;</method>
+    <method name='clear'>&lt;p&gt;Removes all key-value pairs from &lt;em&gt;hsh&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }   #=&gt; {&quot;a&quot;=&gt;100, &quot;b&quot;=&gt;200}
+   h.clear                          #=&gt; {}
+&lt;/pre&gt;</method>
+    <method name='default'>&lt;p&gt;Returns the default value, the value that would be returned by &lt;em&gt;hsh&lt;/em&gt;[&lt;em&gt;key&lt;/em&gt;] if &lt;em&gt;key&lt;/em&gt; did not exist in &lt;em&gt;hsh&lt;/em&gt;. See also &lt;tt&gt;Hash::new&lt;/tt&gt; and &lt;tt&gt;Hash#default=&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   h = Hash.new                            #=&gt; {}
+   h.default                               #=&gt; nil
+   h.default(2)                            #=&gt; nil
+
+   h = Hash.new(&quot;cat&quot;)                     #=&gt; {}
+   h.default                               #=&gt; &quot;cat&quot;
+   h.default(2)                            #=&gt; &quot;cat&quot;
+
+   h = Hash.new {|h,k| h[k] = k.to_i*10}   #=&gt; {}
+   h.default                               #=&gt; 0
+   h.default(2)                            #=&gt; 20
+&lt;/pre&gt;</method>
+    <method name='default='>&lt;p&gt;Sets the default value, the value returned for a key that does not exist in the hash. It is not possible to set the a default to a &lt;tt&gt;Proc&lt;/tt&gt; that will be executed on each key lookup.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.default = &quot;Go fish&quot;
+   h[&quot;a&quot;]     #=&gt; 100
+   h[&quot;z&quot;]     #=&gt; &quot;Go fish&quot;
+   # This doesn&apos;t do what you might hope...
+   h.default = proc do |hash, key|
+     hash[key] = key + key
+   end
+   h[2]       #=&gt; #&lt;Proc:0x401b3948@-:6&gt;
+   h[&quot;cat&quot;]   #=&gt; #&lt;Proc:0x401b3948@-:6&gt;
+&lt;/pre&gt;</method>
+    <method name='default_proc'>&lt;p&gt;If &lt;tt&gt;Hash::new&lt;/tt&gt; was invoked with a block, return that block, otherwise return &lt;tt&gt;nil&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   h = Hash.new {|h,k| h[k] = k*k }   #=&gt; {}
+   p = h.default_proc                 #=&gt; #&lt;Proc:0x401b3d08@-:1&gt;
+   a = []                             #=&gt; []
+   p.call(a, 2)
+   a                                  #=&gt; [nil, nil, 4]
+&lt;/pre&gt;</method>
+    <method name='delete'>&lt;p&gt;Deletes and returns a key-value pair from &lt;em&gt;hsh&lt;/em&gt; whose key is equal to &lt;em&gt;key&lt;/em&gt;. If the key is not found, returns the &lt;em&gt;default value&lt;/em&gt;. If the optional code block is given and the key is not found, pass in the key and return the result of &lt;em&gt;block&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.delete(&quot;a&quot;)                              #=&gt; 100
+   h.delete(&quot;z&quot;)                              #=&gt; nil
+   h.delete(&quot;z&quot;) { |el| &quot;#{el} not found&quot; }   #=&gt; &quot;z not found&quot;
+&lt;/pre&gt;</method>
+    <method name='delete_if'>&lt;p&gt;Deletes every key-value pair from &lt;em&gt;hsh&lt;/em&gt; for which &lt;em&gt;block&lt;/em&gt; evaluates to &lt;tt&gt;true&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200, &quot;c&quot; =&gt; 300 }
+   h.delete_if {|key, value| key &gt;= &quot;b&quot; }   #=&gt; {&quot;a&quot;=&gt;100}
+&lt;/pre&gt;</method>
+    <method name='each'>&lt;p&gt;Calls &lt;em&gt;block&lt;/em&gt; once for each key in &lt;em&gt;hsh&lt;/em&gt;, passing the key and value to the block as a two-element array. Because of the assignment semantics of block parameters, these elements will be split out if the block has two formal parameters. Also see &lt;tt&gt;Hash.each_pair&lt;/tt&gt;, which will be marginally more efficient for blocks with two parameters.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.each {|key, value| puts &quot;#{key} is #{value}&quot; }
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   a is 100
+   b is 200
+&lt;/pre&gt;</method>
+    <method name='each_key'>&lt;p&gt;Calls &lt;em&gt;block&lt;/em&gt; once for each key in &lt;em&gt;hsh&lt;/em&gt;, passing the key as a parameter.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.each_key {|key| puts key }
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   a
+   b
+&lt;/pre&gt;</method>
+    <method name='each_pair'>&lt;p&gt;Calls &lt;em&gt;block&lt;/em&gt; once for each key in &lt;em&gt;hsh&lt;/em&gt;, passing the key and value as parameters.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.each_pair {|key, value| puts &quot;#{key} is #{value}&quot; }
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   a is 100
+   b is 200
+&lt;/pre&gt;</method>
+    <method name='each_value'>&lt;p&gt;Calls &lt;em&gt;block&lt;/em&gt; once for each key in &lt;em&gt;hsh&lt;/em&gt;, passing the value as a parameter.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.each_value {|value| puts value }
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   100
+   200
+&lt;/pre&gt;</method>
+    <method name='empty?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;hsh&lt;/em&gt; contains no key-value pairs.&lt;/p&gt;&lt;pre&gt;   {}.empty?   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='fetch'>&lt;p&gt;Returns a value from the hash for the given key. If the key can&apos;t be found, there are several options: With no other arguments, it will raise an &lt;tt&gt;IndexError&lt;/tt&gt; exception; if &lt;em&gt;default&lt;/em&gt; is given, then that will be returned; if the optional code block is specified, then that will be run and its result returned.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.fetch(&quot;a&quot;)                            #=&gt; 100
+   h.fetch(&quot;z&quot;, &quot;go fish&quot;)                 #=&gt; &quot;go fish&quot;
+   h.fetch(&quot;z&quot;) { |el| &quot;go fish, #{el}&quot;}   #=&gt; &quot;go fish, z&quot;
+&lt;/pre&gt;&lt;p&gt;The following example shows that an exception is raised if the key is not found and a default value is not supplied.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.fetch(&quot;z&quot;)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   prog.rb:2:in `fetch&apos;: key not found (IndexError)
+    from prog.rb:2
+&lt;/pre&gt;</method>
+    <method name='has_key?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the given key is present in &lt;em&gt;hsh&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.has_key?(&quot;a&quot;)   #=&gt; true
+   h.has_key?(&quot;z&quot;)   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='has_value?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the given value is present for some key in &lt;em&gt;hsh&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.has_value?(100)   #=&gt; true
+   h.has_value?(999)   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='include?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the given key is present in &lt;em&gt;hsh&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.has_key?(&quot;a&quot;)   #=&gt; true
+   h.has_key?(&quot;z&quot;)   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='index'>&lt;p&gt;Returns the key for a given value. If not found, returns &lt;tt&gt;nil&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.index(200)   #=&gt; &quot;b&quot;
+   h.index(999)   #=&gt; nil
+&lt;/pre&gt;</method>
+    <method name='indexes'>&lt;p&gt;Deprecated in favor of &lt;tt&gt;Hash#select&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='indices'>&lt;p&gt;Deprecated in favor of &lt;tt&gt;Hash#select&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='initialize_copy'>&lt;p&gt;Replaces the contents of &lt;em&gt;hsh&lt;/em&gt; with the contents of &lt;em&gt;other_hash&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.replace({ &quot;c&quot; =&gt; 300, &quot;d&quot; =&gt; 400 })   #=&gt; {&quot;c&quot;=&gt;300, &quot;d&quot;=&gt;400}
+&lt;/pre&gt;</method>
+    <method name='inspect'>&lt;p&gt;Return the contents of this hash as a string.&lt;/p&gt;</method>
+    <method name='invert'>&lt;p&gt;Returns a new hash created by using &lt;em&gt;hsh&lt;/em&gt;&apos;s values as keys, and the keys as values.&lt;/p&gt;&lt;pre&gt;   h = { &quot;n&quot; =&gt; 100, &quot;m&quot; =&gt; 100, &quot;y&quot; =&gt; 300, &quot;d&quot; =&gt; 200, &quot;a&quot; =&gt; 0 }
+   h.invert   #=&gt; {0=&gt;&quot;a&quot;, 100=&gt;&quot;n&quot;, 200=&gt;&quot;d&quot;, 300=&gt;&quot;y&quot;}
+&lt;/pre&gt;</method>
+    <method name='key?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the given key is present in &lt;em&gt;hsh&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.has_key?(&quot;a&quot;)   #=&gt; true
+   h.has_key?(&quot;z&quot;)   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='keys'>&lt;p&gt;Returns a new array populated with the keys from this hash. See also &lt;tt&gt;Hash#values&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200, &quot;c&quot; =&gt; 300, &quot;d&quot; =&gt; 400 }
+   h.keys   #=&gt; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]
+&lt;/pre&gt;</method>
+    <method name='length'>&lt;p&gt;Returns the number of key-value pairs in the hash.&lt;/p&gt;&lt;pre&gt;   h = { &quot;d&quot; =&gt; 100, &quot;a&quot; =&gt; 200, &quot;v&quot; =&gt; 300, &quot;e&quot; =&gt; 400 }
+   h.length        #=&gt; 4
+   h.delete(&quot;a&quot;)   #=&gt; 200
+   h.length        #=&gt; 3
+&lt;/pre&gt;</method>
+    <method name='member?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the given key is present in &lt;em&gt;hsh&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.has_key?(&quot;a&quot;)   #=&gt; true
+   h.has_key?(&quot;z&quot;)   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='merge'>&lt;p&gt;Returns a new hash containing the contents of &lt;em&gt;other_hash&lt;/em&gt; and the contents of &lt;em&gt;hsh&lt;/em&gt;, overwriting entries in &lt;em&gt;hsh&lt;/em&gt; with duplicate keys with those from &lt;em&gt;other_hash&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   h1 = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h2 = { &quot;b&quot; =&gt; 254, &quot;c&quot; =&gt; 300 }
+   h1.merge(h2)   #=&gt; {&quot;a&quot;=&gt;100, &quot;b&quot;=&gt;254, &quot;c&quot;=&gt;300}
+   h1             #=&gt; {&quot;a&quot;=&gt;100, &quot;b&quot;=&gt;200}
+&lt;/pre&gt;</method>
+    <method name='merge!'>&lt;p&gt;Adds the contents of &lt;em&gt;other_hash&lt;/em&gt; to &lt;em&gt;hsh&lt;/em&gt;, overwriting entries with duplicate keys with those from &lt;em&gt;other_hash&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   h1 = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h2 = { &quot;b&quot; =&gt; 254, &quot;c&quot; =&gt; 300 }
+   h1.merge!(h2)   #=&gt; {&quot;a&quot;=&gt;100, &quot;b&quot;=&gt;254, &quot;c&quot;=&gt;300}
+&lt;/pre&gt;</method>
+    <method name='pretty_print'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='pretty_print_cycle'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='rehash'>&lt;p&gt;Rebuilds the hash based on the current hash values for each key. If values of key objects have changed since they were inserted, this method will reindex &lt;em&gt;hsh&lt;/em&gt;. If &lt;tt&gt;Hash#rehash&lt;/tt&gt; is called while an iterator is traversing the hash, an &lt;tt&gt;IndexError&lt;/tt&gt; will be raised in the iterator.&lt;/p&gt;&lt;pre&gt;   a = [ &quot;a&quot;, &quot;b&quot; ]
+   c = [ &quot;c&quot;, &quot;d&quot; ]
+   h = { a =&gt; 100, c =&gt; 300 }
+   h[a]       #=&gt; 100
+   a[0] = &quot;z&quot;
+   h[a]       #=&gt; nil
+   h.rehash   #=&gt; {[&quot;z&quot;, &quot;b&quot;]=&gt;100, [&quot;c&quot;, &quot;d&quot;]=&gt;300}
+   h[a]       #=&gt; 100
+&lt;/pre&gt;</method>
+    <method name='reject'>&lt;p&gt;Same as &lt;tt&gt;Hash#delete_if&lt;/tt&gt;, but works on (and returns) a copy of the &lt;em&gt;hsh&lt;/em&gt;. Equivalent to &lt;tt&gt;&lt;em&gt;hsh&lt;/em&gt;.dup.delete_if&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='reject!'>&lt;p&gt;Equivalent to &lt;tt&gt;Hash#delete_if&lt;/tt&gt;, but returns &lt;tt&gt;nil&lt;/tt&gt; if no changes were made.&lt;/p&gt;</method>
+    <method name='replace'>&lt;p&gt;Replaces the contents of &lt;em&gt;hsh&lt;/em&gt; with the contents of &lt;em&gt;other_hash&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.replace({ &quot;c&quot; =&gt; 300, &quot;d&quot; =&gt; 400 })   #=&gt; {&quot;c&quot;=&gt;300, &quot;d&quot;=&gt;400}
+&lt;/pre&gt;</method>
+    <method name='select'>&lt;p&gt;Returns a new array consisting of &lt;tt&gt;[key,value]&lt;/tt&gt; pairs for which the block returns true. Also see &lt;tt&gt;Hash.values_at&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200, &quot;c&quot; =&gt; 300 }
+   h.select {|k,v| k &gt; &quot;a&quot;}  #=&gt; [[&quot;b&quot;, 200], [&quot;c&quot;, 300]]
+   h.select {|k,v| v &lt; 200}  #=&gt; [[&quot;a&quot;, 100]]
+&lt;/pre&gt;</method>
+    <method name='shift'>&lt;p&gt;Removes a key-value pair from &lt;em&gt;hsh&lt;/em&gt; and returns it as the two-item array &lt;tt&gt;[&lt;/tt&gt; &lt;em&gt;key, value&lt;/em&gt; &lt;tt&gt;]&lt;/tt&gt;, or the hash&apos;s default value if the hash is empty.&lt;/p&gt;&lt;pre&gt;   h = { 1 =&gt; &quot;a&quot;, 2 =&gt; &quot;b&quot;, 3 =&gt; &quot;c&quot; }
+   h.shift   #=&gt; [1, &quot;a&quot;]
+   h         #=&gt; {2=&gt;&quot;b&quot;, 3=&gt;&quot;c&quot;}
+&lt;/pre&gt;</method>
+    <method name='size'>&lt;p&gt;Returns the number of key-value pairs in the hash.&lt;/p&gt;&lt;pre&gt;   h = { &quot;d&quot; =&gt; 100, &quot;a&quot; =&gt; 200, &quot;v&quot; =&gt; 300, &quot;e&quot; =&gt; 400 }
+   h.length        #=&gt; 4
+   h.delete(&quot;a&quot;)   #=&gt; 200
+   h.length        #=&gt; 3
+&lt;/pre&gt;</method>
+    <method name='sort'>&lt;p&gt;Converts &lt;em&gt;hsh&lt;/em&gt; to a nested array of &lt;tt&gt;[&lt;/tt&gt; &lt;em&gt;key, value&lt;/em&gt; &lt;tt&gt;]&lt;/tt&gt; arrays and sorts it, using &lt;tt&gt;Array#sort&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 20, &quot;b&quot; =&gt; 30, &quot;c&quot; =&gt; 10  }
+   h.sort                       #=&gt; [[&quot;a&quot;, 20], [&quot;b&quot;, 30], [&quot;c&quot;, 10]]
+   h.sort {|a,b| a[1]&lt;=&gt;b[1]}   #=&gt; [[&quot;c&quot;, 10], [&quot;a&quot;, 20], [&quot;b&quot;, 30]]
+&lt;/pre&gt;</method>
+    <method name='store'>&lt;p&gt;Element Assignment---Associates the value given by &lt;em&gt;value&lt;/em&gt; with the key given by &lt;em&gt;key&lt;/em&gt;. &lt;em&gt;key&lt;/em&gt; should not have its value changed while it is in use as a key (a &lt;tt&gt;String&lt;/tt&gt; passed as a key will be duplicated and frozen).&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h[&quot;a&quot;] = 9
+   h[&quot;c&quot;] = 4
+   h   #=&gt; {&quot;a&quot;=&gt;9, &quot;b&quot;=&gt;200, &quot;c&quot;=&gt;4}
+&lt;/pre&gt;</method>
+    <method name='to_a'>&lt;p&gt;Converts &lt;em&gt;hsh&lt;/em&gt; to a nested array of &lt;tt&gt;[&lt;/tt&gt; &lt;em&gt;key, value&lt;/em&gt; &lt;tt&gt;]&lt;/tt&gt; arrays.&lt;/p&gt;&lt;pre&gt;   h = { &quot;c&quot; =&gt; 300, &quot;a&quot; =&gt; 100, &quot;d&quot; =&gt; 400, &quot;c&quot; =&gt; 300  }
+   h.to_a   #=&gt; [[&quot;a&quot;, 100], [&quot;c&quot;, 300], [&quot;d&quot;, 400]]
+&lt;/pre&gt;</method>
+    <method name='to_hash'>&lt;p&gt;Returns &lt;em&gt;self&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Converts &lt;em&gt;hsh&lt;/em&gt; to a string by converting the hash to an array of &lt;tt&gt;[&lt;/tt&gt; &lt;em&gt;key, value&lt;/em&gt; &lt;tt&gt;]&lt;/tt&gt; pairs and then converting that array to a string using &lt;tt&gt;Array#join&lt;/tt&gt; with the default separator.&lt;/p&gt;&lt;pre&gt;   h = { &quot;c&quot; =&gt; 300, &quot;a&quot; =&gt; 100, &quot;d&quot; =&gt; 400, &quot;c&quot; =&gt; 300  }
+   h.to_s   #=&gt; &quot;a100c300d400&quot;
+&lt;/pre&gt;</method>
+    <method name='to_yaml'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='update'>&lt;p&gt;Adds the contents of &lt;em&gt;other_hash&lt;/em&gt; to &lt;em&gt;hsh&lt;/em&gt;, overwriting entries with duplicate keys with those from &lt;em&gt;other_hash&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   h1 = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h2 = { &quot;b&quot; =&gt; 254, &quot;c&quot; =&gt; 300 }
+   h1.merge!(h2)   #=&gt; {&quot;a&quot;=&gt;100, &quot;b&quot;=&gt;254, &quot;c&quot;=&gt;300}
+&lt;/pre&gt;</method>
+    <method name='value?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the given value is present for some key in &lt;em&gt;hsh&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200 }
+   h.has_value?(100)   #=&gt; true
+   h.has_value?(999)   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='values'>&lt;p&gt;Returns a new array populated with the values from &lt;em&gt;hsh&lt;/em&gt;. See also &lt;tt&gt;Hash#keys&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   h = { &quot;a&quot; =&gt; 100, &quot;b&quot; =&gt; 200, &quot;c&quot; =&gt; 300 }
+   h.values   #=&gt; [100, 200, 300]
+&lt;/pre&gt;</method>
+    <method name='values_at'>&lt;p&gt;Return an array containing the values associated with the given keys. Also see &lt;tt&gt;Hash.select&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;  h = { &quot;cat&quot; =&gt; &quot;feline&quot;, &quot;dog&quot; =&gt; &quot;canine&quot;, &quot;cow&quot; =&gt; &quot;bovine&quot; }
+  h.values_at(&quot;cow&quot;, &quot;cat&quot;)  #=&gt; [&quot;bovine&quot;, &quot;feline&quot;]
+&lt;/pre&gt;</method>
+    <method name='yaml_initialize'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This module has all methods of FileUtils module, but it outputs messages before acting. This equates to passing the &lt;tt&gt;:verbose&lt;/tt&gt; flag to methods in FileUtils.&lt;/p&gt;</comment>
+  <methods/>
+</help>

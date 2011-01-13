@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The complex number class. See complex.rb for an overview.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new!'>&lt;p&gt;Creates a &lt;tt&gt;Complex&lt;/tt&gt; number &lt;tt&gt;a&lt;/tt&gt;+&lt;tt&gt;b&lt;/tt&gt;&lt;em&gt;i&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='polar'>&lt;p&gt;Creates a &lt;tt&gt;Complex&lt;/tt&gt; number in terms of &lt;tt&gt;r&lt;/tt&gt; (radius) and &lt;tt&gt;theta&lt;/tt&gt; (angle).&lt;/p&gt;</method>
+    <method name='%'>&lt;p&gt;Remainder after division by a real or complex number.&lt;/p&gt;</method>
+    <method name='*'>&lt;p&gt;Multiplication with real or complex number.&lt;/p&gt;</method>
+    <method name='**'>&lt;p&gt;Raise this complex number to the given (real or complex) power.&lt;/p&gt;</method>
+    <method name='+'>&lt;p&gt;Addition with real or complex number.&lt;/p&gt;</method>
+    <method name='-'>&lt;p&gt;Subtraction with real or complex number.&lt;/p&gt;</method>
+    <method name='/'>&lt;p&gt;Division by real or complex number.&lt;/p&gt;</method>
+    <method name='&lt;=&gt;'>&lt;p&gt;Compares the absolute values of the two numbers.&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;Test for numerical equality (&lt;tt&gt;a == a + 0&lt;em&gt;i&lt;/em&gt;&lt;/tt&gt;).&lt;/p&gt;</method>
+    <method name='abs'>&lt;p&gt;Absolute value (aka modulus): distance from the zero point on the complex plane.&lt;/p&gt;</method>
+    <method name='abs2'>&lt;p&gt;Square of the absolute value.&lt;/p&gt;</method>
+    <method name='angle'>&lt;p&gt;Alias for #arg&lt;/p&gt;</method>
+    <method name='arg'>&lt;p&gt;Argument (angle from (1,0) on the complex plane).&lt;/p&gt;</method>
+    <method name='coerce'>&lt;p&gt;Attempts to coerce &lt;tt&gt;other&lt;/tt&gt; to a Complex number.&lt;/p&gt;</method>
+    <method name='conj'>&lt;p&gt;Alias for #conjugate&lt;/p&gt;</method>
+    <method name='conjugate'>&lt;p&gt;Complex conjugate (&lt;tt&gt;z + z.conjugate = 2 * z.real&lt;/tt&gt;).&lt;/p&gt;</method>
+    <method name='denominator'>&lt;p&gt;FIXME&lt;/p&gt;</method>
+    <method name='hash'>&lt;p&gt;Returns a hash code for the complex number.&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;Returns &quot;&lt;tt&gt;Complex(&lt;em&gt;real&lt;/em&gt;, &lt;em&gt;image&lt;/em&gt;)&lt;/tt&gt;&quot;.&lt;/p&gt;</method>
+    <method name='numerator'>&lt;p&gt;FIXME&lt;/p&gt;</method>
+    <method name='polar'>&lt;p&gt;Returns the absolute value &lt;em&gt;and&lt;/em&gt; the argument.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Standard string representation of the complex number.&lt;/p&gt;</method>
+  </methods>
+</help>

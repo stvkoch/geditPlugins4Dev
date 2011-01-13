@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<gconf>
+        <entry name="Constants" mtime="1175272374" type="string">
+                <stringvalue>2/#7a7a8e8eb5b5/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Decimal" mtime="1175271887" type="string">
+                <stringvalue>0/#ffff0000ffff/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Octal@32@Number" mtime="1175271884" type="string">
+                <stringvalue>0/#ffff0000ffff/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Floating@32@Point@32@Number" mtime="1175271876" type="string">
+                <stringvalue>0/#ffff0000ffff/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Hex@32@Number" mtime="1175271873" type="string">
+                <stringvalue>0/#ffff0000ffff/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Module@32@Handler" mtime="1175271860" type="string">
+                <stringvalue>2/#e5e5caca2c2c/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Keyword" mtime="1175271818" type="string">
+                <stringvalue>2/#e5e5caca2c2c/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Function" mtime="1175271952" type="string">
+                <stringvalue>2/#cfcfb6b62c2c/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Self" mtime="1175271927" type="string">
+                <stringvalue>2/#7a7a8e8eb5b5/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Single@32@Quoted@32@String" mtime="1175271770" type="string">
+                <stringvalue>2/#5d5dc4c43b3b/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Multiline@32@Single@32@Quoted@32@String" mtime="1175271765" type="string">
+                <stringvalue>2/#5d5dc4c43b3b/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Multiline@32@Double@32@Quoted@32@String" mtime="1175271760" type="string">
+                <stringvalue>2/#5d5dc4c43b3b/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Double@32@Quoted@32@String" mtime="1175271754" type="string">
+                <stringvalue>2/#5d5dc4c43b3b/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Builtins" mtime="1175271726" type="string">
+                <stringvalue>2/#cece51510808/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Line@32@Comment" mtime="1175271687" type="string">
+                <stringvalue>2/#848481818a8a/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+</gconf>

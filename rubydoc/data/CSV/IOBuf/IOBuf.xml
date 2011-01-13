@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Buffered IO.&lt;/p&gt;&lt;p&gt;EXAMPLE&lt;/p&gt;&lt;pre&gt;  # File &apos;bigdata&apos; could be a giga-byte size one!
+  buf = CSV::IOBuf.new(File.open(&apos;bigdata&apos;, &apos;rb&apos;))
+  CSV::Reader.new(buf).each do |row|
+    p row
+    break if row[0].data == &apos;admin&apos;
+  end
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

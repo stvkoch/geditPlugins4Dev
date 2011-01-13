@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='body'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='content_length'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='content_type'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='fixup'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='keep_alive?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='meta_vars'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='orig_meta_vars'>&lt;p&gt;Alias for #meta_vars&lt;/p&gt;</method>
+    <method name='orig_parse'>&lt;p&gt;Alias for #parse&lt;/p&gt;</method>
+    <method name='orig_parse_uri'>&lt;p&gt;Alias for #parse_uri&lt;/p&gt;</method>
+    <method name='parse'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='query'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

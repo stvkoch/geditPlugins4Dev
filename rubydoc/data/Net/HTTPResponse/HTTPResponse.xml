@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;HTTP response class. This class wraps response header and entity. Mixes in the HTTPHeader module, which provides access to response header values both via hash-like methods and individual readers. Note that each possible HTTP response code defines its own HTTPResponse subclass. These are listed below. All classes are defined under the Net module. Indentation indicates inheritance.&lt;/p&gt;&lt;pre&gt;  xxx        HTTPResponse
+
+    1xx        HTTPInformation
+      100        HTTPContinue
+      101        HTTPSwitchProtocol
+
+    2xx        HTTPSuccess
+      200        HTTPOK
+      201        HTTPCreated
+      202        HTTPAccepted
+      203        HTTPNonAuthoritativeInformation
+      204        HTTPNoContent
+      205        HTTPResetContent
+      206        HTTPPartialContent
+
+    3xx        HTTPRedirection
+      300        HTTPMultipleChoice
+      301        HTTPMovedPermanently
+      302        HTTPFound
+      303        HTTPSeeOther
+      304        HTTPNotModified
+      305        HTTPUseProxy
+      307        HTTPTemporaryRedirect
+
+    4xx        HTTPClientError
+      400        HTTPBadRequest
+      401        HTTPUnauthorized
+      402        HTTPPaymentRequired
+      403        HTTPForbidden
+      404        HTTPNotFound
+      405        HTTPMethodNotAllowed
+      406        HTTPNotAcceptable
+      407        HTTPProxyAuthenticationRequired
+      408        HTTPRequestTimeOut
+      409        HTTPConflict
+      410        HTTPGone
+      411        HTTPLengthRequired
+      412        HTTPPreconditionFailed
+      413        HTTPRequestEntityTooLarge
+      414        HTTPRequestURITooLong
+      415        HTTPUnsupportedMediaType
+      416        HTTPRequestedRangeNotSatisfiable
+      417        HTTPExpectationFailed
+
+    5xx        HTTPServerError
+      500        HTTPInternalServerError
+      501        HTTPNotImplemented
+      502        HTTPBadGateway
+      503        HTTPServiceUnavailable
+      504        HTTPGatewayTimeOut
+      505        HTTPVersionNotSupported
+
+    xxx        HTTPUnknownResponse
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='body_permitted?'>&lt;p&gt;true if the response has body.&lt;/p&gt;</method>
+    <method name='body'>&lt;p&gt;Returns the entity body.&lt;/p&gt;&lt;p&gt;Calling this method a second or subsequent time will return the already read string.&lt;/p&gt;&lt;pre&gt;  http.request_get(&apos;/index.html&apos;) {|res|
+    puts res.body
+  }
+
+  http.request_get(&apos;/index.html&apos;) {|res|
+    p res.body.object_id   # 538149362
+    p res.body.object_id   # 538149362
+  }
+&lt;/pre&gt;</method>
+    <method name='entity'>&lt;p&gt;Alias for #body&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='read_body'>&lt;p&gt;Gets entity body. If the block given, yields it to &lt;tt&gt;block&lt;/tt&gt;. The body is provided in fragments, as it is read in from the socket.&lt;/p&gt;&lt;p&gt;Calling this method a second or subsequent time will return the already read string.&lt;/p&gt;&lt;pre&gt;  http.request_get(&apos;/index.html&apos;) {|res|
+    puts res.read_body
+  }
+
+  http.request_get(&apos;/index.html&apos;) {|res|
+    p res.read_body.object_id   # 538149362
+    p res.read_body.object_id   # 538149362
+  }
+
+  # using iterator
+  http.request_get(&apos;/index.html&apos;) {|res|
+    res.read_body do |segment|
+      print segment
+    end
+  }
+&lt;/pre&gt;</method>
+    <method name='to_ary'>&lt;p&gt;For backward compatibility. To allow Net::HTTP 1.1 style assignment e.g.&lt;/p&gt;&lt;pre&gt;   response, body = Net::HTTP.get(....)
+&lt;/pre&gt;</method>
+    <method name='value'>&lt;p&gt;Raises HTTP error if the response is not 2xx.&lt;/p&gt;</method>
+  </methods>
+</help>

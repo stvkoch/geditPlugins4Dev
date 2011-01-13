@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;CGI class. See documentation for the file cgi.rb for an overview of the CGI protocol.&lt;/p&gt;&lt;h2&gt;Introduction&lt;/h2&gt;&lt;p&gt;CGI is a large class, providing several categories of methods, many of which are mixed in from other modules. Some of the documentation is in this class, some in the modules CGI::QueryExtension and CGI::HtmlExtension. See CGI::Cookie for specific information on handling cookies, and cgi/session.rb (CGI::Session) for information on sessions.&lt;/p&gt;&lt;p&gt;For queries, CGI provides methods to get at environmental variables, parameters, cookies, and multipart request data. For responses, CGI provides methods for writing output and generating HTML.&lt;/p&gt;&lt;p&gt;Read on for more details. Examples are provided at the bottom.&lt;/p&gt;&lt;h2&gt;Queries&lt;/h2&gt;&lt;p&gt;The CGI class dynamically mixes in parameter and cookie-parsing functionality, environmental variable access, and support for parsing multipart requests (including uploaded files) from the CGI::QueryExtension module.&lt;/p&gt;&lt;h3&gt;Environmental Variables&lt;/h3&gt;&lt;p&gt;The standard CGI environmental variables are available as read-only attributes of a CGI object. The following is a list of these variables:&lt;/p&gt;&lt;pre&gt;  AUTH_TYPE               HTTP_HOST          REMOTE_IDENT
+  CONTENT_LENGTH          HTTP_NEGOTIATE     REMOTE_USER
+  CONTENT_TYPE            HTTP_PRAGMA        REQUEST_METHOD
+  GATEWAY_INTERFACE       HTTP_REFERER       SCRIPT_NAME
+  HTTP_ACCEPT             HTTP_USER_AGENT    SERVER_NAME
+  HTTP_ACCEPT_CHARSET     PATH_INFO          SERVER_PORT
+  HTTP_ACCEPT_ENCODING    PATH_TRANSLATED    SERVER_PROTOCOL
+  HTTP_ACCEPT_LANGUAGE    QUERY_STRING       SERVER_SOFTWARE
+  HTTP_CACHE_CONTROL      REMOTE_ADDR
+  HTTP_FROM               REMOTE_HOST
+&lt;/pre&gt;&lt;p&gt;For each of these variables, there is a corresponding attribute with the same name, except all lower case and without a preceding HTTP_. &lt;tt&gt;content_length&lt;/tt&gt; and &lt;tt&gt;server_port&lt;/tt&gt; are integers; the rest are strings.&lt;/p&gt;&lt;h3&gt;Parameters&lt;/h3&gt;&lt;p&gt;The method #params() returns a hash of all parameters in the request as name/value-list pairs, where the value-list is an Array of one or more values. The CGI object itself also behaves as a hash of parameter names to values, but only returns a single value (as a String) for each parameter name.&lt;/p&gt;&lt;p&gt;For instance, suppose the request contains the parameter &quot;favourite_colours&quot; with the multiple values &quot;blue&quot; and &quot;green&quot;. The following behaviour would occur:&lt;/p&gt;&lt;pre&gt;  cgi.params[&quot;favourite_colours&quot;]  # =&gt; [&quot;blue&quot;, &quot;green&quot;]
+  cgi[&quot;favourite_colours&quot;]         # =&gt; &quot;blue&quot;
+&lt;/pre&gt;&lt;p&gt;If a parameter does not exist, the former method will return an empty array, the latter an empty string. The simplest way to test for existence of a parameter is by the #has_key? method.&lt;/p&gt;&lt;h3&gt;Cookies&lt;/h3&gt;&lt;p&gt;HTTP Cookies are automatically parsed from the request. They are available from the #cookies() accessor, which returns a hash from cookie name to CGI::Cookie object.&lt;/p&gt;&lt;h3&gt;Multipart requests&lt;/h3&gt;&lt;p&gt;If a request&apos;s method is POST and its content type is multipart/form-data, then it may contain uploaded files. These are stored by the QueryExtension module in the parameters of the request. The parameter name is the name attribute of the file input field, as usual. However, the value is not a string, but an IO object, either an IOString for small files, or a Tempfile for larger ones. This object also has the additional singleton methods:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the path of the uploaded file on the local filesystem&lt;/li&gt;&lt;li&gt;the name of the file on the client computer&lt;/li&gt;&lt;li&gt;the content type of the file&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Responses&lt;/h2&gt;&lt;p&gt;The CGI class provides methods for sending header and content output to the HTTP client, and mixes in methods for programmatic HTML generation from CGI::HtmlExtension and CGI::TagMaker modules. The precise version of HTML to use for HTML generation is specified at object creation time.&lt;/p&gt;&lt;h3&gt;Writing output&lt;/h3&gt;&lt;p&gt;The simplest way to send output to the HTTP client is using the #out() method. This takes the HTTP headers as a hash parameter, and the body content via a block. The headers can be generated as a string using the #header() method. The output stream can be written directly to using the #print() method.&lt;/p&gt;&lt;h3&gt;Generating HTML&lt;/h3&gt;&lt;p&gt;Each HTML element has a corresponding method for generating that element as a String. The name of this method is the same as that of the element, all lowercase. The attributes of the element are passed in as a hash, and the body as a no-argument block that evaluates to a String. The HTML generation module knows which elements are always empty, and silently drops any passed-in body. It also knows which elements require matching closing tags and which don&apos;t. However, it does not know what attributes are legal for which elements.&lt;/p&gt;&lt;p&gt;There are also some additional HTML generation methods mixed in from the CGI::HtmlExtension module. These include individual methods for the different types of form inputs, and methods for elements that commonly take particular attributes where the attributes can be directly specified as arguments, rather than via a hash.&lt;/p&gt;&lt;h2&gt;Examples of use&lt;/h2&gt;&lt;h3&gt;Get form values&lt;/h3&gt;&lt;pre&gt;  require &quot;cgi&quot;
+  cgi = CGI.new
+  value = cgi[&apos;field_name&apos;]   # &lt;== value string for &apos;field_name&apos;
+    # if not &apos;field_name&apos; included, then return &quot;&quot;.
+  fields = cgi.keys            # &lt;== array of field names
+
+  # returns true if form has &apos;field_name&apos;
+  cgi.has_key?(&apos;field_name&apos;)
+  cgi.has_key?(&apos;field_name&apos;)
+  cgi.include?(&apos;field_name&apos;)
+&lt;/pre&gt;&lt;p&gt;CAUTION! cgi[&apos;field_name&apos;] returned an Array with the old cgi.rb(included in ruby 1.6)&lt;/p&gt;&lt;h3&gt;Get form values as hash&lt;/h3&gt;&lt;pre&gt;  require &quot;cgi&quot;
+  cgi = CGI.new
+  params = cgi.params
+&lt;/pre&gt;&lt;p&gt;cgi.params is a hash.&lt;/p&gt;&lt;pre&gt;  cgi.params[&apos;new_field_name&apos;] = [&quot;value&quot;]  # add new param
+  cgi.params[&apos;field_name&apos;] = [&quot;new_value&quot;]  # change value
+  cgi.params.delete(&apos;field_name&apos;)           # delete param
+  cgi.params.clear                          # delete all params
+&lt;/pre&gt;&lt;h3&gt;Save form values to file&lt;/h3&gt;&lt;pre&gt;  require &quot;pstore&quot;
+  db = PStore.new(&quot;query.db&quot;)
+  db.transaction do
+    db[&quot;params&quot;] = cgi.params
+  end
+&lt;/pre&gt;&lt;h3&gt;Restore form values from file&lt;/h3&gt;&lt;pre&gt;  require &quot;pstore&quot;
+  db = PStore.new(&quot;query.db&quot;)
+  db.transaction do
+    cgi.params = db[&quot;params&quot;]
+  end
+&lt;/pre&gt;&lt;h3&gt;Get multipart form values&lt;/h3&gt;&lt;pre&gt;  require &quot;cgi&quot;
+  cgi = CGI.new
+  value = cgi[&apos;field_name&apos;]   # &lt;== value string for &apos;field_name&apos;
+  value.read                  # &lt;== body of value
+  value.local_path            # &lt;== path to local file of value
+  value.original_filename     # &lt;== original filename of value
+  value.content_type          # &lt;== content_type of value
+&lt;/pre&gt;&lt;p&gt;and value has StringIO or Tempfile class methods.&lt;/p&gt;&lt;h3&gt;Get cookie values&lt;/h3&gt;&lt;pre&gt;  require &quot;cgi&quot;
+  cgi = CGI.new
+  values = cgi.cookies[&apos;name&apos;]  # &lt;== array of &apos;name&apos;
+    # if not &apos;name&apos; included, then return [].
+  names = cgi.cookies.keys      # &lt;== array of cookie names
+&lt;/pre&gt;&lt;p&gt;and cgi.cookies is a hash.&lt;/p&gt;&lt;h3&gt;Get cookie objects&lt;/h3&gt;&lt;pre&gt;  require &quot;cgi&quot;
+  cgi = CGI.new
+  for name, cookie in cgi.cookies
+    cookie.expires = Time.now + 30
+  end
+  cgi.out(&quot;cookie&quot; =&gt; cgi.cookies) {&quot;string&quot;}
+
+  cgi.cookies # { &quot;name1&quot; =&gt; cookie1, &quot;name2&quot; =&gt; cookie2, ... }
+
+  require &quot;cgi&quot;
+  cgi = CGI.new
+  cgi.cookies[&apos;name&apos;].expires = Time.now + 30
+  cgi.out(&quot;cookie&quot; =&gt; cgi.cookies[&apos;name&apos;]) {&quot;string&quot;}
+&lt;/pre&gt;&lt;h3&gt;Print http header and html string to $DEFAULT_OUTPUT ($&gt;)&lt;/h3&gt;&lt;pre&gt;  require &quot;cgi&quot;
+  cgi = CGI.new(&quot;html3&quot;)  # add HTML generation methods
+  cgi.out() do
+    cgi.html() do
+      cgi.head{ cgi.title{&quot;TITLE&quot;} } +
+      cgi.body() do
+        cgi.form() do
+          cgi.textarea(&quot;get_text&quot;) +
+          cgi.br +
+          cgi.submit
+        end +
+        cgi.pre() do
+          CGI::escapeHTML(
+            &quot;params: &quot; + cgi.params.inspect + &quot;\n&quot; +
+            &quot;cookies: &quot; + cgi.cookies.inspect + &quot;\n&quot; +
+            ENV.collect() do |key, value|
+              key + &quot; --&gt; &quot; + value + &quot;\n&quot;
+            end.join(&quot;&quot;)
+          )
+        end
+      end
+    end
+  end
+
+  # add HTML generation methods
+  CGI.new(&quot;html3&quot;)    # html3.2
+  CGI.new(&quot;html4&quot;)    # html4.01 (Strict)
+  CGI.new(&quot;html4Tr&quot;)  # html4.01 Transitional
+  CGI.new(&quot;html4Fr&quot;)  # html4.01 Frameset
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='cookie'>&lt;p&gt;make raw cookie string&lt;/p&gt;</method>
+    <method name='error'>&lt;p&gt;print error message to $&gt; and exit&lt;/p&gt;</method>
+    <method name='escape'>&lt;p&gt;escape url encode&lt;/p&gt;</method>
+    <method name='escapeElement'>&lt;p&gt;Escape only the tags of certain HTML elements in &lt;tt&gt;string&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;Takes an element or elements or array of elements. Each element is specified by the name of the element, without angle brackets. This matches both the start and the end tag of that element. The attribute list of the open tag will also be escaped (for instance, the double-quotes surrounding attribute values).&lt;/p&gt;&lt;pre&gt;  print CGI::escapeElement(&apos;&lt;BR&gt;&lt;A HREF=&quot;url&quot;&gt;&lt;/A&gt;&apos;, &quot;A&quot;, &quot;IMG&quot;)
+    # &quot;&lt;BR&gt;&amp;lt;A HREF=&amp;quot;url&amp;quot;&amp;gt;&amp;lt;/A&amp;gt&quot;
+
+  print CGI::escapeElement(&apos;&lt;BR&gt;&lt;A HREF=&quot;url&quot;&gt;&lt;/A&gt;&apos;, [&quot;A&quot;, &quot;IMG&quot;])
+    # &quot;&lt;BR&gt;&amp;lt;A HREF=&amp;quot;url&amp;quot;&amp;gt;&amp;lt;/A&amp;gt&quot;
+&lt;/pre&gt;</method>
+    <method name='escapeHTML'>&lt;p&gt;Escape special characters in HTML, namely &amp;\&quot;&lt;&gt;&lt;/p&gt;&lt;pre&gt;  CGI::escapeHTML(&apos;Usage: foo &quot;bar&quot; &lt;baz&gt;&apos;)
+     # =&gt; &quot;Usage: foo &amp;quot;bar&amp;quot; &amp;lt;baz&amp;gt;&quot;
+&lt;/pre&gt;</method>
+    <method name='header'>&lt;p&gt;make HTTP header string&lt;/p&gt;</method>
+    <method name='message'>&lt;p&gt;print message to $&gt;&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Creates a new CGI instance.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;type&lt;/tt&gt; specifies which version of HTML to load the HTML generation methods for. The following versions of HTML are supported:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;HTML 3.x&lt;/li&gt;&lt;li&gt;HTML 4.0&lt;/li&gt;&lt;li&gt;HTML 4.0 Transitional&lt;/li&gt;&lt;li&gt;HTML 4.0 with Framesets&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;If not specified, no HTML generation methods will be loaded.&lt;/p&gt;&lt;p&gt;If the CGI object is not created in a standard CGI call environment (that is, it can&apos;t locate REQUEST_METHOD in its environment), then it will run in &quot;offline&quot; mode. In this mode, it reads its parameters from the command line or (failing that) from standard input. Otherwise, cookies and other parameters are parsed automatically from the standard CGI locations, which varies according to the REQUEST_METHOD.&lt;/p&gt;</method>
+    <method name='parse'>&lt;p&gt;Parse an HTTP query string into a hash of key=&gt;value pairs.&lt;/p&gt;&lt;pre&gt;  params = CGI::parse(&quot;query_string&quot;)
+    # {&quot;name1&quot; =&gt; [&quot;value1&quot;, &quot;value2&quot;, ...],
+    #  &quot;name2&quot; =&gt; [&quot;value1&quot;, &quot;value2&quot;, ...], ... }
+&lt;/pre&gt;</method>
+    <method name='pretty'>&lt;p&gt;Prettify (indent) an HTML string.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;string&lt;/tt&gt; is the HTML string to indent. &lt;tt&gt;shift&lt;/tt&gt; is the indentation unit to use; it defaults to two spaces.&lt;/p&gt;&lt;pre&gt;  print CGI::pretty(&quot;&lt;HTML&gt;&lt;BODY&gt;&lt;/BODY&gt;&lt;/HTML&gt;&quot;)
+    # &lt;HTML&gt;
+    #   &lt;BODY&gt;
+    #   &lt;/BODY&gt;
+    # &lt;/HTML&gt;
+
+  print CGI::pretty(&quot;&lt;HTML&gt;&lt;BODY&gt;&lt;/BODY&gt;&lt;/HTML&gt;&quot;, &quot;\t&quot;)
+    # &lt;HTML&gt;
+    #         &lt;BODY&gt;
+    #         &lt;/BODY&gt;
+    # &lt;/HTML&gt;
+&lt;/pre&gt;</method>
+    <method name='print'>&lt;p&gt;print HTTP header and string to $&gt;&lt;/p&gt;</method>
+    <method name='rfc1123_date'>&lt;p&gt;make rfc1123 date string&lt;/p&gt;</method>
+    <method name='tag'>&lt;p&gt;make HTML tag string&lt;/p&gt;</method>
+    <method name='unescape'>&lt;p&gt;unescape url encoded&lt;/p&gt;</method>
+    <method name='unescapeElement'>&lt;p&gt;Undo escaping such as that done by CGI::escapeElement()&lt;/p&gt;&lt;pre&gt;  print CGI::unescapeElement(
+          CGI::escapeHTML(&apos;&lt;BR&gt;&lt;A HREF=&quot;url&quot;&gt;&lt;/A&gt;&apos;), &quot;A&quot;, &quot;IMG&quot;)
+    # &quot;&amp;lt;BR&amp;gt;&lt;A HREF=&quot;url&quot;&gt;&lt;/A&gt;&quot;
+
+  print CGI::unescapeElement(
+          CGI::escapeHTML(&apos;&lt;BR&gt;&lt;A HREF=&quot;url&quot;&gt;&lt;/A&gt;&apos;), [&quot;A&quot;, &quot;IMG&quot;])
+    # &quot;&amp;lt;BR&amp;gt;&lt;A HREF=&quot;url&quot;&gt;&lt;/A&gt;&quot;
+&lt;/pre&gt;</method>
+    <method name='unescapeHTML'>&lt;p&gt;Unescape a string that has been HTML-escaped&lt;/p&gt;&lt;pre&gt;  CGI::unescapeHTML(&quot;Usage: foo &amp;quot;bar&amp;quot; &amp;lt;baz&amp;gt;&quot;)
+     # =&gt; &quot;Usage: foo \&quot;bar\&quot; &lt;baz&gt;&quot;
+&lt;/pre&gt;</method>
+    <method name='header'>&lt;p&gt;Create an HTTP header block as a string.&lt;/p&gt;&lt;p&gt;Includes the empty line that ends the header block.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;options&lt;/tt&gt; can be a string specifying the Content-Type (defaults to text/html), or a hash of header key/value pairs. The following header keys are recognized:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the Content-Type header. Defaults to &quot;text/html&quot;&lt;/li&gt;&lt;li&gt;the charset of the body, appended to the Content-Type header.&lt;/li&gt;&lt;li&gt;a boolean value. If true, prepend protocol string and status code, and date; and sets default values for &quot;server&quot; and &quot;connection&quot; if not explicitly set.&lt;/li&gt;&lt;li&gt;the HTTP status code, returned as the Status header. See the list of available status codes below.&lt;/li&gt;&lt;li&gt;the server software, returned as the Server header.&lt;/li&gt;&lt;li&gt;the connection type, returned as the Connection header (for instance, &quot;close&quot;.&lt;/li&gt;&lt;li&gt;the length of the content that will be sent, returned as the Content-Length header.&lt;/li&gt;&lt;li&gt;the language of the content, returned as the Content-Language header.&lt;/li&gt;&lt;li&gt;the time on which the current content expires, as a &lt;tt&gt;Time&lt;/tt&gt; object, returned as the Expires header.&lt;/li&gt;&lt;li&gt;a cookie or cookies, returned as one or more Set-Cookie headers. The value can be the literal string of the cookie; a CGI::Cookie object; an Array of literal cookie strings or Cookie objects; or a hash all of whose values are literal cookie strings or Cookie objects. These cookies are in addition to the cookies held in the @output_cookies field.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Other header lines can also be set; they are appended as key: value.&lt;/p&gt;&lt;pre&gt;  header
+    # Content-Type: text/html
+
+  header(&quot;text/plain&quot;)
+    # Content-Type: text/plain
+
+  header(&quot;nph&quot;        =&gt; true,
+         &quot;status&quot;     =&gt; &quot;OK&quot;,  # == &quot;200 OK&quot;
+           # &quot;status&quot;     =&gt; &quot;200 GOOD&quot;,
+         &quot;server&quot;     =&gt; ENV[&apos;SERVER_SOFTWARE&apos;],
+         &quot;connection&quot; =&gt; &quot;close&quot;,
+         &quot;type&quot;       =&gt; &quot;text/html&quot;,
+         &quot;charset&quot;    =&gt; &quot;iso-2022-jp&quot;,
+           # Content-Type: text/html; charset=iso-2022-jp
+         &quot;length&quot;     =&gt; 103,
+         &quot;language&quot;   =&gt; &quot;ja&quot;,
+         &quot;expires&quot;    =&gt; Time.now + 30,
+         &quot;cookie&quot;     =&gt; [cookie1, cookie2],
+         &quot;my_header1&quot; =&gt; &quot;my_value&quot;
+         &quot;my_header2&quot; =&gt; &quot;my_value&quot;)
+&lt;/pre&gt;&lt;p&gt;The status codes are:&lt;/p&gt;&lt;pre&gt;  &quot;OK&quot;                  --&gt; &quot;200 OK&quot;
+  &quot;PARTIAL_CONTENT&quot;     --&gt; &quot;206 Partial Content&quot;
+  &quot;MULTIPLE_CHOICES&quot;    --&gt; &quot;300 Multiple Choices&quot;
+  &quot;MOVED&quot;               --&gt; &quot;301 Moved Permanently&quot;
+  &quot;REDIRECT&quot;            --&gt; &quot;302 Found&quot;
+  &quot;NOT_MODIFIED&quot;        --&gt; &quot;304 Not Modified&quot;
+  &quot;BAD_REQUEST&quot;         --&gt; &quot;400 Bad Request&quot;
+  &quot;AUTH_REQUIRED&quot;       --&gt; &quot;401 Authorization Required&quot;
+  &quot;FORBIDDEN&quot;           --&gt; &quot;403 Forbidden&quot;
+  &quot;NOT_FOUND&quot;           --&gt; &quot;404 Not Found&quot;
+  &quot;METHOD_NOT_ALLOWED&quot;  --&gt; &quot;405 Method Not Allowed&quot;
+  &quot;NOT_ACCEPTABLE&quot;      --&gt; &quot;406 Not Acceptable&quot;
+  &quot;LENGTH_REQUIRED&quot;     --&gt; &quot;411 Length Required&quot;
+  &quot;PRECONDITION_FAILED&quot; --&gt; &quot;412 Precondition Failed&quot;
+  &quot;SERVER_ERROR&quot;        --&gt; &quot;500 Internal Server Error&quot;
+  &quot;NOT_IMPLEMENTED&quot;     --&gt; &quot;501 Method Not Implemented&quot;
+  &quot;BAD_GATEWAY&quot;         --&gt; &quot;502 Bad Gateway&quot;
+  &quot;VARIANT_ALSO_VARIES&quot; --&gt; &quot;506 Variant Also Negotiates&quot;
+&lt;/pre&gt;&lt;p&gt;This method does not perform charset conversion.&lt;/p&gt;</method>
+    <method name='out'>&lt;p&gt;Print an HTTP header and body to $DEFAULT_OUTPUT ($&gt;)&lt;/p&gt;&lt;p&gt;The header is provided by &lt;tt&gt;options&lt;/tt&gt;, as for #header(). The body of the document is that returned by the passed- in block. This block takes no arguments. It is required.&lt;/p&gt;&lt;pre&gt;  cgi = CGI.new
+  cgi.out{ &quot;string&quot; }
+    # Content-Type: text/html
+    # Content-Length: 6
+    #
+    # string
+
+  cgi.out(&quot;text/plain&quot;) { &quot;string&quot; }
+    # Content-Type: text/plain
+    # Content-Length: 6
+    #
+    # string
+
+  cgi.out(&quot;nph&quot;        =&gt; true,
+          &quot;status&quot;     =&gt; &quot;OK&quot;,  # == &quot;200 OK&quot;
+          &quot;server&quot;     =&gt; ENV[&apos;SERVER_SOFTWARE&apos;],
+          &quot;connection&quot; =&gt; &quot;close&quot;,
+          &quot;type&quot;       =&gt; &quot;text/html&quot;,
+          &quot;charset&quot;    =&gt; &quot;iso-2022-jp&quot;,
+            # Content-Type: text/html; charset=iso-2022-jp
+          &quot;language&quot;   =&gt; &quot;ja&quot;,
+          &quot;expires&quot;    =&gt; Time.now + (3600 * 24 * 30),
+          &quot;cookie&quot;     =&gt; [cookie1, cookie2],
+          &quot;my_header1&quot; =&gt; &quot;my_value&quot;,
+          &quot;my_header2&quot; =&gt; &quot;my_value&quot;) { &quot;string&quot; }
+&lt;/pre&gt;&lt;p&gt;Content-Length is automatically calculated from the size of the String returned by the content block.&lt;/p&gt;&lt;p&gt;If ENV[&apos;REQUEST_METHOD&apos;] == &quot;HEAD&quot;, then only the header is outputted (the content block is still required, but it is ignored).&lt;/p&gt;&lt;p&gt;If the charset is &quot;iso-2022-jp&quot; or &quot;euc-jp&quot; or &quot;shift_jis&quot; then the content is converted to this charset, and the language is set to &quot;ja&quot;.&lt;/p&gt;</method>
+    <method name='print'>&lt;p&gt;Print an argument or list of arguments to the default output stream&lt;/p&gt;&lt;pre&gt;  cgi = CGI.new
+  cgi.print    # default:  cgi.print == $DEFAULT_OUTPUT.print
+&lt;/pre&gt;</method>
+    <method name='read_from_cmdline'>&lt;p&gt;offline mode. read name=value pairs on standard input.&lt;/p&gt;</method>
+  </methods>
+</help>

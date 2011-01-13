@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='break_points'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='context'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='debug_thread_info'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='display'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_thread'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='interrupt'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='make_thread_list'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='resume'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_last_thread'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_trace'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='stdout'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='stdout='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='suspend'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='thread_list'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='thread_list_all'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='waiting'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

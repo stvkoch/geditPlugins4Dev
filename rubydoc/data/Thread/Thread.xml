@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;&lt;tt&gt;Thread&lt;/tt&gt; encapsulates the behavior of a thread of execution, including the main thread of the Ruby script.&lt;/p&gt;&lt;p&gt;In the descriptions of the methods in this class, the parameter &lt;em&gt;sym&lt;/em&gt; refers to a symbol, which is either a quoted string or a &lt;tt&gt;Symbol&lt;/tt&gt; (such as &lt;tt&gt;:name&lt;/tt&gt;).&lt;/p&gt;</comment>
+  <methods>
+    <method name='abort_on_exception'>&lt;p&gt;Returns the status of the global ``abort on exception&apos;&apos; condition. The default is &lt;tt&gt;false&lt;/tt&gt;. When set to &lt;tt&gt;true&lt;/tt&gt;, or if the global &lt;tt&gt;$DEBUG&lt;/tt&gt; flag is &lt;tt&gt;true&lt;/tt&gt; (perhaps because the command line option &lt;tt&gt;-d&lt;/tt&gt; was specified) all threads will abort (the process will &lt;tt&gt;exit(0)&lt;/tt&gt;) if an exception is raised in any thread. See also &lt;tt&gt;Thread::abort_on_exception=&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='abort_on_exception='>&lt;p&gt;When set to &lt;tt&gt;true&lt;/tt&gt;, all threads will abort if an exception is raised. Returns the new state.&lt;/p&gt;&lt;pre&gt;   Thread.abort_on_exception = true
+   t1 = Thread.new do
+     puts  &quot;In new thread&quot;
+     raise &quot;Exception from thread&quot;
+   end
+   sleep(1)
+   puts &quot;not reached&quot;
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   In new thread
+   prog.rb:4: Exception from thread (RuntimeError)
+    from prog.rb:2:in `initialize&apos;
+    from prog.rb:2:in `new&apos;
+    from prog.rb:2
+&lt;/pre&gt;</method>
+    <method name='critical'>&lt;p&gt;Returns the status of the global ``thread critical&apos;&apos; condition.&lt;/p&gt;</method>
+    <method name='critical='>&lt;p&gt;Sets the status of the global ``thread critical&apos;&apos; condition and returns it. When set to &lt;tt&gt;true&lt;/tt&gt;, prohibits scheduling of any existing thread. Does not block new threads from being created and run. Certain thread operations (such as stopping or killing a thread, sleeping in the current thread, and raising an exception) may cause a thread to be scheduled even when in a critical section. &lt;tt&gt;Thread::critical&lt;/tt&gt; is not intended for daily use: it is primarily there to support folks writing threading libraries.&lt;/p&gt;</method>
+    <method name='current'>&lt;p&gt;Returns the currently executing thread.&lt;/p&gt;&lt;pre&gt;   Thread.current   #=&gt; #&lt;Thread:0x401bdf4c run&gt;
+&lt;/pre&gt;</method>
+    <method name='exclusive'>&lt;p&gt;Wraps a block in Thread.critical, restoring the original value upon exit from the critical section.&lt;/p&gt;</method>
+    <method name='exit'>&lt;p&gt;Terminates the currently running thread and schedules another thread to be run. If this thread is already marked to be killed, &lt;tt&gt;exit&lt;/tt&gt; returns the &lt;tt&gt;Thread&lt;/tt&gt;. If this is the main thread, or the last thread, exit the process.&lt;/p&gt;</method>
+    <method name='fork'>&lt;p&gt;Basically the same as &lt;tt&gt;Thread::new&lt;/tt&gt;. However, if class &lt;tt&gt;Thread&lt;/tt&gt; is subclassed, then calling &lt;tt&gt;start&lt;/tt&gt; in that subclass will not invoke the subclass&apos;s &lt;tt&gt;initialize&lt;/tt&gt; method.&lt;/p&gt;</method>
+    <method name='kill'>&lt;p&gt;Causes the given &lt;em&gt;thread&lt;/em&gt; to exit (see &lt;tt&gt;Thread::exit&lt;/tt&gt;).&lt;/p&gt;&lt;pre&gt;   count = 0
+   a = Thread.new { loop { count += 1 } }
+   sleep(0.1)       #=&gt; 0
+   Thread.kill(a)   #=&gt; #&lt;Thread:0x401b3d30 dead&gt;
+   count            #=&gt; 93947
+   a.alive?         #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='list'>&lt;p&gt;Returns an array of &lt;tt&gt;Thread&lt;/tt&gt; objects for all threads that are either runnable or stopped.&lt;/p&gt;&lt;pre&gt;   Thread.new { sleep(200) }
+   Thread.new { 1000000.times {|i| i*i } }
+   Thread.new { Thread.stop }
+   Thread.list.each {|t| p t}
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   #&lt;Thread:0x401b3e84 sleep&gt;
+   #&lt;Thread:0x401b3f38 run&gt;
+   #&lt;Thread:0x401b3fb0 sleep&gt;
+   #&lt;Thread:0x401bdf4c run&gt;
+&lt;/pre&gt;</method>
+    <method name='main'>&lt;p&gt;Returns the main thread for the process.&lt;/p&gt;&lt;pre&gt;   Thread.main   #=&gt; #&lt;Thread:0x401bdf4c run&gt;
+&lt;/pre&gt;</method>
+    <method name='new'>&lt;p&gt;Creates and runs a new thread to execute the instructions given in &lt;em&gt;block&lt;/em&gt;. Any arguments passed to &lt;tt&gt;Thread::new&lt;/tt&gt; are passed into the block.&lt;/p&gt;&lt;pre&gt;   x = Thread.new { sleep 0.1; print &quot;x&quot;; print &quot;y&quot;; print &quot;z&quot; }
+   a = Thread.new { print &quot;a&quot;; print &quot;b&quot;; sleep 0.2; print &quot;c&quot; }
+   x.join # Let the threads finish before
+   a.join # main thread exits...
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   abxyzc
+&lt;/pre&gt;</method>
+    <method name='pass'>&lt;p&gt;Invokes the thread scheduler to pass execution to another thread.&lt;/p&gt;&lt;pre&gt;   a = Thread.new { print &quot;a&quot;; Thread.pass;
+                    print &quot;b&quot;; Thread.pass;
+                    print &quot;c&quot; }
+   b = Thread.new { print &quot;x&quot;; Thread.pass;
+                    print &quot;y&quot;; Thread.pass;
+                    print &quot;z&quot; }
+   a.join
+   b.join
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   axbycz
+&lt;/pre&gt;</method>
+    <method name='start'>&lt;p&gt;Basically the same as &lt;tt&gt;Thread::new&lt;/tt&gt;. However, if class &lt;tt&gt;Thread&lt;/tt&gt; is subclassed, then calling &lt;tt&gt;start&lt;/tt&gt; in that subclass will not invoke the subclass&apos;s &lt;tt&gt;initialize&lt;/tt&gt; method.&lt;/p&gt;</method>
+    <method name='stop'>&lt;p&gt;Stops execution of the current thread, putting it into a ``sleep&apos;&apos; state, and schedules execution of another thread. Resets the ``critical&apos;&apos; condition to &lt;tt&gt;false&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   a = Thread.new { print &quot;a&quot;; Thread.stop; print &quot;c&quot; }
+   Thread.pass
+   print &quot;b&quot;
+   a.run
+   a.join
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   abc
+&lt;/pre&gt;</method>
+    <method name='[]'>&lt;p&gt;Attribute Reference---Returns the value of a thread-local variable, using either a symbol or a string name. If the specified variable does not exist, returns &lt;tt&gt;nil&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   a = Thread.new { Thread.current[&quot;name&quot;] = &quot;A&quot;; Thread.stop }
+   b = Thread.new { Thread.current[:name]  = &quot;B&quot;; Thread.stop }
+   c = Thread.new { Thread.current[&quot;name&quot;] = &quot;C&quot;; Thread.stop }
+   Thread.list.each {|x| puts &quot;#{x.inspect}: #{x[:name]}&quot; }
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   #&lt;Thread:0x401b3b3c sleep&gt;: C
+   #&lt;Thread:0x401b3bc8 sleep&gt;: B
+   #&lt;Thread:0x401b3c68 sleep&gt;: A
+   #&lt;Thread:0x401bdf4c run&gt;:
+&lt;/pre&gt;</method>
+    <method name='[]='>&lt;p&gt;Attribute Assignment---Sets or creates the value of a thread-local variable, using either a symbol or a string. See also &lt;tt&gt;Thread#[]&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='abort_on_exception'>&lt;p&gt;Returns the status of the thread-local ``abort on exception&apos;&apos; condition for &lt;em&gt;thr&lt;/em&gt;. The default is &lt;tt&gt;false&lt;/tt&gt;. See also &lt;tt&gt;Thread::abort_on_exception=&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='abort_on_exception='>&lt;p&gt;When set to &lt;tt&gt;true&lt;/tt&gt;, causes all threads (including the main program) to abort if an exception is raised in &lt;em&gt;thr&lt;/em&gt;. The process will effectively &lt;tt&gt;exit(0)&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='alive?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;thr&lt;/em&gt; is running or sleeping.&lt;/p&gt;&lt;pre&gt;   thr = Thread.new { }
+   thr.join                #=&gt; #&lt;Thread:0x401b3fb0 dead&gt;
+   Thread.current.alive?   #=&gt; true
+   thr.alive?              #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='exit'>&lt;p&gt;Terminates &lt;em&gt;thr&lt;/em&gt; and schedules another thread to be run, returning the terminated &lt;tt&gt;Thread&lt;/tt&gt;. If this is the main thread, or the last thread, exits the process.&lt;/p&gt;</method>
+    <method name='exit!'>&lt;p&gt;Terminates &lt;em&gt;thr&lt;/em&gt; without calling ensure clauses and schedules another thread to be run, returning the terminated &lt;tt&gt;Thread&lt;/tt&gt;. If this is the main thread, or the last thread, exits the process.&lt;/p&gt;&lt;p&gt;See &lt;tt&gt;Thread#exit&lt;/tt&gt; for the safer version.&lt;/p&gt;</method>
+    <method name='group'>&lt;p&gt;Returns the &lt;tt&gt;ThreadGroup&lt;/tt&gt; which contains &lt;em&gt;thr&lt;/em&gt;, or nil if the thread is not a member of any group.&lt;/p&gt;&lt;pre&gt;   Thread.main.group   #=&gt; #&lt;ThreadGroup:0x4029d914&gt;
+&lt;/pre&gt;</method>
+    <method name='inspect'>&lt;p&gt;Dump the name, id, and status of &lt;em&gt;thr&lt;/em&gt; to a string.&lt;/p&gt;</method>
+    <method name='join'>&lt;p&gt;The calling thread will suspend execution and run &lt;em&gt;thr&lt;/em&gt;. Does not return until &lt;em&gt;thr&lt;/em&gt; exits or until &lt;em&gt;limit&lt;/em&gt; seconds have passed. If the time limit expires, &lt;tt&gt;nil&lt;/tt&gt; will be returned, otherwise &lt;em&gt;thr&lt;/em&gt; is returned.&lt;/p&gt;&lt;p&gt;Any threads not joined will be killed when the main program exits. If &lt;em&gt;thr&lt;/em&gt; had previously raised an exception and the &lt;tt&gt;abort_on_exception&lt;/tt&gt; and &lt;tt&gt;$DEBUG&lt;/tt&gt; flags are not set (so the exception has not yet been processed) it will be processed at this time.&lt;/p&gt;&lt;pre&gt;   a = Thread.new { print &quot;a&quot;; sleep(10); print &quot;b&quot;; print &quot;c&quot; }
+   x = Thread.new { print &quot;x&quot;; Thread.pass; print &quot;y&quot;; print &quot;z&quot; }
+   x.join # Let x thread finish, a will be killed on exit.
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   axyz
+&lt;/pre&gt;&lt;p&gt;The following example illustrates the &lt;em&gt;limit&lt;/em&gt; parameter.&lt;/p&gt;&lt;pre&gt;   y = Thread.new { 4.times { sleep 0.1; puts &apos;tick... &apos; }}
+   puts &quot;Waiting&quot; until y.join(0.15)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   tick...
+   Waiting
+   tick...
+   Waitingtick...
+
+   tick...
+&lt;/pre&gt;</method>
+    <method name='key?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the given string (or symbol) exists as a thread-local variable.&lt;/p&gt;&lt;pre&gt;   me = Thread.current
+   me[:oliver] = &quot;a&quot;
+   me.key?(:oliver)    #=&gt; true
+   me.key?(:stanley)   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='keys'>&lt;p&gt;Returns an an array of the names of the thread-local variables (as Symbols).&lt;/p&gt;&lt;pre&gt;   thr = Thread.new do
+     Thread.current[:cat] = &apos;meow&apos;
+     Thread.current[&quot;dog&quot;] = &apos;woof&apos;
+   end
+   thr.join   #=&gt; #&lt;Thread:0x401b3f10 dead&gt;
+   thr.keys   #=&gt; [:dog, :cat]
+&lt;/pre&gt;</method>
+    <method name='kill'>&lt;p&gt;Terminates &lt;em&gt;thr&lt;/em&gt; and schedules another thread to be run, returning the terminated &lt;tt&gt;Thread&lt;/tt&gt;. If this is the main thread, or the last thread, exits the process.&lt;/p&gt;</method>
+    <method name='kill!'>&lt;p&gt;Terminates &lt;em&gt;thr&lt;/em&gt; without calling ensure clauses and schedules another thread to be run, returning the terminated &lt;tt&gt;Thread&lt;/tt&gt;. If this is the main thread, or the last thread, exits the process.&lt;/p&gt;&lt;p&gt;See &lt;tt&gt;Thread#exit&lt;/tt&gt; for the safer version.&lt;/p&gt;</method>
+    <method name='priority'>&lt;p&gt;Returns the priority of &lt;em&gt;thr&lt;/em&gt;. Default is zero; higher-priority threads will run before lower-priority threads.&lt;/p&gt;&lt;pre&gt;   Thread.current.priority   #=&gt; 0
+&lt;/pre&gt;</method>
+    <method name='priority='>&lt;p&gt;Sets the priority of &lt;em&gt;thr&lt;/em&gt; to &lt;em&gt;integer&lt;/em&gt;. Higher-priority threads will run before lower-priority threads.&lt;/p&gt;&lt;pre&gt;   count1 = count2 = 0
+   a = Thread.new do
+         loop { count1 += 1 }
+       end
+   a.priority = -1
+
+   b = Thread.new do
+         loop { count2 += 1 }
+       end
+   b.priority = -2
+   sleep 1   #=&gt; 1
+   Thread.critical = 1
+   count1    #=&gt; 622504
+   count2    #=&gt; 5832
+&lt;/pre&gt;</method>
+    <method name='raise'>&lt;p&gt;Raises an exception (see &lt;tt&gt;Kernel::raise&lt;/tt&gt;) from &lt;em&gt;thr&lt;/em&gt;. The caller does not have to be &lt;em&gt;thr&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   Thread.abort_on_exception = true
+   a = Thread.new { sleep(200) }
+   a.raise(&quot;Gotcha&quot;)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   prog.rb:3: Gotcha (RuntimeError)
+    from prog.rb:2:in `initialize&apos;
+    from prog.rb:2:in `new&apos;
+    from prog.rb:2
+&lt;/pre&gt;</method>
+    <method name='run'>&lt;p&gt;Wakes up &lt;em&gt;thr&lt;/em&gt;, making it eligible for scheduling. If not in a critical section, then invokes the scheduler.&lt;/p&gt;&lt;pre&gt;   a = Thread.new { puts &quot;a&quot;; Thread.stop; puts &quot;c&quot; }
+   Thread.pass
+   puts &quot;Got here&quot;
+   a.run
+   a.join
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   a
+   Got here
+   c
+&lt;/pre&gt;</method>
+    <method name='safe_level'>&lt;p&gt;Returns the safe level in effect for &lt;em&gt;thr&lt;/em&gt;. Setting thread-local safe levels can help when implementing sandboxes which run insecure code.&lt;/p&gt;&lt;pre&gt;   thr = Thread.new { $SAFE = 3; sleep }
+   Thread.current.safe_level   #=&gt; 0
+   thr.safe_level              #=&gt; 3
+&lt;/pre&gt;</method>
+    <method name='status'>&lt;p&gt;Returns the status of &lt;em&gt;thr&lt;/em&gt;: ``&lt;tt&gt;sleep&lt;/tt&gt;&apos;&apos; if &lt;em&gt;thr&lt;/em&gt; is sleeping or waiting on I/O, ``&lt;tt&gt;run&lt;/tt&gt;&apos;&apos; if &lt;em&gt;thr&lt;/em&gt; is executing, ``&lt;tt&gt;aborting&lt;/tt&gt;&apos;&apos; if &lt;em&gt;thr&lt;/em&gt; is aborting, &lt;tt&gt;false&lt;/tt&gt; if &lt;em&gt;thr&lt;/em&gt; terminated normally, and &lt;tt&gt;nil&lt;/tt&gt; if &lt;em&gt;thr&lt;/em&gt; terminated with an exception.&lt;/p&gt;&lt;pre&gt;   a = Thread.new { raise(&quot;die now&quot;) }
+   b = Thread.new { Thread.stop }
+   c = Thread.new { Thread.exit }
+   d = Thread.new { sleep }
+   Thread.critical = true
+   d.kill                  #=&gt; #&lt;Thread:0x401b3678 aborting&gt;
+   a.status                #=&gt; nil
+   b.status                #=&gt; &quot;sleep&quot;
+   c.status                #=&gt; false
+   d.status                #=&gt; &quot;aborting&quot;
+   Thread.current.status   #=&gt; &quot;run&quot;
+&lt;/pre&gt;</method>
+    <method name='stop?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;thr&lt;/em&gt; is dead or sleeping.&lt;/p&gt;&lt;pre&gt;   a = Thread.new { Thread.stop }
+   b = Thread.current
+   a.stop?   #=&gt; true
+   b.stop?   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='terminate'>&lt;p&gt;Terminates &lt;em&gt;thr&lt;/em&gt; and schedules another thread to be run, returning the terminated &lt;tt&gt;Thread&lt;/tt&gt;. If this is the main thread, or the last thread, exits the process.&lt;/p&gt;</method>
+    <method name='terminate!'>&lt;p&gt;Terminates &lt;em&gt;thr&lt;/em&gt; without calling ensure clauses and schedules another thread to be run, returning the terminated &lt;tt&gt;Thread&lt;/tt&gt;. If this is the main thread, or the last thread, exits the process.&lt;/p&gt;&lt;p&gt;See &lt;tt&gt;Thread#exit&lt;/tt&gt; for the safer version.&lt;/p&gt;</method>
+    <method name='value'>&lt;p&gt;Waits for &lt;em&gt;thr&lt;/em&gt; to complete (via &lt;tt&gt;Thread#join&lt;/tt&gt;) and returns its value.&lt;/p&gt;&lt;pre&gt;   a = Thread.new { 2 + 2 }
+   a.value   #=&gt; 4
+&lt;/pre&gt;</method>
+    <method name='wakeup'>&lt;p&gt;Marks &lt;em&gt;thr&lt;/em&gt; as eligible for scheduling (it may still remain blocked on I/O, however). Does not invoke the scheduler (see &lt;tt&gt;Thread#run&lt;/tt&gt;).&lt;/p&gt;&lt;pre&gt;   c = Thread.new { Thread.stop; puts &quot;hey!&quot; }
+   c.wakeup
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   hey!
+&lt;/pre&gt;</method>
+  </methods>
+</help>

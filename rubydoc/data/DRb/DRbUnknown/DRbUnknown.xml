@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Class wrapping a marshalled object whose type is unknown locally.&lt;/p&gt;&lt;p&gt;If an object is returned by a method invoked over drb, but the class of the object is unknown in the client namespace, or the object is a constant unknown in the client namespace, then the still-marshalled object is returned wrapped in a DRbUnknown instance.&lt;/p&gt;&lt;p&gt;If this object is passed as an argument to a method invoked over drb, then the wrapped object is passed instead.&lt;/p&gt;&lt;p&gt;The class or constant name of the object can be read from the &lt;tt&gt;name&lt;/tt&gt; attribute. The marshalled object is held in the &lt;tt&gt;buf&lt;/tt&gt; attribute.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Create a new DRbUnknown object.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;buf&lt;/tt&gt; is a string containing a marshalled object that could not be unmarshalled. &lt;tt&gt;err&lt;/tt&gt; is the error message that was raised when the unmarshalling failed. It is used to determine the name of the unmarshalled object.&lt;/p&gt;</method>
+    <method name='exception'>&lt;p&gt;Create a DRbUnknownError exception containing this object.&lt;/p&gt;</method>
+    <method name='reload'>&lt;p&gt;Attempt to load the wrapped marshalled object again.&lt;/p&gt;&lt;p&gt;If the class of the object is now known locally, the object will be unmarshalled and returned. Otherwise, a new but identical DRbUnknown object will be returned.&lt;/p&gt;</method>
+  </methods>
+</help>

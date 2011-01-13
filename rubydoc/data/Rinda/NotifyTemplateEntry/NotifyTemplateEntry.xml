@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A NotifyTemplateEntry is returned by TupleSpace#notify and is notified of TupleSpace changes. You may receive either your subscribed event or the &apos;close&apos; event when iterating over notifications.&lt;/p&gt;&lt;p&gt;See TupleSpace#notify_event for valid notification types.&lt;/p&gt;&lt;h2&gt;Example&lt;/h2&gt;&lt;pre&gt;  ts = Rinda::TupleSpace.new
+  observer = ts.notify &apos;write&apos;, [nil]
+
+  Thread.start do
+    observer.each { |t| p t }
+  end
+
+  3.times { |i| ts.write [i] }
+&lt;/pre&gt;&lt;p&gt;Outputs:&lt;/p&gt;&lt;pre&gt;  [&apos;write&apos;, [0]]
+  [&apos;write&apos;, [1]]
+  [&apos;write&apos;, [2]]
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new NotifyTemplateEntry that watches &lt;tt&gt;place&lt;/tt&gt; for +event+s that match &lt;tt&gt;tuple&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;Yields event/tuple pairs until this NotifyTemplateEntry expires.&lt;/p&gt;</method>
+    <method name='notify'>&lt;p&gt;Called by TupleSpace to notify this NotifyTemplateEntry of a new event.&lt;/p&gt;</method>
+    <method name='pop'>&lt;p&gt;Retrieves a notification. Raises RequestExpiredError when this NotifyTemplateEntry expires.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='access_log'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='do_OPTIONS'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='lookup_server'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='mount'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='mount_proc'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='run'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='search_servlet'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='service'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='umount'>&lt;p&gt;Alias for #unmount&lt;/p&gt;</method>
+    <method name='unmount'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='virtual_host'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

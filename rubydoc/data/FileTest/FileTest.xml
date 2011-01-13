@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;&lt;tt&gt;FileTest&lt;/tt&gt; implements file test operations similar to those used in &lt;tt&gt;File::Stat&lt;/tt&gt;. It exists as a standalone module, and its methods are also insinuated into the &lt;tt&gt;File&lt;/tt&gt; class. (Note that this is not done by inclusion: the interpreter cheats).&lt;/p&gt;</comment>
+  <methods>
+    <method name='blockdev?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is a block device.&lt;/p&gt;</method>
+    <method name='chardev?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is a character device.&lt;/p&gt;</method>
+    <method name='directory?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is a directory, &lt;tt&gt;false&lt;/tt&gt; otherwise.&lt;/p&gt;&lt;pre&gt;   File.directory?(&quot;.&quot;)
+&lt;/pre&gt;</method>
+    <method name='executable?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is executable by the effective user id of this process.&lt;/p&gt;</method>
+    <method name='executable_real?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is executable by the real user id of this process.&lt;/p&gt;</method>
+    <method name='exist?'>&lt;p&gt;Return &lt;tt&gt;true&lt;/tt&gt; if the named file exists.&lt;/p&gt;</method>
+    <method name='exists?'>&lt;p&gt;Return &lt;tt&gt;true&lt;/tt&gt; if the named file exists.&lt;/p&gt;</method>
+    <method name='file?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file exists and is a regular file.&lt;/p&gt;</method>
+    <method name='grpowned?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file exists and the effective group id of the calling process is the owner of the file. Returns &lt;tt&gt;false&lt;/tt&gt; on Windows.&lt;/p&gt;</method>
+    <method name='identical?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named files are identical.&lt;/p&gt;&lt;pre&gt;    open(&quot;a&quot;, &quot;w&quot;) {}
+    p File.identical?(&quot;a&quot;, &quot;a&quot;)      #=&gt; true
+    p File.identical?(&quot;a&quot;, &quot;./a&quot;)    #=&gt; true
+    File.link(&quot;a&quot;, &quot;b&quot;)
+    p File.identical?(&quot;a&quot;, &quot;b&quot;)      #=&gt; true
+    File.symlink(&quot;a&quot;, &quot;c&quot;)
+    p File.identical?(&quot;a&quot;, &quot;c&quot;)      #=&gt; true
+    open(&quot;d&quot;, &quot;w&quot;) {}
+    p File.identical?(&quot;a&quot;, &quot;d&quot;)      #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='owned?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file exists and the effective used id of the calling process is the owner of the file.&lt;/p&gt;</method>
+    <method name='pipe?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is a pipe.&lt;/p&gt;</method>
+    <method name='readable?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is readable by the effective user id of this process.&lt;/p&gt;</method>
+    <method name='readable_real?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is readable by the real user id of this process.&lt;/p&gt;</method>
+    <method name='setgid?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file has the setgid bit set.&lt;/p&gt;</method>
+    <method name='setuid?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file has the setuid bit set.&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;Returns the size of &lt;tt&gt;file_name&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='size?'>&lt;p&gt;Returns &lt;tt&gt;nil&lt;/tt&gt; if &lt;tt&gt;file_name&lt;/tt&gt; doesn&apos;t exist or has zero size, the size of the file otherwise.&lt;/p&gt;</method>
+    <method name='socket?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is a socket.&lt;/p&gt;</method>
+    <method name='sticky?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file has the sticky bit set.&lt;/p&gt;</method>
+    <method name='symlink?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is a symbolic link.&lt;/p&gt;</method>
+    <method name='writable?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is writable by the effective user id of this process.&lt;/p&gt;</method>
+    <method name='writable_real?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is writable by the real user id of this process.&lt;/p&gt;</method>
+    <method name='zero?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file exists and has a zero size.&lt;/p&gt;</method>
+  </methods>
+</help>

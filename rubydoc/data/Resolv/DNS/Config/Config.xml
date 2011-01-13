@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='default_config_hash'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse_resolv_conf'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='generate_candidates'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='generate_timeouts'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='lazy_initialize'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='resolv'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='single?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

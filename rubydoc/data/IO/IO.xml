@@ -1,0 +1,326 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Class &lt;tt&gt;IO&lt;/tt&gt; is the basis for all input and output in Ruby. An I/O stream may be &lt;em&gt;duplexed&lt;/em&gt; (that is, bidirectional), and so may use more than one native operating system stream.&lt;/p&gt;&lt;p&gt;Many of the examples in this section use class &lt;tt&gt;File&lt;/tt&gt;, the only standard subclass of &lt;tt&gt;IO&lt;/tt&gt;. The two classes are closely associated.&lt;/p&gt;&lt;p&gt;As used in this section, &lt;em&gt;portname&lt;/em&gt; may take any of the following forms.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;A plain string represents a filename suitable for the underlying operating system.&lt;/li&gt;&lt;li&gt;A string starting with ``&lt;tt&gt;|&lt;/tt&gt;&apos;&apos; indicates a subprocess. The remainder of the string following the ``&lt;tt&gt;|&lt;/tt&gt;&apos;&apos; is invoked as a process with appropriate input/output channels connected to it.&lt;/li&gt;&lt;li&gt;A string equal to ``&lt;tt&gt;|-&lt;/tt&gt;&apos;&apos; will create another Ruby instance as a subprocess.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Ruby will convert pathnames between different operating system conventions if possible. For instance, on a Windows system the filename ``&lt;tt&gt;/gumby/ruby/test.rb&lt;/tt&gt;&apos;&apos; will be opened as ``&lt;tt&gt;\gumby\ruby\test.rb&lt;/tt&gt;&apos;&apos;. When specifying a Windows-style filename in a Ruby string, remember to escape the backslashes:&lt;/p&gt;&lt;pre&gt;   &quot;c:\gumby\ruby\test.rb&quot;
+&lt;/pre&gt;&lt;p&gt;Our examples here will use the Unix-style forward slashes; &lt;tt&gt;File::SEPARATOR&lt;/tt&gt; can be used to get the platform-specific separator character.&lt;/p&gt;&lt;p&gt;I/O ports may be opened in any one of several different modes, which are shown in this section as &lt;em&gt;mode&lt;/em&gt;. The mode may either be a Fixnum or a String. If numeric, it should be one of the operating system specific constants (O_RDONLY, O_WRONLY, O_RDWR, O_APPEND and so on). See man open(2) for more information.&lt;/p&gt;&lt;p&gt;If the mode is given as a String, it must be one of the values listed in the following table.&lt;/p&gt;&lt;pre&gt;  Mode |  Meaning
+  -----+--------------------------------------------------------
+  &quot;r&quot;  |  Read-only, starts at beginning of file  (default mode).
+  -----+--------------------------------------------------------
+  &quot;r+&quot; |  Read-write, starts at beginning of file.
+  -----+--------------------------------------------------------
+  &quot;w&quot;  |  Write-only, truncates existing file
+       |  to zero length or creates a new file for writing.
+  -----+--------------------------------------------------------
+  &quot;w+&quot; |  Read-write, truncates existing file to zero length
+       |  or creates a new file for reading and writing.
+  -----+--------------------------------------------------------
+  &quot;a&quot;  |  Write-only, starts at end of file if file exists,
+       |  otherwise creates a new file for writing.
+  -----+--------------------------------------------------------
+  &quot;a+&quot; |  Read-write, starts at end of file if file exists,
+       |  otherwise creates a new file for reading and
+       |  writing.
+  -----+--------------------------------------------------------
+   &quot;b&quot; |  (DOS/Windows only) Binary file mode (may appear with
+       |  any of the key letters listed above).
+&lt;/pre&gt;&lt;p&gt;The global constant ARGF (also accessible as $&lt;) provides an IO-like stream which allows access to all files mentioned on the command line (or STDIN if no files are mentioned). ARGF provides the methods &lt;tt&gt;#path&lt;/tt&gt; and &lt;tt&gt;#filename&lt;/tt&gt; to access the name of the file currently being read.&lt;/p&gt;</comment>
+  <methods>
+    <method name='for_fd'>&lt;p&gt;Synonym for &lt;tt&gt;IO::new&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='foreach'>&lt;p&gt;Executes the block for every line in the named I/O port, where lines are separated by &lt;em&gt;sep_string&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   IO.foreach(&quot;testfile&quot;) {|x| print &quot;GOT &quot;, x }
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   GOT This is line one
+   GOT This is line two
+   GOT This is line three
+   GOT And so on...
+&lt;/pre&gt;</method>
+    <method name='new'>&lt;p&gt;Returns a new &lt;tt&gt;IO&lt;/tt&gt; object (a stream) for the given integer file descriptor and mode string. See also &lt;tt&gt;IO#fileno&lt;/tt&gt; and &lt;tt&gt;IO::for_fd&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   a = IO.new(2,&quot;w&quot;)      # &apos;2&apos; is standard error
+   $stderr.puts &quot;Hello&quot;
+   a.puts &quot;World&quot;
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Hello
+   World
+&lt;/pre&gt;</method>
+    <method name='open'>&lt;p&gt;With no associated block, &lt;tt&gt;open&lt;/tt&gt; is a synonym for &lt;tt&gt;IO::new&lt;/tt&gt;. If the optional code block is given, it will be passed &lt;em&gt;io&lt;/em&gt; as an argument, and the IO object will automatically be closed when the block terminates. In this instance, &lt;tt&gt;IO::open&lt;/tt&gt; returns the value of the block.&lt;/p&gt;</method>
+    <method name='pipe'>&lt;p&gt;Creates a pair of pipe endpoints (connected to each other) and returns them as a two-element array of &lt;tt&gt;IO&lt;/tt&gt; objects: &lt;tt&gt;[&lt;/tt&gt; &lt;em&gt;read_file&lt;/em&gt;, &lt;em&gt;write_file&lt;/em&gt; &lt;tt&gt;]&lt;/tt&gt;. Not available on all platforms.&lt;/p&gt;&lt;p&gt;In the example below, the two processes close the ends of the pipe that they are not using. This is not just a cosmetic nicety. The read end of a pipe will not generate an end of file condition if there are any writers with the pipe still open. In the case of the parent process, the &lt;tt&gt;rd.read&lt;/tt&gt; will never return if it does not first issue a &lt;tt&gt;wr.close&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   rd, wr = IO.pipe
+
+   if fork
+     wr.close
+     puts &quot;Parent got: &lt;#{rd.read}&gt;&quot;
+     rd.close
+     Process.wait
+   else
+     rd.close
+     puts &quot;Sending message to parent&quot;
+     wr.write &quot;Hi Dad&quot;
+     wr.close
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Sending message to parent
+   Parent got: &lt;Hi Dad&gt;
+&lt;/pre&gt;</method>
+    <method name='popen'>&lt;p&gt;Runs the specified command string as a subprocess; the subprocess&apos;s standard input and output will be connected to the returned &lt;tt&gt;IO&lt;/tt&gt; object. If &lt;em&gt;cmd_string&lt;/em&gt; starts with a ``&lt;tt&gt;-&lt;/tt&gt;&apos;&apos;, then a new instance of Ruby is started as the subprocess. The default mode for the new file object is ``r&apos;&apos;, but &lt;em&gt;mode&lt;/em&gt; may be set to any of the modes listed in the description for class IO.&lt;/p&gt;&lt;p&gt;If a block is given, Ruby will run the command as a child connected to Ruby with a pipe. Ruby&apos;s end of the pipe will be passed as a parameter to the block. At the end of block, Ruby close the pipe and sets &lt;tt&gt;$?&lt;/tt&gt;. In this case &lt;tt&gt;IO::popen&lt;/tt&gt; returns the value of the block.&lt;/p&gt;&lt;p&gt;If a block is given with a &lt;em&gt;cmd_string&lt;/em&gt; of ``&lt;tt&gt;-&lt;/tt&gt;&apos;&apos;, the block will be run in two separate processes: once in the parent, and once in a child. The parent process will be passed the pipe object as a parameter to the block, the child version of the block will be passed &lt;tt&gt;nil&lt;/tt&gt;, and the child&apos;s standard in and standard out will be connected to the parent through the pipe. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   f = IO.popen(&quot;uname&quot;)
+   p f.readlines
+   puts &quot;Parent is #{Process.pid}&quot;
+   IO.popen (&quot;date&quot;) { |f| puts f.gets }
+   IO.popen(&quot;-&quot;) {|f| $stderr.puts &quot;#{Process.pid} is here, f is #{f}&quot;}
+   p $?
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   [&quot;Linux\n&quot;]
+   Parent is 26166
+   Wed Apr  9 08:53:52 CDT 2003
+   26169 is here, f is
+   26166 is here, f is #&lt;IO:0x401b3d44&gt;
+   #&lt;Process::Status: pid=26166,exited(0)&gt;
+&lt;/pre&gt;</method>
+    <method name='read'>&lt;p&gt;Opens the file, optionally seeks to the given offset, then returns &lt;em&gt;length&lt;/em&gt; bytes (defaulting to the rest of the file). &lt;tt&gt;read&lt;/tt&gt; ensures the file is closed before returning.&lt;/p&gt;&lt;pre&gt;   IO.read(&quot;testfile&quot;)           #=&gt; &quot;This is line one\nThis is line two\nThis is line three\nAnd so on...\n&quot;
+   IO.read(&quot;testfile&quot;, 20)       #=&gt; &quot;This is line one\nThi&quot;
+   IO.read(&quot;testfile&quot;, 20, 10)   #=&gt; &quot;ne one\nThis is line &quot;
+&lt;/pre&gt;</method>
+    <method name='readlines'>&lt;p&gt;Reads the entire file specified by &lt;em&gt;name&lt;/em&gt; as individual lines, and returns those lines in an array. Lines are separated by &lt;em&gt;sep_string&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   a = IO.readlines(&quot;testfile&quot;)
+   a[0]   #=&gt; &quot;This is line one\n&quot;
+&lt;/pre&gt;</method>
+    <method name='select'>&lt;p&gt;See &lt;tt&gt;Kernel#select&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='sysopen'>&lt;p&gt;Opens the given path, returning the underlying file descriptor as a &lt;tt&gt;Fixnum&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   IO.sysopen(&quot;testfile&quot;)   #=&gt; 3
+&lt;/pre&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;String Output---Writes &lt;em&gt;obj&lt;/em&gt; to &lt;em&gt;ios&lt;/em&gt;. &lt;em&gt;obj&lt;/em&gt; will be converted to a string using &lt;tt&gt;to_s&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   $stdout &lt;&lt; &quot;Hello &quot; &lt;&lt; &quot;world!\n&quot;
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Hello world!
+&lt;/pre&gt;</method>
+    <method name='binmode'>&lt;p&gt;Puts &lt;em&gt;ios&lt;/em&gt; into binary mode. This is useful only in MS-DOS/Windows environments. Once a stream is in binary mode, it cannot be reset to nonbinary mode.&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;Closes &lt;em&gt;ios&lt;/em&gt; and flushes any pending writes to the operating system. The stream is unavailable for any further data operations; an &lt;tt&gt;IOError&lt;/tt&gt; is raised if such an attempt is made. I/O streams are automatically closed when they are claimed by the garbage collector.&lt;/p&gt;&lt;p&gt;If &lt;em&gt;ios&lt;/em&gt; is opened by &lt;tt&gt;IO.popen&lt;/tt&gt;, &lt;tt&gt;close&lt;/tt&gt; sets &lt;tt&gt;$?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='close_read'>&lt;p&gt;Closes the read end of a duplex I/O stream (i.e., one that contains both a read and a write stream, such as a pipe). Will raise an &lt;tt&gt;IOError&lt;/tt&gt; if the stream is not duplexed.&lt;/p&gt;&lt;pre&gt;   f = IO.popen(&quot;/bin/sh&quot;,&quot;r+&quot;)
+   f.close_read
+   f.readlines
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   prog.rb:3:in `readlines&apos;: not opened for reading (IOError)
+    from prog.rb:3
+&lt;/pre&gt;</method>
+    <method name='close_write'>&lt;p&gt;Closes the write end of a duplex I/O stream (i.e., one that contains both a read and a write stream, such as a pipe). Will raise an &lt;tt&gt;IOError&lt;/tt&gt; if the stream is not duplexed.&lt;/p&gt;&lt;pre&gt;   f = IO.popen(&quot;/bin/sh&quot;,&quot;r+&quot;)
+   f.close_write
+   f.print &quot;nowhere&quot;
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   prog.rb:3:in `write&apos;: not opened for writing (IOError)
+    from prog.rb:3:in `print&apos;
+    from prog.rb:3
+&lt;/pre&gt;</method>
+    <method name='closed?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;ios&lt;/em&gt; is completely closed (for duplex streams, both reader and writer), &lt;tt&gt;false&lt;/tt&gt; otherwise.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.close         #=&gt; nil
+   f.closed?       #=&gt; true
+   f = IO.popen(&quot;/bin/sh&quot;,&quot;r+&quot;)
+   f.close_write   #=&gt; nil
+   f.closed?       #=&gt; false
+   f.close_read    #=&gt; nil
+   f.closed?       #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='each'>&lt;p&gt;Executes the block for every line in &lt;em&gt;ios&lt;/em&gt;, where lines are separated by &lt;em&gt;sep_string&lt;/em&gt;. &lt;em&gt;ios&lt;/em&gt; must be opened for reading or an &lt;tt&gt;IOError&lt;/tt&gt; will be raised.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.each {|line| puts &quot;#{f.lineno}: #{line}&quot; }
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   1: This is line one
+   2: This is line two
+   3: This is line three
+   4: And so on...
+&lt;/pre&gt;</method>
+    <method name='each_byte'>&lt;p&gt;Calls the given block once for each byte (0..255) in &lt;em&gt;ios&lt;/em&gt;, passing the byte as an argument. The stream must be opened for reading or an &lt;tt&gt;IOError&lt;/tt&gt; will be raised.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   checksum = 0
+   f.each_byte {|x| checksum ^= x }   #=&gt; #&lt;File:testfile&gt;
+   checksum                           #=&gt; 12
+&lt;/pre&gt;</method>
+    <method name='each_line'>&lt;p&gt;Executes the block for every line in &lt;em&gt;ios&lt;/em&gt;, where lines are separated by &lt;em&gt;sep_string&lt;/em&gt;. &lt;em&gt;ios&lt;/em&gt; must be opened for reading or an &lt;tt&gt;IOError&lt;/tt&gt; will be raised.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.each {|line| puts &quot;#{f.lineno}: #{line}&quot; }
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   1: This is line one
+   2: This is line two
+   3: This is line three
+   4: And so on...
+&lt;/pre&gt;</method>
+    <method name='eof'>&lt;p&gt;Returns true if &lt;em&gt;ios&lt;/em&gt; is at end of file that means there are no more data to read. The stream must be opened for reading or an &lt;tt&gt;IOError&lt;/tt&gt; will be raised.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   dummy = f.readlines
+   f.eof   #=&gt; true
+&lt;/pre&gt;&lt;p&gt;If &lt;em&gt;ios&lt;/em&gt; is a stream such as pipe or socket, &lt;tt&gt;IO#eof?&lt;/tt&gt; blocks until the other end sends some data or closes it.&lt;/p&gt;&lt;pre&gt;   r, w = IO.pipe
+   Thread.new { sleep 1; w.close }
+   r.eof?  #=&gt; true after 1 second blocking
+
+   r, w = IO.pipe
+   Thread.new { sleep 1; w.puts &quot;a&quot; }
+   r.eof?  #=&gt; false after 1 second blocking
+
+   r, w = IO.pipe
+   r.eof?  # blocks forever
+&lt;/pre&gt;&lt;p&gt;Note that &lt;tt&gt;IO#eof?&lt;/tt&gt; reads data to a input buffer. So &lt;tt&gt;IO#sysread&lt;/tt&gt; doesn&apos;t work with &lt;tt&gt;IO#eof?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='eof?'>&lt;p&gt;Returns true if &lt;em&gt;ios&lt;/em&gt; is at end of file that means there are no more data to read. The stream must be opened for reading or an &lt;tt&gt;IOError&lt;/tt&gt; will be raised.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   dummy = f.readlines
+   f.eof   #=&gt; true
+&lt;/pre&gt;&lt;p&gt;If &lt;em&gt;ios&lt;/em&gt; is a stream such as pipe or socket, &lt;tt&gt;IO#eof?&lt;/tt&gt; blocks until the other end sends some data or closes it.&lt;/p&gt;&lt;pre&gt;   r, w = IO.pipe
+   Thread.new { sleep 1; w.close }
+   r.eof?  #=&gt; true after 1 second blocking
+
+   r, w = IO.pipe
+   Thread.new { sleep 1; w.puts &quot;a&quot; }
+   r.eof?  #=&gt; false after 1 second blocking
+
+   r, w = IO.pipe
+   r.eof?  # blocks forever
+&lt;/pre&gt;&lt;p&gt;Note that &lt;tt&gt;IO#eof?&lt;/tt&gt; reads data to a input buffer. So &lt;tt&gt;IO#sysread&lt;/tt&gt; doesn&apos;t work with &lt;tt&gt;IO#eof?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='fcntl'>&lt;p&gt;Provides a mechanism for issuing low-level commands to control or query file-oriented I/O streams. Arguments and results are platform dependent. If &lt;em&gt;arg&lt;/em&gt; is a number, its value is passed directly. If it is a string, it is interpreted as a binary sequence of bytes (&lt;tt&gt;Array#pack&lt;/tt&gt; might be a useful way to build this string). On Unix platforms, see &lt;tt&gt;fcntl(2)&lt;/tt&gt; for details. Not implemented on all platforms.&lt;/p&gt;</method>
+    <method name='fileno'>&lt;p&gt;Returns an integer representing the numeric file descriptor for &lt;em&gt;ios&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   $stdin.fileno    #=&gt; 0
+   $stdout.fileno   #=&gt; 1
+&lt;/pre&gt;</method>
+    <method name='flush'>&lt;p&gt;Flushes any buffered data within &lt;em&gt;ios&lt;/em&gt; to the underlying operating system (note that this is Ruby internal buffering only; the OS may buffer the data as well).&lt;/p&gt;&lt;pre&gt;   $stdout.print &quot;no newline&quot;
+   $stdout.flush
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   no newline
+&lt;/pre&gt;</method>
+    <method name='fsync'>&lt;p&gt;Immediately writes all buffered data in &lt;em&gt;ios&lt;/em&gt; to disk. Returns &lt;tt&gt;nil&lt;/tt&gt; if the underlying operating system does not support &lt;em&gt;fsync(2)&lt;/em&gt;. Note that &lt;tt&gt;fsync&lt;/tt&gt; differs from using &lt;tt&gt;IO#sync=&lt;/tt&gt;. The latter ensures that data is flushed from Ruby&apos;s buffers, but doesn&apos;t not guarantee that the underlying operating system actually writes it to disk.&lt;/p&gt;</method>
+    <method name='getc'>&lt;p&gt;Gets the next 8-bit byte (0..255) from &lt;em&gt;ios&lt;/em&gt;. Returns &lt;tt&gt;nil&lt;/tt&gt; if called at end of file.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.getc   #=&gt; 84
+   f.getc   #=&gt; 104
+&lt;/pre&gt;</method>
+    <method name='gets'>&lt;p&gt;Reads the next ``line&apos;&apos; from the I/O stream; lines are separated by &lt;em&gt;sep_string&lt;/em&gt;. A separator of &lt;tt&gt;nil&lt;/tt&gt; reads the entire contents, and a zero-length separator reads the input a paragraph at a time (two successive newlines in the input separate paragraphs). The stream must be opened for reading or an &lt;tt&gt;IOError&lt;/tt&gt; will be raised. The line read in will be returned and also assigned to &lt;tt&gt;$_&lt;/tt&gt;. Returns &lt;tt&gt;nil&lt;/tt&gt; if called at end of file.&lt;/p&gt;&lt;pre&gt;   File.new(&quot;testfile&quot;).gets   #=&gt; &quot;This is line one\n&quot;
+   $_                          #=&gt; &quot;This is line one\n&quot;
+&lt;/pre&gt;</method>
+    <method name='inspect'>&lt;p&gt;Return a string describing this IO object.&lt;/p&gt;</method>
+    <method name='ioctl'>&lt;p&gt;Provides a mechanism for issuing low-level commands to control or query I/O devices. Arguments and results are platform dependent. If &lt;em&gt;arg&lt;/em&gt; is a number, its value is passed directly. If it is a string, it is interpreted as a binary sequence of bytes. On Unix platforms, see &lt;tt&gt;ioctl(2)&lt;/tt&gt; for details. Not implemented on all platforms.&lt;/p&gt;</method>
+    <method name='isatty'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;ios&lt;/em&gt; is associated with a terminal device (tty), &lt;tt&gt;false&lt;/tt&gt; otherwise.&lt;/p&gt;&lt;pre&gt;   File.new(&quot;testfile&quot;).isatty   #=&gt; false
+   File.new(&quot;/dev/tty&quot;).isatty   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='lineno'>&lt;p&gt;Returns the current line number in &lt;em&gt;ios&lt;/em&gt;. The stream must be opened for reading. &lt;tt&gt;lineno&lt;/tt&gt; counts the number of times &lt;tt&gt;gets&lt;/tt&gt; is called, rather than the number of newlines encountered. The two values will differ if &lt;tt&gt;gets&lt;/tt&gt; is called with a separator other than newline. See also the &lt;tt&gt;$.&lt;/tt&gt; variable.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.lineno   #=&gt; 0
+   f.gets     #=&gt; &quot;This is line one\n&quot;
+   f.lineno   #=&gt; 1
+   f.gets     #=&gt; &quot;This is line two\n&quot;
+   f.lineno   #=&gt; 2
+&lt;/pre&gt;</method>
+    <method name='lineno='>&lt;p&gt;Manually sets the current line number to the given value. &lt;tt&gt;$.&lt;/tt&gt; is updated only on the next read.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.gets                     #=&gt; &quot;This is line one\n&quot;
+   $.                         #=&gt; 1
+   f.lineno = 1000
+   f.lineno                   #=&gt; 1000
+   $. # lineno of last read   #=&gt; 1
+   f.gets                     #=&gt; &quot;This is line two\n&quot;
+   $. # lineno of last read   #=&gt; 1001
+&lt;/pre&gt;</method>
+    <method name='pid'>&lt;p&gt;Returns the process ID of a child process associated with &lt;em&gt;ios&lt;/em&gt;. This will be set by &lt;tt&gt;IO::popen&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   pipe = IO.popen(&quot;-&quot;)
+   if pipe
+     $stderr.puts &quot;In parent, child pid is #{pipe.pid}&quot;
+   else
+     $stderr.puts &quot;In child, pid is #{$$}&quot;
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   In child, pid is 26209
+   In parent, child pid is 26209
+&lt;/pre&gt;</method>
+    <method name='pos'>&lt;p&gt;Returns the current offset (in bytes) of &lt;em&gt;ios&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.pos    #=&gt; 0
+   f.gets   #=&gt; &quot;This is line one\n&quot;
+   f.pos    #=&gt; 17
+&lt;/pre&gt;</method>
+    <method name='pos='>&lt;p&gt;Seeks to the given position (in bytes) in &lt;em&gt;ios&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.pos = 17
+   f.gets   #=&gt; &quot;This is line two\n&quot;
+&lt;/pre&gt;</method>
+    <method name='print'>&lt;p&gt;Writes the given object(s) to &lt;em&gt;ios&lt;/em&gt;. The stream must be opened for writing. If the output record separator (&lt;tt&gt;$\&lt;/tt&gt;) is not &lt;tt&gt;nil&lt;/tt&gt;, it will be appended to the output. If no arguments are given, prints &lt;tt&gt;$_&lt;/tt&gt;. Objects that aren&apos;t strings will be converted by calling their &lt;tt&gt;to_s&lt;/tt&gt; method. With no argument, prints the contents of the variable &lt;tt&gt;$_&lt;/tt&gt;. Returns &lt;tt&gt;nil&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   $stdout.print(&quot;This is &quot;, 100, &quot; percent.\n&quot;)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   This is 100 percent.
+&lt;/pre&gt;</method>
+    <method name='printf'>&lt;p&gt;Formats and writes to &lt;em&gt;ios&lt;/em&gt;, converting parameters under control of the format string. See &lt;tt&gt;Kernel#sprintf&lt;/tt&gt; for details.&lt;/p&gt;</method>
+    <method name='putc'>&lt;p&gt;If &lt;em&gt;obj&lt;/em&gt; is &lt;tt&gt;Numeric&lt;/tt&gt;, write the character whose code is &lt;em&gt;obj&lt;/em&gt;, otherwise write the first character of the string representation of &lt;em&gt;obj&lt;/em&gt; to &lt;em&gt;ios&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   $stdout.putc &quot;A&quot;
+   $stdout.putc 65
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   AA
+&lt;/pre&gt;</method>
+    <method name='puts'>&lt;p&gt;Writes the given objects to &lt;em&gt;ios&lt;/em&gt; as with &lt;tt&gt;IO#print&lt;/tt&gt;. Writes a record separator (typically a newline) after any that do not already end with a newline sequence. If called with an array argument, writes each element on a new line. If called without arguments, outputs a single record separator.&lt;/p&gt;&lt;pre&gt;   $stdout.puts(&quot;this&quot;, &quot;is&quot;, &quot;a&quot;, &quot;test&quot;)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   this
+   is
+   a
+   test
+&lt;/pre&gt;</method>
+    <method name='read'>&lt;p&gt;Reads at most &lt;em&gt;length&lt;/em&gt; bytes from the I/O stream, or to the end of file if &lt;em&gt;length&lt;/em&gt; is omitted or is &lt;tt&gt;nil&lt;/tt&gt;. &lt;em&gt;length&lt;/em&gt; must be a non-negative integer or nil. If the optional &lt;em&gt;buffer&lt;/em&gt; argument is present, it must reference a String, which will receive the data.&lt;/p&gt;&lt;p&gt;At end of file, it returns &lt;tt&gt;nil&lt;/tt&gt; or &lt;tt&gt;&quot;&quot;&lt;/tt&gt; depend on &lt;em&gt;length&lt;/em&gt;. &lt;tt&gt;&lt;em&gt;ios&lt;/em&gt;.read()&lt;/tt&gt; and &lt;tt&gt;&lt;em&gt;ios&lt;/em&gt;.read(nil)&lt;/tt&gt; returns &lt;tt&gt;&quot;&quot;&lt;/tt&gt;. &lt;tt&gt;&lt;em&gt;ios&lt;/em&gt;.read(&lt;em&gt;positive-integer&lt;/em&gt;)&lt;/tt&gt; returns nil.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.read(16)   #=&gt; &quot;This is line one&quot;
+&lt;/pre&gt;</method>
+    <method name='read_nonblock'>&lt;p&gt;Reads at most &lt;em&gt;maxlen&lt;/em&gt; bytes from &lt;em&gt;ios&lt;/em&gt; using read(2) system call after O_NONBLOCK is set for the underlying file descriptor.&lt;/p&gt;&lt;p&gt;If the optional &lt;em&gt;outbuf&lt;/em&gt; argument is present, it must reference a String, which will receive the data.&lt;/p&gt;&lt;p&gt;read_nonblock just calls read(2). It causes all errors read(2) causes: EAGAIN, EINTR, etc. The caller should care such errors.&lt;/p&gt;&lt;p&gt;read_nonblock causes EOFError on EOF.&lt;/p&gt;&lt;p&gt;If the read buffer is not empty, read_nonblock reads from the buffer like readpartial. In this case, read(2) is not called.&lt;/p&gt;</method>
+    <method name='readbytes'>&lt;p&gt;Reads exactly &lt;tt&gt;n&lt;/tt&gt; bytes.&lt;/p&gt;&lt;p&gt;If the data read is nil an EOFError is raised.&lt;/p&gt;&lt;p&gt;If the data read is too short a TruncatedDataError is raised and the read data is obtainable via its #data method.&lt;/p&gt;</method>
+    <method name='readchar'>&lt;p&gt;Reads a character as with &lt;tt&gt;IO#getc&lt;/tt&gt;, but raises an &lt;tt&gt;EOFError&lt;/tt&gt; on end of file.&lt;/p&gt;</method>
+    <method name='readline'>&lt;p&gt;Reads a line as with &lt;tt&gt;IO#gets&lt;/tt&gt;, but raises an &lt;tt&gt;EOFError&lt;/tt&gt; on end of file.&lt;/p&gt;</method>
+    <method name='readlines'>&lt;p&gt;Reads all of the lines in &lt;em&gt;ios&lt;/em&gt;, and returns them in &lt;em&gt;anArray&lt;/em&gt;. Lines are separated by the optional &lt;em&gt;sep_string&lt;/em&gt;. If &lt;em&gt;sep_string&lt;/em&gt; is &lt;tt&gt;nil&lt;/tt&gt;, the rest of the stream is returned as a single record. The stream must be opened for reading or an &lt;tt&gt;IOError&lt;/tt&gt; will be raised.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.readlines[0]   #=&gt; &quot;This is line one\n&quot;
+&lt;/pre&gt;</method>
+    <method name='readpartial'>&lt;p&gt;Reads at most &lt;em&gt;maxlen&lt;/em&gt; bytes from the I/O stream. It blocks only if &lt;em&gt;ios&lt;/em&gt; has no data immediately available. It doesn&apos;t block if some data available. If the optional &lt;em&gt;outbuf&lt;/em&gt; argument is present, it must reference a String, which will receive the data. It raises &lt;tt&gt;EOFError&lt;/tt&gt; on end of file.&lt;/p&gt;&lt;p&gt;readpartial is designed for streams such as pipe, socket, tty, etc. It blocks only when no data immediately available. This means that it blocks only when following all conditions hold.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the buffer in the IO object is empty.&lt;/li&gt;&lt;li&gt;the content of the stream is empty.&lt;/li&gt;&lt;li&gt;the stream is not reached to EOF.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;When readpartial blocks, it waits data or EOF on the stream. If some data is reached, readpartial returns with the data. If EOF is reached, readpartial raises EOFError.&lt;/p&gt;&lt;p&gt;When readpartial doesn&apos;t blocks, it returns or raises immediately. If the buffer is not empty, it returns the data in the buffer. Otherwise if the stream has some content, it returns the data in the stream. Otherwise if the stream is reached to EOF, it raises EOFError.&lt;/p&gt;&lt;pre&gt;   r, w = IO.pipe           #               buffer          pipe content
+   w &lt;&lt; &quot;abc&quot;               #               &quot;&quot;              &quot;abc&quot;.
+   r.readpartial(4096)      #=&gt; &quot;abc&quot;       &quot;&quot;              &quot;&quot;
+   r.readpartial(4096)      # blocks because buffer and pipe is empty.
+
+   r, w = IO.pipe           #               buffer          pipe content
+   w &lt;&lt; &quot;abc&quot;               #               &quot;&quot;              &quot;abc&quot;
+   w.close                  #               &quot;&quot;              &quot;abc&quot; EOF
+   r.readpartial(4096)      #=&gt; &quot;abc&quot;       &quot;&quot;              EOF
+   r.readpartial(4096)      # raises EOFError
+
+   r, w = IO.pipe           #               buffer          pipe content
+   w &lt;&lt; &quot;abc\ndef\n&quot;        #               &quot;&quot;              &quot;abc\ndef\n&quot;
+   r.gets                   #=&gt; &quot;abc\n&quot;     &quot;def\n&quot;         &quot;&quot;
+   w &lt;&lt; &quot;ghi\n&quot;             #               &quot;def\n&quot;         &quot;ghi\n&quot;
+   r.readpartial(4096)      #=&gt; &quot;def\n&quot;     &quot;&quot;              &quot;ghi\n&quot;
+   r.readpartial(4096)      #=&gt; &quot;ghi\n&quot;     &quot;&quot;              &quot;&quot;
+&lt;/pre&gt;&lt;p&gt;Note that readpartial behaves similar to sysread. The differences are:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;If the buffer is not empty, read from the buffer instead of &quot;sysread for buffered IO (IOError)&quot;.&lt;/li&gt;&lt;li&gt;It doesn&apos;t cause Errno::EAGAIN and Errno::EINTR. When readpartial meets EAGAIN and EINTR by read system call, readpartial retry the system call.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;The later means that readpartial is nonblocking-flag insensitive. It blocks on the situation IO#sysread causes Errno::EAGAIN as if the fd is blocking mode.&lt;/p&gt;</method>
+    <method name='reopen'>&lt;p&gt;Reassociates &lt;em&gt;ios&lt;/em&gt; with the I/O stream given in &lt;em&gt;other_IO&lt;/em&gt; or to a new stream opened on &lt;em&gt;path&lt;/em&gt;. This may dynamically change the actual class of this stream.&lt;/p&gt;&lt;pre&gt;   f1 = File.new(&quot;testfile&quot;)
+   f2 = File.new(&quot;testfile&quot;)
+   f2.readlines[0]   #=&gt; &quot;This is line one\n&quot;
+   f2.reopen(f1)     #=&gt; #&lt;File:testfile&gt;
+   f2.readlines[0]   #=&gt; &quot;This is line one\n&quot;
+&lt;/pre&gt;</method>
+    <method name='rewind'>&lt;p&gt;Positions &lt;em&gt;ios&lt;/em&gt; to the beginning of input, resetting &lt;tt&gt;lineno&lt;/tt&gt; to zero.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.readline   #=&gt; &quot;This is line one\n&quot;
+   f.rewind     #=&gt; 0
+   f.lineno     #=&gt; 0
+   f.readline   #=&gt; &quot;This is line one\n&quot;
+&lt;/pre&gt;</method>
+    <method name='scanf'>&lt;p&gt;The trick here is doing a match where you grab one &lt;b&gt;line&lt;/b&gt; of input at a time. The linebreak may or may not occur at the boundary where the string matches a format specifier. And if it does, some rule about whitespace may or may not be in effect...&lt;/p&gt;&lt;p&gt;That&apos;s why this is much more elaborate than the string version.&lt;/p&gt;&lt;p&gt;For each line: Match succeeds (non-emptily) and the last attempted spec/string sub-match succeeded:&lt;/p&gt;&lt;pre&gt;  could the last spec keep matching?
+    yes: save interim results and continue (next line)
+&lt;/pre&gt;&lt;p&gt;The last attempted spec/string did not match:&lt;/p&gt;&lt;p&gt;are we on the next-to-last spec in the string?&lt;/p&gt;&lt;pre&gt;  yes:
+    is fmt_string.string_left all spaces?
+      yes: does current spec care about input space?
+        yes: fatal failure
+        no: save interim results and continue
+  no: continue  [this state could be analyzed further]
+&lt;/pre&gt;</method>
+    <method name='seek'>&lt;p&gt;Seeks to a given offset &lt;em&gt;anInteger&lt;/em&gt; in the stream according to the value of &lt;em&gt;whence&lt;/em&gt;:&lt;/p&gt;&lt;pre&gt;  IO::SEEK_CUR  | Seeks to &lt;em&gt;amount&lt;/em&gt; plus current position
+  --------------+----------------------------------------------------
+  IO::SEEK_END  | Seeks to &lt;em&gt;amount&lt;/em&gt; plus end of stream (you probably
+                | want a negative value for &lt;em&gt;amount&lt;/em&gt;)
+  --------------+----------------------------------------------------
+  IO::SEEK_SET  | Seeks to the absolute location given by &lt;em&gt;amount&lt;/em&gt;
+&lt;/pre&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.seek(-13, IO::SEEK_END)   #=&gt; 0
+   f.readline                  #=&gt; &quot;And so on...\n&quot;
+&lt;/pre&gt;</method>
+    <method name='stat'>&lt;p&gt;Returns status information for &lt;em&gt;ios&lt;/em&gt; as an object of type &lt;tt&gt;File::Stat&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   s = f.stat
+   &quot;%o&quot; % s.mode   #=&gt; &quot;100644&quot;
+   s.blksize       #=&gt; 4096
+   s.atime         #=&gt; Wed Apr 09 08:53:54 CDT 2003
+&lt;/pre&gt;</method>
+    <method name='sync'>&lt;p&gt;Returns the current ``sync mode&apos;&apos; of &lt;em&gt;ios&lt;/em&gt;. When sync mode is true, all output is immediately flushed to the underlying operating system and is not buffered by Ruby internally. See also &lt;tt&gt;IO#fsync&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.sync   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='sync='>&lt;p&gt;Sets the ``sync mode&apos;&apos; to &lt;tt&gt;true&lt;/tt&gt; or &lt;tt&gt;false&lt;/tt&gt;. When sync mode is true, all output is immediately flushed to the underlying operating system and is not buffered internally. Returns the new state. See also &lt;tt&gt;IO#fsync&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.sync = true
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;(produces no output)&lt;/em&gt;&lt;/p&gt;</method>
+    <method name='sysread'>&lt;p&gt;Reads &lt;em&gt;integer&lt;/em&gt; bytes from &lt;em&gt;ios&lt;/em&gt; using a low-level read and returns them as a string. Do not mix with other methods that read from &lt;em&gt;ios&lt;/em&gt; or you may get unpredictable results. Raises &lt;tt&gt;SystemCallError&lt;/tt&gt; on error and &lt;tt&gt;EOFError&lt;/tt&gt; at end of file.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.sysread(16)   #=&gt; &quot;This is line one&quot;
+&lt;/pre&gt;</method>
+    <method name='sysseek'>&lt;p&gt;Seeks to a given &lt;em&gt;offset&lt;/em&gt; in the stream according to the value of &lt;em&gt;whence&lt;/em&gt; (see &lt;tt&gt;IO#seek&lt;/tt&gt; for values of &lt;em&gt;whence&lt;/em&gt;). Returns the new offset into the file.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.sysseek(-13, IO::SEEK_END)   #=&gt; 53
+   f.sysread(10)                  #=&gt; &quot;And so on.&quot;
+&lt;/pre&gt;</method>
+    <method name='syswrite'>&lt;p&gt;Writes the given string to &lt;em&gt;ios&lt;/em&gt; using a low-level write. Returns the number of bytes written. Do not mix with other methods that write to &lt;em&gt;ios&lt;/em&gt; or you may get unpredictable results. Raises &lt;tt&gt;SystemCallError&lt;/tt&gt; on error.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;out&quot;, &quot;w&quot;)
+   f.syswrite(&quot;ABCDEF&quot;)   #=&gt; 6
+&lt;/pre&gt;</method>
+    <method name='tell'>&lt;p&gt;Returns the current offset (in bytes) of &lt;em&gt;ios&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)
+   f.pos    #=&gt; 0
+   f.gets   #=&gt; &quot;This is line one\n&quot;
+   f.pos    #=&gt; 17
+&lt;/pre&gt;</method>
+    <method name='to_i'>&lt;p&gt;Alias for #fileno&lt;/p&gt;</method>
+    <method name='to_io'>&lt;p&gt;Returns &lt;em&gt;ios&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='tty?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;ios&lt;/em&gt; is associated with a terminal device (tty), &lt;tt&gt;false&lt;/tt&gt; otherwise.&lt;/p&gt;&lt;pre&gt;   File.new(&quot;testfile&quot;).isatty   #=&gt; false
+   File.new(&quot;/dev/tty&quot;).isatty   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='ungetc'>&lt;p&gt;Pushes back one character (passed as a parameter) onto &lt;em&gt;ios&lt;/em&gt;, such that a subsequent buffered read will return it. Only one character may be pushed back before a subsequent read operation (that is, you will be able to read only the last of several characters that have been pushed back). Has no effect with unbuffered reads (such as &lt;tt&gt;IO#sysread&lt;/tt&gt;).&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;)   #=&gt; #&lt;File:testfile&gt;
+   c = f.getc                 #=&gt; 84
+   f.ungetc(c)                #=&gt; nil
+   f.getc                     #=&gt; 84
+&lt;/pre&gt;</method>
+    <method name='write'>&lt;p&gt;Writes the given string to &lt;em&gt;ios&lt;/em&gt;. The stream must be opened for writing. If the argument is not a string, it will be converted to a string using &lt;tt&gt;to_s&lt;/tt&gt;. Returns the number of bytes written.&lt;/p&gt;&lt;pre&gt;   count = $stdout.write( &quot;This is a test\n&quot; )
+   puts &quot;That was #{count} bytes of data&quot;
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   This is a test
+   That was 15 bytes of data
+&lt;/pre&gt;</method>
+    <method name='write_nonblock'>&lt;p&gt;Writes the given string to &lt;em&gt;ios&lt;/em&gt; using write(2) system call after O_NONBLOCK is set for the underlying file descriptor.&lt;/p&gt;&lt;p&gt;write_nonblock just calls write(2). It causes all errors write(2) causes: EAGAIN, EINTR, etc. The result may also be smaller than string.length (partial write). The caller should care such errors and partial write.&lt;/p&gt;</method>
+  </methods>
+</help>

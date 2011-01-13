@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Raises when there is an argument for a switch which takes no argument.&lt;/p&gt;</comment>
+  <methods/>
+</help>

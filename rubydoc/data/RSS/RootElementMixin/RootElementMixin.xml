@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='output_encoding='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='setup_maker'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_xml'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

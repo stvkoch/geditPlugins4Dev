@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This module is originally a port of shellwords.pl, but modified to conform to POSIX / SUSv3 (IEEE Std 1003.1-2001).&lt;/p&gt;&lt;p&gt;Examples:&lt;/p&gt;&lt;pre&gt;  require &apos;shellwords&apos;
+  words = Shellwords.shellwords(line)
+&lt;/pre&gt;&lt;p&gt;or&lt;/p&gt;&lt;pre&gt;  require &apos;shellwords&apos;
+  include Shellwords
+  words = shellwords(line)
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='shellwords'>&lt;p&gt;Split text into an array of tokens in the same way the UNIX Bourne shell does.&lt;/p&gt;&lt;p&gt;See the &lt;tt&gt;Shellwords&lt;/tt&gt; module documentation for an example.&lt;/p&gt;</method>
+  </methods>
+</help>

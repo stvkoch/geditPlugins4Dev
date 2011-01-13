@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<gconf>
+        <entry name="Self" mtime="1175275741" type="string">
+                <stringvalue>2/#7a7a8e8eb5b5/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Decimal" mtime="1175275312" type="string">
+                <stringvalue>2/#ceceffff0000/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Octal@32@Number" mtime="1175275307" type="string">
+                <stringvalue>2/#ceceffff0000/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Hex@32@Number" mtime="1175275302" type="string">
+                <stringvalue>2/#ceceffff0000/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Floating@32@Point@32@Number" mtime="1175275297" type="string">
+                <stringvalue>2/#ceceffff0000/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Numbers" mtime="1175275047" type="string">
+                <stringvalue>2/#cb9af5900000/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="HTML@32@Block" mtime="1175274626" type="string">
+                <stringvalue>0/#2e2e8b8b5757/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Constants" mtime="1175274293" type="string">
+                <stringvalue>2/#7a7a8e8eb5b5/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Bash@32@Line@32@Comment" mtime="1175274176" type="string">
+                <stringvalue>2/#848481818a8a/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Data@32@Type" mtime="1175274074" type="string">
+                <stringvalue>2/#7a7a8e8eb5b5/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Case@32@Insensitive@32@Keyword" mtime="1175274043" type="string">
+                <stringvalue>2/#e5e5caca2c2c/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Case@32@Sensitive@32@Keyword" mtime="1175274048" type="string">
+                <stringvalue>2/#e5e5caca2c2c/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Operators" mtime="1175273986" type="string">
+                <stringvalue>0/#a5a52a2a2a2a/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Variable" mtime="1175275083" type="string">
+                <stringvalue>0/#2e2e8b8b5757/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Single@32@Quoted@32@String" mtime="1175273965" type="string">
+                <stringvalue>2/#5d5dc4c43b3b/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Heredoc@32@String" mtime="1175273960" type="string">
+                <stringvalue>2/#5d5dc4c43b3b/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Double@32@Quoted@32@String" mtime="1175273953" type="string">
+                <stringvalue>2/#5d5dc4c43b3b/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Backtick@32@String" mtime="1175275114" type="string">
+                <stringvalue>2/#5d5dc4c43b3b/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Array@32@Operators" mtime="1175273915" type="string">
+                <stringvalue>0/#2e2e8b8b5757/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="First@32@Open@32@PHP@32@Tag" mtime="1175273871" type="string">
+                <stringvalue>0/#2e2e8b8b5757/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="C@43@@43@@32@Line@32@Comment" mtime="1175273821" type="string">
+                <stringvalue>2/#848481818a8a/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="C@32@Block@32@Comment" mtime="1175273816" type="string">
+                <stringvalue>2/#848481818a8a/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+</gconf>

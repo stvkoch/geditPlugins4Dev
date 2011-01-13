@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;tracer main class&lt;/p&gt;</comment>
+  <methods>
+    <method name='add_filter'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='off'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='on'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_get_line_procs'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='trace_func'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_filter'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_line'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_thread_no'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='off'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='on'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_get_line_procs'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='stdout'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='trace_func'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

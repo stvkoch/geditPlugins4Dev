@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A Fragment is a chunk of text, subclassed as a paragraph, a list entry, or verbatim text&lt;/p&gt;</comment>
+  <methods>
+    <method name='for'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='type_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_text'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

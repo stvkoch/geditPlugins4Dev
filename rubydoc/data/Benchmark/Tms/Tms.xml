@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A data object, representing the times associated with a benchmark measurement.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Returns an initialized Tms object which has &lt;em&gt;u&lt;/em&gt; as the user CPU time, &lt;em&gt;s&lt;/em&gt; as the system CPU time, &lt;em&gt;cu&lt;/em&gt; as the children&apos;s user CPU time, &lt;em&gt;cs&lt;/em&gt; as the children&apos;s system CPU time, &lt;em&gt;real&lt;/em&gt; as the elapsed real time and &lt;em&gt;l&lt;/em&gt; as the label.&lt;/p&gt;</method>
+    <method name='*'>&lt;p&gt;Returns a new Tms object obtained by memberwise multiplication of the individual times for this Tms object by &lt;em&gt;x&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='+'>&lt;p&gt;Returns a new Tms object obtained by memberwise summation of the individual times for this Tms object with those of the other Tms object. This method and #/() are useful for taking statistics.&lt;/p&gt;</method>
+    <method name='-'>&lt;p&gt;Returns a new Tms object obtained by memberwise subtraction of the individual times for the other Tms object from those of this Tms object.&lt;/p&gt;</method>
+    <method name='/'>&lt;p&gt;Returns a new Tms object obtained by memberwise division of the individual times for this Tms object by &lt;em&gt;x&lt;/em&gt;. This method and #+() are useful for taking statistics.&lt;/p&gt;</method>
+    <method name='add'>&lt;p&gt;Returns a new Tms object whose times are the sum of the times for this Tms object, plus the time required to execute the code block (&lt;em&gt;blk&lt;/em&gt;).&lt;/p&gt;</method>
+    <method name='add!'>&lt;p&gt;An in-place version of #add.&lt;/p&gt;</method>
+    <method name='format'>&lt;p&gt;Returns the contents of this Tms object as a formatted string, according to a format string like that passed to Kernel.format. In addition, #format accepts the following extensions:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Replaced by the user CPU time, as reported by Tms#utime.&lt;/li&gt;&lt;li&gt;Replaced by the system CPU time, as reported by #stime (Mnemonic: y of &quot;s*y*stem&quot;)&lt;/li&gt;&lt;li&gt;Replaced by the children&apos;s user CPU time, as reported by Tms#cutime&lt;/li&gt;&lt;li&gt;Replaced by the children&apos;s system CPU time, as reported by Tms#cstime&lt;/li&gt;&lt;li&gt;Replaced by the total CPU time, as reported by Tms#total&lt;/li&gt;&lt;li&gt;Replaced by the elapsed real time, as reported by Tms#real&lt;/li&gt;&lt;li&gt;Replaced by the label string, as reported by Tms#label (Mnemonic: n of &quot;*n*ame&quot;)&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;If &lt;em&gt;fmtstr&lt;/em&gt; is not given, FMTSTR is used as default value, detailing the user, system and real elapsed time.&lt;/p&gt;</method>
+    <method name='to_a'>&lt;p&gt;Returns a new 6-element array, consisting of the label, user CPU time, system CPU time, children&apos;s user CPU time, children&apos;s system CPU time and elapsed real time.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Same as #format.&lt;/p&gt;</method>
+  </methods>
+</help>

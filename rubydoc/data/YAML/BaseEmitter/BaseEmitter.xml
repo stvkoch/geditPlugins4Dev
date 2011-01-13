@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='binary_base64'>&lt;p&gt;Emit binary data&lt;/p&gt;</method>
+    <method name='double'>&lt;p&gt;Emit double-quoted string&lt;/p&gt;</method>
+    <method name='fold'>&lt;p&gt;Folding paragraphs within a column&lt;/p&gt;</method>
+    <method name='indent'>&lt;p&gt;Write a current indent&lt;/p&gt;</method>
+    <method name='indent!'>&lt;p&gt;Add indent to the buffer&lt;/p&gt;</method>
+    <method name='indent_text'>&lt;p&gt;Write a text block with the current indent&lt;/p&gt;</method>
+    <method name='map'>&lt;p&gt;Quick mapping&lt;/p&gt;</method>
+    <method name='node_text'>&lt;p&gt;Emit plain, normal flowing text&lt;/p&gt;</method>
+    <method name='options'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='options='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='seq'>&lt;p&gt;Quick sequence&lt;/p&gt;</method>
+    <method name='seq_map_shortcut'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='simple'>&lt;p&gt;Emit a simple, unqouted string&lt;/p&gt;</method>
+    <method name='single'>&lt;p&gt;Emit single-quoted string&lt;/p&gt;</method>
+  </methods>
+</help>

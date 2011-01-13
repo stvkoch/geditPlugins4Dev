@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='display_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='merge_in'>&lt;p&gt;merge in another class desscription into this one&lt;/p&gt;</method>
+    <method name='superclass_string'>&lt;p&gt;the &apos;ClassDescription&apos; subclass overrides this to format up the name of a parent&lt;/p&gt;</method>
+  </methods>
+</help>

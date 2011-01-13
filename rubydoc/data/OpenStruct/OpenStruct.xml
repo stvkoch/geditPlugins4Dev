@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;OpenStruct allows you to create data objects and set arbitrary attributes. For example:&lt;/p&gt;&lt;pre&gt;  require &apos;ostruct&apos;
+
+  record = OpenStruct.new
+  record.name    = &quot;John Smith&quot;
+  record.age     = 70
+  record.pension = 300
+
+  puts record.name     # -&gt; &quot;John Smith&quot;
+  puts record.address  # -&gt; nil
+&lt;/pre&gt;&lt;p&gt;It is like a hash with a different way to access the data. In fact, it is implemented with a hash, and you can initialize it with one.&lt;/p&gt;&lt;pre&gt;  hash = { &quot;country&quot; =&gt; &quot;Australia&quot;, :population =&gt; 20_000_000 }
+  data = OpenStruct.new(hash)
+
+  p data        # -&gt; &lt;OpenStruct country=&quot;Australia&quot; population=20000000&gt;
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Create a new OpenStruct object. The optional &lt;tt&gt;hash&lt;/tt&gt;, if given, will generate attributes and values. For example.&lt;/p&gt;&lt;pre&gt;  require &apos;ostruct&apos;
+  hash = { &quot;country&quot; =&gt; &quot;Australia&quot;, :population =&gt; 20_000_000 }
+  data = OpenStruct.new(hash)
+
+  p data        # -&gt; &lt;OpenStruct country=&quot;Australia&quot; population=20000000&gt;
+&lt;/pre&gt;&lt;p&gt;By default, the resulting OpenStruct object will have no attributes.&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;Compare this object and &lt;tt&gt;other&lt;/tt&gt; for equality.&lt;/p&gt;</method>
+    <method name='delete_field'>&lt;p&gt;Remove the named field from the object.&lt;/p&gt;</method>
+    <method name='initialize_copy'>&lt;p&gt;Duplicate an OpenStruct object members.&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;Returns a string containing a detailed summary of the keys and values.&lt;/p&gt;</method>
+    <method name='marshal_dump'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='marshal_load'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new_ostruct_member'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Alias for #inspect&lt;/p&gt;</method>
+  </methods>
+</help>

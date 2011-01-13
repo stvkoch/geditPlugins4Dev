@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='available_tags'>&lt;p&gt;return the tag_names for setters associated with uri&lt;/p&gt;</method>
+    <method name='class_name'>&lt;p&gt;retrieve class_name for the supplied uri and tag_name If it doesn&apos;t exist, capitalize the tag_name&lt;/p&gt;</method>
+    <method name='install_class_name'>&lt;p&gt;record class_name for the supplied uri and tag_name&lt;/p&gt;</method>
+    <method name='install_get_text_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='raise_for_undefined_entity?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='register_uri'>&lt;p&gt;register uri against this name.&lt;/p&gt;</method>
+    <method name='setter'>&lt;p&gt;return the setter for the uri, tag_name pair, or nil.&lt;/p&gt;</method>
+    <method name='uri_registered?'>&lt;p&gt;test if this uri is registered against this name&lt;/p&gt;</method>
+  </methods>
+</help>

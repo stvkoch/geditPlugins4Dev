@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This class is equivalent to POP3, except that it uses APOP authentication.&lt;/p&gt;</comment>
+  <methods>
+    <method name='apop?'>&lt;p&gt;Always returns true.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;StringScanner provides for lexical scanning operations on a String. Here is an example of its usage:&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;This is an example string&apos;)
+  s.eos?               # -&gt; false
+
+  p s.scan(/\w+/)      # -&gt; &quot;This&quot;
+  p s.scan(/\w+/)      # -&gt; nil
+  p s.scan(/\s+/)      # -&gt; &quot; &quot;
+  p s.scan(/\s+/)      # -&gt; nil
+  p s.scan(/\w+/)      # -&gt; &quot;is&quot;
+  s.eos?               # -&gt; false
+
+  p s.scan(/\s+/)      # -&gt; &quot; &quot;
+  p s.scan(/\w+/)      # -&gt; &quot;an&quot;
+  p s.scan(/\s+/)      # -&gt; &quot; &quot;
+  p s.scan(/\w+/)      # -&gt; &quot;example&quot;
+  p s.scan(/\s+/)      # -&gt; &quot; &quot;
+  p s.scan(/\w+/)      # -&gt; &quot;string&quot;
+  s.eos?               # -&gt; true
+
+  p s.scan(/\s+/)      # -&gt; nil
+  p s.scan(/\w+/)      # -&gt; nil
+&lt;/pre&gt;&lt;p&gt;Scanning a string means remembering the position of a &lt;em&gt;scan pointer&lt;/em&gt;, which is just an index. The point of scanning is to move forward a bit at a time, so matches are sought after the scan pointer; usually immediately after it.&lt;/p&gt;&lt;p&gt;Given the string &quot;test string&quot;, here are the pertinent scan pointer positions:&lt;/p&gt;&lt;pre&gt;    t e s t   s t r i n g
+  0 1 2 ...             1
+                        0
+&lt;/pre&gt;&lt;p&gt;When you #scan for a pattern (a regular expression), the match must occur at the character after the scan pointer. If you use #scan_until, then the match can occur anywhere after the scan pointer. In both cases, the scan pointer moves &lt;em&gt;just beyond&lt;/em&gt; the last character of the match, ready to scan again from the next character onwards. This is demonstrated by the example above.&lt;/p&gt;&lt;h2&gt;Method Categories&lt;/h2&gt;&lt;p&gt;There are other methods besides the plain scanners. You can look ahead in the string without actually scanning. You can access the most recent match. You can modify the string being scanned, reset or terminate the scanner, find out or change the position of the scan pointer, skip ahead, and so on.&lt;/p&gt;&lt;h3&gt;Advancing the Scan Pointer&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;#getch&lt;/li&gt;&lt;li&gt;#get_byte&lt;/li&gt;&lt;li&gt;#scan&lt;/li&gt;&lt;li&gt;#scan_until&lt;/li&gt;&lt;li&gt;#skip&lt;/li&gt;&lt;li&gt;#skip_until&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Looking Ahead&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;#check&lt;/li&gt;&lt;li&gt;#check_until&lt;/li&gt;&lt;li&gt;#exist?&lt;/li&gt;&lt;li&gt;#match?&lt;/li&gt;&lt;li&gt;#peek&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Finding Where we Are&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;#beginning_of_line? (#bol?)&lt;/li&gt;&lt;li&gt;#eos?&lt;/li&gt;&lt;li&gt;#rest?&lt;/li&gt;&lt;li&gt;#rest_size&lt;/li&gt;&lt;li&gt;#pos&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Setting Where we Are&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;#reset&lt;/li&gt;&lt;li&gt;#terminate&lt;/li&gt;&lt;li&gt;#pos=&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Match Data&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;#matched&lt;/li&gt;&lt;li&gt;#matched?&lt;/li&gt;&lt;li&gt;#matched_size&lt;/li&gt;&lt;li&gt;[]&lt;/li&gt;&lt;li&gt;#pre_match&lt;/li&gt;&lt;li&gt;#post_match&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Miscellaneous&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;&lt;&lt;/li&gt;&lt;li&gt;#concat&lt;/li&gt;&lt;li&gt;#string&lt;/li&gt;&lt;li&gt;#string=&lt;/li&gt;&lt;li&gt;#unscan&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;There are aliases to several of the methods.&lt;/p&gt;</comment>
+  <methods>
+    <method name='must_C_version'>&lt;p&gt;This method is defined for backward compatibility.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Creates a new StringScanner object to scan over the given &lt;tt&gt;string&lt;/tt&gt;. &lt;tt&gt;dup&lt;/tt&gt; argument is obsolete and not used now.&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Appends &lt;tt&gt;str&lt;/tt&gt; to the string being scanned. This method does not affect scan pointer.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&quot;Fri Dec 12 1975 14:39&quot;)
+  s.scan(/Fri /)
+  s &lt;&lt; &quot; +1000 GMT&quot;
+  s.string            # -&gt; &quot;Fri Dec 12 1975 14:39 +1000 GMT&quot;
+  s.scan(/Dec/)       # -&gt; &quot;Dec&quot;
+&lt;/pre&gt;</method>
+    <method name='[]'>&lt;p&gt;Return the n-th subgroup in the most recent match.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&quot;Fri Dec 12 1975 14:39&quot;)
+  s.scan(/(\w+) (\w+) (\d+) /)       # -&gt; &quot;Fri Dec 12 &quot;
+  s[0]                               # -&gt; &quot;Fri Dec 12 &quot;
+  s[1]                               # -&gt; &quot;Fri&quot;
+  s[2]                               # -&gt; &quot;Dec&quot;
+  s[3]                               # -&gt; &quot;12&quot;
+  s.post_match                       # -&gt; &quot;1975 14:39&quot;
+  s.pre_match                        # -&gt; &quot;&quot;
+&lt;/pre&gt;</method>
+    <method name='beginning_of_line?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; iff the scan pointer is at the beginning of the line.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&quot;test\ntest\n&quot;)
+  s.bol?           # =&gt; true
+  s.scan(/te/)
+  s.bol?           # =&gt; false
+  s.scan(/st\n/)
+  s.bol?           # =&gt; true
+  s.terminate
+  s.bol?           # =&gt; true
+&lt;/pre&gt;</method>
+    <method name='check'>&lt;p&gt;This returns the value that #scan would return, without advancing the scan pointer. The match register is affected, though.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&quot;Fri Dec 12 1975 14:39&quot;)
+  s.check /Fri/               # -&gt; &quot;Fri&quot;
+  s.pos                       # -&gt; 0
+  s.matched                   # -&gt; &quot;Fri&quot;
+  s.check /12/                # -&gt; nil
+  s.matched                   # -&gt; nil
+&lt;/pre&gt;&lt;p&gt;Mnemonic: it &quot;checks&quot; to see whether a #scan will return a value.&lt;/p&gt;</method>
+    <method name='check_until'>&lt;p&gt;This returns the value that #scan_until would return, without advancing the scan pointer. The match register is affected, though.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&quot;Fri Dec 12 1975 14:39&quot;)
+  s.check_until /12/          # -&gt; &quot;Fri Dec 12&quot;
+  s.pos                       # -&gt; 0
+  s.matched                   # -&gt; 12
+&lt;/pre&gt;&lt;p&gt;Mnemonic: it &quot;checks&quot; to see whether a #scan_until will return a value.&lt;/p&gt;</method>
+    <method name='clear'>&lt;p&gt;Equivalent to #terminate. This method is obsolete; use #terminate instead.&lt;/p&gt;</method>
+    <method name='concat'>&lt;p&gt;Appends &lt;tt&gt;str&lt;/tt&gt; to the string being scanned. This method does not affect scan pointer.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&quot;Fri Dec 12 1975 14:39&quot;)
+  s.scan(/Fri /)
+  s &lt;&lt; &quot; +1000 GMT&quot;
+  s.string            # -&gt; &quot;Fri Dec 12 1975 14:39 +1000 GMT&quot;
+  s.scan(/Dec/)       # -&gt; &quot;Dec&quot;
+&lt;/pre&gt;</method>
+    <method name='empty?'>&lt;p&gt;Equivalent to #eos?. This method is obsolete, use #eos? instead.&lt;/p&gt;</method>
+    <method name='eos?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the scan pointer is at the end of the string.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  p s.eos?          # =&gt; false
+  s.scan(/test/)
+  p s.eos?          # =&gt; false
+  s.terminate
+  p s.eos?          # =&gt; true
+&lt;/pre&gt;</method>
+    <method name='exist?'>&lt;p&gt;Looks &lt;em&gt;ahead&lt;/em&gt; to see if the &lt;tt&gt;pattern&lt;/tt&gt; exists &lt;em&gt;anywhere&lt;/em&gt; in the string, without advancing the scan pointer. This predicates whether a #scan_until will return a value.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  s.exist? /s/            # -&gt; 3
+  s.scan /test/           # -&gt; &quot;test&quot;
+  s.exist? /s/            # -&gt; 6
+  s.exist? /e/            # -&gt; nil
+&lt;/pre&gt;</method>
+    <method name='get_byte'>&lt;p&gt;Scans one byte and returns it. This method is NOT multi-byte character sensitive. See also #getch.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;ab&apos;)
+  s.get_byte         # =&gt; &quot;a&quot;
+  s.get_byte         # =&gt; &quot;b&quot;
+  s.get_byte         # =&gt; nil
+
+  s = StringScanner.new(&quot;\244\242&quot;)
+  s.get_byte         # =&gt; &quot;\244&quot;
+  s.get_byte         # =&gt; &quot;\242&quot;
+  s.get_byte         # =&gt; nil
+&lt;/pre&gt;</method>
+    <method name='getbyte'>&lt;p&gt;Equivalent to #get_byte. This method is obsolete; use #get_byte instead.&lt;/p&gt;</method>
+    <method name='getch'>&lt;p&gt;Scans one character and returns it. This method is multi-byte character sensitive. See also #get_byte.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;ab&apos;)
+  s.getch           # =&gt; &quot;a&quot;
+  s.getch           # =&gt; &quot;b&quot;
+  s.getch           # =&gt; nil
+
+  $KCODE = &apos;EUC&apos;
+  s = StringScanner.new(&quot;\244\242&quot;)
+  s.getch           # =&gt; &quot;\244\242&quot;   # Japanese hira-kana &quot;A&quot; in EUC-JP
+  s.getch           # =&gt; nil
+&lt;/pre&gt;</method>
+    <method name='initialize_copy'>&lt;p&gt;Duplicates a StringScanner object.&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;Returns a string that represents the StringScanner object, showing:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the current position&lt;/li&gt;&lt;li&gt;the size of the string&lt;/li&gt;&lt;li&gt;the characters surrounding the scan pointer&lt;/li&gt;&lt;p&gt;s = StringScanner.new(&quot;Fri Dec 12 1975 14:39&quot;) s.inspect # -&gt; &apos;#&lt;StringScanner 0/21 @ &quot;Fri D...&quot;&gt;&apos; s.scan_until /12/ # -&gt; &quot;Fri Dec 12&quot; s.inspect # -&gt; &apos;#&lt;StringScanner 10/21 &quot;...ec 12&quot; @ &quot; 1975...&quot;&gt;&apos;&lt;/p&gt;&lt;/ul&gt;</method>
+    <method name='match?'>&lt;p&gt;Tests whether the given &lt;tt&gt;pattern&lt;/tt&gt; is matched from the current scan pointer. Returns the length of the match, or &lt;tt&gt;nil&lt;/tt&gt;. The scan pointer is not advanced.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  p s.match?(/\w+/)   # -&gt; 4
+  p s.match?(/\w+/)   # -&gt; 4
+  p s.match?(/\s+/)   # -&gt; nil
+&lt;/pre&gt;</method>
+    <method name='matched'>&lt;p&gt;Returns the last matched string.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  s.match?(/\w+/)     # -&gt; 4
+  s.matched           # -&gt; &quot;test&quot;
+&lt;/pre&gt;</method>
+    <method name='matched?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; iff the last match was successful.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  s.match?(/\w+/)     # =&gt; 4
+  s.matched?          # =&gt; true
+  s.match?(/\d+/)     # =&gt; nil
+  s.matched?          # =&gt; false
+&lt;/pre&gt;</method>
+    <method name='matched_size'>&lt;p&gt;Returns the size of the most recent match (see #matched), or &lt;tt&gt;nil&lt;/tt&gt; if there was no recent match.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  s.check /\w+/           # -&gt; &quot;test&quot;
+  s.matched_size          # -&gt; 4
+  s.check /\d+/           # -&gt; nil
+  s.matched_size          # -&gt; nil
+&lt;/pre&gt;</method>
+    <method name='matchedsize'>&lt;p&gt;Equivalent to #matched_size. This method is obsolete; use #matched_size instead.&lt;/p&gt;</method>
+    <method name='peek'>&lt;p&gt;Extracts a string corresponding to &lt;tt&gt;string[pos,len]&lt;/tt&gt;, without advancing the scan pointer.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  s.peek(7)          # =&gt; &quot;test st&quot;
+  s.peek(7)          # =&gt; &quot;test st&quot;
+&lt;/pre&gt;</method>
+    <method name='peep'>&lt;p&gt;Equivalent to #peek. This method is obsolete; use #peek instead.&lt;/p&gt;</method>
+    <method name='pointer'>&lt;p&gt;Returns the position of the scan pointer. In the &apos;reset&apos; position, this value is zero. In the &apos;terminated&apos; position (i.e. the string is exhausted), this value is the length of the string.&lt;/p&gt;&lt;p&gt;In short, it&apos;s a 0-based index into the string.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  s.pos               # -&gt; 0
+  s.scan_until /str/  # -&gt; &quot;test str&quot;
+  s.pos               # -&gt; 8
+  s.terminate         # -&gt; #&lt;StringScanner fin&gt;
+  s.pos               # -&gt; 11
+&lt;/pre&gt;</method>
+    <method name='pointer='>&lt;p&gt;Modify the scan pointer.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  s.pos = 7            # -&gt; 7
+  s.rest               # -&gt; &quot;ring&quot;
+&lt;/pre&gt;</method>
+    <method name='pos'>&lt;p&gt;Returns the position of the scan pointer. In the &apos;reset&apos; position, this value is zero. In the &apos;terminated&apos; position (i.e. the string is exhausted), this value is the length of the string.&lt;/p&gt;&lt;p&gt;In short, it&apos;s a 0-based index into the string.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  s.pos               # -&gt; 0
+  s.scan_until /str/  # -&gt; &quot;test str&quot;
+  s.pos               # -&gt; 8
+  s.terminate         # -&gt; #&lt;StringScanner fin&gt;
+  s.pos               # -&gt; 11
+&lt;/pre&gt;</method>
+    <method name='pos='>&lt;p&gt;Modify the scan pointer.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  s.pos = 7            # -&gt; 7
+  s.rest               # -&gt; &quot;ring&quot;
+&lt;/pre&gt;</method>
+    <method name='post_match'>&lt;p&gt;Return the &lt;b&gt;&lt;em&gt;post&lt;/b&gt;-match&lt;/em&gt; (in the regular expression sense) of the last scan.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  s.scan(/\w+/)           # -&gt; &quot;test&quot;
+  s.scan(/\s+/)           # -&gt; &quot; &quot;
+  s.pre_match             # -&gt; &quot;test&quot;
+  s.post_match            # -&gt; &quot;string&quot;
+&lt;/pre&gt;</method>
+    <method name='pre_match'>&lt;p&gt;Return the &lt;b&gt;&lt;em&gt;pre&lt;/b&gt;-match&lt;/em&gt; (in the regular expression sense) of the last scan.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  s.scan(/\w+/)           # -&gt; &quot;test&quot;
+  s.scan(/\s+/)           # -&gt; &quot; &quot;
+  s.pre_match             # -&gt; &quot;test&quot;
+  s.post_match            # -&gt; &quot;string&quot;
+&lt;/pre&gt;</method>
+    <method name='reset'>&lt;p&gt;Reset the scan pointer (index 0) and clear matching data.&lt;/p&gt;</method>
+    <method name='rest'>&lt;p&gt;Returns the &quot;rest&quot; of the string (i.e. everything after the scan pointer). If there is no more data (eos? = true), it returns &lt;tt&gt;&quot;&quot;&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='rest?'>&lt;p&gt;Returns true iff there is more data in the string. See #eos?. This method is obsolete; use #eos? instead.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  s.eos?              # These two
+  s.rest?             # are opposites.
+&lt;/pre&gt;</method>
+    <method name='rest_size'>&lt;p&gt;&lt;tt&gt;s.rest_size&lt;/tt&gt; is equivalent to &lt;tt&gt;s.rest.size&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='restsize'>&lt;p&gt;&lt;tt&gt;s.restsize&lt;/tt&gt; is equivalent to &lt;tt&gt;s.rest_size&lt;/tt&gt;. This method is obsolete; use #rest_size instead.&lt;/p&gt;</method>
+    <method name='scan'>&lt;p&gt;Tries to match with &lt;tt&gt;pattern&lt;/tt&gt; at the current position. If there&apos;s a match, the scanner advances the &quot;scan pointer&quot; and returns the matched string. Otherwise, the scanner returns &lt;tt&gt;nil&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  p s.scan(/\w+/)   # -&gt; &quot;test&quot;
+  p s.scan(/\w+/)   # -&gt; nil
+  p s.scan(/\s+/)   # -&gt; &quot; &quot;
+  p s.scan(/\w+/)   # -&gt; &quot;string&quot;
+  p s.scan(/./)     # -&gt; nil
+&lt;/pre&gt;</method>
+    <method name='scan_full'>&lt;p&gt;Tests whether the given &lt;tt&gt;pattern&lt;/tt&gt; is matched from the current scan pointer. Returns the matched string if &lt;tt&gt;return_string_p&lt;/tt&gt; is true. Advances the scan pointer if &lt;tt&gt;advance_pointer_p&lt;/tt&gt; is true. The match register is affected.&lt;/p&gt;&lt;p&gt;&quot;full&quot; means &quot;#scan with full parameters&quot;.&lt;/p&gt;</method>
+    <method name='scan_until'>&lt;p&gt;Scans the string &lt;em&gt;until&lt;/em&gt; the &lt;tt&gt;pattern&lt;/tt&gt; is matched. Returns the substring up to and including the end of the match, advancing the scan pointer to that location. If there is no match, &lt;tt&gt;nil&lt;/tt&gt; is returned.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&quot;Fri Dec 12 1975 14:39&quot;)
+  s.scan_until(/1/)        # -&gt; &quot;Fri Dec 1&quot;
+  s.pre_match              # -&gt; &quot;Fri Dec &quot;
+  s.scan_until(/XYZ/)      # -&gt; nil
+&lt;/pre&gt;</method>
+    <method name='search_full'>&lt;p&gt;Scans the string &lt;em&gt;until&lt;/em&gt; the &lt;tt&gt;pattern&lt;/tt&gt; is matched. Returns the matched string if &lt;tt&gt;return_string_p&lt;/tt&gt; is true, otherwise returns the number of bytes advanced. Advances the scan pointer if &lt;tt&gt;advance_pointer_p&lt;/tt&gt;, otherwise not. This method does affect the match register.&lt;/p&gt;</method>
+    <method name='skip'>&lt;p&gt;Attempts to skip over the given &lt;tt&gt;pattern&lt;/tt&gt; beginning with the scan pointer. If it matches, the scan pointer is advanced to the end of the match, and the length of the match is returned. Otherwise, &lt;tt&gt;nil&lt;/tt&gt; is returned.&lt;/p&gt;&lt;p&gt;It&apos;s similar to #scan, but without returning the matched string.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  p s.skip(/\w+/)   # -&gt; 4
+  p s.skip(/\w+/)   # -&gt; nil
+  p s.skip(/\s+/)   # -&gt; 1
+  p s.skip(/\w+/)   # -&gt; 6
+  p s.skip(/./)     # -&gt; nil
+&lt;/pre&gt;</method>
+    <method name='skip_until'>&lt;p&gt;Advances the scan pointer until &lt;tt&gt;pattern&lt;/tt&gt; is matched and consumed. Returns the number of bytes advanced, or &lt;tt&gt;nil&lt;/tt&gt; if no match was found.&lt;/p&gt;&lt;p&gt;Look ahead to match &lt;tt&gt;pattern&lt;/tt&gt;, and advance the scan pointer to the &lt;em&gt;end&lt;/em&gt; of the match. Return the number of characters advanced, or &lt;tt&gt;nil&lt;/tt&gt; if the match was unsuccessful.&lt;/p&gt;&lt;p&gt;It&apos;s similar to #scan_until, but without returning the intervening string.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&quot;Fri Dec 12 1975 14:39&quot;)
+  s.skip_until /12/           # -&gt; 10
+  s                           #
+&lt;/pre&gt;</method>
+    <method name='string'>&lt;p&gt;Returns the string being scanned.&lt;/p&gt;</method>
+    <method name='string='>&lt;p&gt;Changes the string being scanned to &lt;tt&gt;str&lt;/tt&gt; and resets the scanner. Returns &lt;tt&gt;str&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='terminate'>&lt;p&gt;Set the scan pointer to the end of the string and clear matching data.&lt;/p&gt;</method>
+    <method name='unscan'>&lt;p&gt;Set the scan pointer to the previous position. Only one previous position is remembered, and it changes with each scanning operation.&lt;/p&gt;&lt;pre&gt;  s = StringScanner.new(&apos;test string&apos;)
+  s.scan(/\w+/)        # =&gt; &quot;test&quot;
+  s.unscan
+  s.scan(/../)         # =&gt; &quot;te&quot;
+  s.scan(/\d/)         # =&gt; nil
+  s.unscan             # ScanError: unscan failed: previous match had failed
+&lt;/pre&gt;</method>
+  </methods>
+</help>

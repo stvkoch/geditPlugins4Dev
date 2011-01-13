@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+        <entry name="filter_mode" mtime="1175522419" type="string">
+                <stringvalue>binary</stringvalue>
+        </entry>
+</gconf>

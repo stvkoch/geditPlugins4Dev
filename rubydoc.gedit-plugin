@@ -1,0 +1,9 @@
+[Gedit Plugin]
+Loader=python
+Module=rubydoc
+IAge=2
+Name=RubyDoc
+Description=A plugin to display ruby documentation
+Authors=Vinícius Baggio Fuentes <vinibaggio@gmail.com>
+Copyright=Copyright 2007 Vinícius Baggio Fuentes
+Website=http://grad.icmc.usp.br/~vinibf/

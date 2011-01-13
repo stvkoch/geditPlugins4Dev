@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This class implements the File Transfer Protocol. If you have used a command-line FTP program, and are familiar with the commands, you will be able to use this class easily. Some extra features are included to take advantage of Ruby&apos;s style and strengths.&lt;/p&gt;&lt;h2&gt;Example&lt;/h2&gt;&lt;pre&gt;  require &apos;net/ftp&apos;
+&lt;/pre&gt;&lt;h3&gt;Example 1&lt;/h3&gt;&lt;pre&gt;  ftp = Net::FTP.new(&apos;ftp.netlab.co.jp&apos;)
+  ftp.login
+  files = ftp.chdir(&apos;pub/lang/ruby/contrib&apos;)
+  files = ftp.list(&apos;n*&apos;)
+  ftp.getbinaryfile(&apos;nif.rb-0.91.gz&apos;, &apos;nif.gz&apos;, 1024)
+  ftp.close
+&lt;/pre&gt;&lt;h3&gt;Example 2&lt;/h3&gt;&lt;pre&gt;  Net::FTP.open(&apos;ftp.netlab.co.jp&apos;) do |ftp|
+    ftp.login
+    files = ftp.chdir(&apos;pub/lang/ruby/contrib&apos;)
+    files = ftp.list(&apos;n*&apos;)
+    ftp.getbinaryfile(&apos;nif.rb-0.91.gz&apos;, &apos;nif.gz&apos;, 1024)
+  end
+&lt;/pre&gt;&lt;h2&gt;Major Methods&lt;/h2&gt;&lt;p&gt;The following are the methods most likely to be useful to users:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;FTP.open&lt;/li&gt;&lt;li&gt;#getbinaryfile&lt;/li&gt;&lt;li&gt;#gettextfile&lt;/li&gt;&lt;li&gt;#putbinaryfile&lt;/li&gt;&lt;li&gt;#puttextfile&lt;/li&gt;&lt;li&gt;#chdir&lt;/li&gt;&lt;li&gt;#nlst&lt;/li&gt;&lt;li&gt;#size&lt;/li&gt;&lt;li&gt;#rename&lt;/li&gt;&lt;li&gt;#delete&lt;/li&gt;&lt;/ul&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates and returns a new &lt;tt&gt;FTP&lt;/tt&gt; object. If a &lt;tt&gt;host&lt;/tt&gt; is given, a connection is made. Additionally, if the &lt;tt&gt;user&lt;/tt&gt; is given, the given user name, password, and (optionally) account are used to log in. See #login.&lt;/p&gt;</method>
+    <method name='open'>&lt;p&gt;A synonym for &lt;tt&gt;FTP.new&lt;/tt&gt;, but with a mandatory host parameter.&lt;/p&gt;&lt;p&gt;If a block is given, it is passed the &lt;tt&gt;FTP&lt;/tt&gt; object, which will be closed when the block finishes, or when an exception is raised.&lt;/p&gt;</method>
+    <method name='abort'>&lt;p&gt;Aborts the previous command (ABOR command).&lt;/p&gt;</method>
+    <method name='acct'>&lt;p&gt;Sends the ACCT command. TODO: more info.&lt;/p&gt;</method>
+    <method name='chdir'>&lt;p&gt;Changes the (remote) directory.&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;Closes the connection. Further operations are impossible until you open a new connection with #connect.&lt;/p&gt;</method>
+    <method name='closed?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; iff the connection is closed.&lt;/p&gt;</method>
+    <method name='connect'>&lt;p&gt;Establishes an FTP connection to host, optionally overriding the default port. If the environment variable &lt;tt&gt;SOCKS_SERVER&lt;/tt&gt; is set, sets up the connection through a SOCKS proxy. Raises an exception (typically &lt;tt&gt;Errno::ECONNREFUSED&lt;/tt&gt;) if the connection cannot be established.&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;Deletes a file on the server.&lt;/p&gt;</method>
+    <method name='dir'>&lt;p&gt;Alias for #list&lt;/p&gt;</method>
+    <method name='get'>&lt;p&gt;Retrieves &lt;tt&gt;remotefile&lt;/tt&gt; in whatever mode the session is set (text or binary). See #gettextfile and #getbinaryfile.&lt;/p&gt;</method>
+    <method name='getbinaryfile'>&lt;p&gt;Retrieves &lt;tt&gt;remotefile&lt;/tt&gt; in binary mode, storing the result in &lt;tt&gt;localfile&lt;/tt&gt;. If a block is supplied, it is passed the retrieved data in &lt;tt&gt;blocksize&lt;/tt&gt; chunks.&lt;/p&gt;</method>
+    <method name='getdir'>&lt;p&gt;Alias for #pwd&lt;/p&gt;</method>
+    <method name='gettextfile'>&lt;p&gt;Retrieves &lt;tt&gt;remotefile&lt;/tt&gt; in ASCII (text) mode, storing the result in &lt;tt&gt;localfile&lt;/tt&gt;. If a block is supplied, it is passed the retrieved data one line at a time.&lt;/p&gt;</method>
+    <method name='help'>&lt;p&gt;Issues the HELP command.&lt;/p&gt;</method>
+    <method name='list'>&lt;p&gt;Returns an array of file information in the directory (the output is like `ls -l`). If a block is given, it iterates through the listing.&lt;/p&gt;</method>
+    <method name='login'>&lt;p&gt;Logs in to the remote host. The session must have been previously connected. If &lt;tt&gt;user&lt;/tt&gt; is the string &quot;anonymous&quot; and the &lt;tt&gt;password&lt;/tt&gt; is &lt;tt&gt;nil&lt;/tt&gt;, a password of &lt;tt&gt;user@host&lt;/tt&gt; is synthesized. If the &lt;tt&gt;acct&lt;/tt&gt; parameter is not &lt;tt&gt;nil&lt;/tt&gt;, an FTP ACCT command is sent following the successful login. Raises an exception on error (typically &lt;tt&gt;Net::FTPPermError&lt;/tt&gt;).&lt;/p&gt;</method>
+    <method name='ls'>&lt;p&gt;Alias for #list&lt;/p&gt;</method>
+    <method name='mdtm'>&lt;p&gt;Issues the MDTM command. TODO: more info.&lt;/p&gt;</method>
+    <method name='mkdir'>&lt;p&gt;Creates a remote directory.&lt;/p&gt;</method>
+    <method name='mtime'>&lt;p&gt;Returns the last modification time of the (remote) file. If &lt;tt&gt;local&lt;/tt&gt; is &lt;tt&gt;true&lt;/tt&gt;, it is returned as a local time, otherwise it&apos;s a UTC time.&lt;/p&gt;</method>
+    <method name='nlst'>&lt;p&gt;Returns an array of filenames in the remote directory.&lt;/p&gt;</method>
+    <method name='noop'>&lt;p&gt;Issues a NOOP command.&lt;/p&gt;</method>
+    <method name='put'>&lt;p&gt;Transfers &lt;tt&gt;localfile&lt;/tt&gt; to the server in whatever mode the session is set (text or binary). See #puttextfile and #putbinaryfile.&lt;/p&gt;</method>
+    <method name='putbinaryfile'>&lt;p&gt;Transfers &lt;tt&gt;localfile&lt;/tt&gt; to the server in binary mode, storing the result in &lt;tt&gt;remotefile&lt;/tt&gt;. If a block is supplied, calls it, passing in the transmitted data in &lt;tt&gt;blocksize&lt;/tt&gt; chunks.&lt;/p&gt;</method>
+    <method name='puttextfile'>&lt;p&gt;Transfers &lt;tt&gt;localfile&lt;/tt&gt; to the server in ASCII (text) mode, storing the result in &lt;tt&gt;remotefile&lt;/tt&gt;. If callback or an associated block is supplied, calls it, passing in the transmitted data one line at a time.&lt;/p&gt;</method>
+    <method name='pwd'>&lt;p&gt;Returns the current remote directory.&lt;/p&gt;</method>
+    <method name='quit'>&lt;p&gt;Exits the FTP session.&lt;/p&gt;</method>
+    <method name='rename'>&lt;p&gt;Renames a file on the server.&lt;/p&gt;</method>
+    <method name='retrbinary'>&lt;p&gt;Puts the connection into binary (image) mode, issues the given command, and fetches the data returned, passing it to the associated block in chunks of &lt;tt&gt;blocksize&lt;/tt&gt; characters. Note that &lt;tt&gt;cmd&lt;/tt&gt; is a server command (such as &quot;RETR myfile&quot;).&lt;/p&gt;</method>
+    <method name='retrlines'>&lt;p&gt;Puts the connection into ASCII (text) mode, issues the given command, and passes the resulting data, one line at a time, to the associated block. If no block is given, prints the lines. Note that &lt;tt&gt;cmd&lt;/tt&gt; is a server command (such as &quot;RETR myfile&quot;).&lt;/p&gt;</method>
+    <method name='return_code'>&lt;p&gt;Obsolete&lt;/p&gt;</method>
+    <method name='return_code='>&lt;p&gt;Obsolete&lt;/p&gt;</method>
+    <method name='rmdir'>&lt;p&gt;Removes a remote directory.&lt;/p&gt;</method>
+    <method name='sendcmd'>&lt;p&gt;Sends a command and returns the response.&lt;/p&gt;</method>
+    <method name='set_socket'>&lt;p&gt;WRITEME or make private&lt;/p&gt;</method>
+    <method name='site'>&lt;p&gt;Issues a SITE command.&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;Returns the size of the given (remote) filename.&lt;/p&gt;</method>
+    <method name='status'>&lt;p&gt;Returns the status (STAT command).&lt;/p&gt;</method>
+    <method name='storbinary'>&lt;p&gt;Puts the connection into binary (image) mode, issues the given server-side command (such as &quot;STOR myfile&quot;), and sends the contents of the file named &lt;tt&gt;file&lt;/tt&gt; to the server. If the optional block is given, it also passes it the data, in chunks of &lt;tt&gt;blocksize&lt;/tt&gt; characters.&lt;/p&gt;</method>
+    <method name='storlines'>&lt;p&gt;Puts the connection into ASCII (text) mode, issues the given server-side command (such as &quot;STOR myfile&quot;), and sends the contents of the file named &lt;tt&gt;file&lt;/tt&gt; to the server, one line at a time. If the optional block is given, it also passes it the lines.&lt;/p&gt;</method>
+    <method name='system'>&lt;p&gt;Returns system information.&lt;/p&gt;</method>
+    <method name='voidcmd'>&lt;p&gt;Sends a command and expect a response beginning with &apos;2&apos;.&lt;/p&gt;</method>
+  </methods>
+</help>

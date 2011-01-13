@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;An exception wrapping a DRb::DRbUnknown object&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Create a new DRbUnknownError for the DRb::DRbUnknown object &lt;tt&gt;unknown&lt;/tt&gt;&lt;/p&gt;</method>
+  </methods>
+</help>

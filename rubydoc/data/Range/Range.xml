@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A &lt;tt&gt;Range&lt;/tt&gt; represents an interval---a set of values with a start and an end. Ranges may be constructed using the &lt;em&gt;s&lt;/em&gt;&lt;tt&gt;..&lt;/tt&gt;&lt;em&gt;e&lt;/em&gt; and &lt;em&gt;s&lt;/em&gt;&lt;tt&gt;...&lt;/tt&gt;&lt;em&gt;e&lt;/em&gt; literals, or with &lt;tt&gt;Range::new&lt;/tt&gt;. Ranges constructed using &lt;tt&gt;..&lt;/tt&gt; run from the start to the end inclusively. Those created using &lt;tt&gt;...&lt;/tt&gt; exclude the end value. When used as an iterator, ranges return each value in the sequence.&lt;/p&gt;&lt;pre&gt;   (-1..-5).to_a      #=&gt; []
+   (-5..-1).to_a      #=&gt; [-5, -4, -3, -2, -1]
+   (&apos;a&apos;..&apos;e&apos;).to_a    #=&gt; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;]
+   (&apos;a&apos;...&apos;e&apos;).to_a   #=&gt; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]
+&lt;/pre&gt;&lt;p&gt;Ranges can be constructed using objects of any type, as long as the objects can be compared using their &lt;tt&gt;&lt;=&gt;&lt;/tt&gt; operator and they support the &lt;tt&gt;succ&lt;/tt&gt; method to return the next object in sequence.&lt;/p&gt;&lt;pre&gt;   class Xs                # represent a string of &apos;x&apos;s
+     include Comparable
+     attr :length
+     def initialize(n)
+       @length = n
+     end
+     def succ
+       Xs.new(@length + 1)
+     end
+     def &lt;=&gt;(other)
+       @length &lt;=&gt; other.length
+     end
+     def to_s
+       sprintf &quot;%2d #{inspect}&quot;, @length
+     end
+     def inspect
+       &apos;x&apos; * @length
+     end
+   end
+
+   r = Xs.new(3)..Xs.new(6)   #=&gt; xxx..xxxxxx
+   r.to_a                     #=&gt; [xxx, xxxx, xxxxx, xxxxxx]
+   r.member?(Xs.new(5))       #=&gt; true
+&lt;/pre&gt;&lt;p&gt;In the previous code example, class &lt;tt&gt;Xs&lt;/tt&gt; includes the &lt;tt&gt;Comparable&lt;/tt&gt; module. This is because &lt;tt&gt;Enumerable#member?&lt;/tt&gt; checks for equality using &lt;tt&gt;==&lt;/tt&gt;. Including &lt;tt&gt;Comparable&lt;/tt&gt; ensures that the &lt;tt&gt;==&lt;/tt&gt; method is defined in terms of the &lt;tt&gt;&lt;=&gt;&lt;/tt&gt; method implemented in &lt;tt&gt;Xs&lt;/tt&gt;.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Constructs a range using the given &lt;em&gt;start&lt;/em&gt; and &lt;em&gt;end&lt;/em&gt;. If the third parameter is omitted or is &lt;tt&gt;false&lt;/tt&gt;, the &lt;em&gt;range&lt;/em&gt; will include the end object; otherwise, it will be excluded.&lt;/p&gt;</method>
+    <method name='yaml_new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; only if &lt;em&gt;obj&lt;/em&gt; is a Range, has equivalent beginning and end items (by comparing them with &lt;tt&gt;==&lt;/tt&gt;), and has the same #exclude_end? setting as &lt;i&gt;rng&lt;/t&gt;.&lt;/p&gt;&lt;pre&gt;  (0..2) == (0..2)            #=&gt; true
+  (0..2) == Range.new(0,2)    #=&gt; true
+  (0..2) == (0...2)           #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='==='>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;obj&lt;/em&gt; is an element of &lt;em&gt;rng&lt;/em&gt;, &lt;tt&gt;false&lt;/tt&gt; otherwise. Conveniently, &lt;tt&gt;===&lt;/tt&gt; is the comparison operator used by &lt;tt&gt;case&lt;/tt&gt; statements.&lt;/p&gt;&lt;pre&gt;   case 79
+   when 1..50   then   print &quot;low\n&quot;
+   when 51..75  then   print &quot;medium\n&quot;
+   when 76..100 then   print &quot;high\n&quot;
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   high
+&lt;/pre&gt;</method>
+    <method name='begin'>&lt;p&gt;Returns the first object in &lt;em&gt;rng&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;Iterates over the elements &lt;em&gt;rng&lt;/em&gt;, passing each in turn to the block. You can only iterate if the start object of the range supports the &lt;tt&gt;succ&lt;/tt&gt; method (which means that you can&apos;t iterate over ranges of &lt;tt&gt;Float&lt;/tt&gt; objects).&lt;/p&gt;&lt;pre&gt;   (10..15).each do |n|
+      print n, &apos; &apos;
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   10 11 12 13 14 15
+&lt;/pre&gt;</method>
+    <method name='end'>&lt;p&gt;Returns the object that defines the end of &lt;em&gt;rng&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   (1..10).end    #=&gt; 10
+   (1...10).end   #=&gt; 10
+&lt;/pre&gt;</method>
+    <method name='eql?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; only if &lt;em&gt;obj&lt;/em&gt; is a Range, has equivalent beginning and end items (by comparing them with #eql?), and has the same #exclude_end? setting as &lt;em&gt;rng&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;  (0..2) == (0..2)            #=&gt; true
+  (0..2) == Range.new(0,2)    #=&gt; true
+  (0..2) == (0...2)           #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='exclude_end?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;rng&lt;/em&gt; excludes its end value.&lt;/p&gt;</method>
+    <method name='first'>&lt;p&gt;Returns the first object in &lt;em&gt;rng&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='hash'>&lt;p&gt;Generate a hash value such that two ranges with the same start and end points, and the same value for the &quot;exclude end&quot; flag, generate the same hash value.&lt;/p&gt;</method>
+    <method name='include?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;obj&lt;/em&gt; is an element of &lt;em&gt;rng&lt;/em&gt;, &lt;tt&gt;false&lt;/tt&gt; otherwise. Conveniently, &lt;tt&gt;===&lt;/tt&gt; is the comparison operator used by &lt;tt&gt;case&lt;/tt&gt; statements.&lt;/p&gt;&lt;pre&gt;   case 79
+   when 1..50   then   print &quot;low\n&quot;
+   when 51..75  then   print &quot;medium\n&quot;
+   when 76..100 then   print &quot;high\n&quot;
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   high
+&lt;/pre&gt;</method>
+    <method name='inspect'>&lt;p&gt;Convert this range object to a printable form (using &lt;tt&gt;inspect&lt;/tt&gt; to convert the start and end objects).&lt;/p&gt;</method>
+    <method name='last'>&lt;p&gt;Returns the object that defines the end of &lt;em&gt;rng&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   (1..10).end    #=&gt; 10
+   (1...10).end   #=&gt; 10
+&lt;/pre&gt;</method>
+    <method name='member?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;obj&lt;/em&gt; is an element of &lt;em&gt;rng&lt;/em&gt;, &lt;tt&gt;false&lt;/tt&gt; otherwise. Conveniently, &lt;tt&gt;===&lt;/tt&gt; is the comparison operator used by &lt;tt&gt;case&lt;/tt&gt; statements.&lt;/p&gt;&lt;pre&gt;   case 79
+   when 1..50   then   print &quot;low\n&quot;
+   when 51..75  then   print &quot;medium\n&quot;
+   when 76..100 then   print &quot;high\n&quot;
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   high
+&lt;/pre&gt;</method>
+    <method name='pretty_print'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='step'>&lt;p&gt;Iterates over &lt;em&gt;rng&lt;/em&gt;, passing each &lt;em&gt;n&lt;/em&gt;th element to the block. If the range contains numbers or strings, natural ordering is used. Otherwise &lt;tt&gt;step&lt;/tt&gt; invokes &lt;tt&gt;succ&lt;/tt&gt; to iterate through range elements. The following code uses class &lt;tt&gt;Xs&lt;/tt&gt;, which is defined in the class-level documentation.&lt;/p&gt;&lt;pre&gt;   range = Xs.new(1)..Xs.new(10)
+   range.step(2) {|x| puts x}
+   range.step(3) {|x| puts x}
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;    1 x
+    3 xxx
+    5 xxxxx
+    7 xxxxxxx
+    9 xxxxxxxxx
+    1 x
+    4 xxxx
+    7 xxxxxxx
+   10 xxxxxxxxxx
+&lt;/pre&gt;</method>
+    <method name='to_s'>&lt;p&gt;Convert this range object to a printable form.&lt;/p&gt;</method>
+    <method name='to_yaml'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

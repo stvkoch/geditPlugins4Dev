@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_method'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='def_code'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='def_const'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='def_method'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='def_privatemethod'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='def_protectedmethod'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='def_publicmethod'>&lt;p&gt;Alias for #def_method&lt;/p&gt;</method>
+    <method name='def_require'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='dump'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

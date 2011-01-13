@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Defines an Element Attribute; IE, a attribute=value pair, as in: &lt;element attribute=&quot;value&quot;/&gt;. Attributes can be in their own namespaces. General users of REXML will not interact with the Attribute class much.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Constructor.&lt;/p&gt;&lt;pre&gt; Attribute.new( attribute_to_clone )
+ Attribute.new( source )
+ Attribute.new( &quot;attr&quot;, &quot;attr_value&quot; )
+ Attribute.new( &quot;attr&quot;, &quot;attr_value&quot;, parent_element )
+&lt;/pre&gt;</method>
+    <method name='=='>&lt;p&gt;Returns true if other is an Attribute and has the same name and value, false otherwise.&lt;/p&gt;</method>
+    <method name='clone'>&lt;p&gt;Returns a copy of this attribute&lt;/p&gt;</method>
+    <method name='element='>&lt;p&gt;Sets the element of which this object is an attribute. Normally, this is not directly called.&lt;/p&gt;&lt;p&gt;Returns this attribute&lt;/p&gt;</method>
+    <method name='hash'>&lt;p&gt;Creates (and returns) a hash from both the name and value&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='namespace'>&lt;p&gt;Returns the namespace URL, if defined, or nil otherwise&lt;/p&gt;&lt;pre&gt; e = Element.new(&quot;el&quot;)
+ e.add_attributes({&quot;xmlns:ns&quot;, &quot;http://url&quot;})
+ e.namespace( &quot;ns&quot; )              # -&gt; &quot;http://url&quot;
+&lt;/pre&gt;</method>
+    <method name='node_type'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='prefix'>&lt;p&gt;Returns the namespace of the attribute.&lt;/p&gt;&lt;pre&gt; e = Element.new( &quot;elns:myelement&quot; )
+ e.add_attribute( &quot;nsa:a&quot;, &quot;aval&quot; )
+ e.add_attribute( &quot;b&quot;, &quot;bval&quot; )
+ e.attributes.get_attribute( &quot;a&quot; ).prefix   # -&gt; &quot;nsa&quot;
+ e.attributes.get_attribute( &quot;b&quot; ).prefix   # -&gt; &quot;elns&quot;
+ a = Attribute.new( &quot;x&quot;, &quot;y&quot; )
+ a.prefix                                   # -&gt; &quot;&quot;
+&lt;/pre&gt;</method>
+    <method name='remove'>&lt;p&gt;Removes this Attribute from the tree, and returns true if successfull&lt;/p&gt;&lt;p&gt;This method is usually not called directly.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Returns the attribute value, with entities replaced&lt;/p&gt;</method>
+    <method name='to_string'>&lt;p&gt;Returns this attribute out as XML source, expanding the name&lt;/p&gt;&lt;pre&gt; a = Attribute.new( &quot;x&quot;, &quot;y&quot; )
+ a.to_string     # -&gt; &quot;x=&apos;y&apos;&quot;
+ b = Attribute.new( &quot;ns:x&quot;, &quot;y&quot; )
+ b.to_string     # -&gt; &quot;ns:x=&apos;y&apos;&quot;
+&lt;/pre&gt;</method>
+    <method name='value'>&lt;p&gt;Returns the UNNORMALIZED value of this attribute. That is, entities have been expanded to their values&lt;/p&gt;</method>
+    <method name='write'>&lt;p&gt;Writes this attribute (EG, puts &apos;key=&quot;value&quot;&apos; to the output)&lt;/p&gt;</method>
+    <method name='xpath'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

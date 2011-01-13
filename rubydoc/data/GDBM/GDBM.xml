@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;h2&gt;Summary&lt;/h2&gt;&lt;p&gt;Ruby extension for GNU dbm (gdbm) -- a simple database engine for storing key-value pairs on disk.&lt;/p&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;GNU dbm is a library for simple databases. A database is a file that stores key-value pairs. Gdbm allows the user to store, retrieve, and delete data by key. It furthermore allows a non-sorted traversal of all key-value pairs. A gdbm database thus provides the same functionality as a hash. As with objects of the Hash class, elements can be accessed with &lt;tt&gt;[]&lt;/tt&gt;. Furthermore, GDBM mixes in the Enumerable module, thus providing convenient methods such as #find, #collect, #map, etc.&lt;/p&gt;&lt;p&gt;A process is allowed to open several different databases at the same time. A process can open a database as a &quot;reader&quot; or a &quot;writer&quot;. Whereas a reader has only read-access to the database, a writer has read- and write-access. A database can be accessed either by any number of readers or by exactly one writer at the same time.&lt;/p&gt;&lt;h2&gt;Examples&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Opening/creating a database, and filling it with some entries:&lt;/li&gt;&lt;pre&gt;  require &apos;gdbm&apos;
+
+  gdbm = GDBM.new(&quot;fruitstore.db&quot;)
+  gdbm[&quot;ananas&quot;]    = &quot;3&quot;
+  gdbm[&quot;banana&quot;]    = &quot;8&quot;
+  gdbm[&quot;cranberry&quot;] = &quot;4909&quot;
+  gdbm.close
+&lt;/pre&gt;&lt;li&gt;Reading out a database:&lt;/li&gt;&lt;pre&gt;  require &apos;gdbm&apos;
+
+  gdbm = GDBM.new(&quot;fruitstore.db&quot;)
+  gdbm.each_pair do |key, value|
+    print &quot;#{key}: #{value}\n&quot;
+  end
+  gdbm.close
+&lt;/pre&gt;&lt;p&gt;produces&lt;/p&gt;&lt;pre&gt;  banana: 8
+  ananas: 3
+  cranberry: 4909
+&lt;/pre&gt;&lt;/ul&gt;&lt;h2&gt;Links&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;http://www.gnu.org/software/gdbm/&lt;/li&gt;&lt;/ul&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new GDBM instance by opening a gdbm file named &lt;em&gt;filename&lt;/em&gt;. If the file does not exist, a new file with file mode &lt;em&gt;mode&lt;/em&gt; will be created. &lt;em&gt;flags&lt;/em&gt; may be one of the following:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;READER&lt;/b&gt; - open as a reader&lt;/li&gt;&lt;li&gt;&lt;b&gt;WRITER&lt;/b&gt; - open as a writer&lt;/li&gt;&lt;li&gt;&lt;b&gt;WRCREAT&lt;/b&gt; - open as a writer; if the database does not exist, create a new one&lt;/li&gt;&lt;li&gt;&lt;b&gt;NEWDB&lt;/b&gt; - open as a writer; overwrite any existing databases&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;The values &lt;b&gt;WRITER&lt;/b&gt;, &lt;b&gt;WRCREAT&lt;/b&gt; and &lt;b&gt;NEWDB&lt;/b&gt; may be combined with the following values by bitwise or:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;SYNC&lt;/b&gt; - cause all database operations to be synchronized to the disk&lt;/li&gt;&lt;li&gt;&lt;b&gt;NOLOCK&lt;/b&gt; - do not lock the database file&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;If no &lt;em&gt;flags&lt;/em&gt; are specified, the GDBM object will try to open the database file as a writer and will create it if it does not already exist (cf. flag &lt;tt&gt;WRCREAT&lt;/tt&gt;). If this fails (for instance, if another process has already opened the database as a reader), it will try to open the database file as a reader (cf. flag &lt;tt&gt;READER&lt;/tt&gt;).&lt;/p&gt;</method>
+    <method name='open'>&lt;p&gt;If called without a block, this is synonymous to GDBM::new. If a block is given, the new GDBM instance will be passed to the block as a parameter, and the corresponding database file will be closed after the execution of the block code has been finished.&lt;/p&gt;&lt;p&gt;Example for an open call with a block:&lt;/p&gt;&lt;pre&gt;  require &apos;gdbm&apos;
+  GDBM.open(&quot;fruitstore.db&quot;) do |gdbm|
+    gdbm.each_pair do |key, value|
+      print &quot;#{key}: #{value}\n&quot;
+    end
+  end
+&lt;/pre&gt;</method>
+    <method name='[]'>&lt;p&gt;Retrieves the &lt;em&gt;value&lt;/em&gt; corresponding to &lt;em&gt;key&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='[]='>&lt;p&gt;Associates the value &lt;em&gt;value&lt;/em&gt; with the specified &lt;em&gt;key&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='cachesize='>&lt;p&gt;Sets the size of the internal bucket cache to &lt;em&gt;size&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='clear'>&lt;p&gt;Removes all the key-value pairs within &lt;em&gt;gdbm&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;Closes the associated database file.&lt;/p&gt;</method>
+    <method name='closed?'>&lt;p&gt;Returns true if the associated database file has been closed.&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;Removes the key-value-pair with the specified &lt;em&gt;key&lt;/em&gt; from this database and returns the corresponding &lt;em&gt;value&lt;/em&gt;. Returns nil if the database is empty.&lt;/p&gt;</method>
+    <method name='delete_if'>&lt;p&gt;Deletes every key-value pair from &lt;em&gt;gdbm&lt;/em&gt; for which &lt;em&gt;block&lt;/em&gt; evaluates to true.&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;Executes &lt;em&gt;block&lt;/em&gt; for each key in the database, passing the &lt;em&gt;key&lt;/em&gt; and the correspoding &lt;em&gt;value&lt;/em&gt; as a parameter.&lt;/p&gt;</method>
+    <method name='each_key'>&lt;p&gt;Executes &lt;em&gt;block&lt;/em&gt; for each key in the database, passing the &lt;em&gt;key&lt;/em&gt; as a parameter.&lt;/p&gt;</method>
+    <method name='each_pair'>&lt;p&gt;Executes &lt;em&gt;block&lt;/em&gt; for each key in the database, passing the &lt;em&gt;key&lt;/em&gt; and the correspoding &lt;em&gt;value&lt;/em&gt; as a parameter.&lt;/p&gt;</method>
+    <method name='each_value'>&lt;p&gt;Executes &lt;em&gt;block&lt;/em&gt; for each key in the database, passing the corresponding &lt;em&gt;value&lt;/em&gt; as a parameter.&lt;/p&gt;</method>
+    <method name='empty?'>&lt;p&gt;Returns true if the database is empty.&lt;/p&gt;</method>
+    <method name='fastmode='>&lt;p&gt;Turns the database&apos;s fast mode on or off. If fast mode is turned on, gdbm does not wait for writes to be flushed to the disk before continuing.&lt;/p&gt;&lt;p&gt;This option is obsolete for gdbm &gt;= 1.8 since fast mode is turned on by default. See also: #syncmode=&lt;/p&gt;</method>
+    <method name='fetch'>&lt;p&gt;Retrieves the &lt;em&gt;value&lt;/em&gt; corresponding to &lt;em&gt;key&lt;/em&gt;. If there is no value associated with &lt;em&gt;key&lt;/em&gt;, &lt;em&gt;default&lt;/em&gt; will be returned instead.&lt;/p&gt;</method>
+    <method name='has_key?'>&lt;p&gt;Returns true if the given key &lt;em&gt;k&lt;/em&gt; exists within the database. Returns false otherwise.&lt;/p&gt;</method>
+    <method name='has_value?'>&lt;p&gt;Returns true if the given value &lt;em&gt;v&lt;/em&gt; exists within the database. Returns false otherwise.&lt;/p&gt;</method>
+    <method name='include?'>&lt;p&gt;Returns true if the given key &lt;em&gt;k&lt;/em&gt; exists within the database. Returns false otherwise.&lt;/p&gt;</method>
+    <method name='index'>&lt;p&gt;Returns the &lt;em&gt;key&lt;/em&gt; for a given &lt;em&gt;value&lt;/em&gt;. If several keys may map to the same value, the key that is found first will be returned.&lt;/p&gt;</method>
+    <method name='invert'>&lt;p&gt;Returns a hash created by using &lt;em&gt;gdbm&lt;/em&gt;&apos;s values as keys, and the keys as values.&lt;/p&gt;</method>
+    <method name='key?'>&lt;p&gt;Returns true if the given key &lt;em&gt;k&lt;/em&gt; exists within the database. Returns false otherwise.&lt;/p&gt;</method>
+    <method name='keys'>&lt;p&gt;Returns an array of all keys of this database.&lt;/p&gt;</method>
+    <method name='length'>&lt;p&gt;Returns the number of key-value pairs in this database.&lt;/p&gt;</method>
+    <method name='member?'>&lt;p&gt;Returns true if the given key &lt;em&gt;k&lt;/em&gt; exists within the database. Returns false otherwise.&lt;/p&gt;</method>
+    <method name='reject'>&lt;p&gt;Returns a hash copy of &lt;em&gt;gdbm&lt;/em&gt; where all key-value pairs from &lt;em&gt;gdbm&lt;/em&gt; for which &lt;em&gt;block&lt;/em&gt; evaluates to true are removed. See also: #delete_if&lt;/p&gt;</method>
+    <method name='reject!'>&lt;p&gt;Deletes every key-value pair from &lt;em&gt;gdbm&lt;/em&gt; for which &lt;em&gt;block&lt;/em&gt; evaluates to true.&lt;/p&gt;</method>
+    <method name='reorganize'>&lt;p&gt;Reorganizes the database file. This operation removes reserved space of elements that have already been deleted. It is only useful after a lot of deletions in the database.&lt;/p&gt;</method>
+    <method name='replace'>&lt;p&gt;Replaces the content of &lt;em&gt;gdbm&lt;/em&gt; with the key-value pairs of &lt;em&gt;other&lt;/em&gt;. &lt;em&gt;other&lt;/em&gt; must have an each_pair method.&lt;/p&gt;</method>
+    <method name='select'>&lt;p&gt;Returns a new array of all values of the database for which &lt;em&gt;block&lt;/em&gt; evaluates to true.&lt;/p&gt;</method>
+    <method name='shift'>&lt;p&gt;Removes a key-value-pair from this database and returns it as a two-item array [ &lt;em&gt;key&lt;/em&gt;, &lt;em&gt;value&lt;/em&gt; ]. Returns nil if the database is empty.&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;Returns the number of key-value pairs in this database.&lt;/p&gt;</method>
+    <method name='store'>&lt;p&gt;Associates the value &lt;em&gt;value&lt;/em&gt; with the specified &lt;em&gt;key&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='sync'>&lt;p&gt;Unless the &lt;em&gt;gdbm&lt;/em&gt; object has been opened with the &lt;b&gt;SYNC&lt;/b&gt; flag, it is not guarenteed that database modification operations are immediately applied to the database file. This method ensures that all recent modifications to the database are written to the file. Blocks until all writing operations to the disk have been finished.&lt;/p&gt;</method>
+    <method name='syncmode='>&lt;p&gt;Turns the database&apos;s synchronization mode on or off. If the synchronization mode is turned on, the database&apos;s in-memory state will be synchronized to disk after every database modification operation. If the synchronization mode is turned off, GDBM does not wait for writes to be flushed to the disk before continuing.&lt;/p&gt;&lt;p&gt;This option is only available for gdbm &gt;= 1.8 where syncmode is turned off by default. See also: #fastmode=&lt;/p&gt;</method>
+    <method name='to_a'>&lt;p&gt;Returns an array of all key-value pairs contained in the database.&lt;/p&gt;</method>
+    <method name='to_hash'>&lt;p&gt;Returns a hash of all key-value pairs contained in the database.&lt;/p&gt;</method>
+    <method name='update'>&lt;p&gt;Adds the key-value pairs of &lt;em&gt;other&lt;/em&gt; to &lt;em&gt;gdbm&lt;/em&gt;, overwriting entries with duplicate keys with those from &lt;em&gt;other&lt;/em&gt;. &lt;em&gt;other&lt;/em&gt; must have an each_pair method.&lt;/p&gt;</method>
+    <method name='value?'>&lt;p&gt;Returns true if the given value &lt;em&gt;v&lt;/em&gt; exists within the database. Returns false otherwise.&lt;/p&gt;</method>
+    <method name='values'>&lt;p&gt;Returns an array of all values of this database.&lt;/p&gt;</method>
+    <method name='values_at'>&lt;p&gt;Returns an array of the values associated with each specified &lt;em&gt;key&lt;/em&gt;.&lt;/p&gt;</method>
+  </methods>
+</help>

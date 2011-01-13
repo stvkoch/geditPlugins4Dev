@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The Singleton module implements the Singleton pattern.&lt;/p&gt;&lt;p&gt;Usage:&lt;/p&gt;&lt;pre&gt;   class Klass
+      include Singleton
+      # ...
+   end
+&lt;/pre&gt;&lt;ul&gt;&lt;li&gt;this ensures that only one instance of Klass lets call it ``the instance&apos;&apos; can be created.&lt;/li&gt;&lt;p&gt;a,b = Klass.instance, Klass.instance a == b # =&gt; true a.new # NoMethodError - new is private ...&lt;/p&gt;&lt;li&gt;``The instance&apos;&apos; is created at instantiation time, in other words the first call of Klass.instance(), thus&lt;/li&gt;&lt;pre&gt;  class OtherKlass
+    include Singleton
+    # ...
+  end
+  ObjectSpace.each_object(OtherKlass){} # =&gt; 0.
+&lt;/pre&gt;&lt;li&gt;This behavior is preserved under inheritance and cloning.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;This is achieved by marking&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Klass.new and Klass.allocate - as private&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Providing (or modifying) the class methods&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Klass.inherited(sub_klass) and Klass.clone() - to ensure that the Singleton pattern is properly inherited and cloned.&lt;/li&gt;&lt;li&gt;Klass.instance() - returning ``the instance&apos;&apos;. After a successful self modifying (normally the first) call the method body is a simple:&lt;/li&gt;&lt;pre&gt;   def Klass.instance()
+     return @&lt;em&gt;instance&lt;/em&gt;
+   end
+&lt;/pre&gt;&lt;li&gt;Klass._load(str) - calling Klass.instance()&lt;/li&gt;&lt;li&gt;Klass._instantiate?() - returning ``the instance&apos;&apos; or nil. This hook method puts a second (or nth) thread calling Klass.instance() on a waiting loop. The return value signifies the successful completion or premature termination of the first, or more generally, current &quot;instantiation thread&quot;.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;The instance method of Singleton are&lt;/p&gt;&lt;ul&gt;&lt;li&gt;clone and dup - raising TypeErrors to prevent cloning or duping&lt;/li&gt;&lt;li&gt;_dump(depth) - returning the empty string. Marshalling strips by default all state information, e.g. instance variables and taint state, from ``the instance&apos;&apos;. Providing custom _load(str) and _dump(depth) hooks allows the (partially) resurrections of a previous state of ``the instance&apos;&apos;.&lt;/li&gt;&lt;/ul&gt;</comment>
+  <methods>
+    <method name='clone'>&lt;p&gt;disable build-in copying methods&lt;/p&gt;</method>
+    <method name='dup'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

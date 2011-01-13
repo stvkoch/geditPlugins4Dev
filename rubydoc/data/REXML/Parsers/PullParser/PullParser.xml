@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;h1&gt;Using the Pull Parser&lt;/h1&gt;&lt;p&gt;&lt;em&gt;This API is experimental, and subject to change.&lt;/em&gt;&lt;/p&gt;&lt;pre&gt; parser = PullParser.new( &quot;&lt;a&gt;text&lt;b att=&apos;val&apos;/&gt;txet&lt;/a&gt;&quot; )
+ while parser.has_next?
+   res = parser.next
+   puts res[1][&apos;att&apos;] if res.start_tag? and res[0] == &apos;b&apos;
+ end
+&lt;/pre&gt;&lt;p&gt;See the PullEvent class for information on the content of the results. The data is identical to the arguments passed for the various events to the StreamListener API.&lt;/p&gt;&lt;p&gt;Notice that:&lt;/p&gt;&lt;pre&gt; parser = PullParser.new( &quot;&lt;a&gt;BAD DOCUMENT&quot; )
+ while parser.has_next?
+   res = parser.next
+   raise res[1] if res.error?
+ end
+&lt;/pre&gt;&lt;p&gt;Nat Price gave me some good ideas for the API.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_listener'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='peek'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='pull'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='unshift'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

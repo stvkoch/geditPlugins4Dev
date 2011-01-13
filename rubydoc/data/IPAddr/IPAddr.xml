@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;IPAddr provides a set of methods to manipulate an IP address. Both IPv4 and IPv6 are supported.&lt;/p&gt;&lt;h2&gt;Example&lt;/h2&gt;&lt;pre&gt;  require &apos;ipaddr&apos;
+
+  ipaddr1 = IPAddr.new &quot;3ffe:505:2::1&quot;
+
+  p ipaddr1                   #=&gt; #&lt;IPAddr: IPv6:3ffe:0505:0002:0000:0000:0000:0000:0001/ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff&gt;
+
+  p ipaddr1.to_s              #=&gt; &quot;3ffe:505:2::1&quot;
+
+  ipaddr2 = ipaddr1.mask(48)  #=&gt; #&lt;IPAddr: IPv6:3ffe:0505:0002:0000:0000:0000:0000:0000/ffff:ffff:ffff:0000:0000:0000:0000:0000&gt;
+
+  p ipaddr2.to_s              #=&gt; &quot;3ffe:505:2::&quot;
+
+  ipaddr3 = IPAddr.new &quot;192.168.2.0/24&quot;
+
+  p ipaddr3                   #=&gt; #&lt;IPAddr: IPv4:192.168.2.0/255.255.255.0&gt;
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new ipaddr containing the given human readable form of an IP address. It also accepts `address/prefixlen&apos; and `address/mask&apos;. When prefixlen or mask is specified, it returns a masked ipaddr. IPv6 address may beenclosed with `[&apos; and `]&apos;.&lt;/p&gt;&lt;p&gt;Although an address family is determined automatically from a specified address, you can specify an address family explicitly by the optional second argument.&lt;/p&gt;</method>
+    <method name='new_ntoh'>&lt;p&gt;Creates a new ipaddr containing the given network byte ordered string form of an IP address.&lt;/p&gt;</method>
+    <method name='ntop'>&lt;p&gt;Convert a network byte ordered string form of an IP address into human readable form.&lt;/p&gt;</method>
+    <method name='&amp;'>&lt;p&gt;Returns a new ipaddr built by bitwise AND.&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Returns a new ipaddr built by bitwise left shift.&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;Returns true if two ipaddr are equal.&lt;/p&gt;</method>
+    <method name='==='>&lt;p&gt;Alias for #include?&lt;/p&gt;</method>
+    <method name='&gt;&gt;'>&lt;p&gt;Returns a new ipaddr built by bitwise right-shift.&lt;/p&gt;</method>
+    <method name='hton'>&lt;p&gt;Returns a network byte ordered string form of the IP address.&lt;/p&gt;</method>
+    <method name='include?'>&lt;p&gt;Returns true if the given ipaddr is in the range.&lt;/p&gt;&lt;p&gt;e.g.:&lt;/p&gt;&lt;pre&gt;  require &apos;ipaddr&apos;
+  net1 = IPAddr.new(&quot;192.168.2.0/24&quot;)
+  p net1.include?(IPAddr.new(&quot;192.168.2.0&quot;))        #=&gt; true
+  p net1.include?(IPAddr.new(&quot;192.168.2.255&quot;))      #=&gt; true
+  p net1.include?(IPAddr.new(&quot;192.168.3.0&quot;))        #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='inspect'>&lt;p&gt;Returns a string containing a human-readable representation of the ipaddr. (&quot;#&lt;IPAddr: family:address/mask&gt;&quot;)&lt;/p&gt;</method>
+    <method name='ip6_arpa'>&lt;p&gt;Returns a string for DNS reverse lookup compatible with RFC3172.&lt;/p&gt;</method>
+    <method name='ip6_int'>&lt;p&gt;Returns a string for DNS reverse lookup compatible with RFC1886.&lt;/p&gt;</method>
+    <method name='ipv4?'>&lt;p&gt;Returns true if the ipaddr is an IPv4 address.&lt;/p&gt;</method>
+    <method name='ipv4_compat'>&lt;p&gt;Returns a new ipaddr built by converting the native IPv4 address into an IPv4-compatible IPv6 address.&lt;/p&gt;</method>
+    <method name='ipv4_compat?'>&lt;p&gt;Returns true if the ipaddr is an IPv4-compatible IPv6 address.&lt;/p&gt;</method>
+    <method name='ipv4_mapped'>&lt;p&gt;Returns a new ipaddr built by converting the native IPv4 address into an IPv4-mapped IPv6 address.&lt;/p&gt;</method>
+    <method name='ipv4_mapped?'>&lt;p&gt;Returns true if the ipaddr is an IPv4-mapped IPv6 address.&lt;/p&gt;</method>
+    <method name='ipv6?'>&lt;p&gt;Returns true if the ipaddr is an IPv6 address.&lt;/p&gt;</method>
+    <method name='mask'>&lt;p&gt;Returns a new ipaddr built by masking IP address with the given prefixlen/netmask. (e.g. 8, 64, &quot;255.255.255.0&quot;, etc.)&lt;/p&gt;</method>
+    <method name='native'>&lt;p&gt;Returns a new ipaddr built by converting the IPv6 address into a native IPv4 address. If the IP address is not an IPv4-mapped or IPv4-compatible IPv6 address, returns self.&lt;/p&gt;</method>
+    <method name='reverse'>&lt;p&gt;Returns a string for DNS reverse lookup. It returns a string in RFC3172 form for an IPv6 address.&lt;/p&gt;</method>
+    <method name='to_i'>&lt;p&gt;Returns the integer representation of the ipaddr.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Returns a string containing the IP address representation.&lt;/p&gt;</method>
+    <method name='to_string'>&lt;p&gt;Returns a string containing the IP address representation in canonical form.&lt;/p&gt;</method>
+    <method name='|'>&lt;p&gt;Returns a new ipaddr built by bitwise OR.&lt;/p&gt;</method>
+    <method name='~'>&lt;p&gt;Returns a new ipaddr built by bitwise negation.&lt;/p&gt;</method>
+  </methods>
+</help>

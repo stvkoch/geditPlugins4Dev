@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;subgraph element is the same to graph, but has another header in dot notation&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each_node'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='pop'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='push'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The Mail class represents an internet mail message (as per RFC822, RFC2822) with headers and a body.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Create a new Mail where &lt;tt&gt;f&lt;/tt&gt; is either a stream which responds to gets(), or a path to a file. If &lt;tt&gt;f&lt;/tt&gt; is a path it will be opened.&lt;/p&gt;&lt;p&gt;The whole message is read so it can be made available through the #header, #[] and #body methods.&lt;/p&gt;&lt;p&gt;The &quot;From &quot; line is ignored if the mail is in mbox format.&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;Return the header corresponding to &lt;tt&gt;field&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;Matching is case-insensitive.&lt;/p&gt;</method>
+    <method name='body'>&lt;p&gt;Return the message body as an Array of lines&lt;/p&gt;</method>
+    <method name='header'>&lt;p&gt;Return the headers as a Hash.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Definitions of all tokens involved in the lexical analysis&lt;/p&gt;</comment>
+  <methods>
+    <method name='def_token'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='Token'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_token_position'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

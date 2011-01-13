@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Verbatim code contains lines that don&apos;t get wrapped.&lt;/p&gt;</comment>
+  <methods>
+    <method name='add_text'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Handle text with attributes. We&apos;re a base class: there are different presentation classes (one, for example, uses overstrikes to handle bold and underlining, while another using ANSI escape sequences&lt;/p&gt;</comment>
+  <methods>
+    <method name='wrap'>&lt;p&gt;overrides base class. Looks for &lt;tt&gt;...&lt;/tt&gt; etc sequences and generates an array of AttrChars. This array is then used as the basis for the split&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='accept_nonblock'>&lt;p&gt;Accepts an incoming connection using accept(2) after O_NONBLOCK is set for the underlying file descriptor. It returns an accepted UNIXSocket for the incoming connection.&lt;/p&gt;&lt;h3&gt;Example&lt;/h3&gt;&lt;pre&gt;     require &apos;socket&apos;
+     serv = UNIXServer.new(&quot;/tmp/sock&quot;)
+     begin
+       sock = serv.accept_nonblock
+     rescue Errno::EAGAIN, Errno::ECONNABORTED, Errno::EPROTO, Errno::EINTR
+       IO.select([serv])
+       retry
+     end
+     # sock is an accepted socket.
+&lt;/pre&gt;&lt;p&gt;Refer to Socket#accept for the exceptions that may be thrown if the call to UNIXServer#accept_nonblock fails.&lt;/p&gt;&lt;p&gt;UNIXServer#accept_nonblock may raise any error corresponding to accept(2) failure, including Errno::EAGAIN.&lt;/p&gt;&lt;h3&gt;See&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;UNIXServer#accept&lt;/li&gt;&lt;li&gt;Socket#accept&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='listen'>&lt;p&gt;Listens for connections, using the specified &lt;tt&gt;int&lt;/tt&gt; as the backlog. A call to &lt;em&gt;listen&lt;/em&gt; only applies if the &lt;tt&gt;socket&lt;/tt&gt; is of type SOCK_STREAM or SOCK_SEQPACKET.&lt;/p&gt;&lt;h3&gt;Parameter&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt;backlog&lt;/tt&gt; - the maximum length of the queue for pending connections.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Example 1&lt;/h3&gt;&lt;pre&gt;     require &apos;socket&apos;
+     include Socket::Constants
+     socket = Socket.new( AF_INET, SOCK_STREAM, 0 )
+     sockaddr = Socket.pack_sockaddr_in( 2200, &apos;localhost&apos; )
+     socket.bind( sockaddr )
+     socket.listen( 5 )
+&lt;/pre&gt;&lt;h3&gt;Example 2 (listening on an arbitary port, unix-based systems only):&lt;/h3&gt;&lt;pre&gt;     require &apos;socket&apos;
+     include Socket::Constants
+     socket = Socket.new( AF_INET, SOCK_STREAM, 0 )
+     socket.listen( 1 )
+&lt;/pre&gt;&lt;h3&gt;Unix-based Exceptions&lt;/h3&gt;&lt;p&gt;On unix based systems the above will work because a new &lt;tt&gt;sockaddr&lt;/tt&gt; struct is created on the address ADDR_ANY, for an arbitrary port number as handed off by the kernel. It will not work on Windows, because Windows requires that the &lt;tt&gt;socket&lt;/tt&gt; is bound by calling &lt;em&gt;bind&lt;/em&gt; before it can &lt;em&gt;listen&lt;/em&gt;.&lt;/p&gt;&lt;p&gt;If the &lt;em&gt;backlog&lt;/em&gt; amount exceeds the implementation-dependent maximum queue length, the implementation&apos;s maximum queue length will be used.&lt;/p&gt;&lt;p&gt;On unix-based based systems the following system exceptions may be raised if the call to &lt;em&gt;listen&lt;/em&gt; fails:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Errno::EBADF - the &lt;em&gt;socket&lt;/em&gt; argument is not a valid file descriptor&lt;/li&gt;&lt;li&gt;Errno::EDESTADDRREQ - the &lt;em&gt;socket&lt;/em&gt; is not bound to a local address, and the protocol does not support listening on an unbound socket&lt;/li&gt;&lt;li&gt;Errno::EINVAL - the &lt;em&gt;socket&lt;/em&gt; is already connected&lt;/li&gt;&lt;li&gt;Errno::ENOTSOCK - the &lt;em&gt;socket&lt;/em&gt; argument does not refer to a socket&lt;/li&gt;&lt;li&gt;Errno::EOPNOTSUPP - the &lt;em&gt;socket&lt;/em&gt; protocol does not support listen&lt;/li&gt;&lt;li&gt;Errno::EACCES - the calling process does not have approriate privileges&lt;/li&gt;&lt;li&gt;Errno::EINVAL - the &lt;em&gt;socket&lt;/em&gt; has been shut down&lt;/li&gt;&lt;li&gt;Errno::ENOBUFS - insufficient resources are available in the system to complete the call&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Windows Exceptions&lt;/h3&gt;&lt;p&gt;On Windows systems the following system exceptions may be raised if the call to &lt;em&gt;listen&lt;/em&gt; fails:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Errno::ENETDOWN - the network is down&lt;/li&gt;&lt;li&gt;Errno::EADDRINUSE - the socket&apos;s local address is already in use. This usually occurs during the execution of &lt;em&gt;bind&lt;/em&gt; but could be delayed if the call to &lt;em&gt;bind&lt;/em&gt; was to a partially wildcard address (involving ADDR_ANY) and if a specific address needs to be commmitted at the time of the call to &lt;em&gt;listen&lt;/em&gt;&lt;/li&gt;&lt;li&gt;Errno::EINPROGRESS - a Windows Sockets 1.1 call is in progress or the service provider is still processing a callback function&lt;/li&gt;&lt;li&gt;Errno::EINVAL - the &lt;tt&gt;socket&lt;/tt&gt; has not been bound with a call to &lt;em&gt;bind&lt;/em&gt;.&lt;/li&gt;&lt;li&gt;Errno::EISCONN - the &lt;tt&gt;socket&lt;/tt&gt; is already connected&lt;/li&gt;&lt;li&gt;Errno::EMFILE - no more socket descriptors are available&lt;/li&gt;&lt;li&gt;Errno::ENOBUFS - no buffer space is available&lt;/li&gt;&lt;li&gt;Errno::ENOTSOC - &lt;tt&gt;socket&lt;/tt&gt; is not a socket&lt;/li&gt;&lt;li&gt;Errno::EOPNOTSUPP - the referenced &lt;tt&gt;socket&lt;/tt&gt; is not a type that supports the &lt;em&gt;listen&lt;/em&gt; method&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;See&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;listen manual pages on unix-based systems&lt;/li&gt;&lt;li&gt;listen function in Microsoft&apos;s Winsock functions reference&lt;/li&gt;&lt;/ul&gt;</method>
+  </methods>
+</help>

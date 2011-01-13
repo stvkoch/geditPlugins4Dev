@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;for ruby-1.8.0&lt;/p&gt;</comment>
+  <methods>
+    <method name='config'>&lt;p&gt;Get the configuration of the current server.&lt;/p&gt;&lt;p&gt;If there is no current server, this returns the default configuration. See #current_server and DRbServer::make_config.&lt;/p&gt;</method>
+    <method name='current_server'>&lt;p&gt;Get the &apos;current&apos; server.&lt;/p&gt;&lt;p&gt;In the context of execution taking place within the main thread of a dRuby server (typically, as a result of a remote call on the server or one of its objects), the current server is that server. Otherwise, the current server is the primary server.&lt;/p&gt;&lt;p&gt;If the above rule fails to find a server, a DRbServerNotFound error is raised.&lt;/p&gt;</method>
+    <method name='fetch_server'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='front'>&lt;p&gt;Get the front object of the current server.&lt;/p&gt;&lt;p&gt;This raises a DRbServerNotFound error if there is no current server. See #current_server.&lt;/p&gt;</method>
+    <method name='here?'>&lt;p&gt;Is &lt;tt&gt;uri&lt;/tt&gt; the URI for the current local server?&lt;/p&gt;</method>
+    <method name='install_acl'>&lt;p&gt;Set the default acl.&lt;/p&gt;&lt;p&gt;See DRb::DRbServer.default_acl.&lt;/p&gt;</method>
+    <method name='install_id_conv'>&lt;p&gt;Set the default id conv object.&lt;/p&gt;&lt;p&gt;See DRbServer#default_id_conv.&lt;/p&gt;</method>
+    <method name='regist_server'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='remove_server'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='start_service'>&lt;p&gt;Start a dRuby server locally.&lt;/p&gt;&lt;p&gt;The new dRuby server will become the primary server, even if another server is currently the primary server.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;uri&lt;/tt&gt; is the URI for the server to bind to. If nil, the server will bind to random port on the default local host name and use the default dRuby protocol.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;front&lt;/tt&gt; is the server&apos;s front object. This may be nil.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;config&lt;/tt&gt; is the configuration for the new server. This may be nil.&lt;/p&gt;&lt;p&gt;See DRbServer::new.&lt;/p&gt;</method>
+    <method name='stop_service'>&lt;p&gt;Stop the local dRuby server.&lt;/p&gt;&lt;p&gt;This operates on the primary server. If there is no primary server currently running, it is a noop.&lt;/p&gt;</method>
+    <method name='thread'>&lt;p&gt;Get the thread of the primary server.&lt;/p&gt;&lt;p&gt;This returns nil if there is no primary server. See #primary_server.&lt;/p&gt;</method>
+    <method name='to_id'>&lt;p&gt;Get a reference id for an object using the current server.&lt;/p&gt;&lt;p&gt;This raises a DRbServerNotFound error if there is no current server. See #current_server.&lt;/p&gt;</method>
+    <method name='to_obj'>&lt;p&gt;Convert a reference into an object using the current server.&lt;/p&gt;&lt;p&gt;This raises a DRbServerNotFound error if there is no current server. See #current_server.&lt;/p&gt;</method>
+    <method name='uri'>&lt;p&gt;Get the URI defining the local dRuby space.&lt;/p&gt;&lt;p&gt;This is the URI of the current server. See #current_server.&lt;/p&gt;</method>
+  </methods>
+</help>

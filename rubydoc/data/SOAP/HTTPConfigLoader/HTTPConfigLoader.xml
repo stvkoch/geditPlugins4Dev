@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='cert_from_file'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='key_from_file'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_basic_auth'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_options'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_ssl_config'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='ssl_config_int'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

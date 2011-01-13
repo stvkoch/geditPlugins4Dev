@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A tuple is the elementary object in Rinda programming. Tuples may be matched against templates if the tuple and the template are the same size.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new Tuple from &lt;tt&gt;ary_or_hash&lt;/tt&gt; which must be an Array or Hash.&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;Accessor method for elements of the tuple.&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;Iterate through the tuple, yielding the index or key, and the value, thus ensuring arrays are iterated similarly to hashes.&lt;/p&gt;</method>
+    <method name='fetch'>&lt;p&gt;Fetches item &lt;tt&gt;k&lt;/tt&gt; from the tuple.&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;The number of elements in the tuple.&lt;/p&gt;</method>
+    <method name='value'>&lt;p&gt;Return the tuple itself&lt;/p&gt;</method>
+  </methods>
+</help>

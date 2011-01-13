@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<gconf>
+        <entry name="virtual_root" mtime="1175552436" type="string">
+                <stringvalue>file:///home/fvieira/projects/devel/taipei.uol.com.br/stc/dev/j</stringvalue>
+        </entry>
+        <entry name="root" mtime="1175552436" type="string">
+                <stringvalue>file:///</stringvalue>
+        </entry>
+        <entry name="tree_view" mtime="1175710015" type="bool" value="false">
+        </entry>
+</gconf>

@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;h1&gt;ftools.rb: Extra tools for the File class&lt;/h1&gt;&lt;ul&gt;&lt;li&gt;WATANABE, Hirofumi&lt;/li&gt;&lt;li&gt;Zachary Landau&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;This library can be distributed under the terms of the Ruby license. You can freely distribute/modify this library.&lt;/p&gt;&lt;p&gt;It is included in the Ruby standard library.&lt;/p&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;ftools adds several (class, not instance) methods to the File class, for copying, moving, deleting, installing, and comparing files, as well as creating a directory path. See the File class for details.&lt;/p&gt;&lt;p&gt;FileUtils contains all or nearly all the same functionality and more, and is a recommended option over ftools&lt;/p&gt;&lt;p&gt;When you&lt;/p&gt;&lt;pre&gt;  require &apos;ftools&apos;
+&lt;/pre&gt;&lt;p&gt;then the File class aquires some utility methods for copying, moving, and deleting files, and more.&lt;/p&gt;&lt;p&gt;See the method descriptions below, and consider using FileUtils as it is more comprehensive.&lt;/p&gt;</comment>
+  <methods>
+    <method name='atime'>&lt;p&gt;Returns the last access time for the named file as a Time object).&lt;/p&gt;&lt;pre&gt;   File.atime(&quot;testfile&quot;)   #=&gt; Wed Apr 09 08:51:48 CDT 2003
+&lt;/pre&gt;</method>
+    <method name='basename'>&lt;p&gt;Returns the last component of the filename given in &lt;em&gt;file_name&lt;/em&gt;, which must be formed using forward slashes (``&lt;tt&gt;/&lt;/tt&gt;&apos;&apos;) regardless of the separator used on the local file system. If &lt;em&gt;suffix&lt;/em&gt; is given and present at the end of &lt;em&gt;file_name&lt;/em&gt;, it is removed.&lt;/p&gt;&lt;pre&gt;   File.basename(&quot;/home/gumby/work/ruby.rb&quot;)          #=&gt; &quot;ruby.rb&quot;
+   File.basename(&quot;/home/gumby/work/ruby.rb&quot;, &quot;.rb&quot;)   #=&gt; &quot;ruby&quot;
+&lt;/pre&gt;</method>
+    <method name='blockdev?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is a block device.&lt;/p&gt;</method>
+    <method name='catname'>&lt;p&gt;If &lt;tt&gt;to&lt;/tt&gt; is a valid directory, &lt;tt&gt;from&lt;/tt&gt; will be appended to &lt;tt&gt;to&lt;/tt&gt;, adding and escaping backslashes as necessary. Otherwise, &lt;tt&gt;to&lt;/tt&gt; will be returned. Useful for appending &lt;tt&gt;from&lt;/tt&gt; to &lt;tt&gt;to&lt;/tt&gt; only if the filename was not specified in &lt;tt&gt;to&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='chardev?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is a character device.&lt;/p&gt;</method>
+    <method name='chmod'>&lt;p&gt;Changes permission bits on &lt;tt&gt;files&lt;/tt&gt; to the bit pattern represented by &lt;tt&gt;mode&lt;/tt&gt;. If the last parameter isn&apos;t a String, verbose mode will be enabled.&lt;/p&gt;&lt;pre&gt;  File.chmod 0755, &apos;somecommand&apos;
+  File.chmod 0644, &apos;my.rb&apos;, &apos;your.rb&apos;, true
+&lt;/pre&gt;</method>
+    <method name='chown'>&lt;p&gt;Changes the owner and group of the named file(s) to the given numeric owner and group id&apos;s. Only a process with superuser privileges may change the owner of a file. The current owner of a file may change the file&apos;s group to any group to which the owner belongs. A &lt;tt&gt;nil&lt;/tt&gt; or -1 owner or group id is ignored. Returns the number of files processed.&lt;/p&gt;&lt;pre&gt;   File.chown(nil, 100, &quot;testfile&quot;)
+&lt;/pre&gt;</method>
+    <method name='compare'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if and only if the contents of files &lt;tt&gt;from&lt;/tt&gt; and &lt;tt&gt;to&lt;/tt&gt; are identical. If &lt;tt&gt;verbose&lt;/tt&gt; is &lt;tt&gt;true&lt;/tt&gt;, &lt;tt&gt;from &lt;=&gt; to&lt;/tt&gt; is printed.&lt;/p&gt;</method>
+    <method name='copy'>&lt;p&gt;Copies a file &lt;tt&gt;from&lt;/tt&gt; to &lt;tt&gt;to&lt;/tt&gt; using #syscopy. If &lt;tt&gt;to&lt;/tt&gt; is a directory, copies &lt;tt&gt;from&lt;/tt&gt; to &lt;tt&gt;to/from&lt;/tt&gt;. If &lt;tt&gt;verbose&lt;/tt&gt; is true, &lt;tt&gt;from -&gt; to&lt;/tt&gt; is printed.&lt;/p&gt;</method>
+    <method name='ctime'>&lt;p&gt;Returns the change time for the named file (the time at which directory information about the file was changed, not the file itself).&lt;/p&gt;&lt;pre&gt;   File.ctime(&quot;testfile&quot;)   #=&gt; Wed Apr 09 08:53:13 CDT 2003
+&lt;/pre&gt;</method>
+    <method name='delete'>&lt;p&gt;Deletes the named files, returning the number of names passed as arguments. Raises an exception on any error. See also &lt;tt&gt;Dir::rmdir&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='directory?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is a directory, &lt;tt&gt;false&lt;/tt&gt; otherwise.&lt;/p&gt;&lt;pre&gt;   File.directory?(&quot;.&quot;)
+&lt;/pre&gt;</method>
+    <method name='dirname'>&lt;p&gt;Returns all components of the filename given in &lt;em&gt;file_name&lt;/em&gt; except the last one. The filename must be formed using forward slashes (``&lt;tt&gt;/&lt;/tt&gt;&apos;&apos;) regardless of the separator used on the local file system.&lt;/p&gt;&lt;pre&gt;   File.dirname(&quot;/home/gumby/work/ruby.rb&quot;)   #=&gt; &quot;/home/gumby/work&quot;
+&lt;/pre&gt;</method>
+    <method name='executable?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is executable by the effective user id of this process.&lt;/p&gt;</method>
+    <method name='executable_real?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is executable by the real user id of this process.&lt;/p&gt;</method>
+    <method name='exist?'>&lt;p&gt;Return &lt;tt&gt;true&lt;/tt&gt; if the named file exists.&lt;/p&gt;</method>
+    <method name='exists?'>&lt;p&gt;Return &lt;tt&gt;true&lt;/tt&gt; if the named file exists.&lt;/p&gt;</method>
+    <method name='expand_path'>&lt;p&gt;Converts a pathname to an absolute pathname. Relative paths are referenced from the current working directory of the process unless &lt;em&gt;dir_string&lt;/em&gt; is given, in which case it will be used as the starting point. The given pathname may start with a ``&lt;tt&gt;~&lt;/tt&gt;&apos;&apos;, which expands to the process owner&apos;s home directory (the environment variable &lt;tt&gt;HOME&lt;/tt&gt; must be set correctly). ``&lt;tt&gt;~&lt;/tt&gt;&lt;em&gt;user&lt;/em&gt;&apos;&apos; expands to the named user&apos;s home directory.&lt;/p&gt;&lt;pre&gt;   File.expand_path(&quot;~oracle/bin&quot;)           #=&gt; &quot;/home/oracle/bin&quot;
+   File.expand_path(&quot;../../bin&quot;, &quot;/tmp/x&quot;)   #=&gt; &quot;/bin&quot;
+&lt;/pre&gt;</method>
+    <method name='extname'>&lt;p&gt;Returns the extension (the portion of file name in &lt;em&gt;path&lt;/em&gt; after the period).&lt;/p&gt;&lt;pre&gt;   File.extname(&quot;test.rb&quot;)         #=&gt; &quot;.rb&quot;
+   File.extname(&quot;a/b/d/test.rb&quot;)   #=&gt; &quot;.rb&quot;
+   File.extname(&quot;test&quot;)            #=&gt; &quot;&quot;
+   File.extname(&quot;.profile&quot;)        #=&gt; &quot;&quot;
+&lt;/pre&gt;</method>
+    <method name='file?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file exists and is a regular file.&lt;/p&gt;</method>
+    <method name='fnmatch'>&lt;p&gt;Returns true if &lt;em&gt;path&lt;/em&gt; matches against &lt;em&gt;pattern&lt;/em&gt; The pattern is not a regular expression; instead it follows rules similar to shell filename globbing. It may contain the following metacharacters:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Matches any file. Can be restricted by other values in the glob. &lt;tt&gt;*&lt;/tt&gt; will match all files; &lt;tt&gt;c*&lt;/tt&gt; will match all files beginning with &lt;tt&gt;c&lt;/tt&gt;; &lt;tt&gt;*c&lt;/tt&gt; will match all files ending with &lt;tt&gt;c&lt;/tt&gt;; and &lt;b&gt;&lt;tt&gt;c&lt;/tt&gt;&lt;/b&gt; will match all files that have &lt;tt&gt;c&lt;/tt&gt; in them (including at the beginning or end). Equivalent to &lt;tt&gt;/ .* /x&lt;/tt&gt; in regexp.&lt;/li&gt;&lt;li&gt;Matches any one character. Equivalent to &lt;tt&gt;/.{1}/&lt;/tt&gt; in regexp.&lt;/li&gt;&lt;li&gt;Matches any one character in &lt;tt&gt;set&lt;/tt&gt;. Behaves exactly like character sets in Regexp, including set negation (&lt;tt&gt;[^a-z]&lt;/tt&gt;).&lt;/li&gt;&lt;li&gt;Escapes the next metacharacter.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;em&gt;flags&lt;/em&gt; is a bitwise OR of the &lt;tt&gt;FNM_xxx&lt;/tt&gt; parameters. The same glob pattern and flags are used by &lt;tt&gt;Dir::glob&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   File.fnmatch(&apos;cat&apos;,       &apos;cat&apos;)        #=&gt; true
+   File.fnmatch(&apos;cat&apos;,       &apos;category&apos;)   #=&gt; false
+   File.fnmatch(&apos;c{at,ub}s&apos;, &apos;cats&apos;)       #=&gt; false
+   File.fnmatch(&apos;c{at,ub}s&apos;, &apos;cubs&apos;)       #=&gt; false
+   File.fnmatch(&apos;c{at,ub}s&apos;, &apos;cat&apos;)        #=&gt; false
+
+   File.fnmatch(&apos;c?t&apos;,    &apos;cat&apos;)                       #=&gt; true
+   File.fnmatch(&apos;c\?t&apos;,   &apos;cat&apos;)                       #=&gt; false
+   File.fnmatch(&apos;c??t&apos;,   &apos;cat&apos;)                       #=&gt; false
+   File.fnmatch(&apos;c*&apos;,     &apos;cats&apos;)                      #=&gt; true
+   File.fnmatch(&apos;c/ * FIXME * /t&apos;, &apos;c/a/b/c/t&apos;)                 #=&gt; true
+   File.fnmatch(&apos;c*t&apos;,    &apos;cat&apos;)                       #=&gt; true
+   File.fnmatch(&apos;c\at&apos;,   &apos;cat&apos;)                       #=&gt; true
+   File.fnmatch(&apos;c\at&apos;,   &apos;cat&apos;, File::FNM_NOESCAPE)   #=&gt; false
+   File.fnmatch(&apos;a?b&apos;,    &apos;a/b&apos;)                       #=&gt; true
+   File.fnmatch(&apos;a?b&apos;,    &apos;a/b&apos;, File::FNM_PATHNAME)   #=&gt; false
+
+   File.fnmatch(&apos;*&apos;,   &apos;.profile&apos;)                            #=&gt; false
+   File.fnmatch(&apos;*&apos;,   &apos;.profile&apos;, File::FNM_DOTMATCH)        #=&gt; true
+   File.fnmatch(&apos;*&apos;,   &apos;dave/.profile&apos;)                       #=&gt; true
+   File.fnmatch(&apos;*&apos;,   &apos;dave/.profile&apos;, File::FNM_DOTMATCH)   #=&gt; true
+   File.fnmatch(&apos;*&apos;,   &apos;dave/.profile&apos;, File::FNM_PATHNAME)   #=&gt; false
+   File.fnmatch(&apos;* / FIXME *&apos;, &apos;dave/.profile&apos;, File::FNM_PATHNAME)   #=&gt; false
+   STRICT = File::FNM_PATHNAME | File::FNM_DOTMATCH
+   File.fnmatch(&apos;* / FIXME *&apos;, &apos;dave/.profile&apos;, STRICT)               #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='fnmatch?'>&lt;p&gt;Returns true if &lt;em&gt;path&lt;/em&gt; matches against &lt;em&gt;pattern&lt;/em&gt; The pattern is not a regular expression; instead it follows rules similar to shell filename globbing. It may contain the following metacharacters:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Matches any file. Can be restricted by other values in the glob. &lt;tt&gt;*&lt;/tt&gt; will match all files; &lt;tt&gt;c*&lt;/tt&gt; will match all files beginning with &lt;tt&gt;c&lt;/tt&gt;; &lt;tt&gt;*c&lt;/tt&gt; will match all files ending with &lt;tt&gt;c&lt;/tt&gt;; and &lt;b&gt;&lt;tt&gt;c&lt;/tt&gt;&lt;/b&gt; will match all files that have &lt;tt&gt;c&lt;/tt&gt; in them (including at the beginning or end). Equivalent to &lt;tt&gt;/ .* /x&lt;/tt&gt; in regexp.&lt;/li&gt;&lt;li&gt;Matches any one character. Equivalent to &lt;tt&gt;/.{1}/&lt;/tt&gt; in regexp.&lt;/li&gt;&lt;li&gt;Matches any one character in &lt;tt&gt;set&lt;/tt&gt;. Behaves exactly like character sets in Regexp, including set negation (&lt;tt&gt;[^a-z]&lt;/tt&gt;).&lt;/li&gt;&lt;li&gt;Escapes the next metacharacter.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;em&gt;flags&lt;/em&gt; is a bitwise OR of the &lt;tt&gt;FNM_xxx&lt;/tt&gt; parameters. The same glob pattern and flags are used by &lt;tt&gt;Dir::glob&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   File.fnmatch(&apos;cat&apos;,       &apos;cat&apos;)        #=&gt; true
+   File.fnmatch(&apos;cat&apos;,       &apos;category&apos;)   #=&gt; false
+   File.fnmatch(&apos;c{at,ub}s&apos;, &apos;cats&apos;)       #=&gt; false
+   File.fnmatch(&apos;c{at,ub}s&apos;, &apos;cubs&apos;)       #=&gt; false
+   File.fnmatch(&apos;c{at,ub}s&apos;, &apos;cat&apos;)        #=&gt; false
+
+   File.fnmatch(&apos;c?t&apos;,    &apos;cat&apos;)                       #=&gt; true
+   File.fnmatch(&apos;c\?t&apos;,   &apos;cat&apos;)                       #=&gt; false
+   File.fnmatch(&apos;c??t&apos;,   &apos;cat&apos;)                       #=&gt; false
+   File.fnmatch(&apos;c*&apos;,     &apos;cats&apos;)                      #=&gt; true
+   File.fnmatch(&apos;c/ * FIXME * /t&apos;, &apos;c/a/b/c/t&apos;)                 #=&gt; true
+   File.fnmatch(&apos;c*t&apos;,    &apos;cat&apos;)                       #=&gt; true
+   File.fnmatch(&apos;c\at&apos;,   &apos;cat&apos;)                       #=&gt; true
+   File.fnmatch(&apos;c\at&apos;,   &apos;cat&apos;, File::FNM_NOESCAPE)   #=&gt; false
+   File.fnmatch(&apos;a?b&apos;,    &apos;a/b&apos;)                       #=&gt; true
+   File.fnmatch(&apos;a?b&apos;,    &apos;a/b&apos;, File::FNM_PATHNAME)   #=&gt; false
+
+   File.fnmatch(&apos;*&apos;,   &apos;.profile&apos;)                            #=&gt; false
+   File.fnmatch(&apos;*&apos;,   &apos;.profile&apos;, File::FNM_DOTMATCH)        #=&gt; true
+   File.fnmatch(&apos;*&apos;,   &apos;dave/.profile&apos;)                       #=&gt; true
+   File.fnmatch(&apos;*&apos;,   &apos;dave/.profile&apos;, File::FNM_DOTMATCH)   #=&gt; true
+   File.fnmatch(&apos;*&apos;,   &apos;dave/.profile&apos;, File::FNM_PATHNAME)   #=&gt; false
+   File.fnmatch(&apos;* / FIXME *&apos;, &apos;dave/.profile&apos;, File::FNM_PATHNAME)   #=&gt; false
+   STRICT = File::FNM_PATHNAME | File::FNM_DOTMATCH
+   File.fnmatch(&apos;* / FIXME *&apos;, &apos;dave/.profile&apos;, STRICT)               #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='ftype'>&lt;p&gt;Identifies the type of the named file; the return string is one of ``&lt;tt&gt;file&lt;/tt&gt;&apos;&apos;, ``&lt;tt&gt;directory&lt;/tt&gt;&apos;&apos;, ``&lt;tt&gt;characterSpecial&lt;/tt&gt;&apos;&apos;, ``&lt;tt&gt;blockSpecial&lt;/tt&gt;&apos;&apos;, ``&lt;tt&gt;fifo&lt;/tt&gt;&apos;&apos;, ``&lt;tt&gt;link&lt;/tt&gt;&apos;&apos;, ``&lt;tt&gt;socket&lt;/tt&gt;&apos;&apos;, or ``&lt;tt&gt;unknown&lt;/tt&gt;&apos;&apos;.&lt;/p&gt;&lt;pre&gt;   File.ftype(&quot;testfile&quot;)            #=&gt; &quot;file&quot;
+   File.ftype(&quot;/dev/tty&quot;)            #=&gt; &quot;characterSpecial&quot;
+   File.ftype(&quot;/tmp/.X11-unix/X0&quot;)   #=&gt; &quot;socket&quot;
+&lt;/pre&gt;</method>
+    <method name='grpowned?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file exists and the effective group id of the calling process is the owner of the file. Returns &lt;tt&gt;false&lt;/tt&gt; on Windows.&lt;/p&gt;</method>
+    <method name='identical?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named files are identical.&lt;/p&gt;&lt;pre&gt;    open(&quot;a&quot;, &quot;w&quot;) {}
+    p File.identical?(&quot;a&quot;, &quot;a&quot;)      #=&gt; true
+    p File.identical?(&quot;a&quot;, &quot;./a&quot;)    #=&gt; true
+    File.link(&quot;a&quot;, &quot;b&quot;)
+    p File.identical?(&quot;a&quot;, &quot;b&quot;)      #=&gt; true
+    File.symlink(&quot;a&quot;, &quot;c&quot;)
+    p File.identical?(&quot;a&quot;, &quot;c&quot;)      #=&gt; true
+    open(&quot;d&quot;, &quot;w&quot;) {}
+    p File.identical?(&quot;a&quot;, &quot;d&quot;)      #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='install'>&lt;p&gt;If &lt;tt&gt;src&lt;/tt&gt; is not the same as &lt;tt&gt;dest&lt;/tt&gt;, copies it and changes the permission mode to &lt;tt&gt;mode&lt;/tt&gt;. If &lt;tt&gt;dest&lt;/tt&gt; is a directory, destination is &lt;tt&gt;dest/src&lt;/tt&gt;. If &lt;tt&gt;mode&lt;/tt&gt; is not set, default is used. If &lt;tt&gt;verbose&lt;/tt&gt; is set to true, the name of each file copied will be printed.&lt;/p&gt;</method>
+    <method name='join'>&lt;p&gt;Returns a new string formed by joining the strings using &lt;tt&gt;File::SEPARATOR&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   File.join(&quot;usr&quot;, &quot;mail&quot;, &quot;gumby&quot;)   #=&gt; &quot;usr/mail/gumby&quot;
+&lt;/pre&gt;</method>
+    <method name='lchmod'>&lt;p&gt;Equivalent to &lt;tt&gt;File::chmod&lt;/tt&gt;, but does not follow symbolic links (so it will change the permissions associated with the link, not the file referenced by the link). Often not available.&lt;/p&gt;</method>
+    <method name='lchown'>&lt;p&gt;Equivalent to &lt;tt&gt;File::chown&lt;/tt&gt;, but does not follow symbolic links (so it will change the owner associated with the link, not the file referenced by the link). Often not available. Returns number of files in the argument list.&lt;/p&gt;</method>
+    <method name='link'>&lt;p&gt;Creates a new name for an existing file using a hard link. Will not overwrite &lt;em&gt;new_name&lt;/em&gt; if it already exists (raising a subclass of &lt;tt&gt;SystemCallError&lt;/tt&gt;). Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   File.link(&quot;testfile&quot;, &quot;.testfile&quot;)   #=&gt; 0
+   IO.readlines(&quot;.testfile&quot;)[0]         #=&gt; &quot;This is line one\n&quot;
+&lt;/pre&gt;</method>
+    <method name='lstat'>&lt;p&gt;Same as &lt;tt&gt;File::stat&lt;/tt&gt;, but does not follow the last symbolic link. Instead, reports on the link itself.&lt;/p&gt;&lt;pre&gt;   File.symlink(&quot;testfile&quot;, &quot;link2test&quot;)   #=&gt; 0
+   File.stat(&quot;testfile&quot;).size              #=&gt; 66
+   File.lstat(&quot;link2test&quot;).size            #=&gt; 8
+   File.stat(&quot;link2test&quot;).size             #=&gt; 66
+&lt;/pre&gt;</method>
+    <method name='makedirs'>&lt;p&gt;Creates a directory and all its parent directories. For example,&lt;/p&gt;&lt;pre&gt;    File.makedirs &apos;/usr/lib/ruby&apos;
+&lt;/pre&gt;&lt;p&gt;causes the following directories to be made, if they do not exist.&lt;/p&gt;&lt;pre&gt;    * /usr
+    * /usr/lib
+    * /usr/lib/ruby
+&lt;/pre&gt;&lt;p&gt;You can pass several directories, each as a parameter. If the last parameter isn&apos;t a String, verbose mode will be enabled.&lt;/p&gt;</method>
+    <method name='move'>&lt;p&gt;Moves a file &lt;tt&gt;from&lt;/tt&gt; to &lt;tt&gt;to&lt;/tt&gt; using #syscopy. If &lt;tt&gt;to&lt;/tt&gt; is a directory, copies from &lt;tt&gt;from&lt;/tt&gt; to &lt;tt&gt;to/from&lt;/tt&gt;. If &lt;tt&gt;verbose&lt;/tt&gt; is true, &lt;tt&gt;from -&gt; to&lt;/tt&gt; is printed.&lt;/p&gt;</method>
+    <method name='mtime'>&lt;p&gt;Returns the modification time for the named file as a Time object.&lt;/p&gt;&lt;pre&gt;   File.mtime(&quot;testfile&quot;)   #=&gt; Tue Apr 08 12:58:04 CDT 2003
+&lt;/pre&gt;</method>
+    <method name='new'>&lt;p&gt;Opens the file named by &lt;em&gt;filename&lt;/em&gt; according to &lt;em&gt;mode&lt;/em&gt; (default is ``r&apos;&apos;) and returns a new &lt;tt&gt;File&lt;/tt&gt; object. See the description of class &lt;tt&gt;IO&lt;/tt&gt; for a description of &lt;em&gt;mode&lt;/em&gt;. The file mode may optionally be specified as a &lt;tt&gt;Fixnum&lt;/tt&gt; by &lt;em&gt;or&lt;/em&gt;-ing together the flags (O_RDONLY etc, again described under &lt;tt&gt;IO&lt;/tt&gt;). Optional permission bits may be given in &lt;em&gt;perm&lt;/em&gt;. These mode and permission bits are platform dependent; on Unix systems, see &lt;tt&gt;open(2)&lt;/tt&gt; for details.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;testfile&quot;, &quot;r&quot;)
+   f = File.new(&quot;newfile&quot;,  &quot;w+&quot;)
+   f = File.new(&quot;newfile&quot;, File::CREAT|File::TRUNC|File::RDWR, 0644)
+&lt;/pre&gt;</method>
+    <method name='owned?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file exists and the effective used id of the calling process is the owner of the file.&lt;/p&gt;</method>
+    <method name='pipe?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is a pipe.&lt;/p&gt;</method>
+    <method name='readable?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is readable by the effective user id of this process.&lt;/p&gt;</method>
+    <method name='readable_real?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is readable by the real user id of this process.&lt;/p&gt;</method>
+    <method name='readlink'>&lt;p&gt;Returns the name of the file referenced by the given link. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   File.symlink(&quot;testfile&quot;, &quot;link2test&quot;)   #=&gt; 0
+   File.readlink(&quot;link2test&quot;)              #=&gt; &quot;testfile&quot;
+&lt;/pre&gt;</method>
+    <method name='rename'>&lt;p&gt;Renames the given file to the new name. Raises a &lt;tt&gt;SystemCallError&lt;/tt&gt; if the file cannot be renamed.&lt;/p&gt;&lt;pre&gt;   File.rename(&quot;afile&quot;, &quot;afile.bak&quot;)   #=&gt; 0
+&lt;/pre&gt;</method>
+    <method name='safe_unlink'>&lt;p&gt;Removes a list of files. Each parameter should be the name of the file to delete. If the last parameter isn&apos;t a String, verbose mode will be enabled. Returns the number of files deleted.&lt;/p&gt;</method>
+    <method name='setgid?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file has the setgid bit set.&lt;/p&gt;</method>
+    <method name='setuid?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file has the setuid bit set.&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;Returns the size of &lt;tt&gt;file_name&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='size?'>&lt;p&gt;Returns &lt;tt&gt;nil&lt;/tt&gt; if &lt;tt&gt;file_name&lt;/tt&gt; doesn&apos;t exist or has zero size, the size of the file otherwise.&lt;/p&gt;</method>
+    <method name='socket?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is a socket.&lt;/p&gt;</method>
+    <method name='split'>&lt;p&gt;Splits the given string into a directory and a file component and returns them in a two-element array. See also &lt;tt&gt;File::dirname&lt;/tt&gt; and &lt;tt&gt;File::basename&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   File.split(&quot;/home/gumby/.profile&quot;)   #=&gt; [&quot;/home/gumby&quot;, &quot;.profile&quot;]
+&lt;/pre&gt;</method>
+    <method name='stat'>&lt;p&gt;Returns a &lt;tt&gt;File::Stat&lt;/tt&gt; object for the named file (see &lt;tt&gt;File::Stat&lt;/tt&gt;).&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).mtime   #=&gt; Tue Apr 08 12:58:04 CDT 2003
+&lt;/pre&gt;</method>
+    <method name='sticky?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file has the sticky bit set.&lt;/p&gt;</method>
+    <method name='symlink'>&lt;p&gt;Creates a symbolic link called &lt;em&gt;new_name&lt;/em&gt; for the existing file &lt;em&gt;old_name&lt;/em&gt;. Raises a &lt;tt&gt;NotImplemented&lt;/tt&gt; exception on platforms that do not support symbolic links.&lt;/p&gt;&lt;pre&gt;   File.symlink(&quot;testfile&quot;, &quot;link2test&quot;)   #=&gt; 0
+&lt;/pre&gt;</method>
+    <method name='symlink?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is a symbolic link.&lt;/p&gt;</method>
+    <method name='syscopy'>&lt;p&gt;Copies a file &lt;tt&gt;from&lt;/tt&gt; to &lt;tt&gt;to&lt;/tt&gt;. If &lt;tt&gt;to&lt;/tt&gt; is a directory, copies &lt;tt&gt;from&lt;/tt&gt; to &lt;tt&gt;to/from&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='truncate'>&lt;p&gt;Truncates the file &lt;em&gt;file_name&lt;/em&gt; to be at most &lt;em&gt;integer&lt;/em&gt; bytes long. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;out&quot;, &quot;w&quot;)
+   f.write(&quot;1234567890&quot;)     #=&gt; 10
+   f.close                   #=&gt; nil
+   File.truncate(&quot;out&quot;, 5)   #=&gt; 0
+   File.size(&quot;out&quot;)          #=&gt; 5
+&lt;/pre&gt;</method>
+    <method name='umask'>&lt;p&gt;Returns the current umask value for this process. If the optional argument is given, set the umask to that value and return the previous value. Umask values are &lt;em&gt;subtracted&lt;/em&gt; from the default permissions, so a umask of &lt;tt&gt;0222&lt;/tt&gt; would make a file read-only for everyone.&lt;/p&gt;&lt;pre&gt;   File.umask(0006)   #=&gt; 18
+   File.umask         #=&gt; 6
+&lt;/pre&gt;</method>
+    <method name='unlink'>&lt;p&gt;Deletes the named files, returning the number of names passed as arguments. Raises an exception on any error. See also &lt;tt&gt;Dir::rmdir&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='utime'>&lt;p&gt;Sets the access and modification times of each named file to the first two arguments. Returns the number of file names in the argument list.&lt;/p&gt;</method>
+    <method name='writable?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is writable by the effective user id of this process.&lt;/p&gt;</method>
+    <method name='writable_real?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file is writable by the real user id of this process.&lt;/p&gt;</method>
+    <method name='zero?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the named file exists and has a zero size.&lt;/p&gt;</method>
+    <method name='atime'>&lt;p&gt;Returns the last access time (a &lt;tt&gt;Time&lt;/tt&gt; object)&lt;/p&gt;&lt;pre&gt; for &lt;em&gt;file&lt;/em&gt;, or epoch if &lt;em&gt;file&lt;/em&gt; has not been accessed.
+
+   File.new(&quot;testfile&quot;).atime   #=&gt; Wed Dec 31 18:00:00 CST 1969
+&lt;/pre&gt;</method>
+    <method name='chmod'>&lt;p&gt;Changes permission bits on &lt;em&gt;file&lt;/em&gt; to the bit pattern represented by &lt;em&gt;mode_int&lt;/em&gt;. Actual effects are platform dependent; on Unix systems, see &lt;tt&gt;chmod(2)&lt;/tt&gt; for details. Follows symbolic links. Also see &lt;tt&gt;File#lchmod&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;out&quot;, &quot;w&quot;);
+   f.chmod(0644)   #=&gt; 0
+&lt;/pre&gt;</method>
+    <method name='chown'>&lt;p&gt;Changes the owner and group of &lt;em&gt;file&lt;/em&gt; to the given numeric owner and group id&apos;s. Only a process with superuser privileges may change the owner of a file. The current owner of a file may change the file&apos;s group to any group to which the owner belongs. A &lt;tt&gt;nil&lt;/tt&gt; or -1 owner or group id is ignored. Follows symbolic links. See also &lt;tt&gt;File#lchown&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   File.new(&quot;testfile&quot;).chown(502, 1000)
+&lt;/pre&gt;</method>
+    <method name='ctime'>&lt;p&gt;Returns the change time for &lt;em&gt;file&lt;/em&gt; (that is, the time directory information about the file was changed, not the file itself).&lt;/p&gt;&lt;pre&gt;   File.new(&quot;testfile&quot;).ctime   #=&gt; Wed Apr 09 08:53:14 CDT 2003
+&lt;/pre&gt;</method>
+    <method name='flock'>&lt;p&gt;Locks or unlocks a file according to &lt;em&gt;locking_constant&lt;/em&gt; (a logical &lt;em&gt;or&lt;/em&gt; of the values in the table below). Returns &lt;tt&gt;false&lt;/tt&gt; if &lt;tt&gt;File::LOCK_NB&lt;/tt&gt; is specified and the operation would otherwise have blocked. Not available on all platforms.&lt;/p&gt;&lt;p&gt;Locking constants (in class File):&lt;/p&gt;&lt;pre&gt;   LOCK_EX   | Exclusive lock. Only one process may hold an
+             | exclusive lock for a given file at a time.
+   ----------+------------------------------------------------
+   LOCK_NB   | Don&apos;t block when locking. May be combined
+             | with other lock options using logical or.
+   ----------+------------------------------------------------
+   LOCK_SH   | Shared lock. Multiple processes may each hold a
+             | shared lock for a given file at the same time.
+   ----------+------------------------------------------------
+   LOCK_UN   | Unlock.
+&lt;/pre&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;   File.new(&quot;testfile&quot;).flock(File::LOCK_UN)   #=&gt; 0
+&lt;/pre&gt;</method>
+    <method name='lstat'>&lt;p&gt;Same as &lt;tt&gt;IO#stat&lt;/tt&gt;, but does not follow the last symbolic link. Instead, reports on the link itself.&lt;/p&gt;&lt;pre&gt;   File.symlink(&quot;testfile&quot;, &quot;link2test&quot;)   #=&gt; 0
+   File.stat(&quot;testfile&quot;).size              #=&gt; 66
+   f = File.new(&quot;link2test&quot;)
+   f.lstat.size                            #=&gt; 8
+   f.stat.size                             #=&gt; 66
+&lt;/pre&gt;</method>
+    <method name='mtime'>&lt;p&gt;Returns the modification time for &lt;em&gt;file&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   File.new(&quot;testfile&quot;).mtime   #=&gt; Wed Apr 09 08:53:14 CDT 2003
+&lt;/pre&gt;</method>
+    <method name='o_chmod'>&lt;p&gt;Alias for #chmod&lt;/p&gt;</method>
+    <method name='path'>&lt;p&gt;Returns the pathname used to create &lt;em&gt;file&lt;/em&gt; as a string. Does not normalize the name.&lt;/p&gt;&lt;pre&gt;   File.new(&quot;testfile&quot;).path               #=&gt; &quot;testfile&quot;
+   File.new(&quot;/tmp/../tmp/xxx&quot;, &quot;w&quot;).path   #=&gt; &quot;/tmp/../tmp/xxx&quot;
+&lt;/pre&gt;</method>
+    <method name='truncate'>&lt;p&gt;Truncates &lt;em&gt;file&lt;/em&gt; to at most &lt;em&gt;integer&lt;/em&gt; bytes. The file must be opened for writing. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   f = File.new(&quot;out&quot;, &quot;w&quot;)
+   f.syswrite(&quot;1234567890&quot;)   #=&gt; 10
+   f.truncate(5)              #=&gt; 0
+   f.close()                  #=&gt; nil
+   File.size(&quot;out&quot;)           #=&gt; 5
+&lt;/pre&gt;</method>
+  </methods>
+</help>

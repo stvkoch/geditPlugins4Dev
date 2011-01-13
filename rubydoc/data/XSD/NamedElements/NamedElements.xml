@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='+'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='concat'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='dup'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='empty?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='freeze'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='keys'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;URI support for Ruby&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Akira Yamada &lt;akira@ruby-lang.org&gt;&lt;/li&gt;&lt;li&gt;Akira Yamada &lt;akira@ruby-lang.org&gt;, Dmitry V. Sabanin &lt;sdmitry@lrn.ru&gt;&lt;/li&gt;&lt;li&gt;Copyright (c) 2001 akira yamada &lt;akira@ruby-lang.org&gt; You can redistribute it and/or modify it under the same term as Ruby.&lt;/li&gt;&lt;li&gt;$Id: uri.rb,v 1.8.2.2 2004/07/17 13:07:46 akira Exp $&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;See URI for documentation&lt;/p&gt;</comment>
+  <methods>
+    <method name='extract'>&lt;h2&gt;Synopsis&lt;/h2&gt;&lt;pre&gt;  URI::extract(str[, schemes][,&amp;blk])
+&lt;/pre&gt;&lt;h2&gt;Args&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;String to extract URIs from.&lt;/li&gt;&lt;li&gt;Limit URI matching to a specific schemes.&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Extracts URIs from a string. If block given, iterates through all matched URIs. Returns nil if block given or array with matches.&lt;/p&gt;&lt;h2&gt;Usage&lt;/h2&gt;&lt;pre&gt;  require &quot;uri&quot;
+
+  URI.extract(&quot;text here http://foo.example.org/bla and here mailto:test@example.com and here also.&quot;)
+  # =&gt; [&quot;http://foo.example.org/bla&quot;, &quot;mailto:test@example.com&quot;]
+&lt;/pre&gt;</method>
+    <method name='join'>&lt;h2&gt;Synopsis&lt;/h2&gt;&lt;pre&gt;  URI::join(str[, str, ...])
+&lt;/pre&gt;&lt;h2&gt;Args&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;String(s) to work with&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Joins URIs.&lt;/p&gt;&lt;h2&gt;Usage&lt;/h2&gt;&lt;pre&gt;  require &apos;uri&apos;
+
+  p URI.join(&quot;http://localhost/&quot;,&quot;main.rbx&quot;)
+  # =&gt; #&lt;URI::HTTP:0x2022ac02 URL:http://localhost/main.rbx&gt;
+&lt;/pre&gt;</method>
+    <method name='parse'>&lt;h2&gt;Synopsis&lt;/h2&gt;&lt;pre&gt;  URI::parse(uri_str)
+&lt;/pre&gt;&lt;h2&gt;Args&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;String with URI.&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Creates one of the URI&apos;s subclasses instance from the string.&lt;/p&gt;&lt;h2&gt;Raises&lt;/h2&gt;&lt;p&gt;URI::InvalidURIError&lt;/p&gt;&lt;pre&gt;  Raised if URI given is not a correct one.
+&lt;/pre&gt;&lt;h2&gt;Usage&lt;/h2&gt;&lt;pre&gt;  require &apos;uri&apos;
+
+  uri = URI.parse(&quot;http://www.ruby-lang.org/&quot;)
+  p uri
+  # =&gt; #&lt;URI::HTTP:0x202281be URL:http://www.ruby-lang.org/&gt;
+  p uri.scheme
+  # =&gt; &quot;http&quot;
+  p uri.host
+  # =&gt; &quot;www.ruby-lang.org&quot;
+&lt;/pre&gt;</method>
+    <method name='regexp'>&lt;h2&gt;Synopsis&lt;/h2&gt;&lt;pre&gt;  URI::regexp([match_schemes])
+&lt;/pre&gt;&lt;h2&gt;Args&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Array of schemes. If given, resulting regexp matches to URIs whose scheme is one of the match_schemes.&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Returns a Regexp object which matches to URI-like strings. The Regexp object returned by this method includes arbitrary number of capture group (parentheses). Never rely on it&apos;s number.&lt;/p&gt;&lt;h2&gt;Usage&lt;/h2&gt;&lt;pre&gt;  require &apos;uri&apos;
+
+  # extract first URI from html_string
+  html_string.slice(URI.regexp)
+
+  # remove ftp URIs
+  html_string.sub(URI.regexp([&apos;ftp&apos;])
+
+  # You should not rely on the number of parentheses
+  html_string.scan(URI.regexp) do |*matches|
+    p $&amp;
+  end
+&lt;/pre&gt;</method>
+    <method name='split'>&lt;h2&gt;Synopsis&lt;/h2&gt;&lt;pre&gt;  URI::split(uri)
+&lt;/pre&gt;&lt;h2&gt;Args&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;String with URI.&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Splits the string on following parts and returns array with result:&lt;/p&gt;&lt;pre&gt;  * Scheme
+  * Userinfo
+  * Host
+  * Port
+  * Registry
+  * Path
+  * Opaque
+  * Query
+  * Fragment
+&lt;/pre&gt;&lt;h2&gt;Usage&lt;/h2&gt;&lt;pre&gt;  require &apos;uri&apos;
+
+  p URI.split(&quot;http://www.ruby-lang.org/&quot;)
+  # =&gt; [&quot;http&quot;, nil, &quot;www.ruby-lang.org&quot;, nil, nil, &quot;/&quot;, nil, nil, nil]
+&lt;/pre&gt;</method>
+  </methods>
+</help>

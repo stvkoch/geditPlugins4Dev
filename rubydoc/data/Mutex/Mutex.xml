@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Mutex implements a simple semaphore that can be used to coordinate access to shared data from multiple concurrent threads.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  require &apos;thread&apos;
+  semaphore = Mutex.new
+
+  a = Thread.new {
+    semaphore.synchronize {
+      # access shared resource
+    }
+  }
+
+  b = Thread.new {
+    semaphore.synchronize {
+      # access shared resource
+    }
+  }
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new Mutex&lt;/p&gt;</method>
+    <method name='exclusive_unlock'>&lt;p&gt;If the mutex is locked, unlocks the mutex, wakes one waiting thread, and yields in a critical section.&lt;/p&gt;</method>
+    <method name='lock'>&lt;p&gt;Attempts to grab the lock and waits if it isn&apos;t available.&lt;/p&gt;</method>
+    <method name='locked?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if this lock is currently held by some thread.&lt;/p&gt;</method>
+    <method name='synchronize'>&lt;p&gt;Obtains a lock, runs the block, and releases the lock when the block completes. See the example under Mutex.&lt;/p&gt;</method>
+    <method name='try_lock'>&lt;p&gt;Attempts to obtain the lock and returns immediately. Returns &lt;tt&gt;true&lt;/tt&gt; if the lock was granted.&lt;/p&gt;</method>
+    <method name='unlock'>&lt;p&gt;Releases the lock. Returns &lt;tt&gt;nil&lt;/tt&gt; if ref wasn&apos;t locked.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The default drb protocol.&lt;/p&gt;&lt;p&gt;Communicates over a TCP socket.&lt;/p&gt;</comment>
+  <methods>
+    <method name='getservername'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Create a new DRbTCPSocket instance.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;uri&lt;/tt&gt; is the URI we are connected to. &lt;tt&gt;soc&lt;/tt&gt; is the tcp socket we are bound to. &lt;tt&gt;config&lt;/tt&gt; is our configuration.&lt;/p&gt;</method>
+    <method name='open'>&lt;p&gt;Open a client connection to &lt;tt&gt;uri&lt;/tt&gt; using configuration &lt;tt&gt;config&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='open_server'>&lt;p&gt;Open a server listening for connections at &lt;tt&gt;uri&lt;/tt&gt; using configuration &lt;tt&gt;config&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='open_server_inaddr_any'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='uri_option'>&lt;p&gt;Parse &lt;tt&gt;uri&lt;/tt&gt; into a [uri, option] pair.&lt;/p&gt;</method>
+    <method name='accept'>&lt;p&gt;On the server side, for an instance returned by #open_server, accept a client connection and return a new instance to handle the server&apos;s side of this client-server session.&lt;/p&gt;</method>
+    <method name='alive?'>&lt;p&gt;Check to see if this connection is alive.&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;Close the connection.&lt;/p&gt;&lt;p&gt;If this is an instance returned by #open_server, then this stops listening for new connections altogether. If this is an instance returned by #open or by #accept, then it closes this particular client-server session.&lt;/p&gt;</method>
+    <method name='peeraddr'>&lt;p&gt;Get the address of our TCP peer (the other end of the socket we are bound to.&lt;/p&gt;</method>
+    <method name='recv_reply'>&lt;p&gt;On the client side, receive a reply from the server.&lt;/p&gt;</method>
+    <method name='recv_request'>&lt;p&gt;On the server side, receive a request from the client.&lt;/p&gt;</method>
+    <method name='send_reply'>&lt;p&gt;On the server side, send a reply to the client.&lt;/p&gt;</method>
+    <method name='send_request'>&lt;p&gt;On the client side, send a request to the server.&lt;/p&gt;</method>
+    <method name='stream'>&lt;p&gt;Get the socket.&lt;/p&gt;</method>
+  </methods>
+</help>

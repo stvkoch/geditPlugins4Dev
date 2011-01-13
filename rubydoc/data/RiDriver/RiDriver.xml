@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment></comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_info_for'></method>
+    <method name='process_args'></method>
+    <method name='report_class_stuff'></method>
+    <method name='report_method_stuff'>&lt;p&gt;If the list of matching methods contains exactly one entry, or if it contains an entry that exactly matches the requested method, then display that entry, otherwise display the list of matching method names&lt;/p&gt;</method>
+    <method name='report_missing_documentation'>&lt;p&gt;Couldn&apos;t find documentation in &lt;tt&gt;path&lt;/tt&gt;, so tell the user what to do&lt;/p&gt;</method>
+  </methods>
+</help>

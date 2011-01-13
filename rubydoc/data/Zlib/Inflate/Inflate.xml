@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Zlib:Inflate is the class for decompressing compressed data. Unlike Zlib::Deflate, an instance of this class is not able to duplicate (clone, dup) itself.&lt;/p&gt;</comment>
+  <methods>
+    <method name='inflate'>&lt;p&gt;Decompresses &lt;tt&gt;string&lt;/tt&gt;. Raises a Zlib::NeedDict exception if a preset dictionary is needed for decompression.&lt;/p&gt;&lt;p&gt;This method is almost equivalent to the following code:&lt;/p&gt;&lt;pre&gt;  def inflate(string)
+    zstream = Zlib::Inflate.new
+    buf = zstream.inflate(string)
+    zstream.finish
+    zstream.close
+    buf
+  end
+&lt;/pre&gt;</method>
+    <method name='new'>&lt;p&gt;Creates a new inflate stream for decompression. See zlib.h for details of the argument. If &lt;tt&gt;window_bits&lt;/tt&gt; is &lt;tt&gt;nil&lt;/tt&gt;, the default value is used.&lt;/p&gt;&lt;p&gt;TODO: document better!&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Same as IO.&lt;/p&gt;</method>
+    <method name='inflate'>&lt;p&gt;Inputs &lt;tt&gt;string&lt;/tt&gt; into the inflate stream and returns the output from the stream. Calling this method, both the input and the output buffer of the stream are flushed. If string is &lt;tt&gt;nil&lt;/tt&gt;, this method finishes the stream, just like Zlib::ZStream#finish.&lt;/p&gt;&lt;p&gt;Raises a Zlib::NeedDict exception if a preset dictionary is needed to decompress. Set the dictionary by Zlib::Inflate#set_dictionary and then call this method again with an empty string. (&lt;em&gt;???&lt;/em&gt;)&lt;/p&gt;&lt;p&gt;TODO: document better!&lt;/p&gt;</method>
+    <method name='set_dictionary'>&lt;p&gt;Sets the preset dictionary and returns &lt;tt&gt;string&lt;/tt&gt;. This method is available just only after a Zlib::NeedDict exception was raised. See zlib.h for details.&lt;/p&gt;&lt;p&gt;TODO: document better!&lt;/p&gt;</method>
+    <method name='sync'>&lt;p&gt;Inputs &lt;tt&gt;string&lt;/tt&gt; into the end of input buffer and skips data until a full flush point can be found. If the point is found in the buffer, this method flushes the buffer and returns false. Otherwise it returns &lt;tt&gt;true&lt;/tt&gt; and the following data of full flush point is preserved in the buffer.&lt;/p&gt;</method>
+    <method name='sync_point?'>&lt;p&gt;Quoted verbatim from original documentation:&lt;/p&gt;&lt;pre&gt;  What is this?
+&lt;/pre&gt;&lt;p&gt;&lt;tt&gt;:)&lt;/tt&gt;&lt;/p&gt;</method>
+  </methods>
+</help>

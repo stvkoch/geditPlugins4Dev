@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<gconf>
+        <entry name="String@32@2" mtime="1175278235" type="string">
+                <stringvalue>2/#5d5dc4c43b3b/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="String" mtime="1175278229" type="string">
+                <stringvalue>2/#5d5dc4c43b3b/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Importance@32@Modifier" mtime="1175278045" type="string">
+                <stringvalue>3/#ffffffffffff/#cece51510808/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Line@32@Comment" mtime="1175278010" type="string">
+                <stringvalue>2/#848481818a8a/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Function" mtime="1175277989" type="string">
+                <stringvalue>0/#00008a8a8c8c/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Hexadecimal@32@Color" mtime="1175277783" type="string">
+                <stringvalue>2/#b32fffff0000/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Unicode@32@Character@32@Reference" mtime="1175277746" type="string">
+                <stringvalue>2/#00008b8b8b8b/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Selector@32@Pseudo@32@Elements" mtime="1175278317" type="string">
+                <stringvalue>2/#cece51510808/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Selector@32@Pseudo@32@Classes" mtime="1175278190" type="string">
+                <stringvalue>2/#cece51510808/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Number" mtime="1175277721" type="string">
+                <stringvalue>2/#e2faffff0000/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="At@32@Rules" mtime="1175277700" type="string">
+                <stringvalue>2/#cece51510808/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Selector@32@Grammar" mtime="1175277734" type="string">
+                <stringvalue>2/#cece51510808/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Punctuators" mtime="1175277664" type="string">
+                <stringvalue>0/#6a6a5a5acdcd/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Operators" mtime="1175278064" type="string">
+                <stringvalue>2/#00008a8a8c8c/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Dimension" mtime="1175277572" type="string">
+                <stringvalue>0/#ffff0000ffff/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Block@32@Comment" mtime="1175277831" type="string">
+                <stringvalue>2/#848481818a8a/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Attribute@32@Value@32@Delimiters" mtime="1175278034" type="string">
+                <stringvalue>2/#00008b8b8b8b/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Property@32@Names" mtime="1175277642" type="string">
+                <stringvalue>2/#7a7a8e8eb5b5/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+        <entry name="Known@32@Property@32@Values" mtime="1175277999" type="string">
+                <stringvalue>0/#2e2e8b8b5757/#000000000000/0/0/0/0</stringvalue>
+        </entry>
+</gconf>

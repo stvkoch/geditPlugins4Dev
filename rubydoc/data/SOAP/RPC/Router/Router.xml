@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_document_method'>&lt;p&gt;Alias for #add_document_operation&lt;/p&gt;</method>
+    <method name='add_document_operation'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_document_request_operation'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_headerhandler'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_method'>&lt;p&gt;Alias for #add_rpc_operation&lt;/p&gt;</method>
+    <method name='add_request_headerhandler'>&lt;p&gt;header handler interface&lt;/p&gt;</method>
+    <method name='add_rpc_method'>&lt;p&gt;Alias for #add_rpc_operation&lt;/p&gt;</method>
+    <method name='add_rpc_operation'>&lt;p&gt;operation definition interface&lt;/p&gt;</method>
+    <method name='add_rpc_request_operation'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_rpc_request_servant'>&lt;p&gt;servant definition interface&lt;/p&gt;</method>
+    <method name='add_rpc_servant'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_servant'>&lt;p&gt;Alias for #add_rpc_servant&lt;/p&gt;</method>
+    <method name='create_fault_response'>&lt;p&gt;Create fault response string.&lt;/p&gt;</method>
+    <method name='route'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

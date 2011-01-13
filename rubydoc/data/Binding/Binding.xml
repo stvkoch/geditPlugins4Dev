@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Objects of class &lt;tt&gt;Binding&lt;/tt&gt; encapsulate the execution context at some particular place in the code and retain this context for future use. The variables, methods, value of &lt;tt&gt;self&lt;/tt&gt;, and possibly an iterator block that can be accessed in this context are all retained. Binding objects can be created using &lt;tt&gt;Kernel#binding&lt;/tt&gt;, and are made available to the callback of &lt;tt&gt;Kernel#set_trace_func&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;These binding objects can be passed as the second argument of the &lt;tt&gt;Kernel#eval&lt;/tt&gt; method, establishing an environment for the evaluation.&lt;/p&gt;&lt;pre&gt;   class Demo
+     def initialize(n)
+       @secret = n
+     end
+     def getBinding
+       return binding()
+     end
+   end
+
+   k1 = Demo.new(99)
+   b1 = k1.getBinding
+   k2 = Demo.new(-3)
+   b2 = k2.getBinding
+
+   eval(&quot;@secret&quot;, b1)   #=&gt; 99
+   eval(&quot;@secret&quot;, b2)   #=&gt; -3
+   eval(&quot;@secret&quot;)       #=&gt; nil
+&lt;/pre&gt;&lt;p&gt;Binding objects have no class-specific methods.&lt;/p&gt;</comment>
+  <methods>
+    <method name='clone'>&lt;p&gt;MISSING: documentation&lt;/p&gt;</method>
+    <method name='dup'>&lt;p&gt;MISSING: documentation&lt;/p&gt;</method>
+  </methods>
+</help>

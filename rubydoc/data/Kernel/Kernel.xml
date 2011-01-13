@@ -1,0 +1,524 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='Array'>&lt;p&gt;Returns &lt;em&gt;arg&lt;/em&gt; as an &lt;tt&gt;Array&lt;/tt&gt;. First tries to call &lt;em&gt;arg&lt;/em&gt;&lt;tt&gt;.to_ary&lt;/tt&gt;, then &lt;em&gt;arg&lt;/em&gt;&lt;tt&gt;.to_a&lt;/tt&gt;. If both fail, creates a single element array containing &lt;em&gt;arg&lt;/em&gt; (unless &lt;em&gt;arg&lt;/em&gt; is &lt;tt&gt;nil&lt;/tt&gt;).&lt;/p&gt;&lt;pre&gt;   Array(1..5)   #=&gt; [1, 2, 3, 4, 5]
+&lt;/pre&gt;</method>
+    <method name='Float'>&lt;p&gt;Returns &lt;em&gt;arg&lt;/em&gt; converted to a float. Numeric types are converted directly, the rest are converted using &lt;em&gt;arg&lt;/em&gt;.to_f. As of Ruby 1.8, converting &lt;tt&gt;nil&lt;/tt&gt; generates a &lt;tt&gt;TypeError&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   Float(1)           #=&gt; 1.0
+   Float(&quot;123.456&quot;)   #=&gt; 123.456
+&lt;/pre&gt;</method>
+    <method name='Integer'>&lt;p&gt;Converts &lt;em&gt;arg&lt;/em&gt; to a &lt;tt&gt;Fixnum&lt;/tt&gt; or &lt;tt&gt;Bignum&lt;/tt&gt;. Numeric types are converted directly (with floating point numbers being truncated). If &lt;em&gt;arg&lt;/em&gt; is a &lt;tt&gt;String&lt;/tt&gt;, leading radix indicators (&lt;tt&gt;0&lt;/tt&gt;, &lt;tt&gt;0b&lt;/tt&gt;, and &lt;tt&gt;0x&lt;/tt&gt;) are honored. Others are converted using &lt;tt&gt;to_int&lt;/tt&gt; and &lt;tt&gt;to_i&lt;/tt&gt;. This behavior is different from that of &lt;tt&gt;String#to_i&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   Integer(123.999)    #=&gt; 123
+   Integer(&quot;0x1a&quot;)     #=&gt; 26
+   Integer(Time.new)   #=&gt; 1049896590
+&lt;/pre&gt;</method>
+    <method name='String'>&lt;p&gt;Converts &lt;em&gt;arg&lt;/em&gt; to a &lt;tt&gt;String&lt;/tt&gt; by calling its &lt;tt&gt;to_s&lt;/tt&gt; method.&lt;/p&gt;&lt;pre&gt;   String(self)        #=&gt; &quot;main&quot;
+   String(self.class   #=&gt; &quot;Object&quot;
+   String(123456)      #=&gt; &quot;123456&quot;
+&lt;/pre&gt;</method>
+    <method name='URI'>&lt;p&gt;alias for URI.parse.&lt;/p&gt;&lt;p&gt;This method is introduced at 1.8.2.&lt;/p&gt;</method>
+    <method name='`'>&lt;p&gt;Returns the standard output of running &lt;em&gt;cmd&lt;/em&gt; in a subshell. The built-in syntax &lt;tt&gt;%x{...}&lt;/tt&gt; uses this method. Sets &lt;tt&gt;$?&lt;/tt&gt; to the process status.&lt;/p&gt;&lt;pre&gt;   `date`                   #=&gt; &quot;Wed Apr  9 08:56:30 CDT 2003\n&quot;
+   `ls testdir`.split[1]    #=&gt; &quot;main.rb&quot;
+   `echo oops &amp;&amp; exit 99`   #=&gt; &quot;oops\n&quot;
+   $?.exitstatus            #=&gt; 99
+&lt;/pre&gt;</method>
+    <method name='abort'>&lt;p&gt;Terminate execution immediately, effectively by calling &lt;tt&gt;Kernel.exit(1)&lt;/tt&gt;. If &lt;em&gt;msg&lt;/em&gt; is given, it is written to STDERR prior to terminating.&lt;/p&gt;</method>
+    <method name='at_exit'>&lt;p&gt;Converts &lt;em&gt;block&lt;/em&gt; to a &lt;tt&gt;Proc&lt;/tt&gt; object (and therefore binds it at the point of call) and registers it for execution when the program exits. If multiple handlers are registered, they are executed in reverse order of registration.&lt;/p&gt;&lt;pre&gt;   def do_at_exit(str1)
+     at_exit { print str1 }
+   end
+   at_exit { puts &quot;cruel world&quot; }
+   do_at_exit(&quot;goodbye &quot;)
+   exit
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   goodbye cruel world
+&lt;/pre&gt;</method>
+    <method name='autoload'>&lt;p&gt;Registers &lt;em&gt;filename&lt;/em&gt; to be loaded (using &lt;tt&gt;Kernel::require&lt;/tt&gt;) the first time that &lt;em&gt;module&lt;/em&gt; (which may be a &lt;tt&gt;String&lt;/tt&gt; or a symbol) is accessed.&lt;/p&gt;&lt;pre&gt;   autoload(:MyModule, &quot;/usr/local/lib/modules/my_module.rb&quot;)
+&lt;/pre&gt;</method>
+    <method name='autoload?'>&lt;p&gt;Registers &lt;em&gt;filename&lt;/em&gt; to be loaded (using &lt;tt&gt;Kernel::require&lt;/tt&gt;) the first time that &lt;em&gt;module&lt;/em&gt; (which may be a &lt;tt&gt;String&lt;/tt&gt; or a symbol) is accessed.&lt;/p&gt;&lt;pre&gt;   autoload(:MyModule, &quot;/usr/local/lib/modules/my_module.rb&quot;)
+&lt;/pre&gt;</method>
+    <method name='binding'>&lt;p&gt;Returns a &lt;tt&gt;Binding&lt;/tt&gt; object, describing the variable and method bindings at the point of call. This object can be used when calling &lt;tt&gt;eval&lt;/tt&gt; to execute the evaluated command in this environment. Also see the description of class &lt;tt&gt;Binding&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   def getBinding(param)
+     return binding
+   end
+   b = getBinding(&quot;hello&quot;)
+   eval(&quot;param&quot;, b)   #=&gt; &quot;hello&quot;
+&lt;/pre&gt;</method>
+    <method name='block_given?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;tt&gt;yield&lt;/tt&gt; would execute a block in the current context. The &lt;tt&gt;iterator?&lt;/tt&gt; form is mildly deprecated.&lt;/p&gt;&lt;pre&gt;   def try
+     if block_given?
+       yield
+     else
+       &quot;no block&quot;
+     end
+   end
+   try                  #=&gt; &quot;no block&quot;
+   try { &quot;hello&quot; }      #=&gt; &quot;hello&quot;
+   try do &quot;hello&quot; end   #=&gt; &quot;hello&quot;
+&lt;/pre&gt;</method>
+    <method name='callcc'>&lt;p&gt;Generates a &lt;tt&gt;Continuation&lt;/tt&gt; object, which it passes to the associated block. Performing a &lt;em&gt;cont&lt;/em&gt;&lt;tt&gt;.call&lt;/tt&gt; will cause the &lt;tt&gt;callcc&lt;/tt&gt; to return (as will falling through the end of the block). The value returned by the &lt;tt&gt;callcc&lt;/tt&gt; is the value of the block, or the value passed to &lt;em&gt;cont&lt;/em&gt;&lt;tt&gt;.call&lt;/tt&gt;. See class &lt;tt&gt;Continuation&lt;/tt&gt; for more details. Also see &lt;tt&gt;Kernel::throw&lt;/tt&gt; for an alternative mechanism for unwinding a call stack.&lt;/p&gt;</method>
+    <method name='caller'>&lt;p&gt;Returns the current execution stack---an array containing strings in the form ``&lt;em&gt;file:line&lt;/em&gt;&apos;&apos; or ``&lt;em&gt;file:line: in `method&apos;&lt;/em&gt;&apos;&apos;. The optional &lt;em&gt;start&lt;/em&gt; parameter determines the number of initial stack entries to omit from the result.&lt;/p&gt;&lt;pre&gt;   def a(skip)
+     caller(skip)
+   end
+   def b(skip)
+     a(skip)
+   end
+   def c(skip)
+     b(skip)
+   end
+   c(0)   #=&gt; [&quot;prog:2:in `a&apos;&quot;, &quot;prog:5:in `b&apos;&quot;, &quot;prog:8:in `c&apos;&quot;, &quot;prog:10&quot;]
+   c(1)   #=&gt; [&quot;prog:5:in `b&apos;&quot;, &quot;prog:8:in `c&apos;&quot;, &quot;prog:11&quot;]
+   c(2)   #=&gt; [&quot;prog:8:in `c&apos;&quot;, &quot;prog:12&quot;]
+   c(3)   #=&gt; [&quot;prog:13&quot;]
+&lt;/pre&gt;</method>
+    <method name='catch'>&lt;p&gt;&lt;tt&gt;catch&lt;/tt&gt; executes its block. If a &lt;tt&gt;throw&lt;/tt&gt; is executed, Ruby searches up its stack for a &lt;tt&gt;catch&lt;/tt&gt; block with a tag corresponding to the &lt;tt&gt;throw&lt;/tt&gt;&apos;s &lt;em&gt;symbol&lt;/em&gt;. If found, that block is terminated, and &lt;tt&gt;catch&lt;/tt&gt; returns the value given to &lt;tt&gt;throw&lt;/tt&gt;. If &lt;tt&gt;throw&lt;/tt&gt; is not called, the block terminates normally, and the value of &lt;tt&gt;catch&lt;/tt&gt; is the value of the last expression evaluated. &lt;tt&gt;catch&lt;/tt&gt; expressions may be nested, and the &lt;tt&gt;throw&lt;/tt&gt; call need not be in lexical scope.&lt;/p&gt;&lt;pre&gt;   def routine(n)
+     puts n
+     throw :done if n &lt;= 0
+     routine(n-1)
+   end
+
+   catch(:done) { routine(3) }
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   3
+   2
+   1
+   0
+&lt;/pre&gt;</method>
+    <method name='chomp'>&lt;p&gt;Equivalent to &lt;tt&gt;$_ = $_.chomp(&lt;em&gt;string&lt;/em&gt;)&lt;/tt&gt;. See &lt;tt&gt;String#chomp&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   $_ = &quot;now\n&quot;
+   chomp         #=&gt; &quot;now&quot;
+   $_            #=&gt; &quot;now&quot;
+   chomp &quot;ow&quot;    #=&gt; &quot;n&quot;
+   $_            #=&gt; &quot;n&quot;
+   chomp &quot;xxx&quot;   #=&gt; &quot;n&quot;
+   $_            #=&gt; &quot;n&quot;
+&lt;/pre&gt;</method>
+    <method name='chomp!'>&lt;p&gt;Equivalent to &lt;tt&gt;$_.chomp!(&lt;em&gt;string&lt;/em&gt;)&lt;/tt&gt;. See &lt;tt&gt;String#chomp!&lt;/tt&gt;&lt;/p&gt;&lt;pre&gt;   $_ = &quot;now\n&quot;
+   chomp!       #=&gt; &quot;now&quot;
+   $_           #=&gt; &quot;now&quot;
+   chomp! &quot;x&quot;   #=&gt; nil
+   $_           #=&gt; &quot;now&quot;
+&lt;/pre&gt;</method>
+    <method name='chop'>&lt;p&gt;Equivalent to &lt;tt&gt;($_.dup).chop!&lt;/tt&gt;, except &lt;tt&gt;nil&lt;/tt&gt; is never returned. See &lt;tt&gt;String#chop!&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   a  =  &quot;now\r\n&quot;
+   $_ = a
+   chop   #=&gt; &quot;now&quot;
+   $_     #=&gt; &quot;now&quot;
+   chop   #=&gt; &quot;no&quot;
+   chop   #=&gt; &quot;n&quot;
+   chop   #=&gt; &quot;&quot;
+   chop   #=&gt; &quot;&quot;
+   a      #=&gt; &quot;now\r\n&quot;
+&lt;/pre&gt;</method>
+    <method name='chop!'>&lt;p&gt;Equivalent to &lt;tt&gt;$_.chop!&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   a  = &quot;now\r\n&quot;
+   $_ = a
+   chop!   #=&gt; &quot;now&quot;
+   chop!   #=&gt; &quot;no&quot;
+   chop!   #=&gt; &quot;n&quot;
+   chop!   #=&gt; &quot;&quot;
+   chop!   #=&gt; nil
+   $_      #=&gt; &quot;&quot;
+   a       #=&gt; &quot;&quot;
+&lt;/pre&gt;</method>
+    <method name='eval'>&lt;p&gt;Evaluates the Ruby expression(s) in &lt;em&gt;string&lt;/em&gt;. If &lt;em&gt;binding&lt;/em&gt; is given, the evaluation is performed in its context. The binding may be a &lt;tt&gt;Binding&lt;/tt&gt; object or a &lt;tt&gt;Proc&lt;/tt&gt; object. If the optional &lt;em&gt;filename&lt;/em&gt; and &lt;em&gt;lineno&lt;/em&gt; parameters are present, they will be used when reporting syntax errors.&lt;/p&gt;&lt;pre&gt;   def getBinding(str)
+     return binding
+   end
+   str = &quot;hello&quot;
+   eval &quot;str + &apos; Fred&apos;&quot;                      #=&gt; &quot;hello Fred&quot;
+   eval &quot;str + &apos; Fred&apos;&quot;, getBinding(&quot;bye&quot;)   #=&gt; &quot;bye Fred&quot;
+&lt;/pre&gt;</method>
+    <method name='exec'>&lt;p&gt;Replaces the current process by running the given external &lt;em&gt;command&lt;/em&gt;. If &lt;tt&gt;exec&lt;/tt&gt; is given a single argument, that argument is taken as a line that is subject to shell expansion before being executed. If multiple arguments are given, the second and subsequent arguments are passed as parameters to &lt;em&gt;command&lt;/em&gt; with no shell expansion. If the first argument is a two-element array, the first element is the command to be executed, and the second argument is used as the &lt;tt&gt;argv[0]&lt;/tt&gt; value, which may show up in process listings. In MSDOS environments, the command is executed in a subshell; otherwise, one of the &lt;tt&gt;exec(2)&lt;/tt&gt; system calls is used, so the running command may inherit some of the environment of the original program (including open file descriptors).&lt;/p&gt;&lt;pre&gt;   exec &quot;echo *&quot;       # echoes list of files in current directory
+   # never get here
+
+   exec &quot;echo&quot;, &quot;*&quot;    # echoes an asterisk
+   # never get here
+&lt;/pre&gt;</method>
+    <method name='exit'>&lt;p&gt;Initiates the termination of the Ruby script by raising the &lt;tt&gt;SystemExit&lt;/tt&gt; exception. This exception may be caught. The optional parameter is used to return a status code to the invoking environment.&lt;/p&gt;&lt;pre&gt;   begin
+     exit
+     puts &quot;never get here&quot;
+   rescue SystemExit
+     puts &quot;rescued a SystemExit exception&quot;
+   end
+   puts &quot;after begin block&quot;
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   rescued a SystemExit exception
+   after begin block
+&lt;/pre&gt;&lt;p&gt;Just prior to termination, Ruby executes any &lt;tt&gt;at_exit&lt;/tt&gt; functions (see Kernel::at_exit) and runs any object finalizers (see ObjectSpace::define_finalizer).&lt;/p&gt;&lt;pre&gt;   at_exit { puts &quot;at_exit function&quot; }
+   ObjectSpace.define_finalizer(&quot;string&quot;,  proc { puts &quot;in finalizer&quot; })
+   exit
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   at_exit function
+   in finalizer
+&lt;/pre&gt;</method>
+    <method name='exit!'>&lt;p&gt;Exits the process immediately. No exit handlers are run. &lt;em&gt;fixnum&lt;/em&gt; is returned to the underlying system as the exit status.&lt;/p&gt;&lt;pre&gt;   Process.exit!(0)
+&lt;/pre&gt;</method>
+    <method name='fail'>&lt;p&gt;With no arguments, raises the exception in &lt;tt&gt;$!&lt;/tt&gt; or raises a &lt;tt&gt;RuntimeError&lt;/tt&gt; if &lt;tt&gt;$!&lt;/tt&gt; is &lt;tt&gt;nil&lt;/tt&gt;. With a single &lt;tt&gt;String&lt;/tt&gt; argument, raises a &lt;tt&gt;RuntimeError&lt;/tt&gt; with the string as a message. Otherwise, the first parameter should be the name of an &lt;tt&gt;Exception&lt;/tt&gt; class (or an object that returns an &lt;tt&gt;Exception&lt;/tt&gt; object when sent an &lt;tt&gt;exception&lt;/tt&gt; message). The optional second parameter sets the message associated with the exception, and the third parameter is an array of callback information. Exceptions are caught by the &lt;tt&gt;rescue&lt;/tt&gt; clause of &lt;tt&gt;begin...end&lt;/tt&gt; blocks.&lt;/p&gt;&lt;pre&gt;   raise &quot;Failed to create socket&quot;
+   raise ArgumentError, &quot;No parameters&quot;, caller
+&lt;/pre&gt;</method>
+    <method name='fork'>&lt;p&gt;Creates a subprocess. If a block is specified, that block is run in the subprocess, and the subprocess terminates with a status of zero. Otherwise, the &lt;tt&gt;fork&lt;/tt&gt; call returns twice, once in the parent, returning the process ID of the child, and once in the child, returning &lt;em&gt;nil&lt;/em&gt;. The child process can exit using &lt;tt&gt;Kernel.exit!&lt;/tt&gt; to avoid running any &lt;tt&gt;at_exit&lt;/tt&gt; functions. The parent process should use &lt;tt&gt;Process.wait&lt;/tt&gt; to collect the termination statuses of its children or use &lt;tt&gt;Process.detach&lt;/tt&gt; to register disinterest in their status; otherwise, the operating system may accumulate zombie processes.&lt;/p&gt;&lt;p&gt;The thread calling fork is the only thread in the created child process. fork doesn&apos;t copy other threads.&lt;/p&gt;</method>
+    <method name='format'>&lt;p&gt;Returns the string resulting from applying &lt;em&gt;format_string&lt;/em&gt; to any additional arguments. Within the format string, any characters other than format sequences are copied to the result. A format sequence consists of a percent sign, followed by optional flags, width, and precision indicators, then terminated with a field type character. The field type controls how the corresponding &lt;tt&gt;sprintf&lt;/tt&gt; argument is to be interpreted, while the flags modify that interpretation. The field type characters are listed in the table at the end of this section. The flag characters are:&lt;/p&gt;&lt;pre&gt;  Flag     | Applies to   | Meaning
+  ---------+--------------+-----------------------------------------
+  space    | bdeEfgGiouxX | Leave a space at the start of
+           |              | positive numbers.
+  ---------+--------------+-----------------------------------------
+  (digit)$ | all          | Specifies the absolute argument number
+           |              | for this field. Absolute and relative
+           |              | argument numbers cannot be mixed in a
+           |              | sprintf string.
+  ---------+--------------+-----------------------------------------
+   #       | beEfgGoxX    | Use an alternative format. For the
+           |              | conversions `o&apos;, `x&apos;, `X&apos;, and `b&apos;,
+           |              | prefix the result with ``0&apos;&apos;, ``0x&apos;&apos;, ``0X&apos;&apos;,
+           |              |  and ``0b&apos;&apos;, respectively. For `e&apos;,
+           |              | `E&apos;, `f&apos;, `g&apos;, and &apos;G&apos;, force a decimal
+           |              | point to be added, even if no digits follow.
+           |              | For `g&apos; and &apos;G&apos;, do not remove trailing zeros.
+  ---------+--------------+-----------------------------------------
+  +        | bdeEfgGiouxX | Add a leading plus sign to positive numbers.
+  ---------+--------------+-----------------------------------------
+  -        | all          | Left-justify the result of this conversion.
+  ---------+--------------+-----------------------------------------
+  0 (zero) | bdeEfgGiouxX | Pad with zeros, not spaces.
+  ---------+--------------+-----------------------------------------
+  *        | all          | Use the next argument as the field width.
+           |              | If negative, left-justify the result. If the
+           |              | asterisk is followed by a number and a dollar
+           |              | sign, use the indicated argument as the width.
+&lt;/pre&gt;&lt;p&gt;The field width is an optional integer, followed optionally by a period and a precision. The width specifies the minimum number of characters that will be written to the result for this field. For numeric fields, the precision controls the number of decimal places displayed. For string fields, the precision determines the maximum number of characters to be copied from the string. (Thus, the format sequence &lt;tt&gt;%10.10s&lt;/tt&gt; will always contribute exactly ten characters to the result.)&lt;/p&gt;&lt;p&gt;The field types are:&lt;/p&gt;&lt;pre&gt;    Field |  Conversion
+    ------+--------------------------------------------------------------
+      b   | Convert argument as a binary number.
+      c   | Argument is the numeric code for a single character.
+      d   | Convert argument as a decimal number.
+      E   | Equivalent to `e&apos;, but uses an uppercase E to indicate
+          | the exponent.
+      e   | Convert floating point argument into exponential notation
+          | with one digit before the decimal point. The precision
+          | determines the number of fractional digits (defaulting to six).
+      f   | Convert floating point argument as [-]ddd.ddd,
+          |  where the precision determines the number of digits after
+          | the decimal point.
+      G   | Equivalent to `g&apos;, but use an uppercase `E&apos; in exponent form.
+      g   | Convert a floating point number using exponential form
+          | if the exponent is less than -4 or greater than or
+          | equal to the precision, or in d.dddd form otherwise.
+      i   | Identical to `d&apos;.
+      o   | Convert argument as an octal number.
+      p   | The valuing of argument.inspect.
+      s   | Argument is a string to be substituted. If the format
+          | sequence contains a precision, at most that many characters
+          | will be copied.
+      u   | Treat argument as an unsigned decimal number. Negative integers
+          | are displayed as a 32 bit two&apos;s complement plus one for the
+          | underlying architecture; that is, 2 ** 32 + n.  However, since
+          | Ruby has no inherent limit on bits used to represent the
+          | integer, this value is preceded by two dots (..) in order to
+          | indicate a infinite number of leading sign bits.
+      X   | Convert argument as a hexadecimal number using uppercase
+          | letters. Negative numbers will be displayed with two
+          | leading periods (representing an infinite string of
+          | leading &apos;FF&apos;s.
+      x   | Convert argument as a hexadecimal number.
+          | Negative numbers will be displayed with two
+          | leading periods (representing an infinite string of
+          | leading &apos;ff&apos;s.
+&lt;/pre&gt;&lt;p&gt;Examples:&lt;/p&gt;&lt;pre&gt;   sprintf(&quot;%d %04x&quot;, 123, 123)               #=&gt; &quot;123 007b&quot;
+   sprintf(&quot;%08b &apos;%4s&apos;&quot;, 123, 123)            #=&gt; &quot;01111011 &apos; 123&apos;&quot;
+   sprintf(&quot;%1$*2$s %2$d %1$s&quot;, &quot;hello&quot;, 8)   #=&gt; &quot;   hello 8 hello&quot;
+   sprintf(&quot;%1$*2$s %2$d&quot;, &quot;hello&quot;, -8)       #=&gt; &quot;hello    -8&quot;
+   sprintf(&quot;%+g:% g:%-g&quot;, 1.23, 1.23, 1.23)   #=&gt; &quot;+1.23: 1.23:1.23&quot;
+   sprintf(&quot;%u&quot;, -123)                        #=&gt; &quot;..4294967173&quot;
+&lt;/pre&gt;</method>
+    <method name='getc'>&lt;p&gt;obsolete&lt;/p&gt;</method>
+    <method name='gets'>&lt;p&gt;Returns (and assigns to &lt;tt&gt;$_&lt;/tt&gt;) the next line from the list of files in &lt;tt&gt;ARGV&lt;/tt&gt; (or &lt;tt&gt;$*&lt;/tt&gt;), or from standard input if no files are present on the command line. Returns &lt;tt&gt;nil&lt;/tt&gt; at end of file. The optional argument specifies the record separator. The separator is included with the contents of each record. A separator of &lt;tt&gt;nil&lt;/tt&gt; reads the entire contents, and a zero-length separator reads the input one paragraph at a time, where paragraphs are divided by two consecutive newlines. If multiple filenames are present in &lt;tt&gt;ARGV&lt;/tt&gt;, +gets(nil)+ will read the contents one file at a time.&lt;/p&gt;&lt;pre&gt;   ARGV &lt;&lt; &quot;testfile&quot;
+   print while gets
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   This is line one
+   This is line two
+   This is line three
+   And so on...
+&lt;/pre&gt;&lt;p&gt;The style of programming using &lt;tt&gt;$_&lt;/tt&gt; as an implicit parameter is gradually losing favor in the Ruby community.&lt;/p&gt;</method>
+    <method name='global_variables'>&lt;p&gt;Returns an array of the names of global variables.&lt;/p&gt;&lt;pre&gt;   global_variables.grep /std/   #=&gt; [&quot;$stderr&quot;, &quot;$stdout&quot;, &quot;$stdin&quot;]
+&lt;/pre&gt;</method>
+    <method name='gsub'>&lt;p&gt;Equivalent to &lt;tt&gt;$_.gsub...&lt;/tt&gt;, except that &lt;tt&gt;$_&lt;/tt&gt; receives the modified result.&lt;/p&gt;&lt;pre&gt;   $_ = &quot;quick brown fox&quot;
+   gsub /[aeiou]/, &apos;*&apos;   #=&gt; &quot;q**ck br*wn f*x&quot;
+   $_                    #=&gt; &quot;q**ck br*wn f*x&quot;
+&lt;/pre&gt;</method>
+    <method name='gsub!'>&lt;p&gt;Equivalent to &lt;tt&gt;Kernel::gsub&lt;/tt&gt;, except &lt;tt&gt;nil&lt;/tt&gt; is returned if &lt;tt&gt;$_&lt;/tt&gt; is not modified.&lt;/p&gt;&lt;pre&gt;   $_ = &quot;quick brown fox&quot;
+   gsub! /cat/, &apos;*&apos;   #=&gt; nil
+   $_                 #=&gt; &quot;quick brown fox&quot;
+&lt;/pre&gt;</method>
+    <method name='iterator?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;tt&gt;yield&lt;/tt&gt; would execute a block in the current context. The &lt;tt&gt;iterator?&lt;/tt&gt; form is mildly deprecated.&lt;/p&gt;&lt;pre&gt;   def try
+     if block_given?
+       yield
+     else
+       &quot;no block&quot;
+     end
+   end
+   try                  #=&gt; &quot;no block&quot;
+   try { &quot;hello&quot; }      #=&gt; &quot;hello&quot;
+   try do &quot;hello&quot; end   #=&gt; &quot;hello&quot;
+&lt;/pre&gt;</method>
+    <method name='lambda'>&lt;p&gt;Equivalent to &lt;tt&gt;Proc.new&lt;/tt&gt;, except the resulting Proc objects check the number of parameters passed when called.&lt;/p&gt;</method>
+    <method name='load'>&lt;p&gt;Loads and executes the Ruby program in the file &lt;em&gt;filename&lt;/em&gt;. If the filename does not resolve to an absolute path, the file is searched for in the library directories listed in &lt;tt&gt;$:&lt;/tt&gt;. If the optional &lt;em&gt;wrap&lt;/em&gt; parameter is &lt;tt&gt;true&lt;/tt&gt;, the loaded script will be executed under an anonymous module, protecting the calling program&apos;s global namespace. In no circumstance will any local variables in the loaded file be propagated to the loading environment.&lt;/p&gt;</method>
+    <method name='local_variables'>&lt;p&gt;Returns the names of the current local variables.&lt;/p&gt;&lt;pre&gt;   fred = 1
+   for i in 1..10
+      # ...
+   end
+   local_variables   #=&gt; [&quot;fred&quot;, &quot;i&quot;]
+&lt;/pre&gt;</method>
+    <method name='loop'>&lt;p&gt;Repeatedly executes the block.&lt;/p&gt;&lt;pre&gt;   loop do
+     print &quot;Input: &quot;
+     line = gets
+     break if !line or line =~ /^qQ/
+     # ...
+   end
+&lt;/pre&gt;</method>
+    <method name='method_missing'>&lt;p&gt;Invoked by Ruby when &lt;em&gt;obj&lt;/em&gt; is sent a message it cannot handle. &lt;em&gt;symbol&lt;/em&gt; is the symbol for the method called, and &lt;em&gt;args&lt;/em&gt; are any arguments that were passed to it. By default, the interpreter raises an error when this method is called. However, it is possible to override the method to provide more dynamic behavior. The example below creates a class &lt;tt&gt;Roman&lt;/tt&gt;, which responds to methods with names consisting of roman numerals, returning the corresponding integer values.&lt;/p&gt;&lt;pre&gt;   class Roman
+     def romanToInt(str)
+       # ...
+     end
+     def method_missing(methId)
+       str = methId.id2name
+       romanToInt(str)
+     end
+   end
+
+   r = Roman.new
+   r.iv      #=&gt; 4
+   r.xxiii   #=&gt; 23
+   r.mm      #=&gt; 2000
+&lt;/pre&gt;</method>
+    <method name='open'>&lt;p&gt;Creates an &lt;tt&gt;IO&lt;/tt&gt; object connected to the given stream, file, or subprocess.&lt;/p&gt;&lt;p&gt;If &lt;em&gt;path&lt;/em&gt; does not start with a pipe character (``&lt;tt&gt;|&lt;/tt&gt;&apos;&apos;), treat it as the name of a file to open using the specified mode (defaulting to ``&lt;tt&gt;r&lt;/tt&gt;&apos;&apos;). (See the table of valid modes on page 331.) If a file is being created, its initial permissions may be set using the integer third parameter.&lt;/p&gt;&lt;p&gt;If a block is specified, it will be invoked with the &lt;tt&gt;File&lt;/tt&gt; object as a parameter, and the file will be automatically closed when the block terminates. The call returns the value of the block.&lt;/p&gt;&lt;p&gt;If &lt;em&gt;path&lt;/em&gt; starts with a pipe character, a subprocess is created, connected to the caller by a pair of pipes. The returned &lt;tt&gt;IO&lt;/tt&gt; object may be used to write to the standard input and read from the standard output of this subprocess. If the command following the ``&lt;tt&gt;|&lt;/tt&gt;&apos;&apos; is a single minus sign, Ruby forks, and this subprocess is connected to the parent. In the subprocess, the &lt;tt&gt;open&lt;/tt&gt; call returns &lt;tt&gt;nil&lt;/tt&gt;. If the command is not ``&lt;tt&gt;-&lt;/tt&gt;&apos;&apos;, the subprocess runs the command. If a block is associated with an &lt;tt&gt;open(&quot;|-&quot;)&lt;/tt&gt; call, that block will be run twice---once in the parent and once in the child. The block parameter will be an &lt;tt&gt;IO&lt;/tt&gt; object in the parent and &lt;tt&gt;nil&lt;/tt&gt; in the child. The parent&apos;s &lt;tt&gt;IO&lt;/tt&gt; object will be connected to the child&apos;s &lt;tt&gt;$stdin&lt;/tt&gt; and &lt;tt&gt;$stdout&lt;/tt&gt;. The subprocess will be terminated at the end of the block.&lt;/p&gt;&lt;pre&gt;   open(&quot;testfile&quot;) do |f|
+     print f.gets
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   This is line one
+&lt;/pre&gt;&lt;p&gt;Open a subprocess and read its output:&lt;/p&gt;&lt;pre&gt;   cmd = open(&quot;|date&quot;)
+   print cmd.gets
+   cmd.close
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Wed Apr  9 08:56:31 CDT 2003
+&lt;/pre&gt;&lt;p&gt;Open a subprocess running the same Ruby program:&lt;/p&gt;&lt;pre&gt;   f = open(&quot;|-&quot;, &quot;w+&quot;)
+   if f == nil
+     puts &quot;in Child&quot;
+     exit
+   else
+     puts &quot;Got: #{f.gets}&quot;
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Got: in Child
+&lt;/pre&gt;&lt;p&gt;Open a subprocess using a block to receive the I/O object:&lt;/p&gt;&lt;pre&gt;   open(&quot;|-&quot;) do |f|
+     if f == nil
+       puts &quot;in Child&quot;
+     else
+       puts &quot;Got: #{f.gets}&quot;
+     end
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Got: in Child
+&lt;/pre&gt;</method>
+    <method name='p'>&lt;p&gt;For each object, directly writes &lt;em&gt;obj&lt;/em&gt;.&lt;tt&gt;inspect&lt;/tt&gt; followed by the current output record separator to the program&apos;s standard output.&lt;/p&gt;&lt;pre&gt;   S = Struct.new(:name, :state)
+   s = S[&apos;dave&apos;, &apos;TX&apos;]
+   p s
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   #&lt;S name=&quot;dave&quot;, state=&quot;TX&quot;&gt;
+&lt;/pre&gt;</method>
+    <method name='pretty_inspect'>&lt;p&gt;returns a pretty printed object as a string.&lt;/p&gt;</method>
+    <method name='print'>&lt;p&gt;Prints each object in turn to &lt;tt&gt;$stdout&lt;/tt&gt;. If the output field separator (&lt;tt&gt;$,&lt;/tt&gt;) is not &lt;tt&gt;nil&lt;/tt&gt;, its contents will appear between each field. If the output record separator (&lt;tt&gt;$\&lt;/tt&gt;) is not &lt;tt&gt;nil&lt;/tt&gt;, it will be appended to the output. If no arguments are given, prints &lt;tt&gt;$_&lt;/tt&gt;. Objects that aren&apos;t strings will be converted by calling their &lt;tt&gt;to_s&lt;/tt&gt; method.&lt;/p&gt;&lt;pre&gt;   print &quot;cat&quot;, [1,2,3], 99, &quot;\n&quot;
+   $, = &quot;, &quot;
+   $\ = &quot;\n&quot;
+   print &quot;cat&quot;, [1,2,3], 99
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   cat12399
+   cat, 1, 2, 3, 99
+&lt;/pre&gt;</method>
+    <method name='printf'>&lt;p&gt;Equivalent to:&lt;/p&gt;&lt;pre&gt;   io.write(sprintf(string, obj, ...)
+&lt;/pre&gt;&lt;p&gt;or&lt;/p&gt;&lt;pre&gt;   $stdout.write(sprintf(string, obj, ...)
+&lt;/pre&gt;</method>
+    <method name='proc'>&lt;p&gt;Equivalent to &lt;tt&gt;Proc.new&lt;/tt&gt;, except the resulting Proc objects check the number of parameters passed when called.&lt;/p&gt;</method>
+    <method name='putc'>&lt;p&gt;Equivalent to:&lt;/p&gt;&lt;pre&gt;  $stdout.putc(int)
+&lt;/pre&gt;</method>
+    <method name='puts'>&lt;p&gt;Equivalent to&lt;/p&gt;&lt;pre&gt;    $stdout.puts(obj, ...)
+&lt;/pre&gt;</method>
+    <method name='raise'>&lt;p&gt;With no arguments, raises the exception in &lt;tt&gt;$!&lt;/tt&gt; or raises a &lt;tt&gt;RuntimeError&lt;/tt&gt; if &lt;tt&gt;$!&lt;/tt&gt; is &lt;tt&gt;nil&lt;/tt&gt;. With a single &lt;tt&gt;String&lt;/tt&gt; argument, raises a &lt;tt&gt;RuntimeError&lt;/tt&gt; with the string as a message. Otherwise, the first parameter should be the name of an &lt;tt&gt;Exception&lt;/tt&gt; class (or an object that returns an &lt;tt&gt;Exception&lt;/tt&gt; object when sent an &lt;tt&gt;exception&lt;/tt&gt; message). The optional second parameter sets the message associated with the exception, and the third parameter is an array of callback information. Exceptions are caught by the &lt;tt&gt;rescue&lt;/tt&gt; clause of &lt;tt&gt;begin...end&lt;/tt&gt; blocks.&lt;/p&gt;&lt;pre&gt;   raise &quot;Failed to create socket&quot;
+   raise ArgumentError, &quot;No parameters&quot;, caller
+&lt;/pre&gt;</method>
+    <method name='rand'>&lt;p&gt;Converts &lt;em&gt;max&lt;/em&gt; to an integer using max1 = max&lt;tt&gt;.to_i.abs&lt;/tt&gt;. If the result is zero, returns a pseudorandom floating point number greater than or equal to 0.0 and less than 1.0. Otherwise, returns a pseudorandom integer greater than or equal to zero and less than max1. &lt;tt&gt;Kernel::srand&lt;/tt&gt; may be used to ensure repeatable sequences of random numbers between different runs of the program. Ruby currently uses a modified Mersenne Twister with a period of 2**19937-1.&lt;/p&gt;&lt;pre&gt;   srand 1234                 #=&gt; 0
+   [ rand,  rand ]            #=&gt; [0.191519450163469, 0.49766366626136]
+   [ rand(10), rand(1000) ]   #=&gt; [6, 817]
+   srand 1234                 #=&gt; 1234
+   [ rand,  rand ]            #=&gt; [0.191519450163469, 0.49766366626136]
+&lt;/pre&gt;</method>
+    <method name='readline'>&lt;p&gt;Equivalent to &lt;tt&gt;Kernel::gets&lt;/tt&gt;, except &lt;tt&gt;readline&lt;/tt&gt; raises &lt;tt&gt;EOFError&lt;/tt&gt; at end of file.&lt;/p&gt;</method>
+    <method name='readlines'>&lt;p&gt;Returns an array containing the lines returned by calling &lt;tt&gt;Kernel.gets(&lt;em&gt;separator&lt;/em&gt;)&lt;/tt&gt; until the end of file.&lt;/p&gt;</method>
+    <method name='require'>&lt;p&gt;Ruby tries to load the library named &lt;em&gt;string&lt;/em&gt;, returning &lt;tt&gt;true&lt;/tt&gt; if successful. If the filename does not resolve to an absolute path, it will be searched for in the directories listed in &lt;tt&gt;$:&lt;/tt&gt;. If the file has the extension ``.rb&apos;&apos;, it is loaded as a source file; if the extension is ``.so&apos;&apos;, ``.o&apos;&apos;, or ``.dll&apos;&apos;, or whatever the default shared library extension is on the current platform, Ruby loads the shared library as a Ruby extension. Otherwise, Ruby tries adding ``.rb&apos;&apos;, ``.so&apos;&apos;, and so on to the name. The name of the loaded feature is added to the array in &lt;tt&gt;$&quot;&lt;/tt&gt;. A feature will not be loaded if it&apos;s name already appears in &lt;tt&gt;$&quot;&lt;/tt&gt;. However, the file name is not converted to an absolute path, so that ``&lt;tt&gt;require &apos;a&apos;;require &apos;./a&apos;&lt;/tt&gt;&apos;&apos; will load &lt;tt&gt;a.rb&lt;/tt&gt; twice.&lt;/p&gt;&lt;pre&gt;   require &quot;my-library.rb&quot;
+   require &quot;db-driver&quot;
+&lt;/pre&gt;</method>
+    <method name='scan'>&lt;p&gt;Equivalent to calling &lt;tt&gt;$_.scan&lt;/tt&gt;. See &lt;tt&gt;String#scan&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='select'>&lt;p&gt;See &lt;tt&gt;Kernel#select&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='set_trace_func'>&lt;p&gt;Establishes &lt;em&gt;proc&lt;/em&gt; as the handler for tracing, or disables tracing if the parameter is &lt;tt&gt;nil&lt;/tt&gt;. &lt;em&gt;proc&lt;/em&gt; takes up to six parameters: an event name, a filename, a line number, an object id, a binding, and the name of a class. &lt;em&gt;proc&lt;/em&gt; is invoked whenever an event occurs. Events are: &lt;tt&gt;c-call&lt;/tt&gt; (call a C-language routine), &lt;tt&gt;c-return&lt;/tt&gt; (return from a C-language routine), &lt;tt&gt;call&lt;/tt&gt; (call a Ruby method), &lt;tt&gt;class&lt;/tt&gt; (start a class or module definition), &lt;tt&gt;end&lt;/tt&gt; (finish a class or module definition), &lt;tt&gt;line&lt;/tt&gt; (execute code on a new line), &lt;tt&gt;raise&lt;/tt&gt; (raise an exception), and &lt;tt&gt;return&lt;/tt&gt; (return from a Ruby method). Tracing is disabled within the context of &lt;em&gt;proc&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;    class Test
+    def test
+      a = 1
+      b = 2
+    end
+    end
+
+    set_trace_func proc { |event, file, line, id, binding, classname|
+       printf &quot;%8s %s:%-2d %10s %8s\n&quot;, event, file, line, id, classname
+    }
+    t = Test.new
+    t.test
+
+      line prog.rb:11               false
+    c-call prog.rb:11        new    Class
+    c-call prog.rb:11 initialize   Object
+  c-return prog.rb:11 initialize   Object
+  c-return prog.rb:11        new    Class
+      line prog.rb:12               false
+      call prog.rb:2        test     Test
+      line prog.rb:3        test     Test
+      line prog.rb:4        test     Test
+    return prog.rb:4        test     Test
+&lt;/pre&gt;</method>
+    <method name='sleep'>&lt;p&gt;Suspends the current thread for &lt;em&gt;duration&lt;/em&gt; seconds (which may be any number, including a &lt;tt&gt;Float&lt;/tt&gt; with fractional seconds). Returns the actual number of seconds slept (rounded), which may be less than that asked for if another thread calls &lt;tt&gt;Thread#run&lt;/tt&gt;. Zero arguments causes &lt;tt&gt;sleep&lt;/tt&gt; to sleep forever.&lt;/p&gt;&lt;pre&gt;   Time.new    #=&gt; Wed Apr 09 08:56:32 CDT 2003
+   sleep 1.2   #=&gt; 1
+   Time.new    #=&gt; Wed Apr 09 08:56:33 CDT 2003
+   sleep 1.9   #=&gt; 2
+   Time.new    #=&gt; Wed Apr 09 08:56:35 CDT 2003
+&lt;/pre&gt;</method>
+    <method name='split'>&lt;p&gt;Equivalent to &lt;tt&gt;$_.split(&lt;em&gt;pattern&lt;/em&gt;, &lt;em&gt;limit&lt;/em&gt;)&lt;/tt&gt;. See &lt;tt&gt;String#split&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='sprintf'>&lt;p&gt;Returns the string resulting from applying &lt;em&gt;format_string&lt;/em&gt; to any additional arguments. Within the format string, any characters other than format sequences are copied to the result. A format sequence consists of a percent sign, followed by optional flags, width, and precision indicators, then terminated with a field type character. The field type controls how the corresponding &lt;tt&gt;sprintf&lt;/tt&gt; argument is to be interpreted, while the flags modify that interpretation. The field type characters are listed in the table at the end of this section. The flag characters are:&lt;/p&gt;&lt;pre&gt;  Flag     | Applies to   | Meaning
+  ---------+--------------+-----------------------------------------
+  space    | bdeEfgGiouxX | Leave a space at the start of
+           |              | positive numbers.
+  ---------+--------------+-----------------------------------------
+  (digit)$ | all          | Specifies the absolute argument number
+           |              | for this field. Absolute and relative
+           |              | argument numbers cannot be mixed in a
+           |              | sprintf string.
+  ---------+--------------+-----------------------------------------
+   #       | beEfgGoxX    | Use an alternative format. For the
+           |              | conversions `o&apos;, `x&apos;, `X&apos;, and `b&apos;,
+           |              | prefix the result with ``0&apos;&apos;, ``0x&apos;&apos;, ``0X&apos;&apos;,
+           |              |  and ``0b&apos;&apos;, respectively. For `e&apos;,
+           |              | `E&apos;, `f&apos;, `g&apos;, and &apos;G&apos;, force a decimal
+           |              | point to be added, even if no digits follow.
+           |              | For `g&apos; and &apos;G&apos;, do not remove trailing zeros.
+  ---------+--------------+-----------------------------------------
+  +        | bdeEfgGiouxX | Add a leading plus sign to positive numbers.
+  ---------+--------------+-----------------------------------------
+  -        | all          | Left-justify the result of this conversion.
+  ---------+--------------+-----------------------------------------
+  0 (zero) | bdeEfgGiouxX | Pad with zeros, not spaces.
+  ---------+--------------+-----------------------------------------
+  *        | all          | Use the next argument as the field width.
+           |              | If negative, left-justify the result. If the
+           |              | asterisk is followed by a number and a dollar
+           |              | sign, use the indicated argument as the width.
+&lt;/pre&gt;&lt;p&gt;The field width is an optional integer, followed optionally by a period and a precision. The width specifies the minimum number of characters that will be written to the result for this field. For numeric fields, the precision controls the number of decimal places displayed. For string fields, the precision determines the maximum number of characters to be copied from the string. (Thus, the format sequence &lt;tt&gt;%10.10s&lt;/tt&gt; will always contribute exactly ten characters to the result.)&lt;/p&gt;&lt;p&gt;The field types are:&lt;/p&gt;&lt;pre&gt;    Field |  Conversion
+    ------+--------------------------------------------------------------
+      b   | Convert argument as a binary number.
+      c   | Argument is the numeric code for a single character.
+      d   | Convert argument as a decimal number.
+      E   | Equivalent to `e&apos;, but uses an uppercase E to indicate
+          | the exponent.
+      e   | Convert floating point argument into exponential notation
+          | with one digit before the decimal point. The precision
+          | determines the number of fractional digits (defaulting to six).
+      f   | Convert floating point argument as [-]ddd.ddd,
+          |  where the precision determines the number of digits after
+          | the decimal point.
+      G   | Equivalent to `g&apos;, but use an uppercase `E&apos; in exponent form.
+      g   | Convert a floating point number using exponential form
+          | if the exponent is less than -4 or greater than or
+          | equal to the precision, or in d.dddd form otherwise.
+      i   | Identical to `d&apos;.
+      o   | Convert argument as an octal number.
+      p   | The valuing of argument.inspect.
+      s   | Argument is a string to be substituted. If the format
+          | sequence contains a precision, at most that many characters
+          | will be copied.
+      u   | Treat argument as an unsigned decimal number. Negative integers
+          | are displayed as a 32 bit two&apos;s complement plus one for the
+          | underlying architecture; that is, 2 ** 32 + n.  However, since
+          | Ruby has no inherent limit on bits used to represent the
+          | integer, this value is preceded by two dots (..) in order to
+          | indicate a infinite number of leading sign bits.
+      X   | Convert argument as a hexadecimal number using uppercase
+          | letters. Negative numbers will be displayed with two
+          | leading periods (representing an infinite string of
+          | leading &apos;FF&apos;s.
+      x   | Convert argument as a hexadecimal number.
+          | Negative numbers will be displayed with two
+          | leading periods (representing an infinite string of
+          | leading &apos;ff&apos;s.
+&lt;/pre&gt;&lt;p&gt;Examples:&lt;/p&gt;&lt;pre&gt;   sprintf(&quot;%d %04x&quot;, 123, 123)               #=&gt; &quot;123 007b&quot;
+   sprintf(&quot;%08b &apos;%4s&apos;&quot;, 123, 123)            #=&gt; &quot;01111011 &apos; 123&apos;&quot;
+   sprintf(&quot;%1$*2$s %2$d %1$s&quot;, &quot;hello&quot;, 8)   #=&gt; &quot;   hello 8 hello&quot;
+   sprintf(&quot;%1$*2$s %2$d&quot;, &quot;hello&quot;, -8)       #=&gt; &quot;hello    -8&quot;
+   sprintf(&quot;%+g:% g:%-g&quot;, 1.23, 1.23, 1.23)   #=&gt; &quot;+1.23: 1.23:1.23&quot;
+   sprintf(&quot;%u&quot;, -123)                        #=&gt; &quot;..4294967173&quot;
+&lt;/pre&gt;</method>
+    <method name='srand'>&lt;p&gt;Seeds the pseudorandom number generator to the value of &lt;em&gt;number&lt;/em&gt;.&lt;tt&gt;to_i.abs&lt;/tt&gt;. If &lt;em&gt;number&lt;/em&gt; is omitted or zero, seeds the generator using a combination of the time, the process id, and a sequence number. (This is also the behavior if &lt;tt&gt;Kernel::rand&lt;/tt&gt; is called without previously calling &lt;tt&gt;srand&lt;/tt&gt;, but without the sequence.) By setting the seed to a known value, scripts can be made deterministic during testing. The previous seed value is returned. Also see &lt;tt&gt;Kernel::rand&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='sub'>&lt;p&gt;Equivalent to &lt;tt&gt;$_.sub(&lt;em&gt;args&lt;/em&gt;)&lt;/tt&gt;, except that &lt;tt&gt;$_&lt;/tt&gt; will be updated if substitution occurs.&lt;/p&gt;</method>
+    <method name='sub!'>&lt;p&gt;Equivalent to &lt;tt&gt;$_.sub!(&lt;em&gt;args&lt;/em&gt;)&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='syscall'>&lt;p&gt;Calls the operating system function identified by &lt;em&gt;fixnum&lt;/em&gt;, passing in the arguments, which must be either &lt;tt&gt;String&lt;/tt&gt; objects, or &lt;tt&gt;Integer&lt;/tt&gt; objects that ultimately fit within a native &lt;tt&gt;long&lt;/tt&gt;. Up to nine parameters may be passed (14 on the Atari-ST). The function identified by &lt;em&gt;fixnum&lt;/em&gt; is system dependent. On some Unix systems, the numbers may be obtained from a header file called &lt;tt&gt;syscall.h&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   syscall 4, 1, &quot;hello\n&quot;, 6   # &apos;4&apos; is write(2) on our box
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   hello
+&lt;/pre&gt;</method>
+    <method name='system'>&lt;p&gt;Executes &lt;em&gt;cmd&lt;/em&gt; in a subshell, returning &lt;tt&gt;true&lt;/tt&gt; if the command was found and ran successfully, &lt;tt&gt;false&lt;/tt&gt; otherwise. An error status is available in &lt;tt&gt;$?&lt;/tt&gt;. The arguments are processed in the same way as for &lt;tt&gt;Kernel::exec&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   system(&quot;echo *&quot;)
+   system(&quot;echo&quot;, &quot;*&quot;)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   config.h main.rb
+   *
+&lt;/pre&gt;</method>
+    <method name='test'>&lt;pre&gt; Uses the integer &lt;em&gt;aCmd&lt;/em&gt; to perform various tests on
+ &lt;em&gt;file1&lt;/em&gt; (first table below) or on &lt;em&gt;file1&lt;/em&gt; and
+ &lt;em&gt;file2&lt;/em&gt; (second table).
+
+ File tests on a single file:
+
+   Test   Returns   Meaning
+    ?A  | Time    | Last access time for file1
+    ?b  | boolean | True if file1 is a block device
+    ?c  | boolean | True if file1 is a character device
+    ?C  | Time    | Last change time for file1
+    ?d  | boolean | True if file1 exists and is a directory
+    ?e  | boolean | True if file1 exists
+    ?f  | boolean | True if file1 exists and is a regular file
+    ?g  | boolean | True if file1 has the \CF{setgid} bit
+        |         | set (false under NT)
+    ?G  | boolean | True if file1 exists and has a group
+        |         | ownership equal to the caller&apos;s group
+    ?k  | boolean | True if file1 exists and has the sticky bit set
+    ?l  | boolean | True if file1 exists and is a symbolic link
+    ?M  | Time    | Last modification time for file1
+    ?o  | boolean | True if file1 exists and is owned by
+        |         | the caller&apos;s effective uid
+    ?O  | boolean | True if file1 exists and is owned by
+        |         | the caller&apos;s real uid
+    ?p  | boolean | True if file1 exists and is a fifo
+    ?r  | boolean | True if file1 is readable by the effective
+        |         | uid/gid of the caller
+    ?R  | boolean | True if file is readable by the real
+        |         | uid/gid of the caller
+    ?s  | int/nil | If file1 has nonzero size, return the size,
+        |         | otherwise return nil
+    ?S  | boolean | True if file1 exists and is a socket
+    ?u  | boolean | True if file1 has the setuid bit set
+    ?w  | boolean | True if file1 exists and is writable by
+        |         | the effective uid/gid
+    ?W  | boolean | True if file1 exists and is writable by
+        |         | the real uid/gid
+    ?x  | boolean | True if file1 exists and is executable by
+        |         | the effective uid/gid
+    ?X  | boolean | True if file1 exists and is executable by
+        |         | the real uid/gid
+    ?z  | boolean | True if file1 exists and has a zero length
+&lt;/pre&gt;&lt;p&gt;Tests that take two files:&lt;/p&gt;&lt;pre&gt;    ?-  | boolean | True if file1 and file2 are identical
+    ?=  | boolean | True if the modification times of file1
+        |         | and file2 are equal
+    ?&lt;  | boolean | True if the modification time of file1
+        |         | is prior to that of file2
+    ?&gt;  | boolean | True if the modification time of file1
+        |         | is after that of file2
+&lt;/pre&gt;</method>
+    <method name='throw'>&lt;p&gt;Transfers control to the end of the active &lt;tt&gt;catch&lt;/tt&gt; block waiting for &lt;em&gt;symbol&lt;/em&gt;. Raises &lt;tt&gt;NameError&lt;/tt&gt; if there is no &lt;tt&gt;catch&lt;/tt&gt; block for the symbol. The optional second parameter supplies a return value for the &lt;tt&gt;catch&lt;/tt&gt; block, which otherwise defaults to &lt;tt&gt;nil&lt;/tt&gt;. For examples, see &lt;tt&gt;Kernel::catch&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='trace_var'>&lt;p&gt;Controls tracing of assignments to global variables. The parameter +symbol_ identifies the variable (as either a string name or a symbol identifier). &lt;em&gt;cmd&lt;/em&gt; (which may be a string or a &lt;tt&gt;Proc&lt;/tt&gt; object) or block is executed whenever the variable is assigned. The block or &lt;tt&gt;Proc&lt;/tt&gt; object receives the variable&apos;s new value as a parameter. Also see &lt;tt&gt;Kernel::untrace_var&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   trace_var :$_, proc {|v| puts &quot;$_ is now &apos;#{v}&apos;&quot; }
+   $_ = &quot;hello&quot;
+   $_ = &apos; there&apos;
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   $_ is now &apos;hello&apos;
+   $_ is now &apos; there&apos;
+&lt;/pre&gt;</method>
+    <method name='trap'>&lt;p&gt;Specifies the handling of signals. The first parameter is a signal name (a string such as ``SIGALRM&apos;&apos;, ``SIGUSR1&apos;&apos;, and so on) or a signal number. The characters ``SIG&apos;&apos; may be omitted from the signal name. The command or block specifies code to be run when the signal is raised. If the command is the string ``IGNORE&apos;&apos; or ``SIG_IGN&apos;&apos;, the signal will be ignored. If the command is ``DEFAULT&apos;&apos; or ``SIG_DFL&apos;&apos;, the operating system&apos;s default handler will be invoked. If the command is ``EXIT&apos;&apos;, the script will be terminated by the signal. Otherwise, the given command or block will be run. The special signal name ``EXIT&apos;&apos; or signal number zero will be invoked just prior to program termination. trap returns the previous handler for the given signal.&lt;/p&gt;&lt;pre&gt;    Signal.trap(0, proc { puts &quot;Terminating: #{$$}&quot; })
+    Signal.trap(&quot;CLD&quot;)  { puts &quot;Child died&quot; }
+    fork &amp;&amp; Process.wait
+&lt;/pre&gt;&lt;p&gt;produces:&lt;/p&gt;&lt;pre&gt;    Terminating: 27461
+    Child died
+    Terminating: 27460
+&lt;/pre&gt;</method>
+    <method name='untrace_var'>&lt;p&gt;Removes tracing for the specified command on the given global variable and returns &lt;tt&gt;nil&lt;/tt&gt;. If no command is specified, removes all tracing for that variable and returns an array containing the commands actually removed.&lt;/p&gt;</method>
+    <method name='warn'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

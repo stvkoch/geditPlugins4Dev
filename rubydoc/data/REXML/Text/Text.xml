@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Represents text nodes in an XML document&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Constructor &lt;tt&gt;arg&lt;/tt&gt; if a String, the content is set to the String. If a Text, the object is shallowly cloned.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;respect_whitespace&lt;/tt&gt; (boolean, false) if true, whitespace is respected&lt;/p&gt;&lt;p&gt;&lt;tt&gt;parent&lt;/tt&gt; (nil) if this is a Parent object, the parent will be set to this.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;raw&lt;/tt&gt; (nil) This argument can be given three values. If true, then the value of used to construct this object is expected to contain no unescaped XML markup, and REXML will not change the text. If this value is false, the string may contain any characters, and REXML will escape any and all defined entities whose values are contained in the text. If this value is nil (the default), then the raw value of the parent will be used as the raw value for this node. If there is no raw value for the parent, and no value is supplied, the default is false. Use this field if you have entities defined for some text, and you don&apos;t want REXML to escape that text in output.&lt;/p&gt;&lt;pre&gt;  Text.new( &quot;&lt;&amp;&quot;, false, nil, false ) #-&gt; &quot;&amp;lt;&amp;amp;&quot;
+  Text.new( &quot;&lt;&amp;&quot;, false, nil, true )  #-&gt; Parse exception
+  Text.new( &quot;&amp;lt;&amp;amp;&quot;, false, nil, true )  #-&gt; &quot;&amp;lt;&amp;amp;&quot;
+  # Assume that the entity &quot;s&quot; is defined to be &quot;sean&quot;
+  # and that the entity    &quot;r&quot; is defined to be &quot;russell&quot;
+  Text.new( &quot;sean russell&quot; )          #-&gt; &quot;&amp;s; &amp;r;&quot;
+  Text.new( &quot;sean russell&quot;, false, nil, true ) #-&gt; &quot;sean russell&quot;
+&lt;/pre&gt;&lt;p&gt;&lt;tt&gt;entity_filter&lt;/tt&gt; (nil) This can be an array of entities to match in the supplied text. This argument is only useful if &lt;tt&gt;raw&lt;/tt&gt; is set to false.&lt;/p&gt;&lt;pre&gt;  Text.new( &quot;sean russell&quot;, false, nil, false, [&quot;s&quot;] ) #-&gt; &quot;&amp;s; russell&quot;
+  Text.new( &quot;sean russell&quot;, false, nil, true, [&quot;s&quot;] ) #-&gt; &quot;sean russell&quot;
+&lt;/pre&gt;&lt;p&gt;In the last example, the &lt;tt&gt;entity_filter&lt;/tt&gt; argument is ignored.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;pattern&lt;/tt&gt; INTERNAL USE ONLY&lt;/p&gt;</method>
+    <method name='normalize'>&lt;p&gt;Escapes all possible entities&lt;/p&gt;</method>
+    <method name='read_with_substitution'>&lt;p&gt;Reads text, substituting entities&lt;/p&gt;</method>
+    <method name='unnormalize'>&lt;p&gt;Unescapes all possible entities&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Appends text to this text node. The text is appended in the &lt;tt&gt;raw&lt;/tt&gt; mode of this text node.&lt;/p&gt;</method>
+    <method name='&lt;=&gt;'>&lt;p&gt;&lt;tt&gt;other&lt;/tt&gt; a String or a Text &lt;tt&gt;returns&lt;/tt&gt; the result of (to_s &lt;=&gt; arg.to_s)&lt;/p&gt;</method>
+    <method name='clone'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='empty?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='indent_text'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='node_type'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Returns the string value of this text node. This string is always escaped, meaning that it is a valid XML text node string, and all entities that can be escaped, have been inserted. This method respects the entity filter set in the constructor.&lt;/p&gt;&lt;pre&gt;  # Assume that the entity &quot;s&quot; is defined to be &quot;sean&quot;, and that the
+  # entity &quot;r&quot; is defined to be &quot;russell&quot;
+  t = Text.new( &quot;&lt; &amp; sean russell&quot;, false, nil, false, [&apos;s&apos;] )
+  t.to_s   #-&gt; &quot;&amp;lt; &amp;amp; &amp;s; russell&quot;
+  t = Text.new( &quot;&lt; &amp; &amp;s; russell&quot;, false, nil, false )
+  t.to_s   #-&gt; &quot;&amp;lt; &amp;amp; &amp;s; russell&quot;
+  u = Text.new( &quot;sean russell&quot;, false, nil, true )
+  u.to_s   #-&gt; &quot;sean russell&quot;
+&lt;/pre&gt;</method>
+    <method name='value'>&lt;p&gt;Returns the string value of this text. This is the text without entities, as it might be used programmatically, or printed to the console. This ignores the &apos;raw&apos; attribute setting, and any entity_filter.&lt;/p&gt;&lt;pre&gt;  # Assume that the entity &quot;s&quot; is defined to be &quot;sean&quot;, and that the
+  # entity &quot;r&quot; is defined to be &quot;russell&quot;
+  t = Text.new( &quot;&lt; &amp; sean russell&quot;, false, nil, false, [&apos;s&apos;] )
+  t.value   #-&gt; &quot;&lt; &amp; sean russell&quot;
+  t = Text.new( &quot;&lt; &amp; &amp;s; russell&quot;, false, nil, false )
+  t.value   #-&gt; &quot;&lt; &amp; sean russell&quot;
+  u = Text.new( &quot;sean russell&quot;, false, nil, true )
+  u.value   #-&gt; &quot;sean russell&quot;
+&lt;/pre&gt;</method>
+    <method name='value='>&lt;p&gt;Sets the contents of this text node. This expects the text to be unnormalized. It returns self.&lt;/p&gt;&lt;pre&gt;  e = Element.new( &quot;a&quot; )
+  e.add_text( &quot;foo&quot; )   # &lt;a&gt;foo&lt;/a&gt;
+  e[0].value = &quot;bar&quot;    # &lt;a&gt;bar&lt;/a&gt;
+  e[0].value = &quot;&lt;a&gt;&quot;    # &lt;a&gt;&amp;lt;a&amp;gt;&lt;/a&gt;
+&lt;/pre&gt;</method>
+    <method name='wrap'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='write'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='write_with_substitution'>&lt;p&gt;Writes out text, substituting special characters beforehand. &lt;tt&gt;out&lt;/tt&gt; A String, IO, or any other object supporting &lt;&lt;( String ) &lt;tt&gt;input&lt;/tt&gt; the text to substitute and the write out&lt;/p&gt;&lt;pre&gt;  z=utf8.unpack(&quot;U*&quot;)
+  ascOut=&quot;&quot;
+  z.each{|r|
+    if r &lt;  0x100
+      ascOut.concat(r.chr)
+    else
+      ascOut.concat(sprintf(&quot;&amp;#x%x;&quot;, r))
+    end
+  }
+  puts ascOut
+&lt;/pre&gt;</method>
+    <method name='xpath'>&lt;p&gt;FIXME This probably won&apos;t work properly&lt;/p&gt;</method>
+  </methods>
+</help>

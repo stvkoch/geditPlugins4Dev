@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;In-memory session storage class.&lt;/p&gt;&lt;p&gt;Implements session storage as a global in-memory hash. Session data will only persist for as long as the ruby interpreter instance does.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Create a new MemoryStore instance.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;session&lt;/tt&gt; is the session this instance is associated with. &lt;tt&gt;option&lt;/tt&gt; is a list of initialisation options. None are currently recognised.&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;Close session storage.&lt;/p&gt;&lt;p&gt;A no-op.&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;Delete the session state.&lt;/p&gt;</method>
+    <method name='restore'>&lt;p&gt;Restore session state.&lt;/p&gt;&lt;p&gt;Returns session data as a hash.&lt;/p&gt;</method>
+    <method name='update'>&lt;p&gt;Update session state.&lt;/p&gt;&lt;p&gt;A no-op.&lt;/p&gt;</method>
+  </methods>
+</help>

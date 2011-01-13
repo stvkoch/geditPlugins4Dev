@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This is a kind of &apos;flag&apos; module. If you want to write your own &apos;ri&apos; display module (perhaps because you&apos;r writing an IDE or somesuch beast), you simply write a class which implements the various &apos;display&apos; methods in &apos;DefaultDisplay&apos;, and include the &apos;RiDisplay&apos; module in that class.&lt;/p&gt;&lt;p&gt;To access your class from the command line, you can do&lt;/p&gt;&lt;pre&gt;   ruby -r &lt;your source file&gt;  ../ri ....
+&lt;/pre&gt;&lt;p&gt;If folks &lt;em&gt;really&lt;/em&gt; want to do this from the command line, I&apos;ll build an option in&lt;/p&gt;</comment>
+  <methods>
+    <method name='append_features'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

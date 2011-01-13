@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The GetoptLong class allows you to parse command line options similarly to the GNU getopt_long() C library call. Note, however, that GetoptLong is a pure Ruby implementation.&lt;/p&gt;&lt;p&gt;GetoptLong allows for POSIX-style options like &lt;tt&gt;--file&lt;/tt&gt; as well as single letter options like &lt;tt&gt;-f&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;The empty option &lt;tt&gt;--&lt;/tt&gt; (two minus symbols) is used to end option processing. This can be particularly important if options have optional arguments.&lt;/p&gt;&lt;p&gt;Here is a simple example of usage:&lt;/p&gt;&lt;pre&gt;    # == Synopsis
+    #
+    # hello: greets user, demonstrates command line parsing
+    #
+    # == Usage
+    #
+    # hello [OPTION] ... DIR
+    #
+    # -h, --help:
+    #    show help
+    #
+    # --repeat x, -n x:
+    #    repeat x times
+    #
+    # --name [name]:
+    #    greet user by name, if name not supplied default is John
+    #
+    # DIR: The directory in which to issue the greeting.
+
+    require &apos;getoptlong&apos;
+    require &apos;rdoc/usage&apos;
+
+    opts = GetoptLong.new(
+      [ &apos;--help&apos;, &apos;-h&apos;, GetoptLong::NO_ARGUMENT ],
+      [ &apos;--repeat&apos;, &apos;-n&apos;, GetoptLong::REQUIRED_ARGUMENT ],
+      [ &apos;--name&apos;, GetoptLong::OPTIONAL_ARGUMENT ]
+    )
+
+    dir = nil
+    name = nil
+    repetitions = 1
+    opts.each do |opt, arg|
+      case opt
+        when &apos;--help&apos;
+          RDoc::usage
+        when &apos;--repeat&apos;
+          repetitions = arg.to_i
+        when &apos;--name&apos;
+          if arg == &apos;&apos;
+            name = &apos;John&apos;
+          else
+            name = arg
+          end
+      end
+    end
+
+    if ARGV.length != 1
+      puts &quot;Missing dir argument (try --help)&quot;
+      exit 0
+    end
+
+    dir = ARGV.shift
+
+    Dir.chdir(dir)
+    for i in (1..repetitions)
+      print &quot;Hello&quot;
+      if name
+        print &quot;, #{name}&quot;
+      end
+      puts
+    end
+&lt;/pre&gt;&lt;p&gt;Example command line:&lt;/p&gt;&lt;pre&gt;    hello -n 6 --name -- /tmp
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Set up option processing.&lt;/p&gt;&lt;p&gt;The options to support are passed to new() as an array of arrays. Each sub-array contains any number of String option names which carry the same meaning, and one of the following flags:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Option does not take an argument.&lt;/li&gt;&lt;li&gt;Option always takes an argument.&lt;/li&gt;&lt;li&gt;Option may or may not take an argument.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;The first option name is considered to be the preferred (canonical) name. Other than that, the elements of each sub-array can be in any order.&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;Iterator version of `get&apos;.&lt;/p&gt;&lt;p&gt;The block is called repeatedly with two arguments: The first is the option name. The second is the argument which followed it (if any). Example: (&apos;--opt&apos;, &apos;value&apos;)&lt;/p&gt;&lt;p&gt;The option name is always converted to the first (preferred) name given in the original options to GetoptLong.new.&lt;/p&gt;</method>
+    <method name='each_option'>&lt;p&gt;Alias for #each&lt;/p&gt;</method>
+    <method name='error_message'>&lt;p&gt;Return the appropriate error message in POSIX-defined format. If no error has occurred, returns nil.&lt;/p&gt;</method>
+    <method name='get'>&lt;p&gt;Get next option name and its argument, as an Array of two elements.&lt;/p&gt;&lt;p&gt;The option name is always converted to the first (preferred) name given in the original options to GetoptLong.new.&lt;/p&gt;&lt;p&gt;Example: [&apos;--option&apos;, &apos;value&apos;]&lt;/p&gt;&lt;p&gt;Returns nil if the processing is complete (as determined by STATUS_TERMINATED).&lt;/p&gt;</method>
+    <method name='get_option'>&lt;p&gt;Alias for #get&lt;/p&gt;</method>
+    <method name='ordering='>&lt;p&gt;Set the handling of the ordering of options and arguments. A RuntimeError is raised if option processing has already started.&lt;/p&gt;&lt;p&gt;The supplied value must be a member of GetoptLong::ORDERINGS. It alters the processing of options as follows:&lt;/p&gt;&lt;p&gt;&lt;b&gt;REQUIRE_ORDER&lt;/b&gt; :&lt;/p&gt;&lt;p&gt;Options are required to occur before non-options.&lt;/p&gt;&lt;p&gt;Processing of options ends as soon as a word is encountered that has not been preceded by an appropriate option flag.&lt;/p&gt;&lt;p&gt;For example, if -a and -b are options which do not take arguments, parsing command line arguments of &apos;-a one -b two&apos; would result in &apos;one&apos;, &apos;-b&apos;, &apos;two&apos; being left in ARGV, and only (&apos;-a&apos;, &apos;&apos;) being processed as an option/arg pair.&lt;/p&gt;&lt;p&gt;This is the default ordering, if the environment variable POSIXLY_CORRECT is set. (This is for compatibility with GNU getopt_long.)&lt;/p&gt;&lt;p&gt;&lt;b&gt;PERMUTE&lt;/b&gt; :&lt;/p&gt;&lt;p&gt;Options can occur anywhere in the command line parsed. This is the default behavior.&lt;/p&gt;&lt;p&gt;Every sequence of words which can be interpreted as an option (with or without argument) is treated as an option; non-option words are skipped.&lt;/p&gt;&lt;p&gt;For example, if -a does not require an argument and -b optionally takes an argument, parsing &apos;-a one -b two three&apos; would result in (&apos;-a&apos;,&apos;&apos;) and (&apos;-b&apos;, &apos;two&apos;) being processed as option/arg pairs, and &apos;one&apos;,&apos;three&apos; being left in ARGV.&lt;/p&gt;&lt;p&gt;If the ordering is set to PERMUTE but the environment variable POSIXLY_CORRECT is set, REQUIRE_ORDER is used instead. This is for compatibility with GNU getopt_long.&lt;/p&gt;&lt;p&gt;&lt;b&gt;RETURN_IN_ORDER&lt;/b&gt; :&lt;/p&gt;&lt;p&gt;All words on the command line are processed as options. Words not preceded by a short or long option flag are passed as arguments with an option of &apos;&apos; (empty string).&lt;/p&gt;&lt;p&gt;For example, if -a requires an argument but -b does not, a command line of &apos;-a one -b two three&apos; would result in option/arg pairs of (&apos;-a&apos;, &apos;one&apos;) (&apos;-b&apos;, &apos;&apos;), (&apos;&apos;, &apos;two&apos;), (&apos;&apos;, &apos;three&apos;) being processed.&lt;/p&gt;</method>
+    <method name='set_options'>&lt;p&gt;Set options. Takes the same argument as GetoptLong.new.&lt;/p&gt;&lt;p&gt;Raises a RuntimeError if option processing has already started.&lt;/p&gt;</method>
+    <method name='terminate'>&lt;p&gt;Explicitly terminate option processing.&lt;/p&gt;</method>
+    <method name='terminated?'>&lt;p&gt;Returns true if option processing has terminated, false otherwise.&lt;/p&gt;</method>
+  </methods>
+</help>

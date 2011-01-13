@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='document_send'>&lt;p&gt;req_header: [[element, mustunderstand, encodingstyle(QName/String)], ...] req_body: SOAPBasetype/SOAPCompoundtype&lt;/p&gt;</method>
+    <method name='endpoint_url'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='endpoint_url='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='headerhandler'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='reset_stream'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='rpc_call'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='streamhandler'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='test_loopback_response'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

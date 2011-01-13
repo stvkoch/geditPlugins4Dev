@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Ties everything together. If you subclass and add your own test methods, it takes care of making them into tests and wrapping those tests into a suite. It also does the nitty-gritty of actually running an individual test and collecting its results into a Test::Unit::TestResult object.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new instance of the fixture for running the test represented by test_method_name.&lt;/p&gt;</method>
+    <method name='suite'>&lt;p&gt;Rolls up all of the test* methods in the fixture into one suite, creating a new instance of the fixture for each method.&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;It&apos;s handy to be able to compare TestCase instances.&lt;/p&gt;</method>
+    <method name='default_test'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='name'>&lt;p&gt;Returns a human-readable name for the specific test that this instance of TestCase represents.&lt;/p&gt;</method>
+    <method name='run'>&lt;p&gt;Runs the individual test method represented by this instance of the fixture, collecting statistics, failures and errors in result.&lt;/p&gt;</method>
+    <method name='setup'>&lt;p&gt;Called before every test method runs. Can be used to set up fixture information.&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='teardown'>&lt;p&gt;Called after every test method runs. Can be used to tear down fixture information.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Overridden to return #name.&lt;/p&gt;</method>
+  </methods>
+</help>

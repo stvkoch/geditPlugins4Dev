@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The &lt;tt&gt;Comparable&lt;/tt&gt; mixin is used by classes whose objects may be ordered. The class must define the &lt;tt&gt;&lt;=&gt;&lt;/tt&gt; operator, which compares the receiver against another object, returning -1, 0, or +1 depending on whether the receiver is less than, equal to, or greater than the other object. &lt;tt&gt;Comparable&lt;/tt&gt; uses &lt;tt&gt;&lt;=&gt;&lt;/tt&gt; to implement the conventional comparison operators (&lt;tt&gt;&lt;&lt;/tt&gt;, &lt;tt&gt;&lt;=&lt;/tt&gt;, &lt;tt&gt;==&lt;/tt&gt;, &lt;tt&gt;&gt;=&lt;/tt&gt;, and &lt;tt&gt;&gt;&lt;/tt&gt;) and the method &lt;tt&gt;between?&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   class SizeMatters
+     include Comparable
+     attr :str
+     def &lt;=&gt;(anOther)
+       str.size &lt;=&gt; anOther.str.size
+     end
+     def initialize(str)
+       @str = str
+     end
+     def inspect
+       @str
+     end
+   end
+
+   s1 = SizeMatters.new(&quot;Z&quot;)
+   s2 = SizeMatters.new(&quot;YY&quot;)
+   s3 = SizeMatters.new(&quot;XXX&quot;)
+   s4 = SizeMatters.new(&quot;WWWW&quot;)
+   s5 = SizeMatters.new(&quot;VVVVV&quot;)
+
+   s1 &lt; s2                       #=&gt; true
+   s4.between?(s1, s3)           #=&gt; false
+   s4.between?(s3, s5)           #=&gt; true
+   [ s3, s2, s5, s4, s1 ].sort   #=&gt; [Z, YY, XXX, WWWW, VVVVV]
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='&lt;'>&lt;p&gt;Compares two objects based on the receiver&apos;s &lt;tt&gt;&lt;=&gt;&lt;/tt&gt; method, returning true if it returns -1.&lt;/p&gt;</method>
+    <method name='&lt;='>&lt;p&gt;Compares two objects based on the receiver&apos;s &lt;tt&gt;&lt;=&gt;&lt;/tt&gt; method, returning true if it returns -1 or 0.&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;Compares two objects based on the receiver&apos;s &lt;tt&gt;&lt;=&gt;&lt;/tt&gt; method, returning true if it returns 0. Also returns true if &lt;em&gt;obj&lt;/em&gt; and &lt;em&gt;other&lt;/em&gt; are the same object.&lt;/p&gt;</method>
+    <method name='&gt;'>&lt;p&gt;Compares two objects based on the receiver&apos;s &lt;tt&gt;&lt;=&gt;&lt;/tt&gt; method, returning true if it returns 1.&lt;/p&gt;</method>
+    <method name='&gt;='>&lt;p&gt;Compares two objects based on the receiver&apos;s &lt;tt&gt;&lt;=&gt;&lt;/tt&gt; method, returning true if it returns 0 or 1.&lt;/p&gt;</method>
+    <method name='between?'>&lt;p&gt;Returns &lt;tt&gt;false&lt;/tt&gt; if &lt;em&gt;obj&lt;/em&gt; &lt;tt&gt;&lt;=&gt;&lt;/tt&gt; &lt;em&gt;min&lt;/em&gt; is less than zero or if &lt;em&gt;anObject&lt;/em&gt; &lt;tt&gt;&lt;=&gt;&lt;/tt&gt; &lt;em&gt;max&lt;/em&gt; is greater than zero, &lt;tt&gt;true&lt;/tt&gt; otherwise.&lt;/p&gt;&lt;pre&gt;   3.between?(1, 5)               #=&gt; true
+   6.between?(1, 5)               #=&gt; false
+   &apos;cat&apos;.between?(&apos;ant&apos;, &apos;dog&apos;)   #=&gt; true
+   &apos;gnu&apos;.between?(&apos;ant&apos;, &apos;dog&apos;)   #=&gt; false
+&lt;/pre&gt;</method>
+  </methods>
+</help>

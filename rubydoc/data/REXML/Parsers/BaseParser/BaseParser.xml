@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;h1&gt;Using the Pull Parser&lt;/h1&gt;&lt;p&gt;&lt;em&gt;This API is experimental, and subject to change.&lt;/em&gt;&lt;/p&gt;&lt;pre&gt; parser = PullParser.new( &quot;&lt;a&gt;text&lt;b att=&apos;val&apos;/&gt;txet&lt;/a&gt;&quot; )
+ while parser.has_next?
+   res = parser.next
+   puts res[1][&apos;att&apos;] if res.start_tag? and res[0] == &apos;b&apos;
+ end
+&lt;/pre&gt;&lt;p&gt;See the PullEvent class for information on the content of the results. The data is identical to the arguments passed for the various events to the StreamListener API.&lt;/p&gt;&lt;p&gt;Notice that:&lt;/p&gt;&lt;pre&gt; parser = PullParser.new( &quot;&lt;a&gt;BAD DOCUMENT&quot; )
+ while parser.has_next?
+   res = parser.next
+   raise res[1] if res.error?
+ end
+&lt;/pre&gt;&lt;p&gt;Nat Price gave me some good ideas for the API.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_listener'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='empty?'>&lt;p&gt;Returns true if there are no more events&lt;/p&gt;</method>
+    <method name='entity'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='has_next?'>&lt;p&gt;Returns true if there are more events. Synonymous with !empty?&lt;/p&gt;</method>
+    <method name='normalize'>&lt;p&gt;Escapes all possible entities&lt;/p&gt;</method>
+    <method name='peek'>&lt;p&gt;Peek at the &lt;tt&gt;depth&lt;/tt&gt; event in the stack. The first element on the stack is at depth 0. If &lt;tt&gt;depth&lt;/tt&gt; is -1, will parse to the end of the input stream and return the last event, which is always :end_document. Be aware that this causes the stream to be parsed up to the &lt;tt&gt;depth&lt;/tt&gt; event, so you can effectively pre-parse the entire document (pull the entire thing into memory) using this method.&lt;/p&gt;</method>
+    <method name='position'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='pull'>&lt;p&gt;Returns the next event. This is a &lt;tt&gt;PullEvent&lt;/tt&gt; object.&lt;/p&gt;</method>
+    <method name='stream='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='unnormalize'>&lt;p&gt;Unescapes all possible entities&lt;/p&gt;</method>
+    <method name='unshift'>&lt;p&gt;Push an event back on the head of the stream. This method has (theoretically) infinite depth.&lt;/p&gt;</method>
+  </methods>
+</help>

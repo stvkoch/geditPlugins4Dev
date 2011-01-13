@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Classes in Ruby are first-class objects---each is an instance of class &lt;tt&gt;Class&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;When a new class is created (typically using &lt;tt&gt;class Name ... end&lt;/tt&gt;), an object of type &lt;tt&gt;Class&lt;/tt&gt; is created and assigned to a global constant (&lt;tt&gt;Name&lt;/tt&gt; in this case). When &lt;tt&gt;Name.new&lt;/tt&gt; is called to create a new object, the &lt;tt&gt;new&lt;/tt&gt; method in &lt;tt&gt;Class&lt;/tt&gt; is run by default. This can be demonstrated by overriding &lt;tt&gt;new&lt;/tt&gt; in &lt;tt&gt;Class&lt;/tt&gt;:&lt;/p&gt;&lt;pre&gt;   class Class
+      alias oldNew  new
+      def new(*args)
+        print &quot;Creating a new &quot;, self.name, &quot;\n&quot;
+        oldNew(*args)
+      end
+    end
+
+    class Name
+    end
+
+    n = Name.new
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Creating a new Name
+&lt;/pre&gt;&lt;p&gt;Classes, modules, and objects are interrelated. In the diagram that follows, the vertical arrows represent inheritance, and the parentheses meta-classes. All metaclasses are instances of the class `Class&apos;.&lt;/p&gt;&lt;pre&gt;                          +------------------+
+                          |                  |
+            Object----&gt;(Object)              |
+             ^  ^        ^  ^                |
+             |  |        |  |                |
+             |  |  +-----+  +---------+      |
+             |  |  |                  |      |
+             |  +-----------+         |      |
+             |     |        |         |      |
+      +------+     |     Module---&gt;(Module)  |
+      |            |        ^         ^      |
+ OtherClass--&gt;(OtherClass)  |         |      |
+                            |         |      |
+                          Class----&gt;(Class)  |
+                            ^                |
+                            |                |
+                            +----------------+
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new anonymous (unnamed) class with the given superclass (or &lt;tt&gt;Object&lt;/tt&gt; if no parameter is given). You can give a class a name by assigning the class object to a constant.&lt;/p&gt;</method>
+    <method name='allocate'>&lt;p&gt;Allocates space for a new object of &lt;em&gt;class&lt;/em&gt;&apos;s class. The returned object must be an instance of &lt;em&gt;class&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='inherited'>&lt;p&gt;Callback invoked whenever a subclass of the current class is created.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;   class Foo
+      def self.inherited(subclass)
+         puts &quot;New subclass: #{subclass}&quot;
+      end
+   end
+
+   class Bar &lt; Foo
+   end
+
+   class Baz &lt; Bar
+   end
+&lt;/pre&gt;&lt;p&gt;produces:&lt;/p&gt;&lt;pre&gt;   New subclass: Bar
+   New subclass: Baz
+&lt;/pre&gt;</method>
+    <method name='new'>&lt;p&gt;Calls &lt;tt&gt;allocate&lt;/tt&gt; to create a new object of &lt;em&gt;class&lt;/em&gt;&apos;s class, then invokes that object&apos;s &lt;tt&gt;initialize&lt;/tt&gt; method, passing it &lt;em&gt;args&lt;/em&gt;. This is the method that ends up getting called whenever an object is constructed using .new.&lt;/p&gt;</method>
+    <method name='superclass'>&lt;p&gt;Returns the superclass of &lt;em&gt;class&lt;/em&gt;, or &lt;tt&gt;nil&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   File.superclass     #=&gt; IO
+   IO.superclass       #=&gt; Object
+   Object.superclass   #=&gt; nil
+&lt;/pre&gt;</method>
+    <method name='to_yaml'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

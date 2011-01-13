@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='break_points'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='check_break_points'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='check_suspend'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='clear_suspend'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='context'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='debug_command'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='debug_eval'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='debug_funcname'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='debug_method_info'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='debug_print_help'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='debug_silent_eval'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='debug_variable_info'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='display'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='display_expression'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='display_expressions'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='display_frames'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='display_list'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='excn_handle'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='format_frame'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='frame_set_pos'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='line_at'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='readline'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='resume_all'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_last_thread'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_suspend'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_trace'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_trace_all'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='stdout'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='stop_next'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='suspend_all'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='thnum'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='trace?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='trace_func'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='var_list'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

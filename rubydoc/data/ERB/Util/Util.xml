@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A utility module for conversion routines, often handy in HTML generation.&lt;/p&gt;</comment>
+  <methods>
+    <method name='h'>&lt;p&gt;Alias for #html_escape&lt;/p&gt;</method>
+    <method name='html_escape'>&lt;p&gt;A utility method for escaping HTML tag characters in &lt;em&gt;s&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;  require &quot;erb&quot;
+  include ERB::Util
+
+  puts html_escape(&quot;is a &gt; 0 &amp; a &lt; 10?&quot;)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Generates&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;  is a &amp;gt; 0 &amp;amp; a &amp;lt; 10?
+&lt;/pre&gt;</method>
+    <method name='u'>&lt;p&gt;Alias for #url_encode&lt;/p&gt;</method>
+    <method name='url_encode'>&lt;p&gt;A utility method for encoding the String &lt;em&gt;s&lt;/em&gt; as a URL.&lt;/p&gt;&lt;pre&gt;  require &quot;erb&quot;
+  include ERB::Util
+
+  puts url_encode(&quot;Programming Ruby:  The Pragmatic Programmer&apos;s Guide&quot;)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Generates&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;  Programming%20Ruby%3A%20%20The%20Pragmatic%20Programmer%27s%20Guide
+&lt;/pre&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Extends command line arguments array (ARGV) to parse itself.&lt;/p&gt;</comment>
+  <methods>
+    <method name='extend_object'>&lt;p&gt;Initializes instance variable.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='getopts'>&lt;p&gt;Substitution of getopts is possible as follows. Also see OptionParser#getopts.&lt;/p&gt;&lt;pre&gt;  def getopts(*args)
+    ($OPT = ARGV.getopts(*args)).each do |opt, val|
+      eval &quot;$OPT_#{opt.gsub(/[^A-Za-z0-9_]/, &apos;_&apos;)} = val&quot;
+    end
+  rescue OptionParser::ParseError
+  end
+&lt;/pre&gt;</method>
+    <method name='options'>&lt;p&gt;Actual OptionParser object, automatically created if nonexistent.&lt;/p&gt;&lt;p&gt;If called with a block, yields the OptionParser object and returns the result of the block. If an OptionParser::ParseError exception occurs in the block, it is rescued, a error message printed to STDERR and &lt;tt&gt;nil&lt;/tt&gt; returned.&lt;/p&gt;</method>
+    <method name='options='>&lt;p&gt;Sets OptionParser object, when &lt;tt&gt;opt&lt;/tt&gt; is &lt;tt&gt;false&lt;/tt&gt; or &lt;tt&gt;nil&lt;/tt&gt;, methods OptionParser::Arguable#options and OptionParser::Arguable#options= are undefined. Thus, there is no ways to access the OptionParser object via the receiver object.&lt;/p&gt;</method>
+    <method name='order!'>&lt;p&gt;Parses &lt;tt&gt;self&lt;/tt&gt; destructively in order and returns &lt;tt&gt;self&lt;/tt&gt; containing the rest arguments left unparsed.&lt;/p&gt;</method>
+    <method name='parse!'>&lt;p&gt;Parses &lt;tt&gt;self&lt;/tt&gt; destructively and returns &lt;tt&gt;self&lt;/tt&gt; containing the rest arguments left unparsed.&lt;/p&gt;</method>
+    <method name='permute!'>&lt;p&gt;Parses &lt;tt&gt;self&lt;/tt&gt; destructively in permutation mode and returns &lt;tt&gt;self&lt;/tt&gt; containing the rest arguments left unparsed.&lt;/p&gt;</method>
+  </methods>
+</help>

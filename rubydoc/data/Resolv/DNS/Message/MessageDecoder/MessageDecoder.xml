@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_bytes'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_label'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_labels'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_length16'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_question'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_rr'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_string'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_string_list'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_unpack'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

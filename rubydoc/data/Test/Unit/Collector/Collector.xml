@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_suite'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='filter='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='include?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='sort'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

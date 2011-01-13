@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;File-based session storage class.&lt;/p&gt;&lt;p&gt;Implements session storage as a flat file of &apos;key=value&apos; values. This storage type only works directly with String values; the user is responsible for converting other types to Strings when storing and from Strings when retrieving.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Create a new FileStore instance.&lt;/p&gt;&lt;p&gt;This constructor is used internally by CGI::Session. The user does not generally need to call it directly.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;session&lt;/tt&gt; is the session for which this instance is being created. The session id must only contain alphanumeric characters; automatically generated session ids observe this requirement.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;option&lt;/tt&gt; is a hash of options for the initialiser. The following options are recognised:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the directory to use for storing the FileStore file. Defaults to Dir::tmpdir (generally &quot;/tmp&quot; on Unix systems).&lt;/li&gt;&lt;li&gt;the prefix to add to the session id when generating the filename for this session&apos;s FileStore file. Defaults to the empty string.&lt;/li&gt;&lt;li&gt;the prefix to add to the session id when generating the filename for this session&apos;s FileStore file. Defaults to the empty string.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;This session&apos;s FileStore file will be created if it does not exist, or opened if it does.&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;Update and close the session&apos;s FileStore file.&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;Close and delete the session&apos;s FileStore file.&lt;/p&gt;</method>
+    <method name='restore'>&lt;p&gt;Restore session state from the session&apos;s FileStore file.&lt;/p&gt;&lt;p&gt;Returns the session state as a hash.&lt;/p&gt;</method>
+    <method name='update'>&lt;p&gt;Save session state to the session&apos;s FileStore file.&lt;/p&gt;</method>
+  </methods>
+</help>

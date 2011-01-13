@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;tmpdir - retrieve temporary directory path&lt;/p&gt;&lt;p&gt;$Id: tmpdir.rb,v 1.5.2.1 2005/12/15 15:57:05 matz Exp $&lt;/p&gt;</comment>
+  <methods>
+    <method name='[]'>&lt;p&gt;Equivalent to calling &lt;em&gt;dir&lt;/em&gt;.&lt;tt&gt;glob(&lt;/tt&gt;&lt;em&gt;string,&lt;/em&gt;&lt;tt&gt;0)&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='chdir'>&lt;p&gt;Changes the current working directory of the process to the given string. When called without an argument, changes the directory to the value of the environment variable &lt;tt&gt;HOME&lt;/tt&gt;, or &lt;tt&gt;LOGDIR&lt;/tt&gt;. &lt;tt&gt;SystemCallError&lt;/tt&gt; (probably &lt;tt&gt;Errno::ENOENT&lt;/tt&gt;) if the target directory does not exist.&lt;/p&gt;&lt;p&gt;If a block is given, it is passed the name of the new current directory, and the block is executed with that as the current directory. The original working directory is restored when the block exits. The return value of &lt;tt&gt;chdir&lt;/tt&gt; is the value of the block. &lt;tt&gt;chdir&lt;/tt&gt; blocks can be nested, but in a multi-threaded program an error will be raised if a thread attempts to open a &lt;tt&gt;chdir&lt;/tt&gt; block while another thread has one open.&lt;/p&gt;&lt;pre&gt;   Dir.chdir(&quot;/var/spool/mail&quot;)
+   puts Dir.pwd
+   Dir.chdir(&quot;/tmp&quot;) do
+     puts Dir.pwd
+     Dir.chdir(&quot;/usr&quot;) do
+       puts Dir.pwd
+     end
+     puts Dir.pwd
+   end
+   puts Dir.pwd
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   /var/spool/mail
+   /tmp
+   /usr
+   /tmp
+   /var/spool/mail
+&lt;/pre&gt;</method>
+    <method name='chroot'>&lt;p&gt;Changes this process&apos;s idea of the file system root. Only a privileged process may make this call. Not available on all platforms. On Unix systems, see &lt;tt&gt;chroot(2)&lt;/tt&gt; for more information.&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;Deletes the named directory. Raises a subclass of &lt;tt&gt;SystemCallError&lt;/tt&gt; if the directory isn&apos;t empty.&lt;/p&gt;</method>
+    <method name='entries'>&lt;p&gt;Returns an array containing all of the filenames in the given directory. Will raise a &lt;tt&gt;SystemCallError&lt;/tt&gt; if the named directory doesn&apos;t exist.&lt;/p&gt;&lt;pre&gt;   Dir.entries(&quot;testdir&quot;)   #=&gt; [&quot;.&quot;, &quot;..&quot;, &quot;config.h&quot;, &quot;main.rb&quot;]
+&lt;/pre&gt;</method>
+    <method name='foreach'>&lt;p&gt;Calls the block once for each entry in the named directory, passing the filename of each entry as a parameter to the block.&lt;/p&gt;&lt;pre&gt;   Dir.foreach(&quot;testdir&quot;) {|x| puts &quot;Got #{x}&quot; }
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Got .
+   Got ..
+   Got config.h
+   Got main.rb
+&lt;/pre&gt;</method>
+    <method name='getwd'>&lt;p&gt;Returns the path to the current working directory of this process as a string.&lt;/p&gt;&lt;pre&gt;   Dir.chdir(&quot;/tmp&quot;)   #=&gt; 0
+   Dir.getwd           #=&gt; &quot;/tmp&quot;
+&lt;/pre&gt;</method>
+    <method name='glob'>&lt;p&gt;Returns the filenames found by expanding the pattern given in &lt;em&gt;string&lt;/em&gt;, either as an &lt;em&gt;array&lt;/em&gt; or as parameters to the block. Note that this pattern is not a regexp (it&apos;s closer to a shell glob). See &lt;tt&gt;File::fnmatch&lt;/tt&gt; for the meaning of the &lt;em&gt;flags&lt;/em&gt; parameter.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Matches any file. Can be restricted by other values in the glob. &lt;tt&gt;*&lt;/tt&gt; will match all files; &lt;tt&gt;c*&lt;/tt&gt; will match all files beginning with &lt;tt&gt;c&lt;/tt&gt;; &lt;tt&gt;*c&lt;/tt&gt; will match all files ending with &lt;tt&gt;c&lt;/tt&gt;; and &lt;b&gt;&lt;tt&gt;c&lt;/tt&gt;&lt;/b&gt; will match all files that have &lt;tt&gt;c&lt;/tt&gt; in them (including at the beginning or end). Equivalent to &lt;tt&gt;/ .* /x&lt;/tt&gt; in regexp.&lt;/li&gt;&lt;li&gt;Matches directories recursively.&lt;/li&gt;&lt;li&gt;Matches any one character. Equivalent to &lt;tt&gt;/.{1}/&lt;/tt&gt; in regexp.&lt;/li&gt;&lt;li&gt;Matches any one character in &lt;tt&gt;set&lt;/tt&gt;. Behaves exactly like character sets in Regexp, including set negation (&lt;tt&gt;[^a-z]&lt;/tt&gt;).&lt;/li&gt;&lt;li&gt;Matches either literal &lt;tt&gt;p&lt;/tt&gt; or literal &lt;tt&gt;q&lt;/tt&gt;. Matching literals may be more than one character in length. More than two literals may be specified. Equivalent to pattern alternation in regexp.&lt;/li&gt;&lt;li&gt;Escapes the next metacharacter.&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt;   Dir[&quot;config.?&quot;]                     #=&gt; [&quot;config.h&quot;]
+   Dir.glob(&quot;config.?&quot;)                #=&gt; [&quot;config.h&quot;]
+   Dir.glob(&quot;*.[a-z][a-z]&quot;)            #=&gt; [&quot;main.rb&quot;]
+   Dir.glob(&quot;*.[^r]*&quot;)                 #=&gt; [&quot;config.h&quot;]
+   Dir.glob(&quot;*.{rb,h}&quot;)                #=&gt; [&quot;main.rb&quot;, &quot;config.h&quot;]
+   Dir.glob(&quot;*&quot;)                       #=&gt; [&quot;config.h&quot;, &quot;main.rb&quot;]
+   Dir.glob(&quot;*&quot;, File::FNM_DOTMATCH)   #=&gt; [&quot;.&quot;, &quot;..&quot;, &quot;config.h&quot;, &quot;main.rb&quot;]
+
+   rbfiles = File.join(&quot;**&quot;, &quot;*.rb&quot;)
+   Dir.glob(rbfiles)                   #=&gt; [&quot;main.rb&quot;,
+                                            &quot;lib/song.rb&quot;,
+                                            &quot;lib/song/karaoke.rb&quot;]
+   libdirs = File.join(&quot;**&quot;, &quot;lib&quot;)
+   Dir.glob(libdirs)                   #=&gt; [&quot;lib&quot;]
+
+   librbfiles = File.join(&quot;**&quot;, &quot;lib&quot;, &quot;**&quot;, &quot;*.rb&quot;)
+   Dir.glob(librbfiles)                #=&gt; [&quot;lib/song.rb&quot;,
+                                            &quot;lib/song/karaoke.rb&quot;]
+
+   librbfiles = File.join(&quot;**&quot;, &quot;lib&quot;, &quot;*.rb&quot;)
+   Dir.glob(librbfiles)                #=&gt; [&quot;lib/song.rb&quot;]
+&lt;/pre&gt;</method>
+    <method name='mkdir'>&lt;p&gt;Makes a new directory named by &lt;em&gt;string&lt;/em&gt;, with permissions specified by the optional parameter &lt;em&gt;anInteger&lt;/em&gt;. The permissions may be modified by the value of &lt;tt&gt;File::umask&lt;/tt&gt;, and are ignored on NT. Raises a &lt;tt&gt;SystemCallError&lt;/tt&gt; if the directory cannot be created. See also the discussion of permissions in the class documentation for &lt;tt&gt;File&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Returns a new directory object for the named directory.&lt;/p&gt;</method>
+    <method name='open'>&lt;p&gt;With no block, &lt;tt&gt;open&lt;/tt&gt; is a synonym for &lt;tt&gt;Dir::new&lt;/tt&gt;. If a block is present, it is passed &lt;em&gt;aDir&lt;/em&gt; as a parameter. The directory is closed at the end of the block, and &lt;tt&gt;Dir::open&lt;/tt&gt; returns the value of the block.&lt;/p&gt;</method>
+    <method name='pwd'>&lt;p&gt;Returns the path to the current working directory of this process as a string.&lt;/p&gt;&lt;pre&gt;   Dir.chdir(&quot;/tmp&quot;)   #=&gt; 0
+   Dir.getwd           #=&gt; &quot;/tmp&quot;
+&lt;/pre&gt;</method>
+    <method name='rmdir'>&lt;p&gt;Deletes the named directory. Raises a subclass of &lt;tt&gt;SystemCallError&lt;/tt&gt; if the directory isn&apos;t empty.&lt;/p&gt;</method>
+    <method name='tmpdir'>&lt;p&gt;Returns the operating system&apos;s temporary file path.&lt;/p&gt;</method>
+    <method name='unlink'>&lt;p&gt;Deletes the named directory. Raises a subclass of &lt;tt&gt;SystemCallError&lt;/tt&gt; if the directory isn&apos;t empty.&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;Closes the directory stream. Any further attempts to access &lt;em&gt;dir&lt;/em&gt; will raise an &lt;tt&gt;IOError&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   d = Dir.new(&quot;testdir&quot;)
+   d.close   #=&gt; nil
+&lt;/pre&gt;</method>
+    <method name='each'>&lt;p&gt;Calls the block once for each entry in this directory, passing the filename of each entry as a parameter to the block.&lt;/p&gt;&lt;pre&gt;   d = Dir.new(&quot;testdir&quot;)
+   d.each  {|x| puts &quot;Got #{x}&quot; }
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Got .
+   Got ..
+   Got config.h
+   Got main.rb
+&lt;/pre&gt;</method>
+    <method name='path'>&lt;p&gt;Returns the path parameter passed to &lt;em&gt;dir&lt;/em&gt;&apos;s constructor.&lt;/p&gt;&lt;pre&gt;   d = Dir.new(&quot;..&quot;)
+   d.path   #=&gt; &quot;..&quot;
+&lt;/pre&gt;</method>
+    <method name='pos'>&lt;p&gt;Returns the current position in &lt;em&gt;dir&lt;/em&gt;. See also &lt;tt&gt;Dir#seek&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   d = Dir.new(&quot;testdir&quot;)
+   d.tell   #=&gt; 0
+   d.read   #=&gt; &quot;.&quot;
+   d.tell   #=&gt; 12
+&lt;/pre&gt;</method>
+    <method name='pos='>&lt;p&gt;Synonym for &lt;tt&gt;Dir#seek&lt;/tt&gt;, but returns the position parameter.&lt;/p&gt;&lt;pre&gt;   d = Dir.new(&quot;testdir&quot;)   #=&gt; #&lt;Dir:0x401b3c40&gt;
+   d.read                   #=&gt; &quot;.&quot;
+   i = d.pos                #=&gt; 12
+   d.read                   #=&gt; &quot;..&quot;
+   d.pos = i                #=&gt; 12
+   d.read                   #=&gt; &quot;..&quot;
+&lt;/pre&gt;</method>
+    <method name='read'>&lt;p&gt;Reads the next entry from &lt;em&gt;dir&lt;/em&gt; and returns it as a string. Returns &lt;tt&gt;nil&lt;/tt&gt; at the end of the stream.&lt;/p&gt;&lt;pre&gt;   d = Dir.new(&quot;testdir&quot;)
+   d.read   #=&gt; &quot;.&quot;
+   d.read   #=&gt; &quot;..&quot;
+   d.read   #=&gt; &quot;config.h&quot;
+&lt;/pre&gt;</method>
+    <method name='rewind'>&lt;p&gt;Repositions &lt;em&gt;dir&lt;/em&gt; to the first entry.&lt;/p&gt;&lt;pre&gt;   d = Dir.new(&quot;testdir&quot;)
+   d.read     #=&gt; &quot;.&quot;
+   d.rewind   #=&gt; #&lt;Dir:0x401b3fb0&gt;
+   d.read     #=&gt; &quot;.&quot;
+&lt;/pre&gt;</method>
+    <method name='seek'>&lt;p&gt;Seeks to a particular location in &lt;em&gt;dir&lt;/em&gt;. &lt;em&gt;integer&lt;/em&gt; must be a value returned by &lt;tt&gt;Dir#tell&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   d = Dir.new(&quot;testdir&quot;)   #=&gt; #&lt;Dir:0x401b3c40&gt;
+   d.read                   #=&gt; &quot;.&quot;
+   i = d.tell               #=&gt; 12
+   d.read                   #=&gt; &quot;..&quot;
+   d.seek(i)                #=&gt; #&lt;Dir:0x401b3c40&gt;
+   d.read                   #=&gt; &quot;..&quot;
+&lt;/pre&gt;</method>
+    <method name='tell'>&lt;p&gt;Returns the current position in &lt;em&gt;dir&lt;/em&gt;. See also &lt;tt&gt;Dir#seek&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   d = Dir.new(&quot;testdir&quot;)
+   d.tell   #=&gt; 0
+   d.read   #=&gt; &quot;.&quot;
+   d.tell   #=&gt; 12
+&lt;/pre&gt;</method>
+  </methods>
+</help>

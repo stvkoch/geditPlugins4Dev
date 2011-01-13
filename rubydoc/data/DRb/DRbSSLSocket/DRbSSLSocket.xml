@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='open'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='open_server'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse_uri'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='uri_option'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='accept'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='stream'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

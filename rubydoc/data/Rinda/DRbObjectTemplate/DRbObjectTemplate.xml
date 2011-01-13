@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;&lt;em&gt;Documentation?&lt;/em&gt;&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new DRbObjectTemplate that will match against &lt;tt&gt;uri&lt;/tt&gt; and &lt;tt&gt;ref&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='==='>&lt;p&gt;This DRbObjectTemplate matches &lt;tt&gt;ro&lt;/tt&gt; if the remote object&apos;s drburi and drbref are the same. &lt;tt&gt;nil&lt;/tt&gt; is used as a wildcard.&lt;/p&gt;</method>
+  </methods>
+</help>

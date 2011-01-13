@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='__attr_proxy'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='httpproxy'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='httpproxy='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='mandatorycharset'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='mandatorycharset='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='reset_stream'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='wiredump_dev'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='wiredump_dev='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='wiredump_file_base'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='wiredump_file_base='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

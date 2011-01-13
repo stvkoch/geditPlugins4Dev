@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;&lt;tt&gt;Symbol&lt;/tt&gt; objects represent names and some strings inside the Ruby interpreter. They are generated using the &lt;tt&gt;:name&lt;/tt&gt; and &lt;tt&gt;:&quot;string&quot;&lt;/tt&gt; literals syntax, and by the various &lt;tt&gt;to_sym&lt;/tt&gt; methods. The same &lt;tt&gt;Symbol&lt;/tt&gt; object will be created for a given name or string for the duration of a program&apos;s execution, regardless of the context or meaning of that name. Thus if &lt;tt&gt;Fred&lt;/tt&gt; is a constant in one context, a method in another, and a class in a third, the &lt;tt&gt;Symbol&lt;/tt&gt; &lt;tt&gt;:Fred&lt;/tt&gt; will be the same object in all three contexts.&lt;/p&gt;&lt;pre&gt;   module One
+     class Fred
+     end
+     $f1 = :Fred
+   end
+   module Two
+     Fred = 1
+     $f2 = :Fred
+   end
+   def Fred()
+   end
+   $f3 = :Fred
+   $f1.id   #=&gt; 2514190
+   $f2.id   #=&gt; 2514190
+   $f3.id   #=&gt; 2514190
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='all_symbols'>&lt;p&gt;Returns an array of all the symbols currently in Ruby&apos;s symbol table.&lt;/p&gt;&lt;pre&gt;   Symbol.all_symbols.size    #=&gt; 903
+   Symbol.all_symbols[1,20]   #=&gt; [:floor, :ARGV, :Binding, :symlink,
+                                   :chown, :EOFError, :$;, :String,
+                                   :LOCK_SH, :&quot;setuid?&quot;, :$&lt;,
+                                   :default_proc, :compact, :extend,
+                                   :Tms, :getwd, :$=, :ThreadGroup,
+                                   :wait2, :$&gt;]
+&lt;/pre&gt;</method>
+    <method name='yaml_new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='==='>&lt;p&gt;Equality---At the &lt;tt&gt;Object&lt;/tt&gt; level, &lt;tt&gt;==&lt;/tt&gt; returns &lt;tt&gt;true&lt;/tt&gt; only if &lt;em&gt;obj&lt;/em&gt; and &lt;em&gt;other&lt;/em&gt; are the same object. Typically, this method is overridden in descendent classes to provide class-specific meaning.&lt;/p&gt;&lt;p&gt;Unlike &lt;tt&gt;==&lt;/tt&gt;, the &lt;tt&gt;equal?&lt;/tt&gt; method should never be overridden by subclasses: it is used to determine object identity (that is, &lt;tt&gt;a.equal?(b)&lt;/tt&gt; iff &lt;tt&gt;a&lt;/tt&gt; is the same object as &lt;tt&gt;b&lt;/tt&gt;).&lt;/p&gt;&lt;p&gt;The &lt;tt&gt;eql?&lt;/tt&gt; method returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;obj&lt;/em&gt; and &lt;em&gt;anObject&lt;/em&gt; have the same value. Used by &lt;tt&gt;Hash&lt;/tt&gt; to test members for equality. For objects of class &lt;tt&gt;Object&lt;/tt&gt;, &lt;tt&gt;eql?&lt;/tt&gt; is synonymous with &lt;tt&gt;==&lt;/tt&gt;. Subclasses normally continue this tradition, but there are exceptions. &lt;tt&gt;Numeric&lt;/tt&gt; types, for example, perform type conversion across &lt;tt&gt;==&lt;/tt&gt;, but not across &lt;tt&gt;eql?&lt;/tt&gt;, so:&lt;/p&gt;&lt;pre&gt;   1 == 1.0     #=&gt; true
+   1.eql? 1.0   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='dclone'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='id2name'>&lt;p&gt;Returns the name or string corresponding to &lt;em&gt;sym&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   :fred.id2name   #=&gt; &quot;fred&quot;
+&lt;/pre&gt;</method>
+    <method name='inspect'>&lt;p&gt;Returns the representation of &lt;em&gt;sym&lt;/em&gt; as a symbol literal.&lt;/p&gt;&lt;pre&gt;   :fred.inspect   #=&gt; &quot;:fred&quot;
+&lt;/pre&gt;</method>
+    <method name='to_i'>&lt;p&gt;Returns an integer that is unique for each symbol within a particular execution of a program.&lt;/p&gt;&lt;pre&gt;   :fred.to_i           #=&gt; 9809
+   &quot;fred&quot;.to_sym.to_i   #=&gt; 9809
+&lt;/pre&gt;</method>
+    <method name='to_int'>&lt;p&gt;:nodoc:&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Returns the name or string corresponding to &lt;em&gt;sym&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   :fred.id2name   #=&gt; &quot;fred&quot;
+&lt;/pre&gt;</method>
+    <method name='to_sym'>&lt;p&gt;In general, &lt;tt&gt;to_sym&lt;/tt&gt; returns the &lt;tt&gt;Symbol&lt;/tt&gt; corresponding to an object. As &lt;em&gt;sym&lt;/em&gt; is already a symbol, &lt;tt&gt;self&lt;/tt&gt; is returned in this case.&lt;/p&gt;</method>
+    <method name='to_yaml'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

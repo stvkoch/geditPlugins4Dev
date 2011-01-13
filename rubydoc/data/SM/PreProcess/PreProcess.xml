@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Handle common directives that can occur in a block of text:&lt;/p&gt;&lt;p&gt;: include : filename&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='handle'>&lt;p&gt;Look for common options in a chunk of text. Options that we don&apos;t handle are passed back to our caller as |directive, param|&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A TopLevel context is a source file&lt;/p&gt;</comment>
+  <methods>
+    <method name='all_classes_and_modules'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_class_named'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='reset'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_class_or_module'>&lt;p&gt;Adding a class or module to a TopLevel is special, as we only want one copy of a particular top-level class. For example, if both file A and file B implement class C, we only want one ClassModule object for C. This code arranges to share classes and modules between files.&lt;/p&gt;</method>
+    <method name='find_class_or_module_named'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_local_symbol'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_module_named'>&lt;p&gt;Find a named module&lt;/p&gt;</method>
+    <method name='full_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

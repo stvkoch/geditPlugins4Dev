@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;WeakRef is a class to represent a reference to an object that is not seen by the tracing phase of the garbage collector. This allows the referenced object to be garbage collected as if nothing is referring to it. Because WeakRef delegates method calls to the referenced object, it may be used in place of that object, i.e. it is of the same duck type.&lt;/p&gt;&lt;p&gt;Usage:&lt;/p&gt;&lt;pre&gt;  foo = Object.new
+  foo = Object.new
+  p foo.to_s                  # original&apos;s class
+  foo = WeakRef.new(foo)
+  p foo.to_s                  # should be same class
+  ObjectSpace.garbage_collect
+  p foo.to_s                  # should raise exception (recycled)
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Create a new WeakRef from &lt;tt&gt;orig&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='__getobj__'>&lt;p&gt;Return the object this WeakRef references. Raises RefError if the object has been garbage collected. The object returned is the object to which method calls are delegated (see Delegator).&lt;/p&gt;</method>
+    <method name='weakref_alive?'>&lt;p&gt;Returns true if the referenced object still exists, and false if it has been garbage collected.&lt;/p&gt;</method>
+  </methods>
+</help>

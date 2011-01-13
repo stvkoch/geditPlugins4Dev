@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Cheap-n-cheerful HTML page template system. You create a template containing:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;variable names between percent signs (&lt;tt&gt;%fred%&lt;/tt&gt;)&lt;/li&gt;&lt;li&gt;blocks of repeating stuff:&lt;/li&gt;&lt;pre&gt;  START:key
+    ... stuff
+  END:key
+&lt;/pre&gt;&lt;/ul&gt;&lt;p&gt;You feed the code a hash. For simple variables, the values are resolved directly from the hash. For blocks, the hash entry corresponding to &lt;tt&gt;key&lt;/tt&gt; will be an array of hashes. The block will be generated once for each entry. Blocks can be nested arbitrarily deeply.&lt;/p&gt;&lt;p&gt;The template may also contain&lt;/p&gt;&lt;pre&gt;  IF:key
+    ... stuff
+  ENDIF:key
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;stuff&lt;/em&gt; will only be included in the output if the corresponding key is set in the value hash.&lt;/p&gt;&lt;p&gt;Usage: Given a set of templates &lt;tt&gt;T1, T2,&lt;/tt&gt; etc&lt;/p&gt;&lt;pre&gt;           values = { &quot;name&quot; =&gt; &quot;Dave&quot;, state =&gt; &quot;TX&quot; }
+
+           t = TemplatePage.new(T1, T2, T3)
+           File.open(name, &quot;w&quot;) {|f| t.write_html_on(f, values)}
+        or
+           res = &apos;&apos;
+           t.write_html_on(res, values)
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;&lt;tt&gt;templates&lt;/tt&gt; is an array of strings containing the templates. We start at the first, and substitute in subsequent ones where the string &lt;tt&gt;!INCLUDE!&lt;/tt&gt; occurs. For example, we could have the overall page template containing&lt;/p&gt;&lt;pre&gt;  &lt;html&gt;&lt;body&gt;
+    &lt;h1&gt;Master&lt;/h1&gt;
+    !INCLUDE!
+  &lt;/bost&gt;&lt;/html&gt;
+&lt;/pre&gt;&lt;p&gt;and substitute subpages in to it by passing [master, sub_page]. This gives us a cheap way of framing pages&lt;/p&gt;</method>
+    <method name='expand_line'>&lt;p&gt;Given an individual line, we look for %xxx% constructs and HREF:ref:name: constructs, substituting for each.&lt;/p&gt;</method>
+    <method name='substitute_into'>&lt;p&gt;Substitute a set of key/value pairs into the given template. Keys with scalar values have them substituted directly into the page. Those with array values invoke &lt;tt&gt;substitute_array&lt;/tt&gt; (below), which examples a block of the template once for each row in the array.&lt;/p&gt;&lt;p&gt;This routine also copes with the &lt;tt&gt;IF:&lt;/tt&gt;&lt;em&gt;key&lt;/em&gt; directive, removing chunks of the template if the corresponding key does not appear in the hash, and the START: directive, which loops its contents for each value in an array&lt;/p&gt;</method>
+    <method name='write_html_on'>&lt;p&gt;Render the templates into HTML, storing the result on &lt;tt&gt;op&lt;/tt&gt; using the method &lt;tt&gt;&lt;&lt;&lt;/tt&gt;. The &lt;tt&gt;value_hash&lt;/tt&gt; contains key/value pairs used to drive the substitution (as described above)&lt;/p&gt;</method>
+  </methods>
+</help>

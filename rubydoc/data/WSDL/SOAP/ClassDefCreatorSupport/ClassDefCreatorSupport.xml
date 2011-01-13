@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='basetype_mapped_class'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='create_class_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='dq'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='dqname'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='dump_method_signature'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='ndq'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='sym'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This is a utility class that allows anything mixing it in to notify a set of listeners about interesting events.&lt;/p&gt;</comment>
+  <methods>
+    <method name='add_listener'>&lt;p&gt;Adds the passed proc as a listener on the channel indicated by channel_name. listener_key is used to remove the listener later; if none is specified, the proc itself is used.&lt;/p&gt;&lt;p&gt;Whatever is used as the listener_key is returned, making it very easy to use the proc itself as the listener_key:&lt;/p&gt;&lt;pre&gt; listener = add_listener(&quot;Channel&quot;) { ... }
+ remove_listener(&quot;Channel&quot;, listener)
+&lt;/pre&gt;</method>
+    <method name='notify_listeners'>&lt;p&gt;Calls all the procs registered on the channel indicated by channel_name. If value is specified, it is passed in to the procs, otherwise they are called with no arguments.&lt;/p&gt;</method>
+    <method name='remove_listener'>&lt;p&gt;Removes the listener indicated by listener_key from the channel indicated by channel_name. Returns the registered proc, or nil if none was found.&lt;/p&gt;</method>
+  </methods>
+</help>

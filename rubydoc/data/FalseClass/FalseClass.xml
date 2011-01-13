@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The global value &lt;tt&gt;false&lt;/tt&gt; is the only instance of class &lt;tt&gt;FalseClass&lt;/tt&gt; and represents a logically false value in boolean expressions. The class provides operators allowing &lt;tt&gt;false&lt;/tt&gt; to participate correctly in logical expressions.&lt;/p&gt;</comment>
+  <methods>
+    <method name='&amp;'>&lt;p&gt;And---Returns &lt;tt&gt;false&lt;/tt&gt;. &lt;em&gt;obj&lt;/em&gt; is always evaluated as it is the argument to a method call---there is no short-circuit evaluation in this case.&lt;/p&gt;</method>
+    <method name='^'>&lt;p&gt;Exclusive Or---If &lt;em&gt;obj&lt;/em&gt; is &lt;tt&gt;nil&lt;/tt&gt; or &lt;tt&gt;false&lt;/tt&gt;, returns &lt;tt&gt;false&lt;/tt&gt;; otherwise, returns &lt;tt&gt;true&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;&apos;nuf said...&lt;/p&gt;</method>
+    <method name='to_yaml'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='|'>&lt;p&gt;Or---Returns &lt;tt&gt;false&lt;/tt&gt; if &lt;em&gt;obj&lt;/em&gt; is &lt;tt&gt;nil&lt;/tt&gt; or &lt;tt&gt;false&lt;/tt&gt;; &lt;tt&gt;true&lt;/tt&gt; otherwise.&lt;/p&gt;</method>
+  </methods>
+</help>

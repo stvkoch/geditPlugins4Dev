@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Base attributes for Iconv exceptions.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates new code converter from a coding-system designated with &lt;tt&gt;from&lt;/tt&gt; to another one designated with &lt;tt&gt;to&lt;/tt&gt;.&lt;/p&gt;&lt;h3&gt;Parameters&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;encoding name for destination&lt;/li&gt;&lt;li&gt;encoding name for source&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Exceptions&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;if &lt;tt&gt;to&lt;/tt&gt; or &lt;tt&gt;from&lt;/tt&gt; aren&apos;t String&lt;/li&gt;&lt;li&gt;if designated converter couldn&apos;t find out&lt;/li&gt;&lt;li&gt;if &lt;tt&gt;iconv_open(3)&lt;/tt&gt; fails&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='failed'>&lt;p&gt;Returns substring of the original string passed to Iconv that starts at the character caused the exception.&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;Returns inspected string like as: #&lt;&lt;em&gt;class&lt;/em&gt;: &lt;em&gt;success&lt;/em&gt;, &lt;em&gt;failed&lt;/em&gt;&gt;&lt;/p&gt;</method>
+    <method name='success'>&lt;p&gt;Returns string(s) translated successfully until the exception occurred.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;In the case of failure occurred within Iconv.iconv, returned value is an array of strings translated successfully preceding failure and the last element is string on the way.&lt;/li&gt;&lt;/ul&gt;</method>
+  </methods>
+</help>

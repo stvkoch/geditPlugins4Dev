@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='append_features'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='define_aliases'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='extend_object'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='sync_exclusive?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='sync_extended'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='sync_lock'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='sync_locked?'>&lt;p&gt;accessing&lt;/p&gt;</method>
+    <method name='sync_shared?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='sync_synchronize'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='sync_try_lock'>&lt;p&gt;locking methods.&lt;/p&gt;</method>
+    <method name='sync_unlock'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

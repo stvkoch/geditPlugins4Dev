@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Base class of exceptions from OptionParser.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='message'>&lt;p&gt;Default stringizing method to emit standard error message.&lt;/p&gt;</method>
+    <method name='reason'>&lt;p&gt;Returns error reason. Override this for I18N.&lt;/p&gt;</method>
+    <method name='recover'>&lt;p&gt;Pushes back erred argument(s) to &lt;tt&gt;argv&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='set_option'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Alias for #message&lt;/p&gt;</method>
+    <method name='to_str'>&lt;p&gt;Alias for #message&lt;/p&gt;</method>
+  </methods>
+</help>

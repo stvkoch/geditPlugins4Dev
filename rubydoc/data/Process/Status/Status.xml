@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;&lt;tt&gt;Process::Status&lt;/tt&gt; encapsulates the information on the status of a running or terminated system process. The built-in variable &lt;tt&gt;$?&lt;/tt&gt; is either &lt;tt&gt;nil&lt;/tt&gt; or a &lt;tt&gt;Process::Status&lt;/tt&gt; object.&lt;/p&gt;&lt;pre&gt;   fork { exit 99 }   #=&gt; 26557
+   Process.wait       #=&gt; 26557
+   $?.class           #=&gt; Process::Status
+   $?.to_i            #=&gt; 25344
+   $? &gt;&gt; 8            #=&gt; 99
+   $?.stopped?        #=&gt; false
+   $?.exited?         #=&gt; true
+   $?.exitstatus      #=&gt; 99
+&lt;/pre&gt;&lt;p&gt;Posix systems record information on processes using a 16-bit integer. The lower bits record the process status (stopped, exited, signaled) and the upper bits possibly contain additional information (for example the program&apos;s return code in the case of exited processes). Pre Ruby 1.8, these bits were exposed directly to the Ruby program. Ruby now encapsulates these in a &lt;tt&gt;Process::Status&lt;/tt&gt; object. To maximize compatibility, however, these objects retain a bit-oriented interface. In the descriptions that follow, when we talk about the integer value of &lt;em&gt;stat&lt;/em&gt;, we&apos;re referring to this 16 bit value.&lt;/p&gt;</comment>
+  <methods>
+    <method name='&amp;'>&lt;p&gt;Logical AND of the bits in &lt;em&gt;stat&lt;/em&gt; with &lt;em&gt;num&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   fork { exit 0x37 }
+   Process.wait
+   sprintf(&apos;%04x&apos;, $?.to_i)       #=&gt; &quot;3700&quot;
+   sprintf(&apos;%04x&apos;, $? &amp; 0x1e00)   #=&gt; &quot;1600&quot;
+&lt;/pre&gt;</method>
+    <method name='=='>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the integer value of &lt;em&gt;stat&lt;/em&gt; equals &lt;em&gt;other&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='&gt;&gt;'>&lt;p&gt;Shift the bits in &lt;em&gt;stat&lt;/em&gt; right &lt;em&gt;num&lt;/em&gt; places.&lt;/p&gt;&lt;pre&gt;   fork { exit 99 }   #=&gt; 26563
+   Process.wait       #=&gt; 26563
+   $?.to_i            #=&gt; 25344
+   $? &gt;&gt; 8            #=&gt; 99
+&lt;/pre&gt;</method>
+    <method name='coredump?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; generated a coredump when it terminated. Not available on all platforms.&lt;/p&gt;</method>
+    <method name='exited?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; exited normally (for example using an &lt;tt&gt;exit()&lt;/tt&gt; call or finishing the program).&lt;/p&gt;</method>
+    <method name='exitstatus'>&lt;p&gt;Returns the least significant eight bits of the return code of &lt;em&gt;stat&lt;/em&gt;. Only available if &lt;tt&gt;exited?&lt;/tt&gt; is &lt;tt&gt;true&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   fork { }           #=&gt; 26572
+   Process.wait       #=&gt; 26572
+   $?.exited?         #=&gt; true
+   $?.exitstatus      #=&gt; 0
+
+   fork { exit 99 }   #=&gt; 26573
+   Process.wait       #=&gt; 26573
+   $?.exited?         #=&gt; true
+   $?.exitstatus      #=&gt; 99
+&lt;/pre&gt;</method>
+    <method name='inspect'>&lt;p&gt;Override the inspection method.&lt;/p&gt;</method>
+    <method name='pid'>&lt;p&gt;Returns the process ID that this status object represents.&lt;/p&gt;&lt;pre&gt;   fork { exit }   #=&gt; 26569
+   Process.wait    #=&gt; 26569
+   $?.pid          #=&gt; 26569
+&lt;/pre&gt;</method>
+    <method name='signaled?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; terminated because of an uncaught signal.&lt;/p&gt;</method>
+    <method name='stopped?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if this process is stopped. This is only returned if the corresponding &lt;tt&gt;wait&lt;/tt&gt; call had the &lt;tt&gt;WUNTRACED&lt;/tt&gt; flag set.&lt;/p&gt;</method>
+    <method name='stopsig'>&lt;p&gt;Returns the number of the signal that caused &lt;em&gt;stat&lt;/em&gt; to stop (or &lt;tt&gt;nil&lt;/tt&gt; if self is not stopped).&lt;/p&gt;</method>
+    <method name='success?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; is successful, &lt;tt&gt;false&lt;/tt&gt; if not. Returns &lt;tt&gt;nil&lt;/tt&gt; if &lt;tt&gt;exited?&lt;/tt&gt; is not &lt;tt&gt;true&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='termsig'>&lt;p&gt;Returns the number of the signal that caused &lt;em&gt;stat&lt;/em&gt; to terminate (or &lt;tt&gt;nil&lt;/tt&gt; if self was not terminated by an uncaught signal).&lt;/p&gt;</method>
+    <method name='to_i'>&lt;p&gt;Returns the bits in &lt;em&gt;stat&lt;/em&gt; as a &lt;tt&gt;Fixnum&lt;/tt&gt;. Poking around in these bits is platform dependent.&lt;/p&gt;&lt;pre&gt;   fork { exit 0xab }         #=&gt; 26566
+   Process.wait               #=&gt; 26566
+   sprintf(&apos;%04x&apos;, $?.to_i)   #=&gt; &quot;ab00&quot;
+&lt;/pre&gt;</method>
+    <method name='to_int'>&lt;p&gt;Returns the bits in &lt;em&gt;stat&lt;/em&gt; as a &lt;tt&gt;Fixnum&lt;/tt&gt;. Poking around in these bits is platform dependent.&lt;/p&gt;&lt;pre&gt;   fork { exit 0xab }         #=&gt; 26566
+   Process.wait               #=&gt; 26566
+   sprintf(&apos;%04x&apos;, $?.to_i)   #=&gt; &quot;ab00&quot;
+&lt;/pre&gt;</method>
+    <method name='to_s'>&lt;p&gt;Equivalent to &lt;em&gt;stat&lt;/em&gt;&lt;tt&gt;.to_i.to_s&lt;/tt&gt;.&lt;/p&gt;</method>
+  </methods>
+</help>

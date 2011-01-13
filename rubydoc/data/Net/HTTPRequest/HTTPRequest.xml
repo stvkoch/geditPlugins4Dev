@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;HTTP request class. This class wraps request header and entity path. You &lt;b&gt;must&lt;/b&gt; use its subclass, Net::HTTP::Get, Post, Head.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates HTTP request object.&lt;/p&gt;</method>
+  </methods>
+</help>

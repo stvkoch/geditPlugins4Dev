@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='count_space?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='letter'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='match'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='mid_match?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_re'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='width'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

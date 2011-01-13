@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Classes for MIME message handling. Should be put somewhere else! Tried using the &apos;tmail&apos; module but found that I needed something lighter in weight.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_attachment'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_part'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='boundary'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='content_str'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='has_parts?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='headers_str'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='root'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

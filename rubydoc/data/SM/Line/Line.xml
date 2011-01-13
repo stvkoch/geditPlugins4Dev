@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='isBlank?'>&lt;p&gt;Return true if this line is blank&lt;/p&gt;</method>
+    <method name='stamp'>&lt;p&gt;stamp a line with a type, a level, a prefix, and a flag&lt;/p&gt;</method>
+    <method name='strip_leading'>&lt;p&gt;Strip off the leading margin&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

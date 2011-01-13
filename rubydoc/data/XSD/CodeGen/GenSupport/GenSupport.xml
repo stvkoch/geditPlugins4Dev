@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='capitalize'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='format'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='keyword?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='safeconstname'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='safeconstname?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='safemethodname'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='safemethodname?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='safevarname'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='safevarname?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='uncapitalize'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

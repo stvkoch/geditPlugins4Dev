@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The Benchmark module provides methods to measure and report the time used to execute Ruby code.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Measure the time to construct the string given by the expression &lt;tt&gt;&quot;a&quot;*1_000_000&lt;/tt&gt;:&lt;/li&gt;&lt;pre&gt;    require &apos;benchmark&apos;
+
+    puts Benchmark.measure { &quot;a&quot;*1_000_000 }
+&lt;/pre&gt;&lt;p&gt;On my machine (FreeBSD 3.2 on P5, 100MHz) this generates:&lt;/p&gt;&lt;pre&gt;    1.166667   0.050000   1.216667 (  0.571355)
+&lt;/pre&gt;&lt;p&gt;This report shows the user CPU time, system CPU time, the sum of the user and system CPU times, and the elapsed real time. The unit of time is seconds.&lt;/p&gt;&lt;li&gt;Do some experiments sequentially using the #bm method:&lt;/li&gt;&lt;pre&gt;    require &apos;benchmark&apos;
+
+    n = 50000
+    Benchmark.bm do |x|
+      x.report { for i in 1..n; a = &quot;1&quot;; end }
+      x.report { n.times do   ; a = &quot;1&quot;; end }
+      x.report { 1.upto(n) do ; a = &quot;1&quot;; end }
+    end
+&lt;/pre&gt;&lt;p&gt;The result:&lt;/p&gt;&lt;pre&gt;           user     system      total        real
+       1.033333   0.016667   1.016667 (  0.492106)
+       1.483333   0.000000   1.483333 (  0.694605)
+       1.516667   0.000000   1.516667 (  0.711077)
+&lt;/pre&gt;&lt;li&gt;Continuing the previous example, put a label in each report:&lt;/li&gt;&lt;pre&gt;    require &apos;benchmark&apos;
+
+    n = 50000
+    Benchmark.bm(7) do |x|
+      x.report(&quot;for:&quot;)   { for i in 1..n; a = &quot;1&quot;; end }
+      x.report(&quot;times:&quot;) { n.times do   ; a = &quot;1&quot;; end }
+      x.report(&quot;upto:&quot;)  { 1.upto(n) do ; a = &quot;1&quot;; end }
+    end
+&lt;/pre&gt;&lt;/ul&gt;&lt;p&gt;The result:&lt;/p&gt;&lt;pre&gt;                    user     system      total        real
+       for:     1.050000   0.000000   1.050000 (  0.503462)
+       times:   1.533333   0.016667   1.550000 (  0.735473)
+       upto:    1.500000   0.016667   1.516667 (  0.711239)
+&lt;/pre&gt;&lt;ul&gt;&lt;li&gt;The times for some benchmarks depend on the order in which items are run. These differences are due to the cost of memory allocation and garbage collection. To avoid these discrepancies, the #bmbm method is provided. For example, to compare ways to sort an array of floats:&lt;/li&gt;&lt;pre&gt;    require &apos;benchmark&apos;
+
+    array = (1..1000000).map { rand }
+
+    Benchmark.bmbm do |x|
+      x.report(&quot;sort!&quot;) { array.dup.sort! }
+      x.report(&quot;sort&quot;)  { array.dup.sort  }
+    end
+&lt;/pre&gt;&lt;p&gt;The result:&lt;/p&gt;&lt;pre&gt;     Rehearsal -----------------------------------------
+     sort!  11.928000   0.010000  11.938000 ( 12.756000)
+     sort   13.048000   0.020000  13.068000 ( 13.857000)
+     ------------------------------- total: 25.006000sec
+
+                 user     system      total        real
+     sort!  12.959000   0.010000  12.969000 ( 13.793000)
+     sort   12.007000   0.000000  12.007000 ( 12.791000)
+&lt;/pre&gt;&lt;li&gt;Report statistics of sequential experiments with unique labels, using the #benchmark method:&lt;/li&gt;&lt;pre&gt;    require &apos;benchmark&apos;
+
+    n = 50000
+    Benchmark.benchmark(&quot; &quot;*7 + CAPTION, 7, FMTSTR, &quot;&gt;total:&quot;, &quot;&gt;avg:&quot;) do |x|
+      tf = x.report(&quot;for:&quot;)   { for i in 1..n; a = &quot;1&quot;; end }
+      tt = x.report(&quot;times:&quot;) { n.times do   ; a = &quot;1&quot;; end }
+      tu = x.report(&quot;upto:&quot;)  { 1.upto(n) do ; a = &quot;1&quot;; end }
+      [tf+tt+tu, (tf+tt+tu)/3]
+    end
+&lt;/pre&gt;&lt;p&gt;The result:&lt;/p&gt;&lt;pre&gt;                  user     system      total        real
+     for:     1.016667   0.016667   1.033333 (  0.485749)
+     times:   1.450000   0.016667   1.466667 (  0.681367)
+     upto:    1.533333   0.000000   1.533333 (  0.722166)
+     &gt;total:  4.000000   0.033333   4.033333 (  1.889282)
+     &gt;avg:    1.333333   0.011111   1.344444 (  0.629761)
+&lt;/pre&gt;&lt;/ul&gt;</comment>
+  <methods>
+    <method name='benchmark'>&lt;p&gt;Invokes the block with a &lt;tt&gt;Benchmark::Report&lt;/tt&gt; object, which may be used to collect and report on the results of individual benchmark tests. Reserves &lt;em&gt;label_width&lt;/em&gt; leading spaces for labels on each line. Prints &lt;em&gt;caption&lt;/em&gt; at the top of the report, and uses &lt;em&gt;fmt&lt;/em&gt; to format each line. If the block returns an array of &lt;tt&gt;Benchmark::Tms&lt;/tt&gt; objects, these will be used to format additional lines of output. If &lt;em&gt;label&lt;/em&gt; parameters are given, these are used to label these extra lines.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Note&lt;/em&gt;: Other methods provide a simpler interface to this one, and are suitable for nearly all benchmarking requirements. See the examples in Benchmark, and the #bm and #bmbm methods.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;    require &apos;benchmark&apos;
+    include Benchmark          # we need the CAPTION and FMTSTR constants
+
+    n = 50000
+    Benchmark.benchmark(&quot; &quot;*7 + CAPTION, 7, FMTSTR, &quot;&gt;total:&quot;, &quot;&gt;avg:&quot;) do |x|
+      tf = x.report(&quot;for:&quot;)   { for i in 1..n; a = &quot;1&quot;; end }
+      tt = x.report(&quot;times:&quot;) { n.times do   ; a = &quot;1&quot;; end }
+      tu = x.report(&quot;upto:&quot;)  { 1.upto(n) do ; a = &quot;1&quot;; end }
+      [tf+tt+tu, (tf+tt+tu)/3]
+    end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Generates:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;                    user     system      total        real
+       for:     1.016667   0.016667   1.033333 (  0.485749)
+       times:   1.450000   0.016667   1.466667 (  0.681367)
+       upto:    1.533333   0.000000   1.533333 (  0.722166)
+       &gt;total:  4.000000   0.033333   4.033333 (  1.889282)
+       &gt;avg:    1.333333   0.011111   1.344444 (  0.629761)
+&lt;/pre&gt;</method>
+    <method name='bm'>&lt;p&gt;A simple interface to the #benchmark method, #bm is generates sequential reports with labels. The parameters have the same meaning as for #benchmark.&lt;/p&gt;&lt;pre&gt;    require &apos;benchmark&apos;
+
+    n = 50000
+    Benchmark.bm(7) do |x|
+      x.report(&quot;for:&quot;)   { for i in 1..n; a = &quot;1&quot;; end }
+      x.report(&quot;times:&quot;) { n.times do   ; a = &quot;1&quot;; end }
+      x.report(&quot;upto:&quot;)  { 1.upto(n) do ; a = &quot;1&quot;; end }
+    end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Generates:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;                    user     system      total        real
+       for:     1.050000   0.000000   1.050000 (  0.503462)
+       times:   1.533333   0.016667   1.550000 (  0.735473)
+       upto:    1.500000   0.016667   1.516667 (  0.711239)
+&lt;/pre&gt;</method>
+    <method name='bmbm'>&lt;p&gt;Sometimes benchmark results are skewed because code executed earlier encounters different garbage collection overheads than that run later. #bmbm attempts to minimize this effect by running the tests twice, the first time as a rehearsal in order to get the runtime environment stable, the second time for real. &lt;tt&gt;GC.start&lt;/tt&gt; is executed before the start of each of the real timings; the cost of this is not included in the timings. In reality, though, there&apos;s only so much that #bmbm can do, and the results are not guaranteed to be isolated from garbage collection and other effects.&lt;/p&gt;&lt;p&gt;Because #bmbm takes two passes through the tests, it can calculate the required label width.&lt;/p&gt;&lt;pre&gt;      require &apos;benchmark&apos;
+
+      array = (1..1000000).map { rand }
+
+      Benchmark.bmbm do |x|
+        x.report(&quot;sort!&quot;) { array.dup.sort! }
+        x.report(&quot;sort&quot;)  { array.dup.sort  }
+      end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Generates:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;       Rehearsal -----------------------------------------
+       sort!  11.928000   0.010000  11.938000 ( 12.756000)
+       sort   13.048000   0.020000  13.068000 ( 13.857000)
+       ------------------------------- total: 25.006000sec
+
+                   user     system      total        real
+       sort!  12.959000   0.010000  12.969000 ( 13.793000)
+       sort   12.007000   0.000000  12.007000 ( 12.791000)
+&lt;/pre&gt;&lt;p&gt;#bmbm yields a Benchmark::Job object and returns an array of Benchmark::Tms objects.&lt;/p&gt;</method>
+    <method name='measure'>&lt;p&gt;Returns the time used to execute the given block as a Benchmark::Tms object.&lt;/p&gt;</method>
+    <method name='realtime'>&lt;p&gt;Returns the elapsed real time used to execute the given block.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Runs a Test::Unit::TestSuite on the console.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new TestRunner for running the passed suite. If quiet_mode is true, the output while running is limited to progress dots, errors and failures, and the final result. io specifies where runner output should go to; defaults to STDOUT.&lt;/p&gt;</method>
+    <method name='start'>&lt;p&gt;Begins the test run.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Ping contains routines to test for the reachability of remote hosts. Currently the only routine implemented is pingecho().&lt;/p&gt;&lt;p&gt;Ping.pingecho uses a TCP echo (not an ICMP echo) to determine if the remote host is reachable. This is usually adequate to tell that a remote host is available to telnet, ftp, or ssh to.&lt;/p&gt;&lt;p&gt;Warning: Ping.pingecho may block for a long time if DNS resolution is slow. Requiring &apos;resolv-replace&apos; allows non-blocking name resolution.&lt;/p&gt;&lt;p&gt;Usage:&lt;/p&gt;&lt;pre&gt;  require &apos;ping&apos;
+
+  puts &quot;&apos;jimmy&apos; is alive and kicking&quot; if Ping.pingecho(&apos;jimmy&apos;, 10)
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='pingecho'>&lt;p&gt;Return true if we can open a connection to the hostname or IP address &lt;tt&gt;host&lt;/tt&gt; on port &lt;tt&gt;service&lt;/tt&gt; (which defaults to the &quot;echo&quot; port) waiting up to &lt;tt&gt;timeout&lt;/tt&gt; seconds.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  require &apos;ping&apos;
+
+  Ping.pingecho &quot;google.com&quot;, 10, 80
+&lt;/pre&gt;</method>
+  </methods>
+</help>

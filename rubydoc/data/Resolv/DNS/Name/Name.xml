@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='create'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='absolute?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='eql?'>&lt;p&gt;Alias for #==&lt;/p&gt;</method>
+    <method name='hash'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='length'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='subdomain_of?'>&lt;p&gt;tests subdomain-of relation.&lt;/p&gt;&lt;pre&gt;  domain = Resolv::DNS::Name.create(&quot;y.z&quot;)
+  p Resolv::DNS::Name.create(&quot;w.x.y.z&quot;).subdomain_of?(domain) #=&gt; true
+  p Resolv::DNS::Name.create(&quot;x.y.z&quot;).subdomain_of?(domain) #=&gt; true
+  p Resolv::DNS::Name.create(&quot;y.z&quot;).subdomain_of?(domain) #=&gt; false
+  p Resolv::DNS::Name.create(&quot;z&quot;).subdomain_of?(domain) #=&gt; false
+  p Resolv::DNS::Name.create(&quot;x.y.z.&quot;).subdomain_of?(domain) #=&gt; false
+  p Resolv::DNS::Name.create(&quot;w.z&quot;).subdomain_of?(domain) #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='to_a'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;returns the domain name as a string.&lt;/p&gt;&lt;p&gt;The domain name doesn&apos;t have a trailing dot even if the name object is absolute.&lt;/p&gt;&lt;pre&gt;  p Resolv::DNS::Name.create(&quot;x.y.z.&quot;).to_s #=&gt; &quot;x.y.z&quot;
+  p Resolv::DNS::Name.create(&quot;x.y.z&quot;).to_s #=&gt; &quot;x.y.z&quot;
+&lt;/pre&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Represents a tagged XML element. Elements are characterized by having children, attributes, and names, and can themselves be children.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Create a new element.&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Append a child to this element, optionally under a provided namespace. The namespace argument is ignored if the element argument is an Element object. Otherwise, the element argument is a string, the namespace (if provided) is the namespace the element is created in.&lt;/p&gt;</method>
+    <method name='=~'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='[]='>&lt;p&gt;Doesn&apos;t handle namespaces yet&lt;/p&gt;</method>
+    <method name='children'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='has_name?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='local_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='local_name='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='name='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='namespace'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='namespace='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='node_type'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parent'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parent='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='prefix'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='root'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='text='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

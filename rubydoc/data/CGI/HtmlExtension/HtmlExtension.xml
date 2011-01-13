@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Mixin module providing HTML generation methods.&lt;/p&gt;&lt;p&gt;For example,&lt;/p&gt;&lt;pre&gt;  cgi.a(&quot;http://www.example.com&quot;) { &quot;Example&quot; }
+    # =&gt; &quot;&lt;A HREF=\&quot;http://www.example.com\&quot;&gt;Example&lt;/A&gt;&quot;
+&lt;/pre&gt;&lt;p&gt;Modules Http3, Http4, etc., contain more basic HTML-generation methods (:title, :center, etc.).&lt;/p&gt;&lt;p&gt;See class CGI for a detailed example.&lt;/p&gt;</comment>
+  <methods>
+    <method name='a'>&lt;p&gt;Generate an Anchor element as a string.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;href&lt;/tt&gt; can either be a string, giving the URL for the HREF attribute, or it can be a hash of the element&apos;s attributes.&lt;/p&gt;&lt;p&gt;The body of the element is the string returned by the no-argument block passed in.&lt;/p&gt;&lt;pre&gt;  a(&quot;http://www.example.com&quot;) { &quot;Example&quot; }
+    # =&gt; &quot;&lt;A HREF=\&quot;http://www.example.com\&quot;&gt;Example&lt;/A&gt;&quot;
+
+  a(&quot;HREF&quot; =&gt; &quot;http://www.example.com&quot;, &quot;TARGET&quot; =&gt; &quot;_top&quot;) { &quot;Example&quot; }
+    # =&gt; &quot;&lt;A HREF=\&quot;http://www.example.com\&quot; TARGET=\&quot;_top\&quot;&gt;Example&lt;/A&gt;&quot;
+&lt;/pre&gt;</method>
+    <method name='base'>&lt;p&gt;Generate a Document Base URI element as a String.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;href&lt;/tt&gt; can either by a string, giving the base URL for the HREF attribute, or it can be a has of the element&apos;s attributes.&lt;/p&gt;&lt;p&gt;The passed-in no-argument block is ignored.&lt;/p&gt;&lt;pre&gt;  base(&quot;http://www.example.com/cgi&quot;)
+    # =&gt; &quot;&lt;BASE HREF=\&quot;http://www.example.com/cgi\&quot;&gt;&quot;
+&lt;/pre&gt;</method>
+    <method name='blockquote'>&lt;p&gt;Generate a BlockQuote element as a string.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;cite&lt;/tt&gt; can either be a string, give the URI for the source of the quoted text, or a hash, giving all attributes of the element, or it can be omitted, in which case the element has no attributes.&lt;/p&gt;&lt;p&gt;The body is provided by the passed-in no-argument block&lt;/p&gt;&lt;pre&gt;  blockquote(&quot;http://www.example.com/quotes/foo.html&quot;) { &quot;Foo!&quot; }
+    #=&gt; &quot;&lt;BLOCKQUOTE CITE=\&quot;http://www.example.com/quotes/foo.html\&quot;&gt;Foo!&lt;/BLOCKQUOTE&gt;
+&lt;/pre&gt;</method>
+    <method name='caption'>&lt;p&gt;Generate a Table Caption element as a string.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;align&lt;/tt&gt; can be a string, giving the alignment of the caption (one of top, bottom, left, or right). It can be a hash of all the attributes of the element. Or it can be omitted.&lt;/p&gt;&lt;p&gt;The body of the element is provided by the passed-in no-argument block.&lt;/p&gt;&lt;pre&gt;  caption(&quot;left&quot;) { &quot;Capital Cities&quot; }
+    # =&gt; &lt;CAPTION ALIGN=\&quot;left\&quot;&gt;Capital Cities&lt;/CAPTION&gt;
+&lt;/pre&gt;</method>
+    <method name='checkbox'>&lt;p&gt;Generate a Checkbox Input element as a string.&lt;/p&gt;&lt;p&gt;The attributes of the element can be specified as three arguments, &lt;tt&gt;name&lt;/tt&gt;, &lt;tt&gt;value&lt;/tt&gt;, and &lt;tt&gt;checked&lt;/tt&gt;. &lt;tt&gt;checked&lt;/tt&gt; is a boolean value; if true, the CHECKED attribute will be included in the element.&lt;/p&gt;&lt;p&gt;Alternatively, the attributes can be specified as a hash.&lt;/p&gt;&lt;pre&gt;  checkbox(&quot;name&quot;)
+    # = checkbox(&quot;NAME&quot; =&gt; &quot;name&quot;)
+
+  checkbox(&quot;name&quot;, &quot;value&quot;)
+    # = checkbox(&quot;NAME&quot; =&gt; &quot;name&quot;, &quot;VALUE&quot; =&gt; &quot;value&quot;)
+
+  checkbox(&quot;name&quot;, &quot;value&quot;, true)
+    # = checkbox(&quot;NAME&quot; =&gt; &quot;name&quot;, &quot;VALUE&quot; =&gt; &quot;value&quot;, &quot;CHECKED&quot; =&gt; true)
+&lt;/pre&gt;</method>
+    <method name='checkbox_group'>&lt;p&gt;Generate a sequence of checkbox elements, as a String.&lt;/p&gt;&lt;p&gt;The checkboxes will all have the same &lt;tt&gt;name&lt;/tt&gt; attribute. Each checkbox is followed by a label. There will be one checkbox for each value. Each value can be specified as a String, which will be used both as the value of the VALUE attribute and as the label for that checkbox. A single-element array has the same effect.&lt;/p&gt;&lt;p&gt;Each value can also be specified as a three-element array. The first element is the VALUE attribute; the second is the label; and the third is a boolean specifying whether this checkbox is CHECKED.&lt;/p&gt;&lt;p&gt;Each value can also be specified as a two-element array, by omitting either the value element (defaults to the same as the label), or the boolean checked element (defaults to false).&lt;/p&gt;&lt;pre&gt;  checkbox_group(&quot;name&quot;, &quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;)
+    # &lt;INPUT TYPE=&quot;checkbox&quot; NAME=&quot;name&quot; VALUE=&quot;foo&quot;&gt;foo
+    # &lt;INPUT TYPE=&quot;checkbox&quot; NAME=&quot;name&quot; VALUE=&quot;bar&quot;&gt;bar
+    # &lt;INPUT TYPE=&quot;checkbox&quot; NAME=&quot;name&quot; VALUE=&quot;baz&quot;&gt;baz
+
+  checkbox_group(&quot;name&quot;, [&quot;foo&quot;], [&quot;bar&quot;, true], &quot;baz&quot;)
+    # &lt;INPUT TYPE=&quot;checkbox&quot; NAME=&quot;name&quot; VALUE=&quot;foo&quot;&gt;foo
+    # &lt;INPUT TYPE=&quot;checkbox&quot; CHECKED NAME=&quot;name&quot; VALUE=&quot;bar&quot;&gt;bar
+    # &lt;INPUT TYPE=&quot;checkbox&quot; NAME=&quot;name&quot; VALUE=&quot;baz&quot;&gt;baz
+
+  checkbox_group(&quot;name&quot;, [&quot;1&quot;, &quot;Foo&quot;], [&quot;2&quot;, &quot;Bar&quot;, true], &quot;Baz&quot;)
+    # &lt;INPUT TYPE=&quot;checkbox&quot; NAME=&quot;name&quot; VALUE=&quot;1&quot;&gt;Foo
+    # &lt;INPUT TYPE=&quot;checkbox&quot; CHECKED NAME=&quot;name&quot; VALUE=&quot;2&quot;&gt;Bar
+    # &lt;INPUT TYPE=&quot;checkbox&quot; NAME=&quot;name&quot; VALUE=&quot;Baz&quot;&gt;Baz
+
+  checkbox_group(&quot;NAME&quot; =&gt; &quot;name&quot;,
+                   &quot;VALUES&quot; =&gt; [&quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;])
+
+  checkbox_group(&quot;NAME&quot; =&gt; &quot;name&quot;,
+                   &quot;VALUES&quot; =&gt; [[&quot;foo&quot;], [&quot;bar&quot;, true], &quot;baz&quot;])
+
+  checkbox_group(&quot;NAME&quot; =&gt; &quot;name&quot;,
+                   &quot;VALUES&quot; =&gt; [[&quot;1&quot;, &quot;Foo&quot;], [&quot;2&quot;, &quot;Bar&quot;, true], &quot;Baz&quot;])
+&lt;/pre&gt;</method>
+    <method name='file_field'>&lt;p&gt;Generate an File Upload Input element as a string.&lt;/p&gt;&lt;p&gt;The attributes of the element can be specified as three arguments, &lt;tt&gt;name&lt;/tt&gt;, &lt;tt&gt;size&lt;/tt&gt;, and &lt;tt&gt;maxlength&lt;/tt&gt;. &lt;tt&gt;maxlength&lt;/tt&gt; is the maximum length of the file&apos;s &lt;em&gt;name&lt;/em&gt;, not of the file&apos;s &lt;em&gt;contents&lt;/em&gt;.&lt;/p&gt;&lt;p&gt;Alternatively, the attributes can be specified as a hash.&lt;/p&gt;&lt;p&gt;See #multipart_form() for forms that include file uploads.&lt;/p&gt;&lt;pre&gt;  file_field(&quot;name&quot;)
+    # &lt;INPUT TYPE=&quot;file&quot; NAME=&quot;name&quot; SIZE=&quot;20&quot;&gt;
+
+  file_field(&quot;name&quot;, 40)
+    # &lt;INPUT TYPE=&quot;file&quot; NAME=&quot;name&quot; SIZE=&quot;40&quot;&gt;
+
+  file_field(&quot;name&quot;, 40, 100)
+    # &lt;INPUT TYPE=&quot;file&quot; NAME=&quot;name&quot; SIZE=&quot;40&quot; MAXLENGTH=&quot;100&quot;&gt;
+
+  file_field(&quot;NAME&quot; =&gt; &quot;name&quot;, &quot;SIZE&quot; =&gt; 40)
+    # &lt;INPUT TYPE=&quot;file&quot; NAME=&quot;name&quot; SIZE=&quot;40&quot;&gt;
+&lt;/pre&gt;</method>
+    <method name='form'>&lt;p&gt;Generate a Form element as a string.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;method&lt;/tt&gt; should be either &quot;get&quot; or &quot;post&quot;, and defaults to the latter. &lt;tt&gt;action&lt;/tt&gt; defaults to the current CGI script name. &lt;tt&gt;enctype&lt;/tt&gt; defaults to &quot;application/x-www-form-urlencoded&quot;.&lt;/p&gt;&lt;p&gt;Alternatively, the attributes can be specified as a hash.&lt;/p&gt;&lt;p&gt;See also #multipart_form() for forms that include file uploads.&lt;/p&gt;&lt;pre&gt;  form{ &quot;string&quot; }
+    # &lt;FORM METHOD=&quot;post&quot; ENCTYPE=&quot;application/x-www-form-urlencoded&quot;&gt;string&lt;/FORM&gt;
+
+  form(&quot;get&quot;) { &quot;string&quot; }
+    # &lt;FORM METHOD=&quot;get&quot; ENCTYPE=&quot;application/x-www-form-urlencoded&quot;&gt;string&lt;/FORM&gt;
+
+  form(&quot;get&quot;, &quot;url&quot;) { &quot;string&quot; }
+    # &lt;FORM METHOD=&quot;get&quot; ACTION=&quot;url&quot; ENCTYPE=&quot;application/x-www-form-urlencoded&quot;&gt;string&lt;/FORM&gt;
+
+  form(&quot;METHOD&quot; =&gt; &quot;post&quot;, &quot;ENCTYPE&quot; =&gt; &quot;enctype&quot;) { &quot;string&quot; }
+    # &lt;FORM METHOD=&quot;post&quot; ENCTYPE=&quot;enctype&quot;&gt;string&lt;/FORM&gt;
+&lt;/pre&gt;</method>
+    <method name='hidden'>&lt;p&gt;Generate a Hidden Input element as a string.&lt;/p&gt;&lt;p&gt;The attributes of the element can be specified as two arguments, &lt;tt&gt;name&lt;/tt&gt; and &lt;tt&gt;value&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;Alternatively, the attributes can be specified as a hash.&lt;/p&gt;&lt;pre&gt;  hidden(&quot;name&quot;)
+    # &lt;INPUT TYPE=&quot;hidden&quot; NAME=&quot;name&quot;&gt;
+
+  hidden(&quot;name&quot;, &quot;value&quot;)
+    # &lt;INPUT TYPE=&quot;hidden&quot; NAME=&quot;name&quot; VALUE=&quot;value&quot;&gt;
+
+  hidden(&quot;NAME&quot; =&gt; &quot;name&quot;, &quot;VALUE&quot; =&gt; &quot;reset&quot;, &quot;ID&quot; =&gt; &quot;foo&quot;)
+    # &lt;INPUT TYPE=&quot;hidden&quot; NAME=&quot;name&quot; VALUE=&quot;value&quot; ID=&quot;foo&quot;&gt;
+&lt;/pre&gt;</method>
+    <method name='html'>&lt;p&gt;Generate a top-level HTML element as a string.&lt;/p&gt;&lt;p&gt;The attributes of the element are specified as a hash. The pseudo-attribute &quot;PRETTY&quot; can be used to specify that the generated HTML string should be indented. &quot;PRETTY&quot; can also be specified as a string as the sole argument to this method. The pseudo-attribute &quot;DOCTYPE&quot;, if given, is used as the leading DOCTYPE SGML tag; it should include the entire text of this tag, including angle brackets.&lt;/p&gt;&lt;p&gt;The body of the html element is supplied as a block.&lt;/p&gt;&lt;pre&gt;  html{ &quot;string&quot; }
+    # &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 3.2 Final//EN&quot;&gt;&lt;HTML&gt;string&lt;/HTML&gt;
+
+  html(&quot;LANG&quot; =&gt; &quot;ja&quot;) { &quot;string&quot; }
+    # &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 3.2 Final//EN&quot;&gt;&lt;HTML LANG=&quot;ja&quot;&gt;string&lt;/HTML&gt;
+
+  html(&quot;DOCTYPE&quot; =&gt; false) { &quot;string&quot; }
+    # &lt;HTML&gt;string&lt;/HTML&gt;
+
+  html(&quot;DOCTYPE&quot; =&gt; &apos;&lt;!DOCTYPE HTML PUBLIC &quot;-//IETF//DTD HTML//EN&quot;&gt;&apos;) { &quot;string&quot; }
+    # &lt;!DOCTYPE HTML PUBLIC &quot;-//IETF//DTD HTML//EN&quot;&gt;&lt;HTML&gt;string&lt;/HTML&gt;
+
+  html(&quot;PRETTY&quot; =&gt; &quot;  &quot;) { &quot;&lt;BODY&gt;&lt;/BODY&gt;&quot; }
+    # &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 3.2 Final//EN&quot;&gt;
+    # &lt;HTML&gt;
+    #   &lt;BODY&gt;
+    #   &lt;/BODY&gt;
+    # &lt;/HTML&gt;
+
+  html(&quot;PRETTY&quot; =&gt; &quot;\t&quot;) { &quot;&lt;BODY&gt;&lt;/BODY&gt;&quot; }
+    # &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 3.2 Final//EN&quot;&gt;
+    # &lt;HTML&gt;
+    #         &lt;BODY&gt;
+    #         &lt;/BODY&gt;
+    # &lt;/HTML&gt;
+
+  html(&quot;PRETTY&quot;) { &quot;&lt;BODY&gt;&lt;/BODY&gt;&quot; }
+    # = html(&quot;PRETTY&quot; =&gt; &quot;  &quot;) { &quot;&lt;BODY&gt;&lt;/BODY&gt;&quot; }
+
+  html(if $VERBOSE then &quot;PRETTY&quot; end) { &quot;HTML string&quot; }
+&lt;/pre&gt;</method>
+    <method name='image_button'>&lt;p&gt;Generate an Image Button Input element as a string.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;src&lt;/tt&gt; is the URL of the image to use for the button. &lt;tt&gt;name&lt;/tt&gt; is the input name. &lt;tt&gt;alt&lt;/tt&gt; is the alternative text for the image.&lt;/p&gt;&lt;p&gt;Alternatively, the attributes can be specified as a hash.&lt;/p&gt;&lt;pre&gt;  image_button(&quot;url&quot;)
+    # &lt;INPUT TYPE=&quot;image&quot; SRC=&quot;url&quot;&gt;
+
+  image_button(&quot;url&quot;, &quot;name&quot;, &quot;string&quot;)
+    # &lt;INPUT TYPE=&quot;image&quot; SRC=&quot;url&quot; NAME=&quot;name&quot; ALT=&quot;string&quot;&gt;
+
+  image_button(&quot;SRC&quot; =&gt; &quot;url&quot;, &quot;ATL&quot; =&gt; &quot;strng&quot;)
+    # &lt;INPUT TYPE=&quot;image&quot; SRC=&quot;url&quot; ALT=&quot;string&quot;&gt;
+&lt;/pre&gt;</method>
+    <method name='img'>&lt;p&gt;Generate an Image element as a string.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;src&lt;/tt&gt; is the URL of the image. &lt;tt&gt;alt&lt;/tt&gt; is the alternative text for the image. &lt;tt&gt;width&lt;/tt&gt; is the width of the image, and &lt;tt&gt;height&lt;/tt&gt; is its height.&lt;/p&gt;&lt;p&gt;Alternatively, the attributes can be specified as a hash.&lt;/p&gt;&lt;pre&gt;  img(&quot;src&quot;, &quot;alt&quot;, 100, 50)
+    # &lt;IMG SRC=&quot;src&quot; ALT=&quot;alt&quot; WIDTH=&quot;100&quot; HEIGHT=&quot;50&quot;&gt;
+
+  img(&quot;SRC&quot; =&gt; &quot;src&quot;, &quot;ALT&quot; =&gt; &quot;alt&quot;, &quot;WIDTH&quot; =&gt; 100, &quot;HEIGHT&quot; =&gt; 50)
+    # &lt;IMG SRC=&quot;src&quot; ALT=&quot;alt&quot; WIDTH=&quot;100&quot; HEIGHT=&quot;50&quot;&gt;
+&lt;/pre&gt;</method>
+    <method name='multipart_form'>&lt;p&gt;Generate a Form element with multipart encoding as a String.&lt;/p&gt;&lt;p&gt;Multipart encoding is used for forms that include file uploads.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;action&lt;/tt&gt; is the action to perform. &lt;tt&gt;enctype&lt;/tt&gt; is the encoding type, which defaults to &quot;multipart/form-data&quot;.&lt;/p&gt;&lt;p&gt;Alternatively, the attributes can be specified as a hash.&lt;/p&gt;&lt;pre&gt;  multipart_form{ &quot;string&quot; }
+    # &lt;FORM METHOD=&quot;post&quot; ENCTYPE=&quot;multipart/form-data&quot;&gt;string&lt;/FORM&gt;
+
+  multipart_form(&quot;url&quot;) { &quot;string&quot; }
+    # &lt;FORM METHOD=&quot;post&quot; ACTION=&quot;url&quot; ENCTYPE=&quot;multipart/form-data&quot;&gt;string&lt;/FORM&gt;
+&lt;/pre&gt;</method>
+    <method name='password_field'>&lt;p&gt;Generate a Password Input element as a string.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;name&lt;/tt&gt; is the name of the input field. &lt;tt&gt;value&lt;/tt&gt; is its default value. &lt;tt&gt;size&lt;/tt&gt; is the size of the input field display. &lt;tt&gt;maxlength&lt;/tt&gt; is the maximum length of the inputted password.&lt;/p&gt;&lt;p&gt;Alternatively, attributes can be specified as a hash.&lt;/p&gt;&lt;pre&gt;  password_field(&quot;name&quot;)
+    # &lt;INPUT TYPE=&quot;password&quot; NAME=&quot;name&quot; SIZE=&quot;40&quot;&gt;
+
+  password_field(&quot;name&quot;, &quot;value&quot;)
+    # &lt;INPUT TYPE=&quot;password&quot; NAME=&quot;name&quot; VALUE=&quot;value&quot; SIZE=&quot;40&quot;&gt;
+
+  password_field(&quot;password&quot;, &quot;value&quot;, 80, 200)
+    # &lt;INPUT TYPE=&quot;password&quot; NAME=&quot;name&quot; VALUE=&quot;value&quot; SIZE=&quot;80&quot; MAXLENGTH=&quot;200&quot;&gt;
+
+  password_field(&quot;NAME&quot; =&gt; &quot;name&quot;, &quot;VALUE&quot; =&gt; &quot;value&quot;)
+    # &lt;INPUT TYPE=&quot;password&quot; NAME=&quot;name&quot; VALUE=&quot;value&quot;&gt;
+&lt;/pre&gt;</method>
+    <method name='popup_menu'>&lt;p&gt;Generate a Select element as a string.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;name&lt;/tt&gt; is the name of the element. The &lt;tt&gt;values&lt;/tt&gt; are the options that can be selected from the Select menu. Each value can be a String or a one, two, or three-element Array. If a String or a one-element Array, this is both the value of that option and the text displayed for it. If a three-element Array, the elements are the option value, displayed text, and a boolean value specifying whether this option starts as selected. The two-element version omits either the option value (defaults to the same as the display text) or the boolean selected specifier (defaults to false).&lt;/p&gt;&lt;p&gt;The attributes and options can also be specified as a hash. In this case, options are specified as an array of values as described above, with the hash key of &quot;VALUES&quot;.&lt;/p&gt;&lt;pre&gt;  popup_menu(&quot;name&quot;, &quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;)
+    # &lt;SELECT NAME=&quot;name&quot;&gt;
+    #   &lt;OPTION VALUE=&quot;foo&quot;&gt;foo&lt;/OPTION&gt;
+    #   &lt;OPTION VALUE=&quot;bar&quot;&gt;bar&lt;/OPTION&gt;
+    #   &lt;OPTION VALUE=&quot;baz&quot;&gt;baz&lt;/OPTION&gt;
+    # &lt;/SELECT&gt;
+
+  popup_menu(&quot;name&quot;, [&quot;foo&quot;], [&quot;bar&quot;, true], &quot;baz&quot;)
+    # &lt;SELECT NAME=&quot;name&quot;&gt;
+    #   &lt;OPTION VALUE=&quot;foo&quot;&gt;foo&lt;/OPTION&gt;
+    #   &lt;OPTION VALUE=&quot;bar&quot; SELECTED&gt;bar&lt;/OPTION&gt;
+    #   &lt;OPTION VALUE=&quot;baz&quot;&gt;baz&lt;/OPTION&gt;
+    # &lt;/SELECT&gt;
+
+  popup_menu(&quot;name&quot;, [&quot;1&quot;, &quot;Foo&quot;], [&quot;2&quot;, &quot;Bar&quot;, true], &quot;Baz&quot;)
+    # &lt;SELECT NAME=&quot;name&quot;&gt;
+    #   &lt;OPTION VALUE=&quot;1&quot;&gt;Foo&lt;/OPTION&gt;
+    #   &lt;OPTION SELECTED VALUE=&quot;2&quot;&gt;Bar&lt;/OPTION&gt;
+    #   &lt;OPTION VALUE=&quot;Baz&quot;&gt;Baz&lt;/OPTION&gt;
+    # &lt;/SELECT&gt;
+
+  popup_menu(&quot;NAME&quot; =&gt; &quot;name&quot;, &quot;SIZE&quot; =&gt; 2, &quot;MULTIPLE&quot; =&gt; true,
+              &quot;VALUES&quot; =&gt; [[&quot;1&quot;, &quot;Foo&quot;], [&quot;2&quot;, &quot;Bar&quot;, true], &quot;Baz&quot;])
+    # &lt;SELECT NAME=&quot;name&quot; MULTIPLE SIZE=&quot;2&quot;&gt;
+    #   &lt;OPTION VALUE=&quot;1&quot;&gt;Foo&lt;/OPTION&gt;
+    #   &lt;OPTION SELECTED VALUE=&quot;2&quot;&gt;Bar&lt;/OPTION&gt;
+    #   &lt;OPTION VALUE=&quot;Baz&quot;&gt;Baz&lt;/OPTION&gt;
+    # &lt;/SELECT&gt;
+&lt;/pre&gt;</method>
+    <method name='radio_button'>&lt;p&gt;Generates a radio-button Input element.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;name&lt;/tt&gt; is the name of the input field. &lt;tt&gt;value&lt;/tt&gt; is the value of the field if checked. &lt;tt&gt;checked&lt;/tt&gt; specifies whether the field starts off checked.&lt;/p&gt;&lt;p&gt;Alternatively, the attributes can be specified as a hash.&lt;/p&gt;&lt;pre&gt;  radio_button(&quot;name&quot;, &quot;value&quot;)
+    # &lt;INPUT TYPE=&quot;radio&quot; NAME=&quot;name&quot; VALUE=&quot;value&quot;&gt;
+
+  radio_button(&quot;name&quot;, &quot;value&quot;, true)
+    # &lt;INPUT TYPE=&quot;radio&quot; NAME=&quot;name&quot; VALUE=&quot;value&quot; CHECKED&gt;
+
+  radio_button(&quot;NAME&quot; =&gt; &quot;name&quot;, &quot;VALUE&quot; =&gt; &quot;value&quot;, &quot;ID&quot; =&gt; &quot;foo&quot;)
+    # &lt;INPUT TYPE=&quot;radio&quot; NAME=&quot;name&quot; VALUE=&quot;value&quot; ID=&quot;foo&quot;&gt;
+&lt;/pre&gt;</method>
+    <method name='radio_group'>&lt;p&gt;Generate a sequence of radio button Input elements, as a String.&lt;/p&gt;&lt;p&gt;This works the same as #checkbox_group(). However, it is not valid to have more than one radiobutton in a group checked.&lt;/p&gt;&lt;pre&gt;  radio_group(&quot;name&quot;, &quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;)
+    # &lt;INPUT TYPE=&quot;radio&quot; NAME=&quot;name&quot; VALUE=&quot;foo&quot;&gt;foo
+    # &lt;INPUT TYPE=&quot;radio&quot; NAME=&quot;name&quot; VALUE=&quot;bar&quot;&gt;bar
+    # &lt;INPUT TYPE=&quot;radio&quot; NAME=&quot;name&quot; VALUE=&quot;baz&quot;&gt;baz
+
+  radio_group(&quot;name&quot;, [&quot;foo&quot;], [&quot;bar&quot;, true], &quot;baz&quot;)
+    # &lt;INPUT TYPE=&quot;radio&quot; NAME=&quot;name&quot; VALUE=&quot;foo&quot;&gt;foo
+    # &lt;INPUT TYPE=&quot;radio&quot; CHECKED NAME=&quot;name&quot; VALUE=&quot;bar&quot;&gt;bar
+    # &lt;INPUT TYPE=&quot;radio&quot; NAME=&quot;name&quot; VALUE=&quot;baz&quot;&gt;baz
+
+  radio_group(&quot;name&quot;, [&quot;1&quot;, &quot;Foo&quot;], [&quot;2&quot;, &quot;Bar&quot;, true], &quot;Baz&quot;)
+    # &lt;INPUT TYPE=&quot;radio&quot; NAME=&quot;name&quot; VALUE=&quot;1&quot;&gt;Foo
+    # &lt;INPUT TYPE=&quot;radio&quot; CHECKED NAME=&quot;name&quot; VALUE=&quot;2&quot;&gt;Bar
+    # &lt;INPUT TYPE=&quot;radio&quot; NAME=&quot;name&quot; VALUE=&quot;Baz&quot;&gt;Baz
+
+  radio_group(&quot;NAME&quot; =&gt; &quot;name&quot;,
+                &quot;VALUES&quot; =&gt; [&quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;])
+
+  radio_group(&quot;NAME&quot; =&gt; &quot;name&quot;,
+                &quot;VALUES&quot; =&gt; [[&quot;foo&quot;], [&quot;bar&quot;, true], &quot;baz&quot;])
+
+  radio_group(&quot;NAME&quot; =&gt; &quot;name&quot;,
+                &quot;VALUES&quot; =&gt; [[&quot;1&quot;, &quot;Foo&quot;], [&quot;2&quot;, &quot;Bar&quot;, true], &quot;Baz&quot;])
+&lt;/pre&gt;</method>
+    <method name='reset'>&lt;p&gt;Generate a reset button Input element, as a String.&lt;/p&gt;&lt;p&gt;This resets the values on a form to their initial values. &lt;tt&gt;value&lt;/tt&gt; is the text displayed on the button. &lt;tt&gt;name&lt;/tt&gt; is the name of this button.&lt;/p&gt;&lt;p&gt;Alternatively, the attributes can be specified as a hash.&lt;/p&gt;&lt;pre&gt;  reset
+    # &lt;INPUT TYPE=&quot;reset&quot;&gt;
+
+  reset(&quot;reset&quot;)
+    # &lt;INPUT TYPE=&quot;reset&quot; VALUE=&quot;reset&quot;&gt;
+
+  reset(&quot;VALUE&quot; =&gt; &quot;reset&quot;, &quot;ID&quot; =&gt; &quot;foo&quot;)
+    # &lt;INPUT TYPE=&quot;reset&quot; VALUE=&quot;reset&quot; ID=&quot;foo&quot;&gt;
+&lt;/pre&gt;</method>
+    <method name='scrolling_list'>&lt;p&gt;Alias for #popup_menu&lt;/p&gt;</method>
+    <method name='submit'>&lt;p&gt;Generate a submit button Input element, as a String.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;value&lt;/tt&gt; is the text to display on the button. &lt;tt&gt;name&lt;/tt&gt; is the name of the input.&lt;/p&gt;&lt;p&gt;Alternatively, the attributes can be specified as a hash.&lt;/p&gt;&lt;pre&gt;  submit
+    # &lt;INPUT TYPE=&quot;submit&quot;&gt;
+
+  submit(&quot;ok&quot;)
+    # &lt;INPUT TYPE=&quot;submit&quot; VALUE=&quot;ok&quot;&gt;
+
+  submit(&quot;ok&quot;, &quot;button1&quot;)
+    # &lt;INPUT TYPE=&quot;submit&quot; VALUE=&quot;ok&quot; NAME=&quot;button1&quot;&gt;
+
+  submit(&quot;VALUE&quot; =&gt; &quot;ok&quot;, &quot;NAME&quot; =&gt; &quot;button1&quot;, &quot;ID&quot; =&gt; &quot;foo&quot;)
+    # &lt;INPUT TYPE=&quot;submit&quot; VALUE=&quot;ok&quot; NAME=&quot;button1&quot; ID=&quot;foo&quot;&gt;
+&lt;/pre&gt;</method>
+    <method name='text_field'>&lt;p&gt;Generate a text field Input element, as a String.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;name&lt;/tt&gt; is the name of the input field. &lt;tt&gt;value&lt;/tt&gt; is its initial value. &lt;tt&gt;size&lt;/tt&gt; is the size of the input area. &lt;tt&gt;maxlength&lt;/tt&gt; is the maximum length of input accepted.&lt;/p&gt;&lt;p&gt;Alternatively, the attributes can be specified as a hash.&lt;/p&gt;&lt;pre&gt;  text_field(&quot;name&quot;)
+    # &lt;INPUT TYPE=&quot;text&quot; NAME=&quot;name&quot; SIZE=&quot;40&quot;&gt;
+
+  text_field(&quot;name&quot;, &quot;value&quot;)
+    # &lt;INPUT TYPE=&quot;text&quot; NAME=&quot;name&quot; VALUE=&quot;value&quot; SIZE=&quot;40&quot;&gt;
+
+  text_field(&quot;name&quot;, &quot;value&quot;, 80)
+    # &lt;INPUT TYPE=&quot;text&quot; NAME=&quot;name&quot; VALUE=&quot;value&quot; SIZE=&quot;80&quot;&gt;
+
+  text_field(&quot;name&quot;, &quot;value&quot;, 80, 200)
+    # &lt;INPUT TYPE=&quot;text&quot; NAME=&quot;name&quot; VALUE=&quot;value&quot; SIZE=&quot;80&quot; MAXLENGTH=&quot;200&quot;&gt;
+
+  text_field(&quot;NAME&quot; =&gt; &quot;name&quot;, &quot;VALUE&quot; =&gt; &quot;value&quot;)
+    # &lt;INPUT TYPE=&quot;text&quot; NAME=&quot;name&quot; VALUE=&quot;value&quot;&gt;
+&lt;/pre&gt;</method>
+    <method name='textarea'>&lt;p&gt;Generate a TextArea element, as a String.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;name&lt;/tt&gt; is the name of the textarea. &lt;tt&gt;cols&lt;/tt&gt; is the number of columns and &lt;tt&gt;rows&lt;/tt&gt; is the number of rows in the display.&lt;/p&gt;&lt;p&gt;Alternatively, the attributes can be specified as a hash.&lt;/p&gt;&lt;p&gt;The body is provided by the passed-in no-argument block&lt;/p&gt;&lt;pre&gt;  textarea(&quot;name&quot;)
+     # = textarea(&quot;NAME&quot; =&gt; &quot;name&quot;, &quot;COLS&quot; =&gt; 70, &quot;ROWS&quot; =&gt; 10)
+
+  textarea(&quot;name&quot;, 40, 5)
+     # = textarea(&quot;NAME&quot; =&gt; &quot;name&quot;, &quot;COLS&quot; =&gt; 40, &quot;ROWS&quot; =&gt; 5)
+&lt;/pre&gt;</method>
+  </methods>
+</help>

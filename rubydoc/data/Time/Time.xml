@@ -1,0 +1,275 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Implements the extensions to the Time class that are described in the documentation for the time.rb library.&lt;/p&gt;</comment>
+  <methods>
+    <method name='_load'>&lt;p&gt;Unmarshal a dumped &lt;tt&gt;Time&lt;/tt&gt; object.&lt;/p&gt;</method>
+    <method name='at'>&lt;p&gt;Creates a new time object with the value given by &lt;em&gt;aTime&lt;/em&gt;, or the given number of &lt;em&gt;seconds&lt;/em&gt; (and optional &lt;em&gt;microseconds&lt;/em&gt;) from epoch. A non-portable feature allows the offset to be negative on some systems.&lt;/p&gt;&lt;pre&gt;   Time.at(0)            #=&gt; Wed Dec 31 18:00:00 CST 1969
+   Time.at(946702800)    #=&gt; Fri Dec 31 23:00:00 CST 1999
+   Time.at(-284061600)   #=&gt; Sat Dec 31 00:00:00 CST 1960
+&lt;/pre&gt;</method>
+    <method name='gm'>&lt;p&gt;Creates a time based on given values, interpreted as UTC (GMT). The year must be specified. Other values default to the minimum value for that field (and may be &lt;tt&gt;nil&lt;/tt&gt; or omitted). Months may be specified by numbers from 1 to 12, or by the three-letter English month names. Hours are specified on a 24-hour clock (0..23). Raises an &lt;tt&gt;ArgumentError&lt;/tt&gt; if any values are out of range. Will also accept ten arguments in the order output by &lt;tt&gt;Time#to_a&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   Time.utc(2000,&quot;jan&quot;,1,20,15,1)  #=&gt; Sat Jan 01 20:15:01 UTC 2000
+   Time.gm(2000,&quot;jan&quot;,1,20,15,1)   #=&gt; Sat Jan 01 20:15:01 UTC 2000
+&lt;/pre&gt;</method>
+    <method name='httpdate'>&lt;p&gt;Parses &lt;tt&gt;date&lt;/tt&gt; as HTTP-date defined by RFC 2616 and converts it to a Time object.&lt;/p&gt;&lt;p&gt;ArgumentError is raised if &lt;tt&gt;date&lt;/tt&gt; is not compliant with RFC 2616 or Time class cannot represent specified date.&lt;/p&gt;&lt;p&gt;See #httpdate for more information on this format.&lt;/p&gt;</method>
+    <method name='local'>&lt;p&gt;Same as &lt;tt&gt;Time::gm&lt;/tt&gt;, but interprets the values in the local time zone.&lt;/p&gt;&lt;pre&gt;   Time.local(2000,&quot;jan&quot;,1,20,15,1)   #=&gt; Sat Jan 01 20:15:01 CST 2000
+&lt;/pre&gt;</method>
+    <method name='mktime'>&lt;p&gt;Same as &lt;tt&gt;Time::gm&lt;/tt&gt;, but interprets the values in the local time zone.&lt;/p&gt;&lt;pre&gt;   Time.local(2000,&quot;jan&quot;,1,20,15,1)   #=&gt; Sat Jan 01 20:15:01 CST 2000
+&lt;/pre&gt;</method>
+    <method name='new'>&lt;p&gt;Document-method: now&lt;/p&gt;&lt;p&gt;Synonym for &lt;tt&gt;Time.new&lt;/tt&gt;. Returns a &lt;tt&gt;Time&lt;/tt&gt; object initialized tot he current system time.&lt;/p&gt;&lt;p&gt;Returns a &lt;tt&gt;Time&lt;/tt&gt; object initialized to the current system time. &lt;b&gt;Note:&lt;/b&gt; The object created will be created using the resolution available on your system clock, and so may include fractional seconds.&lt;/p&gt;&lt;pre&gt;   a = Time.new      #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   b = Time.new      #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   a == b            #=&gt; false
+   &quot;%.6f&quot; % a.to_f   #=&gt; &quot;1049896563.230740&quot;
+   &quot;%.6f&quot; % b.to_f   #=&gt; &quot;1049896563.231466&quot;
+&lt;/pre&gt;</method>
+    <method name='now'>&lt;p&gt;Synonym for &lt;tt&gt;Time.new&lt;/tt&gt;. Returns a &lt;tt&gt;Time&lt;/tt&gt; object initialized tot he current system time.&lt;/p&gt;&lt;p&gt;Returns a &lt;tt&gt;Time&lt;/tt&gt; object initialized to the current system time. &lt;b&gt;Note:&lt;/b&gt; The object created will be created using the resolution available on your system clock, and so may include fractional seconds.&lt;/p&gt;&lt;pre&gt;   a = Time.new      #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   b = Time.new      #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   a == b            #=&gt; false
+   &quot;%.6f&quot; % a.to_f   #=&gt; &quot;1049896563.230740&quot;
+   &quot;%.6f&quot; % b.to_f   #=&gt; &quot;1049896563.231466&quot;
+&lt;/pre&gt;</method>
+    <method name='parse'>&lt;p&gt;Parses &lt;tt&gt;date&lt;/tt&gt; using Date._parse and converts it to a Time object.&lt;/p&gt;&lt;p&gt;If a block is given, the year described in &lt;tt&gt;date&lt;/tt&gt; is converted by the block. For example:&lt;/p&gt;&lt;pre&gt;    Time.parse(...) {|y| y &lt; 100 ? (y &gt;= 69 ? y + 1900 : y + 2000) : y}
+&lt;/pre&gt;&lt;p&gt;If the upper components of the given time are broken or missing, they are supplied with those of &lt;tt&gt;now&lt;/tt&gt;. For the lower components, the minimum values (1 or 0) are assumed if broken or missing. For example:&lt;/p&gt;&lt;pre&gt;    # Suppose it is &quot;Thu Nov 29 14:33:20 GMT 2001&quot; now and
+    # your timezone is GMT:
+    Time.parse(&quot;16:30&quot;)     #=&gt; Thu Nov 29 16:30:00 GMT 2001
+    Time.parse(&quot;7/23&quot;)      #=&gt; Mon Jul 23 00:00:00 GMT 2001
+    Time.parse(&quot;Aug 31&quot;)    #=&gt; Fri Aug 31 00:00:00 GMT 2001
+&lt;/pre&gt;&lt;p&gt;Since there are numerous conflicts among locally defined timezone abbreviations all over the world, this method is not made to understand all of them. For example, the abbreviation &quot;CST&quot; is used variously as:&lt;/p&gt;&lt;pre&gt;    -06:00 in America/Chicago,
+    -05:00 in America/Havana,
+    +08:00 in Asia/Harbin,
+    +09:30 in Australia/Darwin,
+    +10:30 in Australia/Adelaide,
+    etc.
+&lt;/pre&gt;&lt;p&gt;Based on the fact, this method only understands the timezone abbreviations described in RFC 822 and the system timezone, in the order named. (i.e. a definition in RFC 822 overrides the system timezone definition.) The system timezone is taken from &lt;tt&gt;Time.local(year, 1, 1).zone&lt;/tt&gt; and &lt;tt&gt;Time.local(year, 7, 1).zone&lt;/tt&gt;. If the extracted timezone abbreviation does not match any of them, it is ignored and the given time is regarded as a local time.&lt;/p&gt;&lt;p&gt;ArgumentError is raised if Date._parse cannot extract information from &lt;tt&gt;date&lt;/tt&gt; or Time class cannot represent specified date.&lt;/p&gt;&lt;p&gt;This method can be used as fail-safe for other parsing methods as:&lt;/p&gt;&lt;pre&gt;  Time.rfc2822(date) rescue Time.parse(date)
+  Time.httpdate(date) rescue Time.parse(date)
+  Time.xmlschema(date) rescue Time.parse(date)
+&lt;/pre&gt;&lt;p&gt;A failure for Time.parse should be checked, though.&lt;/p&gt;</method>
+    <method name='rfc2822'>&lt;p&gt;Parses &lt;tt&gt;date&lt;/tt&gt; as date-time defined by RFC 2822 and converts it to a Time object. The format is identical to the date format defined by RFC 822 and updated by RFC 1123.&lt;/p&gt;&lt;p&gt;ArgumentError is raised if &lt;tt&gt;date&lt;/tt&gt; is not compliant with RFC 2822 or Time class cannot represent specified date.&lt;/p&gt;&lt;p&gt;See #rfc2822 for more information on this format.&lt;/p&gt;</method>
+    <method name='times'>&lt;p&gt;Deprecated in favor of &lt;tt&gt;Process::times&lt;/tt&gt;&lt;/p&gt;</method>
+    <method name='utc'>&lt;p&gt;Creates a time based on given values, interpreted as UTC (GMT). The year must be specified. Other values default to the minimum value for that field (and may be &lt;tt&gt;nil&lt;/tt&gt; or omitted). Months may be specified by numbers from 1 to 12, or by the three-letter English month names. Hours are specified on a 24-hour clock (0..23). Raises an &lt;tt&gt;ArgumentError&lt;/tt&gt; if any values are out of range. Will also accept ten arguments in the order output by &lt;tt&gt;Time#to_a&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   Time.utc(2000,&quot;jan&quot;,1,20,15,1)  #=&gt; Sat Jan 01 20:15:01 UTC 2000
+   Time.gm(2000,&quot;jan&quot;,1,20,15,1)   #=&gt; Sat Jan 01 20:15:01 UTC 2000
+&lt;/pre&gt;</method>
+    <method name='w3cdtf'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='xmlschema'>&lt;p&gt;Parses &lt;tt&gt;date&lt;/tt&gt; as dateTime defined by XML Schema and converts it to a Time object. The format is restricted version of the format defined by ISO 8601.&lt;/p&gt;&lt;p&gt;ArgumentError is raised if &lt;tt&gt;date&lt;/tt&gt; is not compliant with the format or Time class cannot represent specified date.&lt;/p&gt;&lt;p&gt;See #xmlschema for more information on this format.&lt;/p&gt;</method>
+    <method name='yaml_new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='zone_offset'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='+'>&lt;p&gt;Addition---Adds some number of seconds (possibly fractional) to &lt;em&gt;time&lt;/em&gt; and returns that value as a new time.&lt;/p&gt;&lt;pre&gt;   t = Time.now         #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   t + (60 * 60 * 24)   #=&gt; Thu Apr 10 08:56:03 CDT 2003
+&lt;/pre&gt;</method>
+    <method name='-'>&lt;p&gt;Difference---Returns a new time that represents the difference between two times, or subtracts the given number of seconds in &lt;em&gt;numeric&lt;/em&gt; from &lt;em&gt;time&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   t = Time.now       #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   t2 = t + 2592000   #=&gt; Fri May 09 08:56:03 CDT 2003
+   t2 - t             #=&gt; 2592000.0
+   t2 - 2592000       #=&gt; Wed Apr 09 08:56:03 CDT 2003
+&lt;/pre&gt;</method>
+    <method name='&lt;=&gt;'>&lt;p&gt;Comparison---Compares &lt;em&gt;time&lt;/em&gt; with &lt;em&gt;other_time&lt;/em&gt; or with &lt;em&gt;numeric&lt;/em&gt;, which is the number of seconds (possibly fractional) since epoch.&lt;/p&gt;&lt;pre&gt;   t = Time.now       #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   t2 = t + 2592000   #=&gt; Fri May 09 08:56:03 CDT 2003
+   t &lt;=&gt; t2           #=&gt; -1
+   t2 &lt;=&gt; t           #=&gt; 1
+   t &lt;=&gt; t            #=&gt; 0
+&lt;/pre&gt;</method>
+    <method name='_dump'>&lt;p&gt;Dump &lt;em&gt;time&lt;/em&gt; for marshaling.&lt;/p&gt;</method>
+    <method name='asctime'>&lt;p&gt;Returns a canonical string representation of &lt;em&gt;time&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   Time.now.asctime   #=&gt; &quot;Wed Apr  9 08:56:03 2003&quot;
+&lt;/pre&gt;</method>
+    <method name='ctime'>&lt;p&gt;Returns a canonical string representation of &lt;em&gt;time&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   Time.now.asctime   #=&gt; &quot;Wed Apr  9 08:56:03 2003&quot;
+&lt;/pre&gt;</method>
+    <method name='day'>&lt;p&gt;Returns the day of the month (1..n) for &lt;em&gt;time&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   t = Time.now   #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   t.day          #=&gt; 9
+   t.mday         #=&gt; 9
+&lt;/pre&gt;</method>
+    <method name='dst?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;time&lt;/em&gt; occurs during Daylight Saving Time in its time zone.&lt;/p&gt;&lt;pre&gt;   Time.local(2000, 7, 1).isdst   #=&gt; true
+   Time.local(2000, 1, 1).isdst   #=&gt; false
+   Time.local(2000, 7, 1).dst?    #=&gt; true
+   Time.local(2000, 1, 1).dst?    #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='eql?'>&lt;p&gt;Return &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;time&lt;/em&gt; and &lt;em&gt;other_time&lt;/em&gt; are both &lt;tt&gt;Time&lt;/tt&gt; objects with the same seconds and fractional seconds.&lt;/p&gt;</method>
+    <method name='getgm'>&lt;p&gt;Returns a new &lt;tt&gt;new_time&lt;/tt&gt; object representing &lt;em&gt;time&lt;/em&gt; in UTC.&lt;/p&gt;&lt;pre&gt;   t = Time.local(2000,1,1,20,15,1)   #=&gt; Sat Jan 01 20:15:01 CST 2000
+   t.gmt?                             #=&gt; false
+   y = t.getgm                        #=&gt; Sun Jan 02 02:15:01 UTC 2000
+   y.gmt?                             #=&gt; true
+   t == y                             #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='getlocal'>&lt;p&gt;Returns a new &lt;tt&gt;new_time&lt;/tt&gt; object representing &lt;em&gt;time&lt;/em&gt; in local time (using the local time zone in effect for this process).&lt;/p&gt;&lt;pre&gt;   t = Time.gm(2000,1,1,20,15,1)   #=&gt; Sat Jan 01 20:15:01 UTC 2000
+   t.gmt?                          #=&gt; true
+   l = t.getlocal                  #=&gt; Sat Jan 01 14:15:01 CST 2000
+   l.gmt?                          #=&gt; false
+   t == l                          #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='getutc'>&lt;p&gt;Returns a new &lt;tt&gt;new_time&lt;/tt&gt; object representing &lt;em&gt;time&lt;/em&gt; in UTC.&lt;/p&gt;&lt;pre&gt;   t = Time.local(2000,1,1,20,15,1)   #=&gt; Sat Jan 01 20:15:01 CST 2000
+   t.gmt?                             #=&gt; false
+   y = t.getgm                        #=&gt; Sun Jan 02 02:15:01 UTC 2000
+   y.gmt?                             #=&gt; true
+   t == y                             #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='gmt?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;time&lt;/em&gt; represents a time in UTC (GMT).&lt;/p&gt;&lt;pre&gt;   t = Time.now                        #=&gt; Wed Apr 09 08:56:04 CDT 2003
+   t.utc?                              #=&gt; false
+   t = Time.gm(2000,&quot;jan&quot;,1,20,15,1)   #=&gt; Sat Jan 01 20:15:01 UTC 2000
+   t.utc?                              #=&gt; true
+
+   t = Time.now                        #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   t.gmt?                              #=&gt; false
+   t = Time.gm(2000,1,1,20,15,1)       #=&gt; Sat Jan 01 20:15:01 UTC 2000
+   t.gmt?                              #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='gmt_offset'>&lt;p&gt;Returns the offset in seconds between the timezone of &lt;em&gt;time&lt;/em&gt; and UTC.&lt;/p&gt;&lt;pre&gt;   t = Time.gm(2000,1,1,20,15,1)   #=&gt; Sat Jan 01 20:15:01 UTC 2000
+   t.gmt_offset                    #=&gt; 0
+   l = t.getlocal                  #=&gt; Sat Jan 01 14:15:01 CST 2000
+   l.gmt_offset                    #=&gt; -21600
+&lt;/pre&gt;</method>
+    <method name='gmtime'>&lt;p&gt;Converts &lt;em&gt;time&lt;/em&gt; to UTC (GMT), modifying the receiver.&lt;/p&gt;&lt;pre&gt;   t = Time.now   #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   t.gmt?         #=&gt; false
+   t.gmtime       #=&gt; Wed Apr 09 13:56:03 UTC 2003
+   t.gmt?         #=&gt; true
+
+   t = Time.now   #=&gt; Wed Apr 09 08:56:04 CDT 2003
+   t.utc?         #=&gt; false
+   t.utc          #=&gt; Wed Apr 09 13:56:04 UTC 2003
+   t.utc?         #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='gmtoff'>&lt;p&gt;Returns the offset in seconds between the timezone of &lt;em&gt;time&lt;/em&gt; and UTC.&lt;/p&gt;&lt;pre&gt;   t = Time.gm(2000,1,1,20,15,1)   #=&gt; Sat Jan 01 20:15:01 UTC 2000
+   t.gmt_offset                    #=&gt; 0
+   l = t.getlocal                  #=&gt; Sat Jan 01 14:15:01 CST 2000
+   l.gmt_offset                    #=&gt; -21600
+&lt;/pre&gt;</method>
+    <method name='hash'>&lt;p&gt;Return a hash code for this time object.&lt;/p&gt;</method>
+    <method name='hour'>&lt;p&gt;Returns the hour of the day (0..23) for &lt;em&gt;time&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   t = Time.now   #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   t.hour         #=&gt; 8
+&lt;/pre&gt;</method>
+    <method name='httpdate'>&lt;p&gt;Returns a string which represents the time as rfc1123-date of HTTP-date defined by RFC 2616:&lt;/p&gt;&lt;pre&gt;  day-of-week, DD month-name CCYY hh:mm:ss GMT
+&lt;/pre&gt;&lt;p&gt;Note that the result is always UTC (GMT).&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;Returns a string representing &lt;em&gt;time&lt;/em&gt;. Equivalent to calling &lt;tt&gt;Time#strftime&lt;/tt&gt; with a format string of ``&lt;tt&gt;%a&lt;/tt&gt; &lt;tt&gt;%b&lt;/tt&gt; &lt;tt&gt;%d&lt;/tt&gt; &lt;tt&gt;%H:%M:%S&lt;/tt&gt; &lt;tt&gt;%Z&lt;/tt&gt; &lt;tt&gt;%Y&lt;/tt&gt;&apos;&apos;.&lt;/p&gt;&lt;pre&gt;   Time.now.to_s   #=&gt; &quot;Wed Apr 09 08:56:04 CDT 2003&quot;
+&lt;/pre&gt;</method>
+    <method name='isdst'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;time&lt;/em&gt; occurs during Daylight Saving Time in its time zone.&lt;/p&gt;&lt;pre&gt;   Time.local(2000, 7, 1).isdst   #=&gt; true
+   Time.local(2000, 1, 1).isdst   #=&gt; false
+   Time.local(2000, 7, 1).dst?    #=&gt; true
+   Time.local(2000, 1, 1).dst?    #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='iso8601'>&lt;p&gt;Alias for #xmlschema&lt;/p&gt;</method>
+    <method name='localtime'>&lt;p&gt;Converts &lt;em&gt;time&lt;/em&gt; to local time (using the local time zone in effect for this process) modifying the receiver.&lt;/p&gt;&lt;pre&gt;   t = Time.gm(2000, &quot;jan&quot;, 1, 20, 15, 1)
+   t.gmt?        #=&gt; true
+   t.localtime   #=&gt; Sat Jan 01 14:15:01 CST 2000
+   t.gmt?        #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='marshal_dump'>&lt;p&gt;undocumented&lt;/p&gt;</method>
+    <method name='marshal_load'>&lt;p&gt;undocumented&lt;/p&gt;</method>
+    <method name='mday'>&lt;p&gt;Returns the day of the month (1..n) for &lt;em&gt;time&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   t = Time.now   #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   t.day          #=&gt; 9
+   t.mday         #=&gt; 9
+&lt;/pre&gt;</method>
+    <method name='min'>&lt;p&gt;Returns the minute of the hour (0..59) for &lt;em&gt;time&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   t = Time.now   #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   t.min          #=&gt; 56
+&lt;/pre&gt;</method>
+    <method name='mon'>&lt;p&gt;Returns the month of the year (1..12) for &lt;em&gt;time&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   t = Time.now   #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   t.mon          #=&gt; 4
+   t.month        #=&gt; 4
+&lt;/pre&gt;</method>
+    <method name='month'>&lt;p&gt;Returns the month of the year (1..12) for &lt;em&gt;time&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   t = Time.now   #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   t.mon          #=&gt; 4
+   t.month        #=&gt; 4
+&lt;/pre&gt;</method>
+    <method name='rfc2822'>&lt;p&gt;Returns a string which represents the time as date-time defined by RFC 2822:&lt;/p&gt;&lt;pre&gt;  day-of-week, DD month-name CCYY hh:mm:ss zone
+&lt;/pre&gt;&lt;p&gt;where zone is [+-]hhmm.&lt;/p&gt;&lt;p&gt;If &lt;tt&gt;self&lt;/tt&gt; is a UTC time, -0000 is used as zone.&lt;/p&gt;</method>
+    <method name='rfc822'>&lt;p&gt;Alias for #rfc2822&lt;/p&gt;</method>
+    <method name='sec'>&lt;p&gt;Returns the second of the minute (0..60)&lt;em&gt;[Yes, seconds really can range from zero to 60. This allows the system to inject leap seconds every now and then to correct for the fact that years are not really a convenient number of hours long.]&lt;/em&gt; for &lt;em&gt;time&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   t = Time.now   #=&gt; Wed Apr 09 08:56:04 CDT 2003
+   t.sec          #=&gt; 4
+&lt;/pre&gt;</method>
+    <method name='strftime'>&lt;p&gt;Formats &lt;em&gt;time&lt;/em&gt; according to the directives in the given format string. Any text not listed as a directive will be passed through to the output string.&lt;/p&gt;&lt;p&gt;Format meaning:&lt;/p&gt;&lt;pre&gt;  %a - The abbreviated weekday name (``Sun&apos;&apos;)
+  %A - The  full  weekday  name (``Sunday&apos;&apos;)
+  %b - The abbreviated month name (``Jan&apos;&apos;)
+  %B - The  full  month  name (``January&apos;&apos;)
+  %c - The preferred local date and time representation
+  %d - Day of the month (01..31)
+  %H - Hour of the day, 24-hour clock (00..23)
+  %I - Hour of the day, 12-hour clock (01..12)
+  %j - Day of the year (001..366)
+  %m - Month of the year (01..12)
+  %M - Minute of the hour (00..59)
+  %p - Meridian indicator (``AM&apos;&apos;  or  ``PM&apos;&apos;)
+  %S - Second of the minute (00..60)
+  %U - Week  number  of the current year,
+          starting with the first Sunday as the first
+          day of the first week (00..53)
+  %W - Week  number  of the current year,
+          starting with the first Monday as the first
+          day of the first week (00..53)
+  %w - Day of the week (Sunday is 0, 0..6)
+  %x - Preferred representation for the date alone, no time
+  %X - Preferred representation for the time alone, no date
+  %y - Year without a century (00..99)
+  %Y - Year with century
+  %Z - Time zone name
+  %% - Literal ``%&apos;&apos; character
+
+   t = Time.now
+   t.strftime(&quot;Printed on %m/%d/%Y&quot;)   #=&gt; &quot;Printed on 04/09/2003&quot;
+   t.strftime(&quot;at %I:%M%p&quot;)            #=&gt; &quot;at 08:56AM&quot;
+&lt;/pre&gt;</method>
+    <method name='succ'>&lt;p&gt;Return a new time object, one second later than &lt;tt&gt;time&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='to_a'>&lt;p&gt;Returns a ten-element &lt;em&gt;array&lt;/em&gt; of values for &lt;em&gt;time&lt;/em&gt;: {&lt;tt&gt;[ sec, min, hour, day, month, year, wday, yday, isdst, zone ]&lt;/tt&gt;}. See the individual methods for an explanation of the valid ranges of each value. The ten elements can be passed directly to &lt;tt&gt;Time::utc&lt;/tt&gt; or &lt;tt&gt;Time::local&lt;/tt&gt; to create a new &lt;tt&gt;Time&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   now = Time.now   #=&gt; Wed Apr 09 08:56:04 CDT 2003
+   t = now.to_a     #=&gt; [4, 56, 8, 9, 4, 2003, 3, 99, true, &quot;CDT&quot;]
+&lt;/pre&gt;</method>
+    <method name='to_f'>&lt;p&gt;Returns the value of &lt;em&gt;time&lt;/em&gt; as a floating point number of seconds since epoch.&lt;/p&gt;&lt;pre&gt;   t = Time.now
+   &quot;%10.5f&quot; % t.to_f   #=&gt; &quot;1049896564.13654&quot;
+   t.to_i              #=&gt; 1049896564
+&lt;/pre&gt;</method>
+    <method name='to_i'>&lt;p&gt;Returns the value of &lt;em&gt;time&lt;/em&gt; as an integer number of seconds since epoch.&lt;/p&gt;&lt;pre&gt;   t = Time.now
+   &quot;%10.5f&quot; % t.to_f   #=&gt; &quot;1049896564.17839&quot;
+   t.to_i              #=&gt; 1049896564
+&lt;/pre&gt;</method>
+    <method name='to_s'>&lt;p&gt;Returns a string representing &lt;em&gt;time&lt;/em&gt;. Equivalent to calling &lt;tt&gt;Time#strftime&lt;/tt&gt; with a format string of ``&lt;tt&gt;%a&lt;/tt&gt; &lt;tt&gt;%b&lt;/tt&gt; &lt;tt&gt;%d&lt;/tt&gt; &lt;tt&gt;%H:%M:%S&lt;/tt&gt; &lt;tt&gt;%Z&lt;/tt&gt; &lt;tt&gt;%Y&lt;/tt&gt;&apos;&apos;.&lt;/p&gt;&lt;pre&gt;   Time.now.to_s   #=&gt; &quot;Wed Apr 09 08:56:04 CDT 2003&quot;
+&lt;/pre&gt;</method>
+    <method name='to_yaml'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='tv_sec'>&lt;p&gt;Returns the value of &lt;em&gt;time&lt;/em&gt; as an integer number of seconds since epoch.&lt;/p&gt;&lt;pre&gt;   t = Time.now
+   &quot;%10.5f&quot; % t.to_f   #=&gt; &quot;1049896564.17839&quot;
+   t.to_i              #=&gt; 1049896564
+&lt;/pre&gt;</method>
+    <method name='tv_usec'>&lt;p&gt;Returns just the number of microseconds for &lt;em&gt;time&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   t = Time.now        #=&gt; Wed Apr 09 08:56:04 CDT 2003
+   &quot;%10.6f&quot; % t.to_f   #=&gt; &quot;1049896564.259970&quot;
+   t.usec              #=&gt; 259970
+&lt;/pre&gt;</method>
+    <method name='usec'>&lt;p&gt;Returns just the number of microseconds for &lt;em&gt;time&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   t = Time.now        #=&gt; Wed Apr 09 08:56:04 CDT 2003
+   &quot;%10.6f&quot; % t.to_f   #=&gt; &quot;1049896564.259970&quot;
+   t.usec              #=&gt; 259970
+&lt;/pre&gt;</method>
+    <method name='utc'>&lt;p&gt;Converts &lt;em&gt;time&lt;/em&gt; to UTC (GMT), modifying the receiver.&lt;/p&gt;&lt;pre&gt;   t = Time.now   #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   t.gmt?         #=&gt; false
+   t.gmtime       #=&gt; Wed Apr 09 13:56:03 UTC 2003
+   t.gmt?         #=&gt; true
+
+   t = Time.now   #=&gt; Wed Apr 09 08:56:04 CDT 2003
+   t.utc?         #=&gt; false
+   t.utc          #=&gt; Wed Apr 09 13:56:04 UTC 2003
+   t.utc?         #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='utc?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;time&lt;/em&gt; represents a time in UTC (GMT).&lt;/p&gt;&lt;pre&gt;   t = Time.now                        #=&gt; Wed Apr 09 08:56:04 CDT 2003
+   t.utc?                              #=&gt; false
+   t = Time.gm(2000,&quot;jan&quot;,1,20,15,1)   #=&gt; Sat Jan 01 20:15:01 UTC 2000
+   t.utc?                              #=&gt; true
+
+   t = Time.now                        #=&gt; Wed Apr 09 08:56:03 CDT 2003
+   t.gmt?                              #=&gt; false
+   t = Time.gm(2000,1,1,20,15,1)       #=&gt; Sat Jan 01 20:15:01 UTC 2000
+   t.gmt?                              #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='utc_offset'>&lt;p&gt;Returns the offset in seconds between the timezone of &lt;em&gt;time&lt;/em&gt; and UTC.&lt;/p&gt;&lt;pre&gt;   t = Time.gm(2000,1,1,20,15,1)   #=&gt; Sat Jan 01 20:15:01 UTC 2000
+   t.gmt_offset                    #=&gt; 0
+   l = t.getlocal                  #=&gt; Sat Jan 01 14:15:01 CST 2000
+   l.gmt_offset                    #=&gt; -21600
+&lt;/pre&gt;</method>
+    <method name='wday'>&lt;p&gt;Returns an integer representing the day of the week, 0..6, with Sunday == 0.&lt;/p&gt;&lt;pre&gt;   t = Time.now   #=&gt; Wed Apr 09 08:56:04 CDT 2003
+   t.wday         #=&gt; 3
+&lt;/pre&gt;</method>
+    <method name='xmlschema'>&lt;p&gt;Returns a string which represents the time as dateTime defined by XML Schema:&lt;/p&gt;&lt;pre&gt;  CCYY-MM-DDThh:mm:ssTZD
+  CCYY-MM-DDThh:mm:ss.sssTZD
+&lt;/pre&gt;&lt;p&gt;where TZD is Z or [+-]hh:mm.&lt;/p&gt;&lt;p&gt;If self is a UTC time, Z is used as TZD. [+-]hh:mm is used otherwise.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;fractional_seconds&lt;/tt&gt; specifies a number of digits of fractional seconds. Its default value is 0.&lt;/p&gt;</method>
+    <method name='yday'>&lt;p&gt;Returns an integer representing the day of the year, 1..366.&lt;/p&gt;&lt;pre&gt;   t = Time.now   #=&gt; Wed Apr 09 08:56:04 CDT 2003
+   t.yday         #=&gt; 99
+&lt;/pre&gt;</method>
+    <method name='year'>&lt;p&gt;Returns the year for &lt;em&gt;time&lt;/em&gt; (including the century).&lt;/p&gt;&lt;pre&gt;   t = Time.now   #=&gt; Wed Apr 09 08:56:04 CDT 2003
+   t.year         #=&gt; 2003
+&lt;/pre&gt;</method>
+    <method name='zone'>&lt;p&gt;Returns the name of the time zone used for &lt;em&gt;time&lt;/em&gt;. As of Ruby 1.8, returns ``UTC&apos;&apos; rather than ``GMT&apos;&apos; for UTC times.&lt;/p&gt;&lt;pre&gt;   t = Time.gm(2000, &quot;jan&quot;, 1, 20, 15, 1)
+   t.zone   #=&gt; &quot;UTC&quot;
+   t = Time.local(2000, &quot;jan&quot;, 1, 20, 15, 1)
+   t.zone   #=&gt; &quot;CST&quot;
+&lt;/pre&gt;</method>
+  </methods>
+</help>

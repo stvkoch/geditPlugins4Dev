@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Finally, fill in the list of known formatters&lt;/p&gt;</comment>
+  <methods>
+    <method name='for'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='list'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='blankline'></method>
+    <method name='bold_print'></method>
+    <method name='break_to_newline'>&lt;p&gt;called when we want to ensure a nbew &apos;wrap&apos; starts on a newline Only needed for HtmlFormatter, because the rest do their own line breaking&lt;/p&gt;</method>
+    <method name='conv_html'>&lt;p&gt;convert HTML entities back to ASCII&lt;/p&gt;</method>
+    <method name='conv_markup'>&lt;p&gt;convert markup into display form&lt;/p&gt;</method>
+    <method name='display_flow'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='display_flow_item'></method>
+    <method name='display_heading'></method>
+    <method name='display_list'></method>
+    <method name='display_verbatim_flow_item'></method>
+    <method name='draw_line'></method>
+    <method name='raw_print_line'></method>
+    <method name='strip_attributes'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='wrap'></method>
+  </methods>
+</help>

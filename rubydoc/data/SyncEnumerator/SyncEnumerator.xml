@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;SyncEnumerator creates an Enumerable object from multiple Enumerable objects and enumerates them synchronously.&lt;/p&gt;&lt;h2&gt;Example&lt;/h2&gt;&lt;pre&gt;  require &apos;generator&apos;
+
+  s = SyncEnumerator.new([1,2,3], [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;])
+
+  # Yields [1, &apos;a&apos;], [2, &apos;b&apos;], and [3,&apos;c&apos;]
+  s.each { |row| puts row.join(&apos;, &apos;) }
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new SyncEnumerator which enumerates rows of given Enumerable objects.&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;Enumerates rows of the Enumerable objects.&lt;/p&gt;</method>
+    <method name='end?'>&lt;p&gt;Returns true if the given nth Enumerable object has reached the end. If no argument is given, returns true if any of the Enumerable objects has reached the end.&lt;/p&gt;</method>
+    <method name='length'>&lt;p&gt;Returns the number of enumerated Enumerable objects, i.e. the size of each row.&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;Returns the number of enumerated Enumerable objects, i.e. the size of each row.&lt;/p&gt;</method>
+  </methods>
+</help>

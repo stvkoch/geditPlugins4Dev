@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Templates are used to match tuples in Rinda.&lt;/p&gt;</comment>
+  <methods>
+    <method name='==='>&lt;p&gt;Alias for #match.&lt;/p&gt;</method>
+    <method name='match'>&lt;p&gt;Matches this template against &lt;tt&gt;tuple&lt;/tt&gt;. The &lt;tt&gt;tuple&lt;/tt&gt; must be the same size as the template. An element with a &lt;tt&gt;nil&lt;/tt&gt; value in a template acts as a wildcard, matching any value in the corresponding position in the tuple. Elements of the template match the &lt;tt&gt;tuple&lt;/tt&gt; if the are #== or #===.&lt;/p&gt;&lt;pre&gt;  Template.new([:foo, 5]).match   Tuple.new([:foo, 5]) # =&gt; true
+  Template.new([:foo, nil]).match Tuple.new([:foo, 5]) # =&gt; true
+  Template.new([String]).match    Tuple.new([&apos;hello&apos;]) # =&gt; true
+
+  Template.new([:foo]).match      Tuple.new([:foo, 5]) # =&gt; false
+  Template.new([:foo, 6]).match   Tuple.new([:foo, 5]) # =&gt; false
+  Template.new([:foo, nil]).match Tuple.new([:foo])    # =&gt; false
+  Template.new([:foo, 6]).match   Tuple.new([:foo])    # =&gt; false
+&lt;/pre&gt;</method>
+  </methods>
+</help>

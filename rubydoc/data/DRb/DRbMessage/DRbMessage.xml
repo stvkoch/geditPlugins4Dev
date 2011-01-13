@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Handler for sending and receiving drb messages.&lt;/p&gt;&lt;p&gt;This takes care of the low-level marshalling and unmarshalling of drb requests and responses sent over the wire between server and client. This relieves the implementor of a new drb protocol layer with having to deal with these details.&lt;/p&gt;&lt;p&gt;The user does not have to directly deal with this object in normal use.&lt;/p&gt;</comment>
+  <methods/>
+</help>

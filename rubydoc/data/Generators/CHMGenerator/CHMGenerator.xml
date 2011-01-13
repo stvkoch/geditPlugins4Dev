@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='for'>&lt;p&gt;Standard generator factory&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='check_for_html_help_workshop'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='compile_project'>&lt;p&gt;Invoke the windows help compiler to compiler the project&lt;/p&gt;</method>
+    <method name='create_contents_and_index'>&lt;p&gt;The contents is a list of all files and modules. For each we include as sub-entries the list of methods they contain. As we build the contents we also build an index file&lt;/p&gt;</method>
+    <method name='create_help_project'>&lt;p&gt;The project contains the project file, a table of contents and an index&lt;/p&gt;</method>
+    <method name='create_project_file'>&lt;p&gt;The project file links together all the various files that go to make up the help.&lt;/p&gt;</method>
+    <method name='generate'>&lt;p&gt;Generate the html as normal, then wrap it in a help project&lt;/p&gt;</method>
+  </methods>
+</help>

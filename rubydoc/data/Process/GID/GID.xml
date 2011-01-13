@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The &lt;tt&gt;Process::GID&lt;/tt&gt; module contains a collection of module functions which can be used to portably get, set, and switch the current process&apos;s real, effective, and saved group IDs.&lt;/p&gt;</comment>
+  <methods>
+    <method name='change_privilege'>&lt;p&gt;Change the current process&apos;s real and effective group ID to that specified by &lt;em&gt;integer&lt;/em&gt;. Returns the new group ID. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   [Process.gid, Process.egid]          #=&gt; [0, 0]
+   Process::GID.change_privilege(33)    #=&gt; 33
+   [Process.gid, Process.egid]          #=&gt; [33, 33]
+&lt;/pre&gt;</method>
+    <method name='eid'>&lt;p&gt;Returns the effective group ID for this process. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   Process.egid   #=&gt; 500
+&lt;/pre&gt;</method>
+    <method name='grant_privilege'>&lt;p&gt;Set the effective group ID, and if possible, the saved group ID of the process to the given &lt;em&gt;integer&lt;/em&gt;. Returns the new effective group ID. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   [Process.gid, Process.egid]          #=&gt; [0, 0]
+   Process::GID.grant_privilege(31)     #=&gt; 33
+   [Process.gid, Process.egid]          #=&gt; [0, 33]
+&lt;/pre&gt;</method>
+    <method name='re_exchange'>&lt;p&gt;Exchange real and effective group IDs and return the new effective group ID. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   [Process.gid, Process.egid]   #=&gt; [0, 33]
+   Process::GID.re_exchange      #=&gt; 0
+   [Process.gid, Process.egid]   #=&gt; [33, 0]
+&lt;/pre&gt;</method>
+    <method name='re_exchangeable?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the real and effective group IDs of a process may be exchanged on the current platform.&lt;/p&gt;</method>
+    <method name='rid'>&lt;p&gt;Returns the (real) group ID for this process.&lt;/p&gt;&lt;pre&gt;   Process.gid   #=&gt; 500
+&lt;/pre&gt;</method>
+    <method name='sid_available?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the current platform has saved group ID functionality.&lt;/p&gt;</method>
+    <method name='switch'>&lt;p&gt;Switch the effective and real group IDs of the current process. If a &lt;em&gt;block&lt;/em&gt; is given, the group IDs will be switched back after the block is executed. Returns the new effective group ID if called without a block, and the return value of the block if one is given.&lt;/p&gt;</method>
+  </methods>
+</help>

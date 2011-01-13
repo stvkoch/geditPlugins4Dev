@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A class which provides a method `each&apos; to be used as an Enumerable object.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new Enumerable::Enumerator object, which is to be used as an Enumerable object using the given object&apos;s given method with the given arguments.&lt;/p&gt;&lt;p&gt;e.g.:&lt;/p&gt;&lt;pre&gt;    str = &quot;xyz&quot;
+
+    enum = Enumerable::Enumerator.new(str, :each_byte)
+    a = enum.map {|b| &apos;%02x&apos; % b } #=&gt; [&quot;78&quot;, &quot;79&quot;, &quot;7a&quot;]
+&lt;/pre&gt;</method>
+    <method name='each'>&lt;p&gt;Iterates the given block using the object and the method specified in the first place.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='getsockopt'>&lt;p&gt;Gets a socket option. These are protocol and system specific, see your local sytem documentation for details. The option is returned as a String with the data being the binary value of the socket option.&lt;/p&gt;&lt;h3&gt;Parameters&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt;level&lt;/tt&gt; is an integer, usually one of the SOL_ constants such as Socket::SOL_SOCKET, or a protocol level.&lt;/li&gt;&lt;li&gt;&lt;tt&gt;optname&lt;/tt&gt; is an integer, usually one of the SO_ constants, such as Socket::SO_REUSEADDR.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Examples&lt;/h3&gt;&lt;p&gt;Some socket options are integers with boolean values, in this case #getsockopt could be called like this:&lt;/p&gt;&lt;pre&gt;  optval = sock.getsockopt(Socket::SOL_SOCKET,Socket::SO_REUSEADDR)
+  optval = optval.unpack &quot;i&quot;
+  reuseaddr = optval[0] == 0 ? false : true
+&lt;/pre&gt;&lt;p&gt;Some socket options are integers with numeric values, in this case #getsockopt could be called like this:&lt;/p&gt;&lt;pre&gt;  optval = sock.getsockopt(Socket::IPPROTO_IP, Socket::IP_TTL)
+  ipttl = optval.unpack(&quot;i&quot;)[0]
+&lt;/pre&gt;&lt;p&gt;Option values may be structs. Decoding them can be complex as it involves examining your system headers to determine the correct definition. An example is a +struct linger+, which may be defined in your system headers as:&lt;/p&gt;&lt;pre&gt;  struct linger {
+    int l_onoff;
+    int l_linger;
+  };
+&lt;/pre&gt;&lt;p&gt;In this case #getsockopt could be called like this:&lt;/p&gt;&lt;pre&gt;  optval =  sock.getsockopt(Socket::SOL_SOCKET, Socket::SO_LINGER)
+  onoff, linger = optval.unpack &quot;ii&quot;
+&lt;/pre&gt;</method>
+    <method name='recv_nonblock'>&lt;p&gt;Receives up to &lt;em&gt;maxlen&lt;/em&gt; bytes from &lt;tt&gt;socket&lt;/tt&gt; using recvfrom(2) after O_NONBLOCK is set for the underlying file descriptor. &lt;em&gt;flags&lt;/em&gt; is zero or more of the &lt;tt&gt;MSG_&lt;/tt&gt; options. The result, &lt;em&gt;mesg&lt;/em&gt;, is the data received.&lt;/p&gt;&lt;p&gt;When recvfrom(2) returns 0, Socket#recv_nonblock returns an empty string as data. The meaning depends on the socket: EOF on TCP, empty packet on UDP, etc.&lt;/p&gt;&lt;h3&gt;Parameters&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt;maxlen&lt;/tt&gt; - the number of bytes to receive from the socket&lt;/li&gt;&lt;li&gt;&lt;tt&gt;flags&lt;/tt&gt; - zero or more of the &lt;tt&gt;MSG_&lt;/tt&gt; options&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Example&lt;/h3&gt;&lt;pre&gt;     serv = TCPServer.new(&quot;127.0.0.1&quot;, 0)
+     af, port, host, addr = serv.addr
+     c = TCPSocket.new(addr, port)
+     s = serv.accept
+     c.send &quot;aaa&quot;, 0
+     IO.select([s])
+     p s.recv_nonblock(10) #=&gt; &quot;aaa&quot;
+&lt;/pre&gt;&lt;p&gt;Refer to Socket#recvfrom for the exceptions that may be thrown if the call to &lt;em&gt;recv_nonblock&lt;/em&gt; fails.&lt;/p&gt;&lt;p&gt;BasicSocket#recv_nonblock may raise any error corresponding to recvfrom(2) failure, including Errno::EAGAIN.&lt;/p&gt;&lt;h3&gt;See&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Socket#recvfrom&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='setsockopt'>&lt;p&gt;Sets a socket option. These are protocol and system specific, see your local sytem documentation for details.&lt;/p&gt;&lt;h3&gt;Parameters&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt;level&lt;/tt&gt; is an integer, usually one of the SOL_ constants such as Socket::SOL_SOCKET, or a protocol level.&lt;/li&gt;&lt;li&gt;&lt;tt&gt;optname&lt;/tt&gt; is an integer, usually one of the SO_ constants, such as Socket::SO_REUSEADDR.&lt;/li&gt;&lt;li&gt;&lt;tt&gt;optval&lt;/tt&gt; is the value of the option, it is passed to the underlying setsockopt() as a pointer to a certain number of bytes. How this is done depends on the type:&lt;/li&gt;&lt;ul&gt;&lt;li&gt;Fixnum: value is assigned to an int, and a pointer to the int is passed, with length of sizeof(int).&lt;/li&gt;&lt;li&gt;true or false: 1 or 0 (respectively) is assigned to an int, and the int is passed as for a Fixnum. Note that &lt;tt&gt;false&lt;/tt&gt; must be passed, not &lt;tt&gt;nil&lt;/tt&gt;.&lt;/li&gt;&lt;li&gt;String: the string&apos;s data and length is passed to the socket.&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;&lt;h3&gt;Examples&lt;/h3&gt;&lt;p&gt;Some socket options are integers with boolean values, in this case #setsockopt could be called like this:&lt;/p&gt;&lt;pre&gt;  sock.setsockopt(Socket::SOL_SOCKET,Socket::SO_REUSEADDR, true)
+&lt;/pre&gt;&lt;p&gt;Some socket options are integers with numeric values, in this case #setsockopt could be called like this:&lt;/p&gt;&lt;pre&gt;  sock.setsockopt(Socket::IPPROTO_IP, Socket::IP_TTL, 255)
+&lt;/pre&gt;&lt;p&gt;Option values may be structs. Passing them can be complex as it involves examining your system headers to determine the correct definition. An example is an &lt;tt&gt;ip_mreq&lt;/tt&gt;, which may be defined in your system headers as:&lt;/p&gt;&lt;pre&gt;  struct ip_mreq {
+    struct  in_addr imr_multiaddr;
+    struct  in_addr imr_interface;
+  };
+&lt;/pre&gt;&lt;p&gt;In this case #setsockopt could be called like this:&lt;/p&gt;&lt;pre&gt;  optval =  IPAddr.new(&quot;224.0.0.251&quot;) + Socket::INADDR_ANY
+  sock.setsockopt(Socket::IPPROTO_IP, Socket::IP_ADD_MEMBERSHIP, optval)
+&lt;/pre&gt;</method>
+  </methods>
+</help>

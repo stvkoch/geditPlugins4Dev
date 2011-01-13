@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='create_doc_param_def'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='create_rpc_param_def'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='derive_rpc_param_def'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='param_count'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='have_outparam?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='input_params'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='output_params'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_outparam'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_param'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

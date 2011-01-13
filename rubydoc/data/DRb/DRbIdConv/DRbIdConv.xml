@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Class responsible for converting between an object and its id.&lt;/p&gt;&lt;p&gt;This, the default implementation, uses an object&apos;s local ObjectSpace &lt;em&gt;id&lt;/em&gt; as its id. This means that an object&apos;s identification over drb remains valid only while that object instance remains alive within the server runtime.&lt;/p&gt;&lt;p&gt;For alternative mechanisms, see DRb::TimerIdConv in rdb/timeridconv.rb and DRbNameIdConv in sample/name.rb in the full drb distribution.&lt;/p&gt;</comment>
+  <methods>
+    <method name='to_id'>&lt;p&gt;Convert an object into a reference id.&lt;/p&gt;&lt;p&gt;This implementation returns the object&apos;s &lt;em&gt;id&lt;/em&gt; in the local object space.&lt;/p&gt;</method>
+    <method name='to_obj'>&lt;p&gt;Convert an object reference id to an object.&lt;/p&gt;&lt;p&gt;This implementation looks up the reference id in the local object space and returns the object it refers to.&lt;/p&gt;</method>
+  </methods>
+</help>

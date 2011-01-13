@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_servant'>&lt;p&gt;for backward compatibility&lt;/p&gt;</method>
+    <method name='allow_content_encoding_gzip='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='app_scope_router'>&lt;p&gt;for backward compatibility&lt;/p&gt;</method>
+    <method name='do_GET'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='do_POST'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_instance'>&lt;p&gt;Servlet interfaces for WEBrick.&lt;/p&gt;</method>
+    <method name='require_path_info?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

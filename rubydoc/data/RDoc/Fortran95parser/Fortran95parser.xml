@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;See rdoc/parsers/parse_f95.rb&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;prepare to parse a Fortran 95 file&lt;/p&gt;</method>
+    <method name='scan'>&lt;p&gt;devine code constructs&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Ruby supports two forms of objectified methods. Class &lt;tt&gt;Method&lt;/tt&gt; is used to represent methods that are associated with a particular object: these method objects are bound to that object. Bound method objects for an object can be created using &lt;tt&gt;Object#method&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;Ruby also supports unbound methods; methods objects that are not associated with a particular object. These can be created either by calling &lt;tt&gt;Module#instance_method&lt;/tt&gt; or by calling &lt;tt&gt;unbind&lt;/tt&gt; on a bound method object. The result of both of these is an &lt;tt&gt;UnboundMethod&lt;/tt&gt; object.&lt;/p&gt;&lt;p&gt;Unbound methods can only be called after they are bound to an object. That object must be be a kind_of? the method&apos;s original class.&lt;/p&gt;&lt;pre&gt;   class Square
+     def area
+       @side * @side
+     end
+     def initialize(side)
+       @side = side
+     end
+   end
+
+   area_un = Square.instance_method(:area)
+
+   s = Square.new(12)
+   area = area_un.bind(s)
+   area.call   #=&gt; 144
+&lt;/pre&gt;&lt;p&gt;Unbound methods are a reference to the method at the time it was objectified: subsequent changes to the underlying class will not affect the unbound method.&lt;/p&gt;&lt;pre&gt;   class Test
+     def test
+       :original
+     end
+   end
+   um = Test.instance_method(:test)
+   class Test
+     def test
+       :modified
+     end
+   end
+   t = Test.new
+   t.test            #=&gt; :modified
+   um.bind(t).call   #=&gt; :original
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='=='>&lt;p&gt;Two method objects are equal if that are bound to the same object and contain the same body.&lt;/p&gt;</method>
+    <method name='arity'>&lt;p&gt;Returns an indication of the number of arguments accepted by a method. Returns a nonnegative integer for methods that take a fixed number of arguments. For Ruby methods that take a variable number of arguments, returns -n-1, where n is the number of required arguments. For methods written in C, returns -1 if the call takes a variable number of arguments.&lt;/p&gt;&lt;pre&gt;   class C
+     def one;    end
+     def two(a); end
+     def three(*a);  end
+     def four(a, b); end
+     def five(a, b, *c);    end
+     def six(a, b, *c, &amp;d); end
+   end
+   c = C.new
+   c.method(:one).arity     #=&gt; 0
+   c.method(:two).arity     #=&gt; 1
+   c.method(:three).arity   #=&gt; -1
+   c.method(:four).arity    #=&gt; 2
+   c.method(:five).arity    #=&gt; -3
+   c.method(:six).arity     #=&gt; -3
+
+   &quot;cat&quot;.method(:size).arity      #=&gt; 0
+   &quot;cat&quot;.method(:replace).arity   #=&gt; 1
+   &quot;cat&quot;.method(:squeeze).arity   #=&gt; -1
+   &quot;cat&quot;.method(:count).arity     #=&gt; -1
+&lt;/pre&gt;</method>
+    <method name='bind'>&lt;p&gt;Bind &lt;em&gt;umeth&lt;/em&gt; to &lt;em&gt;obj&lt;/em&gt;. If &lt;tt&gt;Klass&lt;/tt&gt; was the class from which &lt;em&gt;umeth&lt;/em&gt; was obtained, &lt;tt&gt;obj.kind_of?(Klass)&lt;/tt&gt; must be true.&lt;/p&gt;&lt;pre&gt;   class A
+     def test
+       puts &quot;In test, class = #{self.class}&quot;
+     end
+   end
+   class B &lt; A
+   end
+   class C &lt; B
+   end
+
+   um = B.instance_method(:test)
+   bm = um.bind(C.new)
+   bm.call
+   bm = um.bind(B.new)
+   bm.call
+   bm = um.bind(A.new)
+   bm.call
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   In test, class = C
+   In test, class = B
+   prog.rb:16:in `bind&apos;: bind argument must be an instance of B (TypeError)
+    from prog.rb:16
+&lt;/pre&gt;</method>
+    <method name='clone'>&lt;p&gt;MISSING: documentation&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;Show the name of the underlying method.&lt;/p&gt;&lt;pre&gt;  &quot;cat&quot;.method(:count).inspect   #=&gt; &quot;#&lt;Method: String#count&gt;&quot;
+&lt;/pre&gt;</method>
+    <method name='to_s'>&lt;p&gt;Show the name of the underlying method.&lt;/p&gt;&lt;pre&gt;  &quot;cat&quot;.method(:count).inspect   #=&gt; &quot;#&lt;Method: String#count&gt;&quot;
+&lt;/pre&gt;</method>
+  </methods>
+</help>

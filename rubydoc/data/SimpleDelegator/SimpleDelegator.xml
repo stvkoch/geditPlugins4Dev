@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A concrete implementation of Delegator, this class provides the means to delegate all supported method calls to the object passed into the constructor and even to change the object being delegated to at a later time with __setobj__ .&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Pass in the &lt;em&gt;obj&lt;/em&gt; you would like to delegate method calls to.&lt;/p&gt;</method>
+    <method name='__getobj__'>&lt;p&gt;Returns the current object method calls are being delegated to.&lt;/p&gt;</method>
+    <method name='__setobj__'>&lt;p&gt;Changes the delegate object to &lt;em&gt;obj&lt;/em&gt;.&lt;/p&gt;&lt;p&gt;It&apos;s important to note that this does &lt;b&gt;not&lt;/b&gt; cause SimpleDelegator&apos;s methods to change. Because of this, you probably only want to change delegation to objects of the same type as the original delegate.&lt;/p&gt;&lt;p&gt;Here&apos;s an example of changing the delegation object.&lt;/p&gt;&lt;pre&gt;  names = SimpleDelegator.new(%w{James Edward Gray II})
+  puts names[1]    # =&gt; Edward
+  names.&lt;em&gt;setobj&lt;/em&gt;(%w{Gavin Sinclair})
+  puts names[1]    # =&gt; Sinclair
+&lt;/pre&gt;</method>
+    <method name='clone'>&lt;p&gt;Clone support for the object returned by __getobj__.&lt;/p&gt;</method>
+    <method name='dup'>&lt;p&gt;Duplication support for the object returned by __getobj__.&lt;/p&gt;</method>
+  </methods>
+</help>

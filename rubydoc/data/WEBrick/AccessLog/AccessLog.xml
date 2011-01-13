@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='format'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='setup_params'>&lt;p&gt;This format specification is a subset of mod_log_config of Apache.&lt;/p&gt;&lt;pre&gt;  http://httpd.apache.org/docs/mod/mod_log_config.html#formats
+&lt;/pre&gt;</method>
+  </methods>
+</help>

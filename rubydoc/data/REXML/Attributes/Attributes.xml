@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A class that defines the set of Attributes of an Element and provides operations for accessing elements in that set.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Constructor&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the Element of which this is an Attribute&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Alias for #add&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;Fetches an attribute value. If you want to get the Attribute itself, use get_attribute()&lt;/p&gt;&lt;ul&gt;&lt;li&gt;an XPath attribute name. Namespaces are relevant here.&lt;/li&gt;&lt;li&gt;the String value of the matching attribute, or &lt;tt&gt;nil&lt;/tt&gt; if no matching attribute was found.&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; doc = Document.new &quot;&lt;a foo:att=&apos;1&apos; bar:att=&apos;2&apos; att=&apos;3&apos;/&gt;&quot;
+ doc.root.attributes[&apos;att&apos;]         #-&gt; &apos;3&apos;
+ doc.root.attributes[&apos;bar:att&apos;]     #-&gt; &apos;2&apos;
+&lt;/pre&gt;</method>
+    <method name='[]='>&lt;p&gt;Sets an attribute, overwriting any existing attribute value by the same name. Namespace is significant.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the name of the attribute&lt;/li&gt;&lt;li&gt;(optional) If supplied, the value of the attribute. If nil, any existing matching attribute is deleted.&lt;/li&gt;&lt;li&gt;Owning element&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; doc = Document.new &quot;&lt;a x:foo=&apos;1&apos; foo=&apos;3&apos;/&gt;&quot;
+ doc.root.attributes[&apos;y:foo&apos;] = &apos;2&apos;
+ doc.root.attributes[&apos;foo&apos;] = &apos;4&apos;
+ doc.root.attributes[&apos;x:foo&apos;] = nil
+&lt;/pre&gt;</method>
+    <method name='add'>&lt;p&gt;Adds an attribute, overriding any existing attribute by the same name. Namespaces are significant.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;An Attribute&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='delete'>&lt;p&gt;Removes an attribute&lt;/p&gt;&lt;ul&gt;&lt;li&gt;either a String, which is the name of the attribute to remove -- namespaces are significant here -- or the attribute to remove.&lt;/li&gt;&lt;li&gt;the owning element&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; doc = Document.new &quot;&lt;a y:foo=&apos;0&apos; x:foo=&apos;1&apos; foo=&apos;3&apos; z:foo=&apos;4&apos;/&gt;&quot;
+ doc.root.attributes.delete &apos;foo&apos;   #-&gt; &lt;a y:foo=&apos;0&apos; x:foo=&apos;1&apos; z:foo=&apos;4&apos;/&gt;&quot;
+ doc.root.attributes.delete &apos;x:foo&apos; #-&gt; &lt;a y:foo=&apos;0&apos; z:foo=&apos;4&apos;/&gt;&quot;
+ attr = doc.root.attributes.get_attribute(&apos;y:foo&apos;)
+ doc.root.attributes.delete attr    #-&gt; &lt;a z:foo=&apos;4&apos;/&gt;&quot;
+&lt;/pre&gt;</method>
+    <method name='delete_all'>&lt;p&gt;Deletes all attributes matching a name. Namespaces are significant.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;A String; all attributes that match this path will be removed&lt;/li&gt;&lt;li&gt;an Array of the Attributes that were removed&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='each'>&lt;p&gt;Itterates over each attribute of an Element, yielding the expanded name and value as a pair of Strings.&lt;/p&gt;&lt;pre&gt; doc = Document.new &apos;&lt;a x=&quot;1&quot; y=&quot;2&quot;/&gt;&apos;
+ doc.root.attributes.each {|name, value| p name+&quot; =&gt; &quot;+value }
+&lt;/pre&gt;</method>
+    <method name='each_attribute'>&lt;p&gt;Itterates over the attributes of an Element. Yields actual Attribute nodes, not String values.&lt;/p&gt;&lt;pre&gt; doc = Document.new &apos;&lt;a x=&quot;1&quot; y=&quot;2&quot;/&gt;&apos;
+ doc.root.attributes.each_attribute {|attr|
+   p attr.expanded_name+&quot; =&gt; &quot;+attr.value
+ }
+&lt;/pre&gt;</method>
+    <method name='get_attribute'>&lt;p&gt;Fetches an attribute&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the name by which to search for the attribute. Can be a &lt;tt&gt;prefix:name&lt;/tt&gt; namespace name.&lt;/li&gt;&lt;li&gt;The first matching attribute, or nil if there was none. This&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;value is an Attribute node, not the String value of the attribute.&lt;/p&gt;&lt;pre&gt; doc = Document.new &apos;&lt;a x:foo=&quot;1&quot; foo=&quot;2&quot; bar=&quot;3&quot;/&gt;&apos;
+ doc.root.attributes.get_attribute(&quot;foo&quot;).value    #-&gt; &quot;2&quot;
+ doc.root.attributes.get_attribute(&quot;x:foo&quot;).value  #-&gt; &quot;1&quot;
+&lt;/pre&gt;</method>
+    <method name='get_attribute_ns'>&lt;p&gt;The &lt;tt&gt;get_attribute_ns&lt;/tt&gt; method retrieves a method by its namespace and name. Thus it is possible to reliably identify an attribute even if an XML processor has changed the prefix.&lt;/p&gt;&lt;p&gt;Method contributed by Henrik Martensson&lt;/p&gt;</method>
+    <method name='length'>&lt;p&gt;Returns the number of attributes the owning Element contains.&lt;/p&gt;&lt;pre&gt; doc = Document &quot;&lt;a x=&apos;1&apos; y=&apos;2&apos; foo:x=&apos;3&apos;/&gt;&quot;
+ doc.root.attributes.length        #-&gt; 3
+&lt;/pre&gt;</method>
+    <method name='namespaces'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='prefixes'>&lt;p&gt;Returns an array of Strings containing all of the prefixes declared by this set of # attributes. The array does not include the default namespace declaration, if one exists.&lt;/p&gt;&lt;pre&gt; doc = Document.new(&quot;&lt;a xmlns=&apos;foo&apos; xmlns:x=&apos;bar&apos; xmlns:y=&apos;twee&apos; &quot;+
+       &quot;z=&apos;glorp&apos; p:k=&apos;gru&apos;/&gt;&quot;)
+ prefixes = doc.root.attributes.prefixes    #-&gt; [&apos;x&apos;, &apos;y&apos;]
+&lt;/pre&gt;</method>
+    <method name='size'>&lt;p&gt;Alias for #length&lt;/p&gt;</method>
+    <method name='to_a'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

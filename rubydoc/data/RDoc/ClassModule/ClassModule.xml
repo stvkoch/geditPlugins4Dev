@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;ClassModule is the base class for objects representing either a class or a module.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_class_named'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='full_name'>&lt;p&gt;Return the fully qualified name of this class or module&lt;/p&gt;</method>
+    <method name='http_url'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='is_module?'>&lt;p&gt;Return &lt;tt&gt;true&lt;/tt&gt; if this object represents a module&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;to_s is simply for debugging&lt;/p&gt;</method>
+  </methods>
+</help>

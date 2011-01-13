@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This program is copyrighted free software by NAKAMURA, Hiroshi. You can redistribute it and/or modify it under the same terms of Ruby&apos;s license; either the dual license version in 2003, or any later version.&lt;/p&gt;</comment>
+  <methods>
+    <method name='foreach'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='generate'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='generate_line'>&lt;p&gt;Create a line from cells. each cell is stringified by to_s.&lt;/p&gt;</method>
+    <method name='generate_row'>&lt;p&gt;Convert a line from cells data to string. Consider using CSV.generate_line instead. To generate multi-row CSV string, see EXAMPLE below.&lt;/p&gt;&lt;p&gt;EXAMPLE&lt;/p&gt;&lt;pre&gt;  row1 = [&apos;a&apos;, &apos;b&apos;]
+  row2 = [&apos;c&apos;, &apos;d&apos;]
+  row3 = [&apos;e&apos;, &apos;f&apos;]
+  src = [row1, row2, row3]
+  buf = &apos;&apos;
+  src.each do |row|
+    parsed_cells = CSV.generate_row(row, 2, buf)
+    puts &quot;Created #{ parsed_cells } cells.&quot;
+  end
+  p buf
+&lt;/pre&gt;&lt;p&gt;ARGS&lt;/p&gt;&lt;pre&gt;  src: an Array of String to be converted to CSV string.  Must respond to
+    &apos;size&apos; and &apos;[](idx)&apos;.  src[idx] must return String.
+  cells: num of cells in a line.
+  out_dev: buffer for generated CSV string.  Must respond to &apos;&lt;&lt;(string)&apos;.
+  col_sep: Column separator.  ?, by default.  If you want to separate
+    fields with semicolon, give ?; here.
+  row_sep: Row separator.  nil by default.  nil means &quot;\r\n or \n&quot;.  If you
+    want to separate records with \r, give ?\r here.
+&lt;/pre&gt;&lt;p&gt;RETURNS&lt;/p&gt;&lt;pre&gt;  parsed_cells: num of converted cells.
+&lt;/pre&gt;</method>
+    <method name='open'>&lt;p&gt;Open a CSV formatted file for reading or writing.&lt;/p&gt;&lt;p&gt;For reading.&lt;/p&gt;&lt;p&gt;EXAMPLE 1&lt;/p&gt;&lt;pre&gt;  CSV.open(&apos;csvfile.csv&apos;, &apos;r&apos;) do |row|
+    p row
+  end
+&lt;/pre&gt;&lt;p&gt;EXAMPLE 2&lt;/p&gt;&lt;pre&gt;  reader = CSV.open(&apos;csvfile.csv&apos;, &apos;r&apos;)
+  row1 = reader.shift
+  row2 = reader.shift
+  if row2.empty?
+    p &apos;row2 not find.&apos;
+  end
+  reader.close
+&lt;/pre&gt;&lt;p&gt;ARGS&lt;/p&gt;&lt;pre&gt;  filename: filename to parse.
+  col_sep: Column separator.  ?, by default.  If you want to separate
+    fields with semicolon, give ?; here.
+  row_sep: Row separator.  nil by default.  nil means &quot;\r\n or \n&quot;.  If you
+    want to separate records with \r, give ?\r here.
+&lt;/pre&gt;&lt;p&gt;RETURNS&lt;/p&gt;&lt;pre&gt;  reader instance.  To get parse result, see CSV::Reader#each.
+&lt;/pre&gt;&lt;p&gt;For writing.&lt;/p&gt;&lt;p&gt;EXAMPLE 1&lt;/p&gt;&lt;pre&gt;  CSV.open(&apos;csvfile.csv&apos;, &apos;w&apos;) do |writer|
+    writer &lt;&lt; [&apos;r1c1&apos;, &apos;r1c2&apos;]
+    writer &lt;&lt; [&apos;r2c1&apos;, &apos;r2c2&apos;]
+    writer &lt;&lt; [nil, nil]
+  end
+&lt;/pre&gt;&lt;p&gt;EXAMPLE 2&lt;/p&gt;&lt;pre&gt;  writer = CSV.open(&apos;csvfile.csv&apos;, &apos;w&apos;)
+  writer &lt;&lt; [&apos;r1c1&apos;, &apos;r1c2&apos;] &lt;&lt; [&apos;r2c1&apos;, &apos;r2c2&apos;] &lt;&lt; [nil, nil]
+  writer.close
+&lt;/pre&gt;&lt;p&gt;ARGS&lt;/p&gt;&lt;pre&gt;  filename: filename to generate.
+  col_sep: Column separator.  ?, by default.  If you want to separate
+    fields with semicolon, give ?; here.
+  row_sep: Row separator.  nil by default.  nil means &quot;\r\n or \n&quot;.  If you
+    want to separate records with \r, give ?\r here.
+&lt;/pre&gt;&lt;p&gt;RETURNS&lt;/p&gt;&lt;pre&gt;  writer instance.  See CSV::Writer#&lt;&lt; and CSV::Writer#add_row to know how
+  to generate CSV string.
+&lt;/pre&gt;</method>
+    <method name='parse'>&lt;p&gt;Parse lines from given string or stream. Return rows as an Array of Arrays.&lt;/p&gt;</method>
+    <method name='parse_line'>&lt;p&gt;Parse a line from given string. Bear in mind it parses ONE LINE. Rest of the string is ignored for example &quot;a,b\r\nc,d&quot; =&gt; [&apos;a&apos;, &apos;b&apos;] and the second line &apos;c,d&apos; is ignored.&lt;/p&gt;&lt;p&gt;If you don&apos;t know whether a target string to parse is exactly 1 line or not, use CSV.parse_row instead of this method.&lt;/p&gt;</method>
+    <method name='parse_row'>&lt;p&gt;Parse a line from string. Consider using CSV.parse_line instead. To parse lines in CSV string, see EXAMPLE below.&lt;/p&gt;&lt;p&gt;EXAMPLE&lt;/p&gt;&lt;pre&gt;  src = &quot;a,b\r\nc,d\r\ne,f&quot;
+  idx = 0
+  begin
+    parsed = []
+    parsed_cells, idx = CSV.parse_row(src, idx, parsed)
+    puts &quot;Parsed #{ parsed_cells } cells.&quot;
+    p parsed
+  end while parsed_cells &gt; 0
+&lt;/pre&gt;&lt;p&gt;ARGS&lt;/p&gt;&lt;pre&gt;  src: a CSV data to be parsed.  Must respond &apos;[](idx)&apos;.
+    src[](idx) must return a char. (Not a string such as &apos;a&apos;, but 97).
+    src[](idx_out_of_bounds) must return nil.  A String satisfies this
+    requirement.
+  idx: index of parsing location of &apos;src&apos;.  0 origin.
+  out_dev: buffer for parsed cells.  Must respond &apos;&lt;&lt;(aString)&apos;.
+  col_sep: Column separator.  ?, by default.  If you want to separate
+    fields with semicolon, give ?; here.
+  row_sep: Row separator.  nil by default.  nil means &quot;\r\n or \n&quot;.  If you
+    want to separate records with \r, give ?\r here.
+&lt;/pre&gt;&lt;p&gt;RETURNS&lt;/p&gt;&lt;pre&gt;  parsed_cells: num of parsed cells.
+  idx: index of next parsing location of &apos;src&apos;.
+&lt;/pre&gt;</method>
+    <method name='read'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='readlines'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

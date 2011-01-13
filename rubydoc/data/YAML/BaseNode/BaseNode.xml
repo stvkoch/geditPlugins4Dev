@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;YAML Generic Model container&lt;/p&gt;</comment>
+  <methods>
+    <method name='[]'>&lt;p&gt;We want the node to act like as Hash if it is.&lt;/p&gt;</method>
+    <method name='at'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='children'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='children_with_index'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='emit'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='match_path'>&lt;p&gt;YPath search returning a complete depth array&lt;/p&gt;</method>
+    <method name='match_segment'>&lt;p&gt;Search a node for a single YPath segment&lt;/p&gt;</method>
+    <method name='search'>&lt;p&gt;Search for YPath entry and return a list of qualified paths.&lt;/p&gt;</method>
+    <method name='select'>&lt;p&gt;Search for YPath entry and return qualified nodes.&lt;/p&gt;</method>
+    <method name='select!'>&lt;p&gt;Search for YPath entry and return transformed nodes.&lt;/p&gt;</method>
+  </methods>
+</help>

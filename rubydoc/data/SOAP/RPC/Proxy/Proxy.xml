@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_document_method'>&lt;p&gt;Alias for #add_document_operation&lt;/p&gt;</method>
+    <method name='add_document_operation'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_method'>&lt;p&gt;Alias for #add_rpc_operation&lt;/p&gt;</method>
+    <method name='add_rpc_method'>&lt;p&gt;Alias for #add_rpc_operation&lt;/p&gt;</method>
+    <method name='add_rpc_operation'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='call'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='check_fault'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='endpoint_url'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='endpoint_url='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='invoke'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='reset_stream'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='route'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_wiredump_file_base'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='test_loopback_response'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='open'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each_address'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each_resource'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='extract_resources'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='getaddress'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='getaddresses'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='getname'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='getnames'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='getresource'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='getresources'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='lazy_initialize'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

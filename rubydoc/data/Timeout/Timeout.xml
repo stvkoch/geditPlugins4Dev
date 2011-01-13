@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;h1&gt;Description&lt;/h1&gt;&lt;p&gt;A way of performing a potentially long-running operation in a thread, and terminating it&apos;s execution if it hasn&apos;t finished within fixed amount of time.&lt;/p&gt;&lt;p&gt;Previous versions of timeout didn&apos;t use a module for namespace. This version provides both Timeout.timeout, and a backwards-compatible #timeout.&lt;/p&gt;&lt;h1&gt;Synopsis&lt;/h1&gt;&lt;pre&gt;  require &apos;timeout&apos;
+  status = Timeout::timeout(5) {
+    # Something that should be interrupted if it takes too much time...
+  }
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='timeout'>&lt;p&gt;Executes the method&apos;s block. If the block execution terminates before &lt;tt&gt;sec&lt;/tt&gt; seconds has passed, it returns true. If not, it terminates the execution and raises &lt;tt&gt;exception&lt;/tt&gt; (which defaults to Timeout::Error).&lt;/p&gt;&lt;p&gt;Note that this is both a method of module Timeout, so you can &apos;include Timeout&apos; into your classes so they have a #timeout method, as well as a module method, so you can call it directly as Timeout.timeout().&lt;/p&gt;</method>
+  </methods>
+</help>

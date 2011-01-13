@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;&lt;tt&gt;ThreadGroup&lt;/tt&gt; provides a means of keeping track of a number of threads as a group. A &lt;tt&gt;Thread&lt;/tt&gt; can belong to only one &lt;tt&gt;ThreadGroup&lt;/tt&gt; at a time; adding a thread to a new group will remove it from any previous group.&lt;/p&gt;&lt;p&gt;Newly created threads belong to the same group as the thread from which they were created.&lt;/p&gt;</comment>
+  <methods>
+    <method name='add'>&lt;p&gt;Adds the given &lt;em&gt;thread&lt;/em&gt; to this group, removing it from any other group to which it may have previously belonged.&lt;/p&gt;&lt;pre&gt;   puts &quot;Initial group is #{ThreadGroup::Default.list}&quot;
+   tg = ThreadGroup.new
+   t1 = Thread.new { sleep }
+   t2 = Thread.new { sleep }
+   puts &quot;t1 is #{t1}&quot;
+   puts &quot;t2 is #{t2}&quot;
+   tg.add(t1)
+   puts &quot;Initial group now #{ThreadGroup::Default.list}&quot;
+   puts &quot;tg group now #{tg.list}&quot;
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Initial group is #&lt;Thread:0x401bdf4c&gt;
+   t1 is #&lt;Thread:0x401b3c90&gt;
+   t2 is #&lt;Thread:0x401b3c18&gt;
+   Initial group now #&lt;Thread:0x401b3c18&gt;#&lt;Thread:0x401bdf4c&gt;
+   tg group now #&lt;Thread:0x401b3c90&gt;
+&lt;/pre&gt;</method>
+    <method name='enclose'>&lt;p&gt;Prevents threads from being added to or removed from the receiving &lt;tt&gt;ThreadGroup&lt;/tt&gt;. New threads can still be started in an enclosed &lt;tt&gt;ThreadGroup&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   ThreadGroup::Default.enclose        #=&gt; #&lt;ThreadGroup:0x4029d914&gt;
+   thr = Thread::new { Thread.stop }   #=&gt; #&lt;Thread:0x402a7210 sleep&gt;
+   tg = ThreadGroup::new               #=&gt; #&lt;ThreadGroup:0x402752d4&gt;
+   tg.add thr
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   ThreadError: can&apos;t move from the enclosed thread group
+&lt;/pre&gt;</method>
+    <method name='enclosed?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;thgrp&lt;/em&gt; is enclosed. See also ThreadGroup#enclose.&lt;/p&gt;</method>
+    <method name='list'>&lt;p&gt;Returns an array of all existing &lt;tt&gt;Thread&lt;/tt&gt; objects that belong to this group.&lt;/p&gt;&lt;pre&gt;   ThreadGroup::Default.list   #=&gt; [#&lt;Thread:0x401bdf4c run&gt;]
+&lt;/pre&gt;</method>
+  </methods>
+</help>

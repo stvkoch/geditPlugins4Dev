@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;SOAPElement is not typed so it is not derived from NSDBase.&lt;/p&gt;</comment>
+  <methods>
+    <method name='decode'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='from_obj'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_elename'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='[]='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add'>&lt;p&gt;Element interfaces.&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='key?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='members'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_obj'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Header module.&lt;/p&gt;&lt;p&gt;Provides access to @header in the mixed-into class as a hash-like object, except with case-insensitive keys. Also provides methods for accessing commonly-used header values in a more convenient format.&lt;/p&gt;</comment>
+  <methods>
+    <method name='[]'>&lt;p&gt;Returns the header field corresponding to the case-insensitive key. For example, a key of &quot;Content-Type&quot; might return &quot;text/html&quot;&lt;/p&gt;</method>
+    <method name='[]='>&lt;p&gt;Sets the header field corresponding to the case-insensitive key.&lt;/p&gt;</method>
+    <method name='add_field'>&lt;p&gt;[Ruby 1.8.3] Adds header field instead of replace. Second argument &lt;tt&gt;val&lt;/tt&gt; must be a String. See also #[]=, #[] and #get_fields.&lt;/p&gt;&lt;pre&gt;  request.add_field &apos;X-My-Header&apos;, &apos;a&apos;
+  p request[&apos;X-My-Header&apos;]              #=&gt; &quot;a&quot;
+  p request.get_fields(&apos;X-My-Header&apos;)   #=&gt; [&quot;a&quot;]
+  request.add_field &apos;X-My-Header&apos;, &apos;b&apos;
+  p request[&apos;X-My-Header&apos;]              #=&gt; &quot;a, b&quot;
+  p request.get_fields(&apos;X-My-Header&apos;)   #=&gt; [&quot;a&quot;, &quot;b&quot;]
+  request.add_field &apos;X-My-Header&apos;, &apos;c&apos;
+  p request[&apos;X-My-Header&apos;]              #=&gt; &quot;a, b, c&quot;
+  p request.get_fields(&apos;X-My-Header&apos;)   #=&gt; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]
+&lt;/pre&gt;</method>
+    <method name='basic_auth'>&lt;p&gt;Set the Authorization: header for &quot;Basic&quot; authorization.&lt;/p&gt;</method>
+    <method name='canonical_each'>&lt;p&gt;Alias for #each_capitalized&lt;/p&gt;</method>
+    <method name='chunked?'>&lt;p&gt;Returns &quot;true&quot; if the &quot;transfer-encoding&quot; header is present and set to &quot;chunked&quot;. This is an HTTP/1.1 feature, allowing the the content to be sent in &quot;chunks&quot; without at the outset stating the entire content length.&lt;/p&gt;</method>
+    <method name='content_length'>&lt;p&gt;Returns an Integer object which represents the Content-Length: header field or &lt;tt&gt;nil&lt;/tt&gt; if that field is not provided.&lt;/p&gt;</method>
+    <method name='content_length='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='content_range'>&lt;p&gt;Returns a Range object which represents Content-Range: header field. This indicates, for a partial entity body, where this fragment fits inside the full entity body, as range of byte offsets.&lt;/p&gt;</method>
+    <method name='content_type'>&lt;p&gt;Returns a content type string such as &quot;text/html&quot;. This method returns nil if Content-Type: header field does not exist.&lt;/p&gt;</method>
+    <method name='content_type='>&lt;p&gt;Alias for #set_content_type&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;Removes a header field.&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;Alias for #each_header&lt;/p&gt;</method>
+    <method name='each_capitalized'>&lt;p&gt;As for #each_header, except the keys are provided in capitalized form.&lt;/p&gt;</method>
+    <method name='each_capitalized_name'>&lt;p&gt;Iterates for each capitalized header names.&lt;/p&gt;</method>
+    <method name='each_header'>&lt;p&gt;Iterates for each header names and values.&lt;/p&gt;</method>
+    <method name='each_key'>&lt;p&gt;Alias for #each_name&lt;/p&gt;</method>
+    <method name='each_name'>&lt;p&gt;Iterates for each header names.&lt;/p&gt;</method>
+    <method name='each_value'>&lt;p&gt;Iterates for each header values.&lt;/p&gt;</method>
+    <method name='fetch'>&lt;p&gt;Returns the header field corresponding to the case-insensitive key. Returns the default value &lt;tt&gt;args&lt;/tt&gt;, or the result of the block, or nil, if there&apos;s no header field named key. See Hash#fetch&lt;/p&gt;</method>
+    <method name='form_data='>&lt;p&gt;Alias for #set_form_data&lt;/p&gt;</method>
+    <method name='get_fields'>&lt;p&gt;[Ruby 1.8.3] Returns an array of header field strings corresponding to the case-insensitive &lt;tt&gt;key&lt;/tt&gt;. This method allows you to get duplicated header fields without any processing. See also #[].&lt;/p&gt;&lt;pre&gt;  p response.get_fields(&apos;Set-Cookie&apos;)
+    #=&gt; [&quot;session=al98axx; expires=Fri, 31-Dec-1999 23:58:23&quot;,
+         &quot;query=rubyscript; expires=Fri, 31-Dec-1999 23:58:23&quot;]
+  p response[&apos;Set-Cookie&apos;]
+    #=&gt; &quot;session=al98axx; expires=Fri, 31-Dec-1999 23:58:23, query=rubyscript; expires=Fri, 31-Dec-1999 23:58:23&quot;
+&lt;/pre&gt;</method>
+    <method name='initialize_http_header'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='key?'>&lt;p&gt;true if &lt;tt&gt;key&lt;/tt&gt; header exists.&lt;/p&gt;</method>
+    <method name='main_type'>&lt;p&gt;Returns a content type string such as &quot;text&quot;. This method returns nil if Content-Type: header field does not exist.&lt;/p&gt;</method>
+    <method name='proxy_basic_auth'>&lt;p&gt;Set Proxy-Authorization: header for &quot;Basic&quot; authorization.&lt;/p&gt;</method>
+    <method name='range'>&lt;p&gt;Returns an Array of Range objects which represents Range: header field, or &lt;tt&gt;nil&lt;/tt&gt; if there is no such header.&lt;/p&gt;</method>
+    <method name='range='>&lt;p&gt;Alias for #set_range&lt;/p&gt;</method>
+    <method name='range_length'>&lt;p&gt;The length of the range represented in Content-Range: header.&lt;/p&gt;</method>
+    <method name='set_content_type'>&lt;p&gt;Set Content-Type: header field by &lt;tt&gt;type&lt;/tt&gt; and &lt;tt&gt;params&lt;/tt&gt;. &lt;tt&gt;type&lt;/tt&gt; must be a String, &lt;tt&gt;params&lt;/tt&gt; must be a Hash.&lt;/p&gt;</method>
+    <method name='set_form_data'>&lt;p&gt;Set header fields and a body from HTML form data. &lt;tt&gt;params&lt;/tt&gt; should be a Hash containing HTML form data. Optional argument &lt;tt&gt;sep&lt;/tt&gt; means data record separator.&lt;/p&gt;&lt;p&gt;This method also set Content-Type: header field to application/x-www-form-urlencoded.&lt;/p&gt;</method>
+    <method name='set_range'>&lt;p&gt;Set Range: header from Range (arg r) or beginning index and length from it (arg idx&amp;len).&lt;/p&gt;&lt;pre&gt;  req.range = (0..1023)
+  req.set_range 0, 1023
+&lt;/pre&gt;</method>
+    <method name='sub_type'>&lt;p&gt;Returns a content type string such as &quot;html&quot;. This method returns nil if Content-Type: header field does not exist or sub-type is not given (e.g. &quot;Content-Type: text&quot;).&lt;/p&gt;</method>
+    <method name='to_hash'>&lt;p&gt;Returns a Hash consist of header names and values.&lt;/p&gt;</method>
+    <method name='type_params'>&lt;p&gt;Returns content type parameters as a Hash as like {&quot;charset&quot; =&gt; &quot;iso-2022-jp&quot;}.&lt;/p&gt;</method>
+  </methods>
+</help>

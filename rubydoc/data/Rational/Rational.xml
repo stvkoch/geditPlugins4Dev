@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Rational implements a rational class for numbers.&lt;/p&gt;&lt;p&gt;&lt;em&gt;A rational number is a number that can be expressed as a fraction p/q where p and q are integers and q != 0. A rational number p/q is said to have numerator p and denominator q. Numbers that are not rational are called irrational numbers.&lt;/em&gt; (http://mathworld.wolfram.com/RationalNumber.html)&lt;/p&gt;&lt;p&gt;To create a Rational Number:&lt;/p&gt;&lt;pre&gt;  Rational(a,b)             # -&gt; a/b
+  Rational.new!(a,b)        # -&gt; a/b
+&lt;/pre&gt;&lt;p&gt;Examples:&lt;/p&gt;&lt;pre&gt;  Rational(5,6)             # -&gt; 5/6
+  Rational(5)               # -&gt; 5/1
+&lt;/pre&gt;&lt;p&gt;Rational numbers are reduced to their lowest terms:&lt;/p&gt;&lt;pre&gt;  Rational(6,10)            # -&gt; 3/5
+&lt;/pre&gt;&lt;p&gt;But not if you use the unusual method &quot;new!&quot;:&lt;/p&gt;&lt;pre&gt;  Rational.new!(6,10)       # -&gt; 6/10
+&lt;/pre&gt;&lt;p&gt;Division by zero is obviously not allowed:&lt;/p&gt;&lt;pre&gt;  Rational(3,0)             # -&gt; ZeroDivisionError
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;This method is actually private.&lt;/p&gt;</method>
+    <method name='new!'>&lt;p&gt;Implements the constructor. This method does not reduce to lowest terms or check for division by zero. Therefore #Rational() should be preferred in normal use.&lt;/p&gt;</method>
+    <method name='reduce'>&lt;p&gt;Reduces the given numerator and denominator to their lowest terms. Use Rational() instead.&lt;/p&gt;</method>
+    <method name='%'>&lt;p&gt;Returns the remainder when this value is divided by &lt;tt&gt;other&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;Examples:&lt;/p&gt;&lt;pre&gt;  r = Rational(7,4)    # -&gt; Rational(7,4)
+  r % Rational(1,2)    # -&gt; Rational(1,4)
+  r % 1                # -&gt; Rational(3,4)
+  r % Rational(1,7)    # -&gt; Rational(1,28)
+  r % 0.26             # -&gt; 0.19
+&lt;/pre&gt;</method>
+    <method name='*'>&lt;p&gt;Returns the product of this value and &lt;tt&gt;a&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;Examples:&lt;/p&gt;&lt;pre&gt;  r = Rational(3,4)    # -&gt; Rational(3,4)
+  r * 2                # -&gt; Rational(3,2)
+  r * 4                # -&gt; Rational(3,1)
+  r * 0.5              # -&gt; 0.375
+  r * Rational(1,2)    # -&gt; Rational(3,8)
+&lt;/pre&gt;</method>
+    <method name='**'>&lt;p&gt;Returns this value raised to the given power.&lt;/p&gt;&lt;p&gt;Examples:&lt;/p&gt;&lt;pre&gt;  r = Rational(3,4)    # -&gt; Rational(3,4)
+  r ** 2               # -&gt; Rational(9,16)
+  r ** 2.0             # -&gt; 0.5625
+  r ** Rational(1,2)   # -&gt; 0.866025403784439
+&lt;/pre&gt;</method>
+    <method name='+'>&lt;p&gt;Returns the addition of this value and &lt;tt&gt;a&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;Examples:&lt;/p&gt;&lt;pre&gt;  r = Rational(3,4)      # -&gt; Rational(3,4)
+  r + 1                  # -&gt; Rational(7,4)
+  r + 0.5                # -&gt; 1.25
+&lt;/pre&gt;</method>
+    <method name='-'>&lt;p&gt;Returns the difference of this value and &lt;tt&gt;a&lt;/tt&gt;. subtracted.&lt;/p&gt;&lt;p&gt;Examples:&lt;/p&gt;&lt;pre&gt;  r = Rational(3,4)    # -&gt; Rational(3,4)
+  r - 1                # -&gt; Rational(-1,4)
+  r - 0.5              # -&gt; 0.25
+&lt;/pre&gt;</method>
+    <method name='/'>&lt;p&gt;Returns the quotient of this value and &lt;tt&gt;a&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;  r = Rational(3,4)    # -&gt; Rational(3,4)
+  r / 2                # -&gt; Rational(3,8)
+  r / 2.0              # -&gt; 0.375
+  r / Rational(1,2)    # -&gt; Rational(3,2)
+&lt;/pre&gt;</method>
+    <method name='&lt;=&gt;'>&lt;p&gt;Standard comparison operator.&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; iff this value is numerically equal to &lt;tt&gt;other&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;But beware:&lt;/p&gt;&lt;pre&gt;  Rational(1,2) == Rational(4,8)          # -&gt; true
+  Rational(1,2) == Rational.new!(4,8)     # -&gt; false
+&lt;/pre&gt;&lt;p&gt;Don&apos;t use Rational.new!&lt;/p&gt;</method>
+    <method name='abs'>&lt;p&gt;Returns the absolute value.&lt;/p&gt;</method>
+    <method name='coerce'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='divmod'>&lt;p&gt;Returns the quotient &lt;em&gt;and&lt;/em&gt; remainder.&lt;/p&gt;&lt;p&gt;Examples:&lt;/p&gt;&lt;pre&gt;  r = Rational(7,4)        # -&gt; Rational(7,4)
+  r.divmod Rational(1,2)   # -&gt; [3, Rational(1,4)]
+&lt;/pre&gt;</method>
+    <method name='hash'>&lt;p&gt;Returns a hash code for the object.&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;Returns a reconstructable string representation:&lt;/p&gt;&lt;pre&gt;  Rational(5,8).inspect     # -&gt; &quot;Rational(5, 8)&quot;
+&lt;/pre&gt;</method>
+    <method name='power2'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_f'>&lt;p&gt;Converts the rational to a Float.&lt;/p&gt;</method>
+    <method name='to_i'>&lt;p&gt;Converts the rational to an Integer. Not the &lt;em&gt;nearest&lt;/em&gt; integer, the truncated integer. Study the following example carefully:&lt;/p&gt;&lt;pre&gt;  Rational(+7,4).to_i             # -&gt; 1
+  Rational(-7,4).to_i             # -&gt; -2
+  (-1.75).to_i                    # -&gt; -1
+&lt;/pre&gt;&lt;p&gt;In other words:&lt;/p&gt;&lt;pre&gt;  Rational(-7,4) == -1.75                 # -&gt; true
+  Rational(-7,4).to_i == (-1.75).to_i     # false
+&lt;/pre&gt;</method>
+    <method name='to_r'>&lt;p&gt;Returns &lt;tt&gt;self&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Returns a string representation of the rational number.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  Rational(3,4).to_s          #  &quot;3/4&quot;
+  Rational(8).to_s            #  &quot;8&quot;
+&lt;/pre&gt;</method>
+  </methods>
+</help>

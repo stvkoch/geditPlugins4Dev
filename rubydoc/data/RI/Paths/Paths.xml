@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Encapsulate all the strangeness to do with finding out where to find RDoc files&lt;/p&gt;&lt;p&gt;We basically deal with three directories:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;The &apos;system&apos; documentation directory, which holds the documentation distributed with Ruby, and which is managed by the Ruby install process&lt;/li&gt;&lt;li&gt;The &apos;site&apos; directory, which contains site-wide documentation added locally.&lt;/li&gt;&lt;li&gt;The &apos;user&apos; documentation directory, stored under the user&apos;s own home directory.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;There&apos;s contention about all this, but for now:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;$datadir/ri/&lt;ver&gt;/system/...&lt;/li&gt;&lt;li&gt;$datadir/ri/&lt;ver&gt;/site/...&lt;/li&gt;&lt;li&gt;~/.rdoc&lt;/li&gt;&lt;/ul&gt;</comment>
+  <methods/>
+</help>

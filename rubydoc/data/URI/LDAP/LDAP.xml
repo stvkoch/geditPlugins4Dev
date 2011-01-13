@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;LDAP URI SCHEMA (described in RFC2255) ldap://&lt;host&gt;/&lt;dn&gt;[?&lt;attrs&gt;[?&lt;scope&gt;[?&lt;filter&gt;[?&lt;extensions&gt;]]]]&lt;/p&gt;</comment>
+  <methods>
+    <method name='build'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='attributes'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='attributes='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='dn'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='dn='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='extensions'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='extensions='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='filter'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='filter='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='hierarchical?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='scope'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='scope='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

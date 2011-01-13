@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A TokenStream is a list of tokens, gathered during the parse of some entity (say a method). Entities populate these streams by being registered with the lexer. Any class can collect tokens by including TokenStream. From the outside, you use such an object by calling the start_collecting_tokens method, followed by calls to add_token and pop_token&lt;/p&gt;</comment>
+  <methods>
+    <method name='add_token'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_tokens'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='pop_token'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='start_collecting_tokens'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='token_stream'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='get_attributes'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='have_children_elements'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inherited'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='install_ns'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='models'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='must_call_validators'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='need_initialize_variables'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='plural_forms'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='required_prefix'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='required_uri'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='tag_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_element_methods'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='convert'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='converter='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='full_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='setup_maker'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='tag_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='validate'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='validate_for_stream'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

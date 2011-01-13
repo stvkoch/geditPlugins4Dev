@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_html'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_special'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_word_pair'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='attribute'>&lt;p&gt;Return an attribute object with the given turn_on and turn_off bits set&lt;/p&gt;</method>
+    <method name='change_attribute'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='changed_attribute_by_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='convert_attrs'>&lt;p&gt;Map attributes like &lt;b&gt;text&lt;/b&gt;to the sequence \001\002&lt;char&gt;\001\003&lt;char&gt;, where &lt;char&gt; is a per-attribute specific character&lt;/p&gt;</method>
+    <method name='convert_html'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='convert_specials'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='copy_string'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='display_attributes'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='flow'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='mask_protected_sequences'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='split_into_flow'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='unmask_protected_sequences'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

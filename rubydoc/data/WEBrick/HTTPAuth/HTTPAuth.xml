@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='_basic_auth'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='basic_auth'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='proxy_basic_auth'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

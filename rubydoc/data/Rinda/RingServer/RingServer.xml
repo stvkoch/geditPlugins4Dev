@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A RingServer allows a Rinda::TupleSpace to be located via UDP broadcasts. Service location uses the following steps:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;A RingServer begins listening on the broadcast UDP address.&lt;/li&gt;&lt;li&gt;A RingFinger sends a UDP packet containing the DRb URI where it will listen for a reply.&lt;/li&gt;&lt;li&gt;The RingServer recieves the UDP packet and connects back to the provided DRb URI with the DRb service.&lt;/li&gt;&lt;/ul&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Advertises &lt;tt&gt;ts&lt;/tt&gt; on the UDP broadcast address at &lt;tt&gt;port&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='do_reply'>&lt;p&gt;Pulls lookup tuples out of the TupleSpace and sends their DRb object the address of the local TupleSpace.&lt;/p&gt;</method>
+    <method name='do_write'>&lt;p&gt;Extracts the response URI from &lt;tt&gt;msg&lt;/tt&gt; and adds it to TupleSpace where it will be picked up by &lt;tt&gt;reply_service&lt;/tt&gt; for notification.&lt;/p&gt;</method>
+    <method name='reply_service'>&lt;p&gt;Creates a thread that notifies waiting clients from the TupleSpace.&lt;/p&gt;</method>
+    <method name='write_service'>&lt;p&gt;Creates a thread that picks up UDP packets and passes them to do_write for decoding.&lt;/p&gt;</method>
+  </methods>
+</help>

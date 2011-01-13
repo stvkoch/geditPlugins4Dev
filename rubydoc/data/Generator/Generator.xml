@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Generator converts an internal iterator (i.e. an Enumerable object) to an external iterator.&lt;/p&gt;&lt;p&gt;Note that it is not very fast since it is implemented using continuations, which are currently slow.&lt;/p&gt;&lt;h2&gt;Example&lt;/h2&gt;&lt;pre&gt;  require &apos;generator&apos;
+
+  # Generator from an Enumerable object
+  g = Generator.new([&apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;Z&apos;])
+
+  while g.next?
+    puts g.next
+  end
+
+  # Generator from a block
+  g = Generator.new { |g|
+    for i in &apos;A&apos;..&apos;C&apos;
+      g.yield i
+    end
+
+    g.yield &apos;Z&apos;
+  }
+
+  # The same result as above
+  while g.next?
+    puts g.next
+  end
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new generator either from an Enumerable object or from a block.&lt;/p&gt;&lt;p&gt;In the former, block is ignored even if given.&lt;/p&gt;&lt;p&gt;In the latter, the given block is called with the generator itself, and expected to call the &lt;tt&gt;yield&lt;/tt&gt; method for each element.&lt;/p&gt;</method>
+    <method name='current'>&lt;p&gt;Returns the element at the current position.&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;Rewinds the generator and enumerates the elements.&lt;/p&gt;</method>
+    <method name='end?'>&lt;p&gt;Returns true if the generator has reached the end.&lt;/p&gt;</method>
+    <method name='index'>&lt;p&gt;Returns the current index (position) counting from zero.&lt;/p&gt;</method>
+    <method name='next'>&lt;p&gt;Returns the element at the current position and moves forward.&lt;/p&gt;</method>
+    <method name='next?'>&lt;p&gt;Returns true if the generator has not reached the end yet.&lt;/p&gt;</method>
+    <method name='pos'>&lt;p&gt;Returns the current index (position) counting from zero.&lt;/p&gt;</method>
+    <method name='rewind'>&lt;p&gt;Rewinds the generator.&lt;/p&gt;</method>
+    <method name='yield'>&lt;p&gt;Yields an element to the generator.&lt;/p&gt;</method>
+  </methods>
+</help>

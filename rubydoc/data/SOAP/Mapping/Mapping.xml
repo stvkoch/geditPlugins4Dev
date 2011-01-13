@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='_obj2soap'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='_soap2obj'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='ary2md'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='ary2soap'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='class2element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='class2qname'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='class_from_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='const_from_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='create_empty_object'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='define_singleton_method'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='elename2name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='fault2exception'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_attribute'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='module_from_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='name2elename'>&lt;p&gt;Allow only (Letter | &apos;_&apos;) (Letter | Digit | &apos;-&apos; | &apos;_&apos;)* here. Caution: &apos;.&apos; is not allowed here. To follow XML spec., it should be NCName.&lt;/p&gt;&lt;pre&gt;  (denied chars) =&gt; .[0-F][0-F]
+  ex. a.b =&gt; a.2eb
+&lt;/pre&gt;</method>
+    <method name='obj2element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='obj2soap'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='schema_attribute_definition'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='schema_element_definition'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='schema_ns_definition'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='schema_type_definition'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_attributes'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='soap2obj'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

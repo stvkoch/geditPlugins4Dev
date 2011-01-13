@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;irb interpriter main routine&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='eval_input'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='output_value'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='prompt'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='signal_handle'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='signal_status'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='suspend_context'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='suspend_input_method'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='suspend_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='suspend_workspace'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

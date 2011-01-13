@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This class represents queues of specified size capacity. The push operation may be blocked if the capacity is full.&lt;/p&gt;&lt;p&gt;See Queue for an example of how a SizedQueue works.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a fixed-length queue with a maximum size of &lt;tt&gt;max&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Alias for #push&lt;/p&gt;</method>
+    <method name='deq'>&lt;p&gt;Alias for #pop&lt;/p&gt;</method>
+    <method name='enq'>&lt;p&gt;Alias for #push&lt;/p&gt;</method>
+    <method name='max'>&lt;p&gt;Returns the maximum size of the queue.&lt;/p&gt;</method>
+    <method name='max='>&lt;p&gt;Sets the maximum size of the queue.&lt;/p&gt;</method>
+    <method name='num_waiting'>&lt;p&gt;Returns the number of threads waiting on the queue.&lt;/p&gt;</method>
+    <method name='pop'>&lt;p&gt;Retrieves data from the queue and runs a waiting thread, if any.&lt;/p&gt;</method>
+    <method name='push'>&lt;p&gt;Pushes &lt;tt&gt;obj&lt;/tt&gt; to the queue. If there is no space left in the queue, waits until space becomes available.&lt;/p&gt;</method>
+    <method name='shift'>&lt;p&gt;Alias for #pop&lt;/p&gt;</method>
+  </methods>
+</help>

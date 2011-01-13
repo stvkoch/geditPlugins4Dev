@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A Source can be searched for patterns, and wraps buffers and other objects and provides consumption of text&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Constructor @param arg must be a String, and should be a valid XML document&lt;/p&gt;</method>
+    <method name='consume'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='current_line'>&lt;p&gt;@return the current line in the source&lt;/p&gt;</method>
+    <method name='empty?'>&lt;p&gt;@return true if the Source is exhausted&lt;/p&gt;</method>
+    <method name='encoding='>&lt;p&gt;Inherited from Encoding Overridden to support optimized en/decoding&lt;/p&gt;</method>
+    <method name='match'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='match_to'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='match_to_consume'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='position'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='read'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='scan'>&lt;p&gt;Scans the source for a given pattern. Note, that this is not your usual scan() method. For one thing, the pattern argument has some requirements; for another, the source can be consumed. You can easily confuse this method. Originally, the patterns were easier to construct and this method more robust, because this method generated search regexes on the fly; however, this was computationally expensive and slowed down the entire REXML package considerably, since this is by far the most commonly called method. @param pattern must be a Regexp, and must be in the form of /^\s*(#{your pattern, with no groups})(.*)/. The first group will be returned; the second group is used if the consume flag is set. @param consume if true, the pattern returned will be consumed, leaving everything after it in the Source. @return the pattern, if found, or nil if the Source is empty or the pattern is not found.&lt;/p&gt;</method>
+  </methods>
+</help>

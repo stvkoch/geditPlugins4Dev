@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='raise_fault'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='request_body'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='request_default_encodingstyle'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='response_default_encodingstyle'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='response_obj'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

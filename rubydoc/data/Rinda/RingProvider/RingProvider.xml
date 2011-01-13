@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;RingProvider uses a RingServer advertised TupleSpace as a name service. TupleSpace clients can register themselves with the remote TupleSpace and look up other provided services via the remote TupleSpace.&lt;/p&gt;&lt;p&gt;Services are registered with a tuple of the format [:name, klass, DRbObject, description].&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a RingProvider that will provide a &lt;tt&gt;klass&lt;/tt&gt; service running on &lt;tt&gt;front&lt;/tt&gt;, with a &lt;tt&gt;description&lt;/tt&gt;. &lt;tt&gt;renewer&lt;/tt&gt; is optional.&lt;/p&gt;</method>
+    <method name='provide'>&lt;p&gt;Advertises this service on the primary remote TupleSpace.&lt;/p&gt;</method>
+  </methods>
+</help>

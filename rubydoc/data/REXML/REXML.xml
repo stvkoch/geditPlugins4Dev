@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;[ :element, parent, name, attributes, children* ] a = Node.new a &lt;&lt; &quot;B&quot; # =&gt; &lt;a&gt;B&lt;/a&gt; a.b # =&gt; &lt;a&gt;B&lt;b/&gt;&lt;/a&gt; a.b[1] # =&gt; &lt;a&gt;B&lt;b/&gt;&lt;b/&gt;&lt;a&gt; a.b[1][&quot;x&quot;] = &quot;y&quot; # =&gt; &lt;a&gt;B&lt;b/&gt;&lt;b x=&quot;y&quot;/&gt;&lt;/a&gt; a.b[0].c # =&gt; &lt;a&gt;B&lt;b&gt;&lt;c/&gt;&lt;/b&gt;&lt;b x=&quot;y&quot;/&gt;&lt;/a&gt; a.b.c &lt;&lt; &quot;D&quot; # =&gt; &lt;a&gt;B&lt;b&gt;&lt;c&gt;D&lt;/c&gt;&lt;/b&gt;&lt;b x=&quot;y&quot;/&gt;&lt;/a&gt;&lt;/p&gt;</comment>
+  <methods/>
+</help>

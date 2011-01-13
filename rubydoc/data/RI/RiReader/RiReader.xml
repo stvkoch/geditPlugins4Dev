@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='all_names'>&lt;p&gt;return a list of all classes, modules, and methods&lt;/p&gt;</method>
+    <method name='find_class_by_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_methods'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='full_class_names'>&lt;p&gt;return the names of all classes and modules&lt;/p&gt;</method>
+    <method name='get_class'>&lt;p&gt;Return a class description&lt;/p&gt;</method>
+    <method name='get_method'>&lt;p&gt;return the MethodDescription for a given MethodEntry by deserializing the YAML&lt;/p&gt;</method>
+    <method name='lookup_namespace_in'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='top_level_namespace'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

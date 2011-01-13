@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A parent has children, and has methods for accessing them. The Parent class is never encountered except as the superclass for some other object.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Constructor @param parent if supplied, will be set as the parent of this object&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Alias for #push&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;Fetches a child at a given index @param index the Integer index of the child to fetch&lt;/p&gt;</method>
+    <method name='[]='>&lt;p&gt;Set an index entry. See Array.[]= @param index the index of the element to set @param opt either the object to set, or an Integer length @param child if opt is an Integer, this is the child to set @return the parent (self)&lt;/p&gt;</method>
+    <method name='add'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='children'>&lt;p&gt;Alias for #to_a&lt;/p&gt;</method>
+    <method name='deep_clone'>&lt;p&gt;Deeply clones this object. This creates a complete duplicate of this Parent, including all descendants.&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='delete_at'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='delete_if'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each_child'>&lt;p&gt;Alias for #each&lt;/p&gt;</method>
+    <method name='each_index'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='index'>&lt;p&gt;Fetches the index of a given child @param child the child to get the index of @return the index of the child, or nil if the object is not a child of this parent.&lt;/p&gt;</method>
+    <method name='insert_after'>&lt;p&gt;Inserts an child after another child @param child1 this is either an xpath or an Element. If an Element, child2 will be inserted after child1 in the child list of the parent. If an xpath, child2 will be inserted after the first child to match the xpath. @param child2 the child to insert @return the parent (self)&lt;/p&gt;</method>
+    <method name='insert_before'>&lt;p&gt;Inserts an child before another child @param child1 this is either an xpath or an Element. If an Element, child2 will be inserted before child1 in the child list of the parent. If an xpath, child2 will be inserted before the first child to match the xpath. @param child2 the child to insert @return the parent (self)&lt;/p&gt;</method>
+    <method name='length'>&lt;p&gt;Alias for #size&lt;/p&gt;</method>
+    <method name='parent?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='push'>&lt;p&gt;Alias for #add&lt;/p&gt;</method>
+    <method name='replace_child'>&lt;p&gt;Replaces one child with another, making sure the nodelist is correct @param to_replace the child to replace (must be a Child) @param replacement the child to insert into the nodelist (must be a Child)&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;@return the number of children of this parent&lt;/p&gt;</method>
+    <method name='to_a'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='unshift'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

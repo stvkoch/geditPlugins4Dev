@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='decode'>&lt;p&gt;Module function&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='[]='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='deep_map'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='include?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='offset='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='position'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='replace'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='soap2array'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_a'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='traverse'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

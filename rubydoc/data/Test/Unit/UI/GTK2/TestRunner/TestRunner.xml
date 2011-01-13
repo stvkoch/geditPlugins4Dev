@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='progress_panel'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='run_button'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='start'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='test_finished'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

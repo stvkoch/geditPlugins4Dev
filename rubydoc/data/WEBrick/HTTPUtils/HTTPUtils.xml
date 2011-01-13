@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='_escape'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='_make_regex'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='_make_regex!'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='_unescape'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='dequote'></method>
+    <method name='escape'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='escape8bit'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='escape_form'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='escape_path'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='load_mime_types'>&lt;p&gt;Load Apache compatible mime.types file.&lt;/p&gt;</method>
+    <method name='mime_type'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='normalize_path'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse_form_data'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse_header'></method>
+    <method name='parse_query'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse_qvalues'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse_range_header'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='quote'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='split_header_value'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='unescape'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='unescape_form'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

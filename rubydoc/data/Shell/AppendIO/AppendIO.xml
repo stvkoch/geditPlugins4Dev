@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;class Sort &lt; Cat&lt;/p&gt;&lt;pre&gt;  def initialize(sh, *filenames)
+    super
+  end
+
+  def each(rs = nil)
+    ary = []
+    super{|l|       ary.push l}
+    for l in ary.sort!
+    yield l
+    end
+  end
+&lt;/pre&gt;&lt;p&gt;end&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='input='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

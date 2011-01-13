@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This class represents a message which exists on the POP server. Instances of this class are created by the POP3 class; they should not be directly created by the user.&lt;/p&gt;</comment>
+  <methods>
+    <method name='all'>&lt;p&gt;Alias for #pop&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;Marks a message for deletion on the server. Deletion does not actually occur until the end of the session; deletion may be cancelled for &lt;em&gt;all&lt;/em&gt; marked messages by calling POP3#reset().&lt;/p&gt;&lt;p&gt;This method raises a POPError if an error occurs.&lt;/p&gt;&lt;h3&gt;Example&lt;/h3&gt;&lt;pre&gt;    POP3.start(&apos;pop.example.com&apos;, 110,
+               &apos;YourAccount, &apos;YourPassword&apos;) do |pop|
+      n = 1
+      pop.mails.each do |popmail|
+        File.open(&quot;inbox/#{n}&quot;, &apos;w&apos;) do |f|
+          f.write popmail.pop
+        end
+        popmail.delete         ####
+        n += 1
+      end
+    end
+&lt;/pre&gt;</method>
+    <method name='delete!'>&lt;p&gt;Alias for #delete&lt;/p&gt;</method>
+    <method name='deleted?'>&lt;p&gt;True if the mail has been deleted.&lt;/p&gt;</method>
+    <method name='header'>&lt;p&gt;Fetches the message header.&lt;/p&gt;&lt;p&gt;The optional &lt;tt&gt;dest&lt;/tt&gt; argument is obsolete.&lt;/p&gt;&lt;p&gt;This method raises a POPError if an error occurs.&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;Provide human-readable stringification of class state.&lt;/p&gt;</method>
+    <method name='mail'>&lt;p&gt;Alias for #pop&lt;/p&gt;</method>
+    <method name='pop'>&lt;p&gt;This method fetches the message. If called with a block, the message is yielded to the block one chunk at a time. If called without a block, the message is returned as a String. The optional &lt;tt&gt;dest&lt;/tt&gt; argument will be prepended to the returned String; this argument is essentially obsolete.&lt;/p&gt;&lt;h3&gt;Example without block&lt;/h3&gt;&lt;pre&gt;    POP3.start(&apos;pop.example.com&apos;, 110,
+               &apos;YourAccount, &apos;YourPassword&apos;) do |pop|
+      n = 1
+      pop.mails.each do |popmail|
+        File.open(&quot;inbox/#{n}&quot;, &apos;w&apos;) do |f|
+          f.write popmail.pop
+        end
+        popmail.delete
+        n += 1
+      end
+    end
+&lt;/pre&gt;&lt;h3&gt;Example with block&lt;/h3&gt;&lt;pre&gt;    POP3.start(&apos;pop.example.com&apos;, 110,
+               &apos;YourAccount, &apos;YourPassword&apos;) do |pop|
+      n = 1
+      pop.mails.each do |popmail|
+        File.open(&quot;inbox/#{n}&quot;, &apos;w&apos;) do |f|
+          popmail.pop do |chunk|            ####
+            f.write chunk
+          end
+        end
+        n += 1
+      end
+    end
+&lt;/pre&gt;&lt;p&gt;This method raises a POPError if an error occurs.&lt;/p&gt;</method>
+    <method name='top'>&lt;p&gt;Fetches the message header and &lt;tt&gt;lines&lt;/tt&gt; lines of body.&lt;/p&gt;&lt;p&gt;The optional &lt;tt&gt;dest&lt;/tt&gt; argument is obsolete.&lt;/p&gt;&lt;p&gt;This method raises a POPError if an error occurs.&lt;/p&gt;</method>
+    <method name='uidl'>&lt;p&gt;Alias for #unique_id&lt;/p&gt;</method>
+    <method name='unique_id'>&lt;p&gt;Returns the unique-id of the message. Normally the unique-id is a hash string of the message.&lt;/p&gt;&lt;p&gt;This method raises a POPError if an error occurs.&lt;/p&gt;</method>
+  </methods>
+</help>

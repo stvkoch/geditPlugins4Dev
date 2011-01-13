@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Allows the storage of a Proc passed through &apos;&amp;&apos; in a hash.&lt;/p&gt;&lt;p&gt;Note: this may be inefficient, since the hash being used is not necessarily very good. In Observable, efficiency is not too important, since the hash is only accessed when adding and removing listeners, not when notifying.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new wrapper for a_proc.&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='eql?'>&lt;p&gt;Alias for #==&lt;/p&gt;</method>
+    <method name='hash'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_proc'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

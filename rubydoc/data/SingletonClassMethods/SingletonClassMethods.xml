@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='clone'>&lt;p&gt;properly clone the Singleton pattern - did you know that duping doesn&apos;t copy class methods?&lt;/p&gt;</method>
+  </methods>
+</help>

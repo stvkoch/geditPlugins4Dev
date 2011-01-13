@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A &lt;tt&gt;Fixnum&lt;/tt&gt; holds &lt;tt&gt;Integer&lt;/tt&gt; values that can be represented in a native machine word (minus 1 bit). If any operation on a &lt;tt&gt;Fixnum&lt;/tt&gt; exceeds this range, the value is automatically converted to a &lt;tt&gt;Bignum&lt;/tt&gt;.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;Fixnum&lt;/tt&gt; objects have immediate value. This means that when they are assigned or passed as parameters, the actual object is passed, rather than a reference to that object. Assignment does not alias &lt;tt&gt;Fixnum&lt;/tt&gt; objects. There is effectively only one &lt;tt&gt;Fixnum&lt;/tt&gt; object instance for any given integer value, so, for example, you cannot add a singleton method to a &lt;tt&gt;Fixnum&lt;/tt&gt;.&lt;/p&gt;</comment>
+  <methods>
+    <method name='induced_from'>&lt;p&gt;Convert &lt;tt&gt;obj&lt;/tt&gt; to a Fixnum. Works with numeric parameters. Also works with Symbols, but this is deprecated.&lt;/p&gt;</method>
+    <method name='%'>&lt;p&gt;Returns &lt;tt&gt;fix&lt;/tt&gt; modulo &lt;tt&gt;other&lt;/tt&gt;. See &lt;tt&gt;Numeric.divmod&lt;/tt&gt; for more information.&lt;/p&gt;</method>
+    <method name='&amp;'>&lt;p&gt;Bitwise AND.&lt;/p&gt;</method>
+    <method name='*'>&lt;p&gt;Performs multiplication: the class of the resulting object depends on the class of &lt;tt&gt;numeric&lt;/tt&gt; and on the magnitude of the result.&lt;/p&gt;</method>
+    <method name='**'>&lt;p&gt;Alias for #rpower&lt;/p&gt;</method>
+    <method name='+'>&lt;p&gt;Performs addition: the class of the resulting object depends on the class of &lt;tt&gt;numeric&lt;/tt&gt; and on the magnitude of the result.&lt;/p&gt;</method>
+    <method name='-'>&lt;p&gt;Performs subtraction: the class of the resulting object depends on the class of &lt;tt&gt;numeric&lt;/tt&gt; and on the magnitude of the result.&lt;/p&gt;</method>
+    <method name='-@'>&lt;p&gt;Negates &lt;tt&gt;fix&lt;/tt&gt; (which might return a Bignum).&lt;/p&gt;</method>
+    <method name='/'>&lt;p&gt;Performs division: the class of the resulting object depends on the class of &lt;tt&gt;numeric&lt;/tt&gt; and on the magnitude of the result.&lt;/p&gt;</method>
+    <method name='&lt;'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the value of &lt;tt&gt;fix&lt;/tt&gt; is less than that of &lt;tt&gt;other&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Shifts &lt;em&gt;fix&lt;/em&gt; left &lt;em&gt;count&lt;/em&gt; positions (right if &lt;em&gt;count&lt;/em&gt; is negative).&lt;/p&gt;</method>
+    <method name='&lt;='>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the value of &lt;tt&gt;fix&lt;/tt&gt; is less thanor equal to that of &lt;tt&gt;other&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='&lt;=&gt;'>&lt;p&gt;Comparison---Returns -1, 0, or +1 depending on whether &lt;em&gt;fix&lt;/em&gt; is less than, equal to, or greater than &lt;em&gt;numeric&lt;/em&gt;. This is the basis for the tests in &lt;tt&gt;Comparable&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;Return &lt;tt&gt;true&lt;/tt&gt; if &lt;tt&gt;fix&lt;/tt&gt; equals &lt;tt&gt;other&lt;/tt&gt; numerically.&lt;/p&gt;&lt;pre&gt;  1 == 2      #=&gt; false
+  1 == 1.0    #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='&gt;'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the value of &lt;tt&gt;fix&lt;/tt&gt; is greater than that of &lt;tt&gt;other&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='&gt;='>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the value of &lt;tt&gt;fix&lt;/tt&gt; is greater than or equal to that of &lt;tt&gt;other&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='&gt;&gt;'>&lt;p&gt;Shifts &lt;em&gt;fix&lt;/em&gt; right &lt;em&gt;count&lt;/em&gt; positions (left if &lt;em&gt;count&lt;/em&gt; is negative).&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;Bit Reference---Returns the &lt;em&gt;n&lt;/em&gt;th bit in the binary representation of &lt;em&gt;fix&lt;/em&gt;, where &lt;em&gt;fix&lt;/em&gt;[0] is the least significant bit.&lt;/p&gt;&lt;pre&gt;   a = 0b11001100101010
+   30.downto(0) do |n| print a[n] end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   0000000000000000011001100101010
+&lt;/pre&gt;</method>
+    <method name='^'>&lt;p&gt;Bitwise EXCLUSIVE OR.&lt;/p&gt;</method>
+    <method name='abs'>&lt;p&gt;Returns the absolute value of &lt;em&gt;fix&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   -12345.abs   #=&gt; 12345
+   12345.abs    #=&gt; 12345
+&lt;/pre&gt;</method>
+    <method name='div'>&lt;p&gt;Performs division: the class of the resulting object depends on the class of &lt;tt&gt;numeric&lt;/tt&gt; and on the magnitude of the result.&lt;/p&gt;</method>
+    <method name='divmod'>&lt;p&gt;See &lt;tt&gt;Numeric#divmod&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='id2name'>&lt;p&gt;Returns the name of the object whose symbol id is &lt;em&gt;fix&lt;/em&gt;. If there is no symbol in the symbol table with this value, returns &lt;tt&gt;nil&lt;/tt&gt;. &lt;tt&gt;id2name&lt;/tt&gt; has nothing to do with the &lt;tt&gt;Object.id&lt;/tt&gt; method. See also &lt;tt&gt;Fixnum#to_sym&lt;/tt&gt;, &lt;tt&gt;String#intern&lt;/tt&gt;, and class &lt;tt&gt;Symbol&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   symbol = :@inst_var    #=&gt; :@inst_var
+   id     = symbol.to_i   #=&gt; 9818
+   id.id2name             #=&gt; &quot;@inst_var&quot;
+&lt;/pre&gt;</method>
+    <method name='modulo'>&lt;p&gt;Returns &lt;tt&gt;fix&lt;/tt&gt; modulo &lt;tt&gt;other&lt;/tt&gt;. See &lt;tt&gt;Numeric.divmod&lt;/tt&gt; for more information.&lt;/p&gt;</method>
+    <method name='power!'>&lt;p&gt;Alias for #**&lt;/p&gt;</method>
+    <method name='quo'>&lt;p&gt;Returns the floating point result of dividing &lt;em&gt;fix&lt;/em&gt; by &lt;em&gt;numeric&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   654321.quo(13731)      #=&gt; 47.6528293642124
+   654321.quo(13731.24)   #=&gt; 47.6519964693647
+&lt;/pre&gt;</method>
+    <method name='rdiv'>&lt;p&gt;Alias for #quo&lt;/p&gt;</method>
+    <method name='rpower'>&lt;p&gt;Returns a Rational number if the result is in fact rational (i.e. &lt;tt&gt;other&lt;/tt&gt; &lt; 0).&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;Returns the number of &lt;em&gt;bytes&lt;/em&gt; in the machine representation of a &lt;tt&gt;Fixnum&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   1.size            #=&gt; 4
+   -1.size           #=&gt; 4
+   2147483647.size   #=&gt; 4
+&lt;/pre&gt;</method>
+    <method name='to_f'>&lt;p&gt;Converts &lt;em&gt;fix&lt;/em&gt; to a &lt;tt&gt;Float&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Returns a string containing the representation of &lt;em&gt;fix&lt;/em&gt; radix &lt;em&gt;base&lt;/em&gt; (between 2 and 36).&lt;/p&gt;&lt;pre&gt;   12345.to_s       #=&gt; &quot;12345&quot;
+   12345.to_s(2)    #=&gt; &quot;11000000111001&quot;
+   12345.to_s(8)    #=&gt; &quot;30071&quot;
+   12345.to_s(10)   #=&gt; &quot;12345&quot;
+   12345.to_s(16)   #=&gt; &quot;3039&quot;
+   12345.to_s(36)   #=&gt; &quot;9ix&quot;
+&lt;/pre&gt;</method>
+    <method name='to_sym'>&lt;p&gt;Returns the symbol whose integer value is &lt;em&gt;fix&lt;/em&gt;. See also &lt;tt&gt;Fixnum#id2name&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   fred = :fred.to_i
+   fred.id2name   #=&gt; &quot;fred&quot;
+   fred.to_sym    #=&gt; :fred
+&lt;/pre&gt;</method>
+    <method name='zero?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;fix&lt;/em&gt; is zero.&lt;/p&gt;</method>
+    <method name='|'>&lt;p&gt;Bitwise OR.&lt;/p&gt;</method>
+    <method name='~'>&lt;p&gt;One&apos;s complement: returns a number where each bit is flipped.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;h2&gt;Pathname&lt;/h2&gt;&lt;p&gt;Pathname represents a pathname which locates a file in a filesystem. The pathname depends on OS: Unix, Windows, etc. Pathname library works with pathnames of local OS. However non-Unix pathnames are supported experimentally.&lt;/p&gt;&lt;p&gt;It does not represent the file itself. A Pathname can be relative or absolute. It&apos;s not until you try to reference the file that it even matters whether the file exists or not.&lt;/p&gt;&lt;p&gt;Pathname is immutable. It has no method for destructive update.&lt;/p&gt;&lt;p&gt;The value of this class is to manipulate file path information in a neater way than standard Ruby provides. The examples below demonstrate the difference. &lt;b&gt;All&lt;/b&gt; functionality from File, FileTest, and some from Dir and FileUtils is included, in an unsurprising way. It is essentially a facade for all of these, and more.&lt;/p&gt;&lt;h2&gt;Examples&lt;/h2&gt;&lt;h3&gt;Example 1: Using Pathname&lt;/h3&gt;&lt;pre&gt;  require &apos;pathname&apos;
+  p = Pathname.new(&quot;/usr/bin/ruby&quot;)
+  size = p.size              # 27662
+  isdir = p.directory?       # false
+  dir  = p.dirname           # Pathname:/usr/bin
+  base = p.basename          # Pathname:ruby
+  dir, base = p.split        # [Pathname:/usr/bin, Pathname:ruby]
+  data = p.read
+  p.open { |f| _ }
+  p.each_line { |line| _ }
+&lt;/pre&gt;&lt;h3&gt;Example 2: Using standard Ruby&lt;/h3&gt;&lt;pre&gt;  p = &quot;/usr/bin/ruby&quot;
+  size = File.size(p)        # 27662
+  isdir = File.directory?(p) # false
+  dir  = File.dirname(p)     # &quot;/usr/bin&quot;
+  base = File.basename(p)    # &quot;ruby&quot;
+  dir, base = File.split(p)  # [&quot;/usr/bin&quot;, &quot;ruby&quot;]
+  data = File.read(p)
+  File.open(p) { |f| _ }
+  File.foreach(p) { |line| _ }
+&lt;/pre&gt;&lt;h3&gt;Example 3: Special features&lt;/h3&gt;&lt;pre&gt;  p1 = Pathname.new(&quot;/usr/lib&quot;)   # Pathname:/usr/lib
+  p2 = p1 + &quot;ruby/1.8&quot;            # Pathname:/usr/lib/ruby/1.8
+  p3 = p1.parent                  # Pathname:/usr
+  p4 = p2.relative_path_from(p3)  # Pathname:lib/ruby/1.8
+  pwd = Pathname.pwd              # Pathname:/home/gavin
+  pwd.absolute?                   # true
+  p5 = Pathname.new &quot;.&quot;           # Pathname:.
+  p5 = p5 + &quot;music/../articles&quot;   # Pathname:music/../articles
+  p5.cleanpath                    # Pathname:articles
+  p5.realpath                     # Pathname:/home/gavin/articles
+  p5.children                     # [Pathname:/home/gavin/articles/linux, ...]
+&lt;/pre&gt;&lt;h2&gt;Breakdown of functionality&lt;/h2&gt;&lt;h3&gt;Core methods&lt;/h3&gt;&lt;p&gt;These methods are effectively manipulating a String, because that&apos;s all a path is. Except for #mountpoint?, #children, and #realpath, they don&apos;t access the filesystem.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;+&lt;/li&gt;&lt;li&gt;#join&lt;/li&gt;&lt;li&gt;#parent&lt;/li&gt;&lt;li&gt;#root?&lt;/li&gt;&lt;li&gt;#absolute?&lt;/li&gt;&lt;li&gt;#relative?&lt;/li&gt;&lt;li&gt;#relative_path_from&lt;/li&gt;&lt;li&gt;#each_filename&lt;/li&gt;&lt;li&gt;#cleanpath&lt;/li&gt;&lt;li&gt;#realpath&lt;/li&gt;&lt;li&gt;#children&lt;/li&gt;&lt;li&gt;#mountpoint?&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;File status predicate methods&lt;/h3&gt;&lt;p&gt;These methods are a facade for FileTest:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;#blockdev?&lt;/li&gt;&lt;li&gt;#chardev?&lt;/li&gt;&lt;li&gt;#directory?&lt;/li&gt;&lt;li&gt;#executable?&lt;/li&gt;&lt;li&gt;#executable_real?&lt;/li&gt;&lt;li&gt;#exist?&lt;/li&gt;&lt;li&gt;#file?&lt;/li&gt;&lt;li&gt;#grpowned?&lt;/li&gt;&lt;li&gt;#owned?&lt;/li&gt;&lt;li&gt;#pipe?&lt;/li&gt;&lt;li&gt;#readable?&lt;/li&gt;&lt;li&gt;#world_readable?&lt;/li&gt;&lt;li&gt;#readable_real?&lt;/li&gt;&lt;li&gt;#setgid?&lt;/li&gt;&lt;li&gt;#setuid?&lt;/li&gt;&lt;li&gt;#size&lt;/li&gt;&lt;li&gt;#size?&lt;/li&gt;&lt;li&gt;#socket?&lt;/li&gt;&lt;li&gt;#sticky?&lt;/li&gt;&lt;li&gt;#symlink?&lt;/li&gt;&lt;li&gt;#writable?&lt;/li&gt;&lt;li&gt;#world_writable?&lt;/li&gt;&lt;li&gt;#writable_real?&lt;/li&gt;&lt;li&gt;#zero?&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;File property and manipulation methods&lt;/h3&gt;&lt;p&gt;These methods are a facade for File:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;#atime&lt;/li&gt;&lt;li&gt;#ctime&lt;/li&gt;&lt;li&gt;#mtime&lt;/li&gt;&lt;li&gt;#chmod(mode)&lt;/li&gt;&lt;li&gt;#lchmod(mode)&lt;/li&gt;&lt;li&gt;#chown(owner, group)&lt;/li&gt;&lt;li&gt;#lchown(owner, group)&lt;/li&gt;&lt;li&gt;#fnmatch(pattern, *args)&lt;/li&gt;&lt;li&gt;#fnmatch?(pattern, *args)&lt;/li&gt;&lt;li&gt;#ftype&lt;/li&gt;&lt;li&gt;#make_link(old)&lt;/li&gt;&lt;li&gt;#open(*args, &amp;block)&lt;/li&gt;&lt;li&gt;#readlink&lt;/li&gt;&lt;li&gt;#rename(to)&lt;/li&gt;&lt;li&gt;#stat&lt;/li&gt;&lt;li&gt;#lstat&lt;/li&gt;&lt;li&gt;#make_symlink(old)&lt;/li&gt;&lt;li&gt;#truncate(length)&lt;/li&gt;&lt;li&gt;#utime(atime, mtime)&lt;/li&gt;&lt;li&gt;#basename(*args)&lt;/li&gt;&lt;li&gt;#dirname&lt;/li&gt;&lt;li&gt;#extname&lt;/li&gt;&lt;li&gt;#expand_path(*args)&lt;/li&gt;&lt;li&gt;#split&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Directory methods&lt;/h3&gt;&lt;p&gt;These methods are a facade for Dir:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Pathname.glob(*args)&lt;/li&gt;&lt;li&gt;Pathname.getwd / Pathname.pwd&lt;/li&gt;&lt;li&gt;#rmdir&lt;/li&gt;&lt;li&gt;#entries&lt;/li&gt;&lt;li&gt;#each_entry(&amp;block)&lt;/li&gt;&lt;li&gt;#mkdir(*args)&lt;/li&gt;&lt;li&gt;#opendir(*args)&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;IO&lt;/h3&gt;&lt;p&gt;These methods are a facade for IO:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;#each_line(*args, &amp;block)&lt;/li&gt;&lt;li&gt;#read(*args)&lt;/li&gt;&lt;li&gt;#readlines(*args)&lt;/li&gt;&lt;li&gt;#sysopen(*args)&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Utilities&lt;/h3&gt;&lt;p&gt;These methods are a mixture of Find, FileUtils, and others:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;#find(&amp;block)&lt;/li&gt;&lt;li&gt;#mkpath&lt;/li&gt;&lt;li&gt;#rmtree&lt;/li&gt;&lt;li&gt;#unlink / #delete&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Method documentation&lt;/h2&gt;&lt;p&gt;As the above section shows, most of the methods in Pathname are facades. The documentation for these methods generally just says, for instance, &quot;See FileTest.writable?&quot;, as you should be familiar with the original method anyway, and its documentation (e.g. through &lt;tt&gt;ri&lt;/tt&gt;) will contain more information. In some cases, a brief description will follow.&lt;/p&gt;</comment>
+  <methods>
+    <method name='getwd'>&lt;p&gt;See &lt;tt&gt;Dir.getwd&lt;/tt&gt;. Returns the current working directory as a Pathname.&lt;/p&gt;</method>
+    <method name='glob'>&lt;p&gt;See &lt;tt&gt;Dir.glob&lt;/tt&gt;. Returns or yields Pathname objects.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Create a Pathname object from the given String (or String-like object). If &lt;tt&gt;path&lt;/tt&gt; contains a NUL character (&lt;tt&gt;\0&lt;/tt&gt;), an ArgumentError is raised.&lt;/p&gt;</method>
+    <method name='+'>&lt;p&gt;Pathname#+ appends a pathname fragment to this one to produce a new Pathname object.&lt;/p&gt;&lt;pre&gt;  p1 = Pathname.new(&quot;/usr&quot;)      # Pathname:/usr
+  p2 = p1 + &quot;bin/ruby&quot;           # Pathname:/usr/bin/ruby
+  p3 = p1 + &quot;/etc/passwd&quot;        # Pathname:/etc/passwd
+&lt;/pre&gt;&lt;p&gt;This method doesn&apos;t access the file system; it is pure string manipulation.&lt;/p&gt;</method>
+    <method name='&lt;=&gt;'>&lt;p&gt;Provides for comparing pathnames, case-sensitively.&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;Compare this pathname with &lt;tt&gt;other&lt;/tt&gt;. The comparison is string-based. Be aware that two different paths (&lt;tt&gt;foo.txt&lt;/tt&gt; and &lt;tt&gt;./foo.txt&lt;/tt&gt;) can refer to the same file.&lt;/p&gt;</method>
+    <method name='==='>&lt;p&gt;Alias for #==&lt;/p&gt;</method>
+    <method name='TO_PATH'>&lt;p&gt;Alias for #to_s&lt;/p&gt;</method>
+    <method name='absolute?'>&lt;p&gt;Predicate method for testing whether a path is absolute. It returns &lt;tt&gt;true&lt;/tt&gt; if the pathname begins with a slash.&lt;/p&gt;</method>
+    <method name='ascend'>&lt;p&gt;Iterates over and yields a new Pathname object for each element in the given path in ascending order.&lt;/p&gt;&lt;pre&gt; Pathname.new(&apos;/path/to/some/file.rb&apos;).ascend {|v| p v}
+    #&lt;Pathname:/path/to/some/file.rb&gt;
+    #&lt;Pathname:/path/to/some&gt;
+    #&lt;Pathname:/path/to&gt;
+    #&lt;Pathname:/path&gt;
+    #&lt;Pathname:/&gt;
+
+ Pathname.new(&apos;path/to/some/file.rb&apos;).ascend {|v| p v}
+    #&lt;Pathname:path/to/some/file.rb&gt;
+    #&lt;Pathname:path/to/some&gt;
+    #&lt;Pathname:path/to&gt;
+    #&lt;Pathname:path&gt;
+&lt;/pre&gt;&lt;p&gt;It doesn&apos;t access actual filesystem.&lt;/p&gt;&lt;p&gt;This method is available since 1.8.5.&lt;/p&gt;</method>
+    <method name='atime'>&lt;p&gt;See &lt;tt&gt;File.atime&lt;/tt&gt;. Returns last access time.&lt;/p&gt;</method>
+    <method name='basename'>&lt;p&gt;See &lt;tt&gt;File.basename&lt;/tt&gt;. Returns the last component of the path.&lt;/p&gt;</method>
+    <method name='blockdev?'>&lt;p&gt;See &lt;tt&gt;FileTest.blockdev?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='chardev?'>&lt;p&gt;See &lt;tt&gt;FileTest.chardev?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='chdir'>&lt;p&gt;Pathname#chdir is &lt;b&gt;obsoleted&lt;/b&gt; at 1.8.1.&lt;/p&gt;</method>
+    <method name='children'>&lt;p&gt;Returns the children of the directory (files and subdirectories, not recursive) as an array of Pathname objects. By default, the returned pathnames will have enough information to access the files. If you set &lt;tt&gt;with_directory&lt;/tt&gt; to &lt;tt&gt;false&lt;/tt&gt;, then the returned pathnames will contain the filename only.&lt;/p&gt;&lt;p&gt;For example:&lt;/p&gt;&lt;pre&gt;  p = Pathname(&quot;/usr/lib/ruby/1.8&quot;)
+  p.children
+      # -&gt; [ Pathname:/usr/lib/ruby/1.8/English.rb,
+             Pathname:/usr/lib/ruby/1.8/Env.rb,
+             Pathname:/usr/lib/ruby/1.8/abbrev.rb, ... ]
+  p.children(false)
+      # -&gt; [ Pathname:English.rb, Pathname:Env.rb, Pathname:abbrev.rb, ... ]
+&lt;/pre&gt;&lt;p&gt;Note that the result never contain the entries &lt;tt&gt;.&lt;/tt&gt; and &lt;tt&gt;..&lt;/tt&gt; in the directory because they are not children.&lt;/p&gt;&lt;p&gt;This method has existed since 1.8.1.&lt;/p&gt;</method>
+    <method name='chmod'>&lt;p&gt;See &lt;tt&gt;File.chmod&lt;/tt&gt;. Changes permissions.&lt;/p&gt;</method>
+    <method name='chown'>&lt;p&gt;See &lt;tt&gt;File.chown&lt;/tt&gt;. Change owner and group of file.&lt;/p&gt;</method>
+    <method name='chroot'>&lt;p&gt;Pathname#chroot is &lt;b&gt;obsoleted&lt;/b&gt; at 1.8.1.&lt;/p&gt;</method>
+    <method name='cleanpath'>&lt;p&gt;Returns clean pathname of &lt;tt&gt;self&lt;/tt&gt; with consecutive slashes and useless dots removed. The filesystem is not accessed.&lt;/p&gt;&lt;p&gt;If &lt;tt&gt;consider_symlink&lt;/tt&gt; is &lt;tt&gt;true&lt;/tt&gt;, then a more conservative algorithm is used to avoid breaking symbolic linkages. This may retain more &lt;tt&gt;..&lt;/tt&gt; entries than absolutely necessary, but without accessing the filesystem, this can&apos;t be avoided. See #realpath.&lt;/p&gt;</method>
+    <method name='ctime'>&lt;p&gt;See &lt;tt&gt;File.ctime&lt;/tt&gt;. Returns last (directory entry, not file) change time.&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;Alias for #unlink&lt;/p&gt;</method>
+    <method name='descend'>&lt;p&gt;Iterates over and yields a new Pathname object for each element in the given path in descending order.&lt;/p&gt;&lt;pre&gt; Pathname.new(&apos;/path/to/some/file.rb&apos;).descend {|v| p v}
+    #&lt;Pathname:/&gt;
+    #&lt;Pathname:/path&gt;
+    #&lt;Pathname:/path/to&gt;
+    #&lt;Pathname:/path/to/some&gt;
+    #&lt;Pathname:/path/to/some/file.rb&gt;
+
+ Pathname.new(&apos;path/to/some/file.rb&apos;).descend {|v| p v}
+    #&lt;Pathname:path&gt;
+    #&lt;Pathname:path/to&gt;
+    #&lt;Pathname:path/to/some&gt;
+    #&lt;Pathname:path/to/some/file.rb&gt;
+&lt;/pre&gt;&lt;p&gt;It doesn&apos;t access actual filesystem.&lt;/p&gt;&lt;p&gt;This method is available since 1.8.5.&lt;/p&gt;</method>
+    <method name='dir_foreach'>&lt;p&gt;Pathname#dir_foreach is &lt;b&gt;obsoleted&lt;/b&gt; at 1.8.1.&lt;/p&gt;</method>
+    <method name='directory?'>&lt;p&gt;See &lt;tt&gt;FileTest.directory?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='dirname'>&lt;p&gt;See &lt;tt&gt;File.dirname&lt;/tt&gt;. Returns all but the last component of the path.&lt;/p&gt;</method>
+    <method name='each_entry'>&lt;p&gt;Iterates over the entries (files and subdirectories) in the directory. It yields a Pathname object for each entry.&lt;/p&gt;&lt;p&gt;This method has existed since 1.8.1.&lt;/p&gt;</method>
+    <method name='each_filename'>&lt;p&gt;Iterates over each component of the path.&lt;/p&gt;&lt;pre&gt;  Pathname.new(&quot;/usr/bin/ruby&quot;).each_filename {|filename| ... }
+    # yields &quot;usr&quot;, &quot;bin&quot;, and &quot;ruby&quot;.
+&lt;/pre&gt;</method>
+    <method name='each_line'>&lt;p&gt;#each_line iterates over the line in the file. It yields a String object for each line.&lt;/p&gt;&lt;p&gt;This method has existed since 1.8.1.&lt;/p&gt;</method>
+    <method name='entries'>&lt;p&gt;Return the entries (files and subdirectories) in the directory, each as a Pathname object.&lt;/p&gt;</method>
+    <method name='eql?'>&lt;p&gt;Alias for #==&lt;/p&gt;</method>
+    <method name='executable?'>&lt;p&gt;See &lt;tt&gt;FileTest.executable?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='executable_real?'>&lt;p&gt;See &lt;tt&gt;FileTest.executable_real?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='exist?'>&lt;p&gt;See &lt;tt&gt;FileTest.exist?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='expand_path'>&lt;p&gt;See &lt;tt&gt;File.expand_path&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='extname'>&lt;p&gt;See &lt;tt&gt;File.extname&lt;/tt&gt;. Returns the file&apos;s extension.&lt;/p&gt;</method>
+    <method name='file?'>&lt;p&gt;See &lt;tt&gt;FileTest.file?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='find'>&lt;p&gt;Pathname#find is an iterator to traverse a directory tree in a depth first manner. It yields a Pathname for each file under &quot;this&quot; directory.&lt;/p&gt;&lt;p&gt;Since it is implemented by &lt;tt&gt;find.rb&lt;/tt&gt;, &lt;tt&gt;Find.prune&lt;/tt&gt; can be used to control the traverse.&lt;/p&gt;&lt;p&gt;If &lt;tt&gt;self&lt;/tt&gt; is &lt;tt&gt;.&lt;/tt&gt;, yielded pathnames begin with a filename in the current directory, not &lt;tt&gt;./&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='fnmatch'>&lt;p&gt;See &lt;tt&gt;File.fnmatch&lt;/tt&gt;. Return &lt;tt&gt;true&lt;/tt&gt; if the receiver matches the given pattern.&lt;/p&gt;</method>
+    <method name='fnmatch?'>&lt;p&gt;See &lt;tt&gt;File.fnmatch?&lt;/tt&gt; (same as #fnmatch).&lt;/p&gt;</method>
+    <method name='foreach'>&lt;p&gt;This method is &lt;b&gt;obsoleted&lt;/b&gt; at 1.8.1. Use #each_line or #each_entry.&lt;/p&gt;</method>
+    <method name='foreachline'>&lt;p&gt;Pathname#foreachline is &lt;b&gt;obsoleted&lt;/b&gt; at 1.8.1. Use #each_line.&lt;/p&gt;</method>
+    <method name='freeze'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='ftype'>&lt;p&gt;See &lt;tt&gt;File.ftype&lt;/tt&gt;. Returns &quot;type&quot; of file (&quot;file&quot;, &quot;directory&quot;, etc).&lt;/p&gt;</method>
+    <method name='grpowned?'>&lt;p&gt;See &lt;tt&gt;FileTest.grpowned?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='join'>&lt;p&gt;Pathname#join joins pathnames.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;path0.join(path1, ..., pathN)&lt;/tt&gt; is the same as &lt;tt&gt;path0 + path1 + ... + pathN&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='lchmod'>&lt;p&gt;See &lt;tt&gt;File.lchmod&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='lchown'>&lt;p&gt;See &lt;tt&gt;File.lchown&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='link'>&lt;p&gt;Pathname#link is confusing and &lt;b&gt;obsoleted&lt;/b&gt; because the receiver/argument order is inverted to corresponding system call.&lt;/p&gt;</method>
+    <method name='lstat'>&lt;p&gt;See &lt;tt&gt;File.lstat&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='make_link'>&lt;p&gt;See &lt;tt&gt;File.link&lt;/tt&gt;. Creates a hard link.&lt;/p&gt;</method>
+    <method name='make_symlink'>&lt;p&gt;See &lt;tt&gt;File.symlink&lt;/tt&gt;. Creates a symbolic link.&lt;/p&gt;</method>
+    <method name='mkdir'>&lt;p&gt;See &lt;tt&gt;Dir.mkdir&lt;/tt&gt;. Create the referenced directory.&lt;/p&gt;</method>
+    <method name='mkpath'>&lt;p&gt;See &lt;tt&gt;FileUtils.mkpath&lt;/tt&gt;. Creates a full path, including any intermediate directories that don&apos;t yet exist.&lt;/p&gt;</method>
+    <method name='mountpoint?'>&lt;p&gt;#mountpoint? returns &lt;tt&gt;true&lt;/tt&gt; if &lt;tt&gt;self&lt;/tt&gt; points to a mountpoint.&lt;/p&gt;</method>
+    <method name='mtime'>&lt;p&gt;See &lt;tt&gt;File.mtime&lt;/tt&gt;. Returns last modification time.&lt;/p&gt;</method>
+    <method name='open'>&lt;p&gt;See &lt;tt&gt;File.open&lt;/tt&gt;. Opens the file for reading or writing.&lt;/p&gt;</method>
+    <method name='opendir'>&lt;p&gt;See &lt;tt&gt;Dir.open&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='owned?'>&lt;p&gt;See &lt;tt&gt;FileTest.owned?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='parent'>&lt;p&gt;#parent returns the parent directory.&lt;/p&gt;&lt;p&gt;This is same as &lt;tt&gt;self + &apos;..&apos;&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='pipe?'>&lt;p&gt;See &lt;tt&gt;FileTest.pipe?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='read'>&lt;p&gt;See &lt;tt&gt;IO.read&lt;/tt&gt;. Returns all the bytes from the file, or the first &lt;tt&gt;N&lt;/tt&gt; if specified.&lt;/p&gt;</method>
+    <method name='readable?'>&lt;p&gt;See &lt;tt&gt;FileTest.readable?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='readable_real?'>&lt;p&gt;See &lt;tt&gt;FileTest.readable_real?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='readlines'>&lt;p&gt;See &lt;tt&gt;IO.readlines&lt;/tt&gt;. Returns all the lines from the file.&lt;/p&gt;</method>
+    <method name='readlink'>&lt;p&gt;See &lt;tt&gt;File.readlink&lt;/tt&gt;. Read symbolic link.&lt;/p&gt;</method>
+    <method name='realpath'>&lt;p&gt;Returns a real (absolute) pathname of &lt;tt&gt;self&lt;/tt&gt; in the actual filesystem. The real pathname doesn&apos;t contain symlinks or useless dots.&lt;/p&gt;&lt;p&gt;No arguments should be given; the old behaviour is &lt;b&gt;obsoleted&lt;/b&gt;.&lt;/p&gt;</method>
+    <method name='relative?'>&lt;p&gt;The opposite of #absolute?&lt;/p&gt;</method>
+    <method name='relative_path_from'>&lt;p&gt;#relative_path_from returns a relative path from the argument to the receiver. If &lt;tt&gt;self&lt;/tt&gt; is absolute, the argument must be absolute too. If &lt;tt&gt;self&lt;/tt&gt; is relative, the argument must be relative too.&lt;/p&gt;&lt;p&gt;#relative_path_from doesn&apos;t access the filesystem. It assumes no symlinks.&lt;/p&gt;&lt;p&gt;ArgumentError is raised when it cannot find a relative path.&lt;/p&gt;&lt;p&gt;This method has existed since 1.8.1.&lt;/p&gt;</method>
+    <method name='rename'>&lt;p&gt;See &lt;tt&gt;File.rename&lt;/tt&gt;. Rename the file.&lt;/p&gt;</method>
+    <method name='rmdir'>&lt;p&gt;See &lt;tt&gt;Dir.rmdir&lt;/tt&gt;. Remove the referenced directory.&lt;/p&gt;</method>
+    <method name='rmtree'>&lt;p&gt;See &lt;tt&gt;FileUtils.rm_r&lt;/tt&gt;. Deletes a directory and all beneath it.&lt;/p&gt;</method>
+    <method name='root?'>&lt;p&gt;#root? is a predicate for root directories. I.e. it returns &lt;tt&gt;true&lt;/tt&gt; if the pathname consists of consecutive slashes.&lt;/p&gt;&lt;p&gt;It doesn&apos;t access actual filesystem. So it may return &lt;tt&gt;false&lt;/tt&gt; for some pathnames which points to roots such as &lt;tt&gt;/usr/..&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='setgid?'>&lt;p&gt;See &lt;tt&gt;FileTest.setgid?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='setuid?'>&lt;p&gt;See &lt;tt&gt;FileTest.setuid?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;See &lt;tt&gt;FileTest.size&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='size?'>&lt;p&gt;See &lt;tt&gt;FileTest.size?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='socket?'>&lt;p&gt;See &lt;tt&gt;FileTest.socket?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='split'>&lt;p&gt;See &lt;tt&gt;File.split&lt;/tt&gt;. Returns the #dirname and the #basename in an Array.&lt;/p&gt;</method>
+    <method name='stat'>&lt;p&gt;See &lt;tt&gt;File.stat&lt;/tt&gt;. Returns a &lt;tt&gt;File::Stat&lt;/tt&gt; object.&lt;/p&gt;</method>
+    <method name='sticky?'>&lt;p&gt;See &lt;tt&gt;FileTest.sticky?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='sub'>&lt;p&gt;Return a pathname which is substituted by String#sub.&lt;/p&gt;</method>
+    <method name='symlink'>&lt;p&gt;Pathname#symlink is confusing and &lt;b&gt;obsoleted&lt;/b&gt; because the receiver/argument order is inverted to corresponding system call.&lt;/p&gt;</method>
+    <method name='symlink?'>&lt;p&gt;See &lt;tt&gt;FileTest.symlink?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='sysopen'>&lt;p&gt;See &lt;tt&gt;IO.sysopen&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='taint'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Return the path as a String.&lt;/p&gt;</method>
+    <method name='truncate'>&lt;p&gt;See &lt;tt&gt;File.truncate&lt;/tt&gt;. Truncate the file to &lt;tt&gt;length&lt;/tt&gt; bytes.&lt;/p&gt;</method>
+    <method name='unlink'>&lt;p&gt;Removes a file or directory, using &lt;tt&gt;File.unlink&lt;/tt&gt; or &lt;tt&gt;Dir.unlink&lt;/tt&gt; as necessary.&lt;/p&gt;</method>
+    <method name='untaint'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='utime'>&lt;p&gt;See &lt;tt&gt;File.utime&lt;/tt&gt;. Update the access and modification times.&lt;/p&gt;</method>
+    <method name='world_readable?'>&lt;p&gt;See &lt;tt&gt;FileTest.world_readable?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='world_writable?'>&lt;p&gt;See &lt;tt&gt;FileTest.world_writable?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='writable?'>&lt;p&gt;See &lt;tt&gt;FileTest.writable?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='writable_real?'>&lt;p&gt;See &lt;tt&gt;FileTest.writable_real?&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='zero?'>&lt;p&gt;See &lt;tt&gt;FileTest.zero?&lt;/tt&gt;.&lt;/p&gt;</method>
+  </methods>
+</help>

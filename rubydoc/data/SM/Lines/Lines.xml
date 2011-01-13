@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A container for all the lines&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='as_text'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='empty?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='line_types'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='next'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='normalize'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='rewind'>&lt;p&gt;def [](index)&lt;/p&gt;&lt;pre&gt;  @lines[index]
+&lt;/pre&gt;&lt;p&gt;end&lt;/p&gt;</method>
+    <method name='unget'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

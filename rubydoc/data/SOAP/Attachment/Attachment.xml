@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='contentid'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='mime_contentid'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='content'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='contentid'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='contentid='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='mime_contentid'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='save'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='write'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

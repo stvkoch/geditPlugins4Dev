@@ -62,7 +62,6 @@ class ClassBrowser( gtk.VBox ):
         self.browser.set_headers_visible(False)
         sw.add(self.browser)
         self.browser.connect("button_press_event",self.__onClick)
-        
         self.pack_start(sw)
 
         # add a text column to the treeview
@@ -78,8 +77,8 @@ class ClassBrowser( gtk.VBox ):
         # connect stuff
         self.browser.connect("row-activated",self.on_row_activated)
         self.show_all()
-        
 
+        
     def history_back(self, widget):
         if self.history_pos == 0: return
         self.history_pos -= 1
@@ -87,7 +86,6 @@ class ClassBrowser( gtk.VBox ):
         self.__openDocumentAtLine( entry[0],entry[1],entry[2],False )
         if len(self.document_history) > 1: self.forward.set_sensitive(True)
         if self.history_pos <= 0: self.back.set_sensitive(False)
-            
             
     def history_forward(self, widget):
         if self.history_pos+1 > len(self.document_history): return
@@ -98,7 +96,6 @@ class ClassBrowser( gtk.VBox ):
         if self.history_pos+1 >= len(self.document_history):
             self.forward.set_sensitive(False)
 
-
     def set_model(self, treemodel, parser=None):
         """ set the gtk.TreeModel that contains the current class tree.
         parser must be an instance of a subclass of ClassParserInterface. """
@@ -108,29 +105,13 @@ class ClassBrowser( gtk.VBox ):
             self.column.set_cell_data_func(self.cellrendererpixbuf, parser.pixbufrenderer)
         self.parser = parser
         self.browser.queue_draw()
-              
-              
-    def __jump_to_tag(self, path):
-        try:
-            path, line = self.parser.get_tag_position(self.browser.get_model(),path)
-            self.__openDocumentAtLine(path, line)
-        except:
-            print "Classbrowser: Unable to jump to path:",path
-                
                 
     def on_row_activated(self, treeview, path, view_column):
-        if self.parser: self.__jump_to_tag(path)
-
+        if self.parser is None: return
+        path, line = self.parser.get_tag_position(self.browser.get_model(),path)
+        self.__openDocumentAtLine(path, line)
 
     def __onClick(self, treeview, event):
-        if event.button == 2:
-            if options.singleton().jumpToTagOnMiddleClick:
-                x, y = int(event.x), int(event.y)
-                pthinfo = treeview.get_path_at_pos(x, y)
-                if pthinfo is None: return
-                path, col, cellx, celly = pthinfo
-                self.__jump_to_tag(path)
-                return True   
         if event.button == 3:
             x, y = int(event.x), int(event.y)
             pthinfo = treeview.get_path_at_pos(x, y)
@@ -143,105 +124,22 @@ class ClassBrowser( gtk.VBox ):
 
             tagpos = self.parser.get_tag_position(self.browser.get_model(),path)
             if tagpos is not None:
-                filename, line = tagpos
+                path, line = tagpos
+
                 m = gtk.ImageMenuItem(gtk.STOCK_JUMP_TO)
                 menu.append(m)
                 m.show()
-                m.connect("activate", lambda w,p,l: self.__openDocumentAtLine(p,l), filename, line )
+                m.connect("activate", lambda w,p,l: self.__openDocumentAtLine(p,l), path, line )
 
             # add the menu items from the parser
             menuitems = self.parser.get_menu(self.browser.get_model(),path)
             for item in menuitems:
                 menu.append(item)
                 item.show()
-                
-            m = gtk.SeparatorMenuItem()
-            m.show()
-            menu.append( m )
-            
-            
-            m = gtk.CheckMenuItem("Auto-_collapse")
-            menu.append(m)
-            m.show()
-            m.set_active( options.singleton().autocollapse )
-            def setcollapse(w):
-                options.singleton().autocollapse = w.get_active()
-            m.connect("toggled", setcollapse )
-            
+
             menu.popup( None, None, None, event.button, event.time)
-            
-
-    def get_current_iter(self):
-       doc = self.geditwindow.get_active_document() 
-       iter = None
-       path = None
-       if doc and self.parser:
-            it = doc.get_iter_at_mark(doc.get_insert())
-            line = it.get_line()            
-            model = self.browser.get_model()
-            path = self.parser.get_tag_at_line(model, doc, line)
-            #if there is no current tag, get the root
-            if path is None: 
-                iter = model.get_iter_root()
-                path = model.get_path(iter)
-            else:
-                #Get current tag
-                iter = model.get_iter(path)
-       return iter, path
 
 
-    """ Jump to next/previous tag depending on direction (0, 1)"""
-    def jump_to_tag(self, direction = 1): 
-    
-        #use self dince python doesn't have true closures, yuck!
-        self.iter_target = None
-        self.iter_next = None
-        self.iter_found = False
-
-        def get_previous(model, path, iter, path_searched):
-             if path_searched is None:
-                self.iter_found = True
-                self.iter_target = model.get_iter_root()
-             if path == path_searched:
-                self.iter_found = True
-                #if we are at the beginning of the tree
-                if self.iter_target is None:
-                    self.iter_target = model.get_iter_root()
-                return True
-             self.iter_target = iter
-             return False
-
-
-        def get_next(model,path, iter, path_searched):
-            if path_searched is None:
-                self.iter_found = True
-                self.iter_target = model.get_iter_root()
-            if self.iter_found: 
-                self.iter_target = iter
-                return True
-            if path == path_searched:  self.iter_found = True   
-            return False
-        search_funcs = get_previous, get_next
-
-        if ( 0 > direction) or (len(search_funcs) <= direction):
-            print "Direction ", direction, " must be between 0 and ", len(search_funcs)
-            raise ValueError, "Invalid direction"
-
-        model = self.browser.get_model()
-        iter, path = self.get_current_iter()
-        model.foreach(search_funcs[direction], path)
-
-        if not self.iter_found or not self.iter_target: 
-            if options.singleton().verbose: print "No target path"
-            return 
-        target_path = model.get_path(self.iter_target)
-        tagpos = self.parser.get_tag_position(model, target_path)
-        if tagpos is not None:
-            path, line = tagpos
-            if options.singleton().verbose: print "jump to", path
-            self.__openDocumentAtLine(path,line)
-
-        
     def __openDocumentAtLine(self, filename, line, column=1, register_history=True):
         """ open a the file specified by filename at the given line and column
         number. Line and column numbering starts at 1. """
@@ -284,7 +182,6 @@ class ClassBrowser( gtk.VBox ):
             self.forward.set_sensitive(False)
             self.history_pos += 1
 
-
     def on_cursor_changed(self, *args):
         """
         I need to catch changes in the cursor position to highlight the current tag
@@ -305,14 +202,13 @@ class ClassBrowser( gtk.VBox ):
                 if options.singleton().verbose: print "current line:",line
 
                 # pipe the current line to the parser
-                self.parser.current_line_changed(self.browser.get_model(), doc, line)
+                self.parser.current_line_changed(doc, line)
 
                 # set cursor on the tag the cursor is pointing to
                 try:
                     path = self.parser.get_tag_at_line(self.browser.get_model(),doc,line)
                     if path:
                         self.browser.realize()
-                        if options.singleton().autocollapse: self.browser.collapse_all()
                         self.browser.expand_to_path(path)
                         self.browser.set_cursor(path)
                         if options.singleton().verbose: print "jump to", path

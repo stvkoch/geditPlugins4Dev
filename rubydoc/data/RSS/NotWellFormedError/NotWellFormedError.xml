@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Create a new NotWellFormedError for an error at &lt;tt&gt;line&lt;/tt&gt; in &lt;tt&gt;element&lt;/tt&gt;. If a block is given the return value of the block ends up in the error message.&lt;/p&gt;</method>
+  </methods>
+</help>

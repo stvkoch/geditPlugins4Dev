@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='pp'>&lt;p&gt;Outputs &lt;tt&gt;obj&lt;/tt&gt; to &lt;tt&gt;out&lt;/tt&gt; in pretty printed format of &lt;tt&gt;width&lt;/tt&gt; columns in width.&lt;/p&gt;&lt;p&gt;If &lt;tt&gt;out&lt;/tt&gt; is omitted, +$&gt;+ is assumed. If &lt;tt&gt;width&lt;/tt&gt; is omitted, 79 is assumed.&lt;/p&gt;&lt;p&gt;PP.pp returns &lt;tt&gt;out&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='singleline_pp'>&lt;p&gt;Outputs &lt;tt&gt;obj&lt;/tt&gt; to &lt;tt&gt;out&lt;/tt&gt; like PP.pp but with no indent and newline.&lt;/p&gt;&lt;p&gt;PP.singleline_pp returns &lt;tt&gt;out&lt;/tt&gt;.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='parse'>&lt;p&gt;Parse command line options. We&apos;re passed a hash containing output generators, keyed by the generator name&lt;/p&gt;</method>
+    <method name='title'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='title='>&lt;p&gt;Set the title, but only if not already set. This means that a title set from the command line trumps one set in a source file&lt;/p&gt;</method>
+  </methods>
+</help>

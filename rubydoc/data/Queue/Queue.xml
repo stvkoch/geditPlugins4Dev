@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This class provides a way to synchronize communication between threads.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  require &apos;thread&apos;
+
+  queue = Queue.new
+
+  producer = Thread.new do
+    5.times do |i|
+      sleep rand(i) # simulate expense
+      queue &lt;&lt; i
+      puts &quot;#{i} produced&quot;
+    end
+  end
+
+  consumer = Thread.new do
+    5.times do |i|
+      value = queue.pop
+      sleep rand(i/2) # simulate expense
+      puts &quot;consumed #{value}&quot;
+    end
+  end
+
+  consumer.join
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new queue.&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Alias for #push&lt;/p&gt;</method>
+    <method name='clear'>&lt;p&gt;Removes all objects from the queue.&lt;/p&gt;</method>
+    <method name='deq'>&lt;p&gt;Alias for #pop&lt;/p&gt;</method>
+    <method name='empty?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; is the queue is empty.&lt;/p&gt;</method>
+    <method name='enq'>&lt;p&gt;Alias for #push&lt;/p&gt;</method>
+    <method name='length'>&lt;p&gt;Returns the length of the queue.&lt;/p&gt;</method>
+    <method name='num_waiting'>&lt;p&gt;Returns the number of threads waiting on the queue.&lt;/p&gt;</method>
+    <method name='pop'>&lt;p&gt;Retrieves data from the queue. If the queue is empty, the calling thread is suspended until data is pushed onto the queue. If &lt;tt&gt;non_block&lt;/tt&gt; is true, the thread isn&apos;t suspended, and an exception is raised.&lt;/p&gt;</method>
+    <method name='push'>&lt;p&gt;Pushes &lt;tt&gt;obj&lt;/tt&gt; to the queue.&lt;/p&gt;</method>
+    <method name='shift'>&lt;p&gt;Alias for #pop&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;Alias for #length&lt;/p&gt;</method>
+  </methods>
+</help>

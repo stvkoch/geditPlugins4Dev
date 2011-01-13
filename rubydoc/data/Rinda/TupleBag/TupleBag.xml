@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;TupleBag is an unordered collection of tuples. It is the basis of Tuplespace.&lt;/p&gt;</comment>
+  <methods>
+    <method name='delete'>&lt;p&gt;Removes &lt;tt&gt;ary&lt;/tt&gt; from the TupleBag.&lt;/p&gt;</method>
+    <method name='delete_unless_alive'>&lt;p&gt;Delete tuples which dead tuples from the TupleBag, returning the deleted tuples.&lt;/p&gt;</method>
+    <method name='find'>&lt;p&gt;Finds a live tuple that matches &lt;tt&gt;template&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='find_all'>&lt;p&gt;Finds all live tuples that match &lt;tt&gt;template&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='find_all_template'>&lt;p&gt;Finds all tuples in the TupleBag which when treated as templates, match &lt;tt&gt;tuple&lt;/tt&gt; and are alive.&lt;/p&gt;</method>
+    <method name='has_expires?'>&lt;p&gt;&lt;tt&gt;true&lt;/tt&gt; if the TupleBag to see if it has any expired entries.&lt;/p&gt;</method>
+    <method name='push'>&lt;p&gt;Add &lt;tt&gt;ary&lt;/tt&gt; to the TupleBag.&lt;/p&gt;</method>
+  </methods>
+</help>

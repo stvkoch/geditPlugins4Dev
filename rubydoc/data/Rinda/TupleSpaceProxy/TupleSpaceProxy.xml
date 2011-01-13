@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;TupleSpaceProxy allows a remote Tuplespace to appear as local.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new TupleSpaceProxy to wrap &lt;tt&gt;ts&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='notify'>&lt;p&gt;Registers for notifications of event &lt;tt&gt;ev&lt;/tt&gt; on the proxied TupleSpace. See TupleSpace#notify&lt;/p&gt;</method>
+    <method name='read'>&lt;p&gt;Reads &lt;tt&gt;tuple&lt;/tt&gt; from the proxied TupleSpace. See TupleSpace#read.&lt;/p&gt;</method>
+    <method name='read_all'>&lt;p&gt;Reads all tuples matching &lt;tt&gt;tuple&lt;/tt&gt; from the proxied TupleSpace. See TupleSpace#read_all.&lt;/p&gt;</method>
+    <method name='take'>&lt;p&gt;Takes &lt;tt&gt;tuple&lt;/tt&gt; from the proxied TupleSpace. See TupleSpace#take.&lt;/p&gt;</method>
+    <method name='write'>&lt;p&gt;Adds &lt;tt&gt;tuple&lt;/tt&gt; to the proxied TupleSpace. See TupleSpace#write.&lt;/p&gt;</method>
+  </methods>
+</help>

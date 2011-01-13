@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new SyncEnumerator which enumerates rows of given Enumerable objects.&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;Enumerates rows of the Enumerable objects.&lt;/p&gt;</method>
+    <method name='length'>&lt;p&gt;Returns the number of enumerated Enumerable objects, i.e. the size of each row.&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;Returns the number of enumerated Enumerable objects, i.e. the size of each row.&lt;/p&gt;</method>
+  </methods>
+</help>

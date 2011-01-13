@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<gconf>
+        <entry name="print_line_numbers" mtime="1175280613" type="int" value="1">
+        </entry>
+</gconf>

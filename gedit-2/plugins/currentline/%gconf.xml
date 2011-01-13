@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<gconf>
+        <entry name="background" mtime="1175705564" type="string">
+                <stringvalue>#23231b1b3737</stringvalue>
+        </entry>
+        <entry name="apply" mtime="1175705551" type="bool" value="true">
+        </entry>
+        <entry name="foreground" mtime="1175705561" type="string">
+                <stringvalue>#7d7d8e8ea8a8</stringvalue>
+        </entry>
+</gconf>

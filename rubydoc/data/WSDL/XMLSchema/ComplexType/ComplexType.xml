@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='all_elements='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='check_type'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='child_defined_complextype'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='child_type'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='compoundtype'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='each_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='elementformdefault'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_aryelement'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_arytype'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_element_by_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse_attr'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='sequence_elements='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='targetnamespace'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Represents a tagged XML element. Elements are characterized by having children, attributes, and names, and can themselves be children.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Constructor&lt;/p&gt;&lt;ul&gt;&lt;li&gt;if not supplied, will be set to the default value. If a String, the name of this object will be set to the argument. If an Element, the object will be shallowly cloned; name, attributes, and namespaces will be copied. Children will &lt;tt&gt;not&lt;/tt&gt; be copied.&lt;/li&gt;&lt;li&gt;if supplied, must be a Parent, and will be used as the parent of this object.&lt;/li&gt;&lt;li&gt;If supplied, must be a hash containing context items. Context items include:&lt;/li&gt;&lt;/ul&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt;:respect_whitespace&lt;/tt&gt; the value of this is :&lt;tt&gt;all&lt;/tt&gt; or an array of strings being the names of the elements to respect whitespace for. Defaults to :&lt;tt&gt;all&lt;/tt&gt;.&lt;/li&gt;&lt;li&gt;&lt;tt&gt;:compress_whitespace&lt;/tt&gt; the value can be :&lt;tt&gt;all&lt;/tt&gt; or an array of strings being the names of the elements to ignore whitespace on. Overrides :&lt;tt&gt;respect_whitespace&lt;/tt&gt;.&lt;/li&gt;&lt;li&gt;&lt;tt&gt;:ignore_whitespace_nodes&lt;/tt&gt; the value can be :&lt;tt&gt;all&lt;/tt&gt; or an array of strings being the names of the elements in which to ignore whitespace-only nodes. If this is set, Text nodes which contain only whitespace will not be added to the document tree.&lt;/li&gt;&lt;li&gt;&lt;tt&gt;:raw&lt;/tt&gt; can be :&lt;tt&gt;all&lt;/tt&gt;, or an array of strings being the names of the elements to process in raw mode. In raw mode, special characters in text is not converted to or from entities.&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='add_attribute'>&lt;p&gt;Adds an attribute to this element, overwriting any existing attribute by the same name.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;can be either an Attribute or a String. If an Attribute, the attribute is added to the list of Element attributes. If String, the argument is used as the name of the new attribute, and the value parameter must be supplied.&lt;/li&gt;&lt;li&gt;Required if &lt;tt&gt;key&lt;/tt&gt; is a String, and ignored if the first argument is an Attribute. This is a String, and is used as the value of the new Attribute.&lt;/li&gt;&lt;li&gt;the Attribute added&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; e = Element.new &apos;e&apos;
+ e.add_attribute( &apos;a&apos;, &apos;b&apos; )               #-&gt; &lt;e a=&apos;b&apos;/&gt;
+ e.add_attribute( &apos;x:a&apos;, &apos;c&apos; )             #-&gt; &lt;e a=&apos;b&apos; x:a=&apos;c&apos;/&gt;
+ e.add_attribute Attribute.new(&apos;b&apos;, &apos;d&apos;)   #-&gt; &lt;e a=&apos;b&apos; x:a=&apos;c&apos; b=&apos;d&apos;/&gt;
+&lt;/pre&gt;</method>
+    <method name='add_attributes'>&lt;p&gt;Add multiple attributes to this element.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;is either a hash, or array of arrays&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; el.add_attributes( {&quot;name1&quot;=&gt;&quot;value1&quot;, &quot;name2&quot;=&gt;&quot;value2&quot;} )
+ el.add_attributes( [ [&quot;name1&quot;,&quot;value1&quot;], [&quot;name2&quot;=&gt;&quot;value2&quot;] ] )
+&lt;/pre&gt;</method>
+    <method name='add_element'>&lt;p&gt;Adds a child to this element, optionally setting attributes in the element.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;optional. If Element, the element is added. Otherwise, a new Element is constructed with the argument (see Element.initialize).&lt;/li&gt;&lt;li&gt;If supplied, must be a Hash containing String name,value pairs, which will be used to set the attributes of the new Element.&lt;/li&gt;&lt;li&gt;the Element that was added&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; el = doc.add_element &apos;my-tag&apos;
+ el = doc.add_element &apos;my-tag&apos;, {&apos;attr1&apos;=&gt;&apos;val1&apos;, &apos;attr2&apos;=&gt;&apos;val2&apos;}
+ el = Element.new &apos;my-tag&apos;
+ doc.add_element el
+&lt;/pre&gt;</method>
+    <method name='add_namespace'>&lt;p&gt;Adds a namespace to this element.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the prefix string, or the namespace URI if &lt;tt&gt;uri&lt;/tt&gt; is not supplied&lt;/li&gt;&lt;li&gt;the namespace URI. May be nil, in which &lt;tt&gt;prefix&lt;/tt&gt; is used as the URI&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Evaluates to: this Element&lt;/p&gt;&lt;pre&gt; a = Element.new(&quot;a&quot;)
+ a.add_namespace(&quot;xmlns:foo&quot;, &quot;bar&quot; )
+ a.add_namespace(&quot;foo&quot;, &quot;bar&quot;)  # shorthand for previous line
+ a.add_namespace(&quot;twiddle&quot;)
+ puts a   #-&gt; &lt;a xmlns:foo=&apos;bar&apos; xmlns=&apos;twiddle&apos;/&gt;
+&lt;/pre&gt;</method>
+    <method name='add_text'>&lt;p&gt;A helper method to add a Text child. Actual Text instances can be added with regular Parent methods, such as add() and &lt;&lt;()&lt;/p&gt;&lt;ul&gt;&lt;li&gt;if a String, a new Text instance is created and added to the parent. If Text, the object is added directly.&lt;/li&gt;&lt;li&gt;this Element&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; e = Element.new(&apos;a&apos;)          #-&gt; &lt;e/&gt;
+ e.add_text &apos;foo&apos;              #-&gt; &lt;e&gt;foo&lt;/e&gt;
+ e.add_text Text.new(&apos; bar&apos;)    #-&gt; &lt;e&gt;foo bar&lt;/e&gt;
+&lt;/pre&gt;&lt;p&gt;Note that at the end of this example, the branch has &lt;b&gt;3&lt;/b&gt; nodes; the &apos;e&apos; element and &lt;b&gt;2&lt;/b&gt; Text node children.&lt;/p&gt;</method>
+    <method name='attribute'>&lt;p&gt;Attributes #&lt;/p&gt;</method>
+    <method name='cdatas'>&lt;p&gt;Get an array of all CData children. IMMUTABLE&lt;/p&gt;</method>
+    <method name='clone'>&lt;p&gt;Creates a shallow copy of self.&lt;/p&gt;&lt;pre&gt;  d = Document.new &quot;&lt;a&gt;&lt;b/&gt;&lt;b/&gt;&lt;c&gt;&lt;d/&gt;&lt;/c&gt;&lt;/a&gt;&quot;
+  new_a = d.root.clone
+  puts new_a  # =&gt; &quot;&lt;a/&gt;&quot;
+&lt;/pre&gt;</method>
+    <method name='comments'>&lt;p&gt;Get an array of all Comment children. IMMUTABLE&lt;/p&gt;</method>
+    <method name='delete_attribute'>&lt;p&gt;Removes an attribute&lt;/p&gt;&lt;ul&gt;&lt;li&gt;either an Attribute or a String. In either case, the attribute is found by matching the attribute name to the argument, and then removed. If no attribute is found, no action is taken.&lt;/li&gt;&lt;li&gt;the attribute removed, or nil if this Element did not contain a matching attribute&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; e = Element.new(&apos;E&apos;)
+ e.add_attribute( &apos;name&apos;, &apos;Sean&apos; )             #-&gt; &lt;E name=&apos;Sean&apos;/&gt;
+ r = e.add_attribute( &apos;sur:name&apos;, &apos;Russell&apos; )  #-&gt; &lt;E name=&apos;Sean&apos; sur:name=&apos;Russell&apos;/&gt;
+ e.delete_attribute( &apos;name&apos; )                  #-&gt; &lt;E sur:name=&apos;Russell&apos;/&gt;
+ e.delete_attribute( r )                       #-&gt; &lt;E/&gt;
+&lt;/pre&gt;</method>
+    <method name='delete_element'>&lt;p&gt;Deletes a child element.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Must be an &lt;tt&gt;Element&lt;/tt&gt;, &lt;tt&gt;String&lt;/tt&gt;, or &lt;tt&gt;Integer&lt;/tt&gt;. If Element, the element is removed. If String, the element is found (via XPath) and removed. &lt;em&gt;This means that any parent can remove any descendant.&lt;em&gt; If Integer, the Element indexed by that number will be removed.&lt;/li&gt;&lt;li&gt;the element that was removed.&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; doc.delete_element &quot;/a/b/c[@id=&apos;4&apos;]&quot;
+ doc.delete_element doc.elements[&quot;//k&quot;]
+ doc.delete_element 1
+&lt;/pre&gt;</method>
+    <method name='delete_namespace'>&lt;p&gt;Removes a namespace from this node. This only works if the namespace is actually declared in this node. If no argument is passed, deletes the default namespace.&lt;/p&gt;&lt;p&gt;Evaluates to: this element&lt;/p&gt;&lt;pre&gt; doc = Document.new &quot;&lt;a xmlns:foo=&apos;bar&apos; xmlns=&apos;twiddle&apos;/&gt;&quot;
+ doc.root.delete_namespace
+ puts doc     # -&gt; &lt;a xmlns:foo=&apos;bar&apos;/&gt;
+ doc.root.delete_namespace &apos;foo&apos;
+ puts doc     # -&gt; &lt;a/&gt;
+&lt;/pre&gt;</method>
+    <method name='document'>&lt;p&gt;Evaluates to the document to which this element belongs, or nil if this element doesn&apos;t belong to a document.&lt;/p&gt;</method>
+    <method name='each_element'>&lt;p&gt;Synonym for Element.elements.each&lt;/p&gt;</method>
+    <method name='each_element_with_attribute'>&lt;p&gt;Iterates through the child elements, yielding for each Element that has a particular attribute set.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the name of the attribute to search for&lt;/li&gt;&lt;li&gt;the value of the attribute&lt;/li&gt;&lt;li&gt;(optional) causes this method to return after yielding for this number of matching children&lt;/li&gt;&lt;li&gt;(optional) if supplied, this is an XPath that filters the children to check.&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; doc = Document.new &quot;&lt;a&gt;&lt;b @id=&apos;1&apos;/&gt;&lt;c @id=&apos;2&apos;/&gt;&lt;d @id=&apos;1&apos;/&gt;&lt;e/&gt;&lt;/a&gt;&quot;
+ # Yields b, c, d
+ doc.root.each_element_with_attribute( &apos;id&apos; ) {|e| p e}
+ # Yields b, d
+ doc.root.each_element_with_attribute( &apos;id&apos;, &apos;1&apos; ) {|e| p e}
+ # Yields b
+ doc.root.each_element_with_attribute( &apos;id&apos;, &apos;1&apos;, 1 ) {|e| p e}
+ # Yields d
+ doc.root.each_element_with_attribute( &apos;id&apos;, &apos;1&apos;, 0, &apos;d&apos; ) {|e| p e}
+&lt;/pre&gt;</method>
+    <method name='each_element_with_text'>&lt;p&gt;Iterates through the children, yielding for each Element that has a particular text set.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the text to search for. If nil, or not supplied, will itterate over all &lt;tt&gt;Element&lt;/tt&gt; children that contain at least one &lt;tt&gt;Text&lt;/tt&gt; node.&lt;/li&gt;&lt;li&gt;(optional) causes this method to return after yielding for this number of matching children&lt;/li&gt;&lt;li&gt;(optional) if supplied, this is an XPath that filters the children to check.&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; doc = Document.new &apos;&lt;a&gt;&lt;b&gt;b&lt;/b&gt;&lt;c&gt;b&lt;/c&gt;&lt;d&gt;d&lt;/d&gt;&lt;e/&gt;&lt;/a&gt;&apos;
+ # Yields b, c, d
+ doc.each_element_with_text {|e|p e}
+ # Yields b, c
+ doc.each_element_with_text(&apos;b&apos;){|e|p e}
+ # Yields b
+ doc.each_element_with_text(&apos;b&apos;, 1){|e|p e}
+ # Yields d
+ doc.each_element_with_text(nil, 0, &apos;d&apos;){|e|p e}
+&lt;/pre&gt;</method>
+    <method name='get_elements'>&lt;p&gt;Synonym for Element.to_a This is a little slower than calling elements.each directly.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;any XPath by which to search for elements in the tree&lt;/li&gt;&lt;li&gt;an array of Elements that match the supplied path&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='get_text'>&lt;p&gt;Returns the first child Text node, if any, or &lt;tt&gt;nil&lt;/tt&gt; otherwise. This method returns the actual &lt;tt&gt;Text&lt;/tt&gt; node, rather than the String content.&lt;/p&gt;&lt;pre&gt; doc = Document.new &quot;&lt;p&gt;some text &lt;b&gt;this is bold!&lt;/b&gt; more text&lt;/p&gt;&quot;
+ # The element &apos;p&apos; has two text elements, &quot;some text &quot; and &quot; more text&quot;.
+ doc.root.get_text.value            #-&gt; &quot;some text &quot;
+&lt;/pre&gt;</method>
+    <method name='has_attributes?'>&lt;p&gt;Evaluates to &lt;tt&gt;true&lt;/tt&gt; if this element has any attributes set, false otherwise.&lt;/p&gt;</method>
+    <method name='has_elements?'>&lt;p&gt;Evaluates to &lt;tt&gt;true&lt;/tt&gt; if this element has at least one child Element&lt;/p&gt;&lt;pre&gt; doc = Document.new &quot;&lt;a&gt;&lt;b/&gt;&lt;c&gt;Text&lt;/c&gt;&lt;/a&gt;&quot;
+ doc.root.has_elements               # -&gt; true
+ doc.elements[&quot;/a/b&quot;].has_elements   # -&gt; false
+ doc.elements[&quot;/a/c&quot;].has_elements   # -&gt; false
+&lt;/pre&gt;</method>
+    <method name='has_text?'>&lt;p&gt;Evaluates to &lt;tt&gt;true&lt;/tt&gt; if this element has at least one Text child&lt;/p&gt;</method>
+    <method name='ignore_whitespace_nodes'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='instructions'>&lt;p&gt;Get an array of all Instruction children. IMMUTABLE&lt;/p&gt;</method>
+    <method name='namespace'>&lt;p&gt;Evalutas to the URI for a prefix, or the empty string if no such namespace is declared for this element. Evaluates recursively for ancestors. Returns the default namespace, if there is one.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;the prefix to search for. If not supplied, returns the default namespace if one exists&lt;/li&gt;&lt;li&gt;the namespace URI as a String, or nil if no such namespace exists. If the namespace is undefined, returns an empty string&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; doc = Document.new(&quot;&lt;a xmlns=&apos;1&apos; xmlns:y=&apos;2&apos;&gt;&lt;b/&gt;&lt;c xmlns:z=&apos;3&apos;/&gt;&lt;/a&gt;&quot;)
+ b = doc.elements[&apos;//b&apos;]
+ b.namespace           # -&gt; &apos;1&apos;
+ b.namespace(&quot;y&quot;)      # -&gt; &apos;2&apos;
+&lt;/pre&gt;</method>
+    <method name='namespaces'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='next_element'>&lt;p&gt;Returns the next sibling that is an element, or nil if there is no Element sibling after this one&lt;/p&gt;&lt;pre&gt; doc = Document.new &apos;&lt;a&gt;&lt;b/&gt;text&lt;c/&gt;&lt;/a&gt;&apos;
+ doc.root.elements[&apos;b&apos;].next_element          #-&gt; &lt;c/&gt;
+ doc.root.elements[&apos;c&apos;].next_element          #-&gt; nil
+&lt;/pre&gt;</method>
+    <method name='node_type'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='prefixes'>&lt;p&gt;Evaluates to an &lt;tt&gt;Array&lt;/tt&gt; containing the prefixes (names) of all defined namespaces at this context node.&lt;/p&gt;&lt;pre&gt; doc = Document.new(&quot;&lt;a xmlns:x=&apos;1&apos; xmlns:y=&apos;2&apos;&gt;&lt;b/&gt;&lt;c xmlns:z=&apos;3&apos;/&gt;&lt;/a&gt;&quot;)
+ doc.elements[&apos;//b&apos;].prefixes # -&gt; [&apos;x&apos;, &apos;y&apos;]
+&lt;/pre&gt;</method>
+    <method name='previous_element'>&lt;p&gt;Returns the previous sibling that is an element, or nil if there is no Element sibling prior to this one&lt;/p&gt;&lt;pre&gt; doc = Document.new &apos;&lt;a&gt;&lt;b/&gt;text&lt;c/&gt;&lt;/a&gt;&apos;
+ doc.root.elements[&apos;c&apos;].previous_element          #-&gt; &lt;b/&gt;
+ doc.root.elements[&apos;b&apos;].previous_element          #-&gt; nil
+&lt;/pre&gt;</method>
+    <method name='raw'>&lt;p&gt;Evaluates to &lt;tt&gt;true&lt;/tt&gt; if raw mode is set for this element. This is the case if the context has :&lt;tt&gt;raw&lt;/tt&gt; set to :&lt;tt&gt;all&lt;/tt&gt; or an array containing the name of this element.&lt;/p&gt;&lt;p&gt;The evaluation is tested against &lt;tt&gt;expanded_name&lt;/tt&gt;, and so is namespace sensitive.&lt;/p&gt;</method>
+    <method name='root'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='root_node'>&lt;p&gt;Evaluates to the root node of the document that this element belongs to. If this element doesn&apos;t belong to a document, but does belong to another Element, the parent&apos;s root will be returned, until the earliest ancestor is found.&lt;/p&gt;&lt;p&gt;Note that this is not the same as the document element. In the following example, &lt;a&gt; is the document element, and the root node is the parent node of the document element. You may ask yourself why the root node is useful: consider the doctype and XML declaration, and any processing instructions before the document element... they are children of the root node, or siblings of the document element. The only time this isn&apos;t true is when an Element is created that is not part of any Document. In this case, the ancestor that has no parent acts as the root node.&lt;/p&gt;&lt;pre&gt; d = Document.new &apos;&lt;a&gt;&lt;b&gt;&lt;c/&gt;&lt;/b&gt;&lt;/a&gt;&apos;
+ a = d[1] ; c = a[1][1]
+ d.root_node == d   # TRUE
+ a.root_node        # namely, d
+ c.root_node        # again, d
+&lt;/pre&gt;</method>
+    <method name='text'>&lt;p&gt;A convenience method which returns the String value of the &lt;em&gt;first&lt;/em&gt; child text element, if one exists, and &lt;tt&gt;nil&lt;/tt&gt; otherwise.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Note that an element may have multiple Text elements, perhaps separated by other children&lt;/em&gt;. Be aware that this method only returns the first Text node.&lt;/p&gt;&lt;p&gt;This method returns the &lt;tt&gt;value&lt;/tt&gt; of the first text child node, which ignores the &lt;tt&gt;raw&lt;/tt&gt; setting, so always returns normalized text. See the Text::value documentation.&lt;/p&gt;&lt;pre&gt; doc = Document.new &quot;&lt;p&gt;some text &lt;b&gt;this is bold!&lt;/b&gt; more text&lt;/p&gt;&quot;
+ # The element &apos;p&apos; has two text elements, &quot;some text &quot; and &quot; more text&quot;.
+ doc.root.text              #-&gt; &quot;some text &quot;
+&lt;/pre&gt;</method>
+    <method name='text='>&lt;p&gt;Sets the first Text child of this object. See text() for a discussion about Text children.&lt;/p&gt;&lt;p&gt;If a Text child already exists, the child is replaced by this content. This means that Text content can be deleted by calling this method with a nil argument. In this case, the next Text child becomes the first Text child. In no case is the order of any siblings disturbed.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;If a String, a new Text child is created and added to this Element as the first Text child. If Text, the text is set as the first Child element. If nil, then any existing first Text child is removed.&lt;/li&gt;&lt;li&gt;this Element.&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; doc = Document.new &apos;&lt;a&gt;&lt;b/&gt;&lt;/a&gt;&apos;
+ doc.root.text = &apos;Sean&apos;      #-&gt; &apos;&lt;a&gt;&lt;b/&gt;Sean&lt;/a&gt;&apos;
+ doc.root.text = &apos;Elliott&apos;   #-&gt; &apos;&lt;a&gt;&lt;b/&gt;Elliott&lt;/a&gt;&apos;
+ doc.root.add_element &apos;c&apos;    #-&gt; &apos;&lt;a&gt;&lt;b/&gt;Elliott&lt;c/&gt;&lt;/a&gt;&apos;
+ doc.root.text = &apos;Russell&apos;   #-&gt; &apos;&lt;a&gt;&lt;b/&gt;Russell&lt;c/&gt;&lt;/a&gt;&apos;
+ doc.root.text = nil         #-&gt; &apos;&lt;a&gt;&lt;b/&gt;&lt;c/&gt;&lt;/a&gt;&apos;
+&lt;/pre&gt;</method>
+    <method name='texts'>&lt;p&gt;Get an array of all Text children. IMMUTABLE&lt;/p&gt;</method>
+    <method name='whitespace'>&lt;p&gt;Evaluates to &lt;tt&gt;true&lt;/tt&gt; if whitespace is respected for this element. This is the case if:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Neither :&lt;tt&gt;respect_whitespace&lt;/tt&gt; nor :&lt;tt&gt;compress_whitespace&lt;/tt&gt; has any value&lt;/li&gt;&lt;li&gt;The context has :&lt;tt&gt;respect_whitespace&lt;/tt&gt; set to :&lt;tt&gt;all&lt;/tt&gt; or an array containing the name of this element, and :&lt;tt&gt;compress_whitespace&lt;/tt&gt; isn&apos;t set to :&lt;tt&gt;all&lt;/tt&gt; or an array containing the name of this element.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;The evaluation is tested against &lt;tt&gt;expanded_name&lt;/tt&gt;, and so is namespace sensitive.&lt;/p&gt;</method>
+    <method name='write'>&lt;p&gt;Writes out this element, and recursively, all children.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;output an object which supports &apos;&lt;&lt; string&apos;; this is where the&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt;  document will be written.
+&lt;/pre&gt;&lt;ul&gt;&lt;li&gt;An integer. If -1, no indenting will be used; otherwise, the indentation will be this number of spaces, and children will be indented an additional amount. Defaults to -1&lt;/li&gt;&lt;li&gt;If transitive is true and indent is &gt;= 0, then the output will be pretty-printed in such a way that the added whitespace does not affect the parse tree of the document&lt;/li&gt;&lt;li&gt;Internet Explorer is the worst piece of crap to have ever been written, with the possible exception of Windows itself. Since IE is unable to parse proper XML, we have to provide a hack to generate XML that IE&apos;s limited abilities can handle. This hack inserts a space before the /&gt; on empty tags. Defaults to false&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt; out = &apos;&apos;
+ doc.write( out )     #-&gt; doc is written to the string &apos;out&apos;
+ doc.write( $stdout ) #-&gt; doc written to the console
+&lt;/pre&gt;</method>
+    <method name='xpath'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The &lt;tt&gt;Matrix&lt;/tt&gt; class represents a mathematical matrix, and provides methods for creating special-case matrices (zero, identity, diagonal, singular, vector), operating on them arithmetically and algebraically, and determining their mathematical properties (trace, rank, inverse, determinant).&lt;/p&gt;&lt;p&gt;Note that although matrices should theoretically be rectangular, this is not enforced by the class.&lt;/p&gt;&lt;p&gt;Also note that the determinant of integer matrices may be incorrectly calculated unless you also &lt;tt&gt;require &apos;mathn&apos;&lt;/tt&gt;. This may be fixed in the future.&lt;/p&gt;&lt;h2&gt;Method Catalogue&lt;/h2&gt;&lt;p&gt;To create a matrix:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt; Matrix[*rows] &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; Matrix.[](*rows) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; Matrix.rows(rows, copy = true) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; Matrix.columns(columns) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; Matrix.diagonal(*values) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; Matrix.scalar(n, value) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; Matrix.scalar(n, value) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; Matrix.identity(n) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; Matrix.unit(n) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; Matrix.I(n) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; Matrix.zero(n) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; Matrix.row_vector(row) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; Matrix.column_vector(column) &lt;/tt&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;To access Matrix elements/columns/rows/submatrices/properties:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt; [](i, j) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #row_size &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #column_size &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #row(i) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #column(j) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #collect &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #map &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #minor(*param) &lt;/tt&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Properties of a matrix:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt; #regular? &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #singular? &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #square? &lt;/tt&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Matrix arithmetic:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt; *(m) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; +(m) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; -(m) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #/(m) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #inverse &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #inv &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; ** &lt;/tt&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Matrix functions:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt; #determinant &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #det &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #rank &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #trace &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #tr &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #transpose &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #t &lt;/tt&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Conversion to other data types:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt; #coerce(other) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #row_vectors &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #column_vectors &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #to_a &lt;/tt&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;String representations:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt; #to_s &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #inspect &lt;/tt&gt;&lt;/li&gt;&lt;/ul&gt;</comment>
+  <methods>
+    <method name='[]'>&lt;p&gt;Creates a matrix where each argument is a row.&lt;/p&gt;&lt;pre&gt;  Matrix[ [25, 93], [-1, 66] ]
+     =&gt;  25 93
+         -1 66
+&lt;/pre&gt;</method>
+    <method name='column_vector'>&lt;p&gt;Creates a single-column matrix where the values of that column are as given in &lt;tt&gt;column&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;  Matrix.column_vector([4,5,6])
+    =&gt; 4
+       5
+       6
+&lt;/pre&gt;</method>
+    <method name='columns'>&lt;p&gt;Creates a matrix using &lt;tt&gt;columns&lt;/tt&gt; as an array of column vectors.&lt;/p&gt;&lt;pre&gt;  Matrix.columns([[25, 93], [-1, 66]])
+     =&gt;  25 -1
+         93 66
+&lt;/pre&gt;</method>
+    <method name='diagonal'>&lt;p&gt;Creates a matrix where the diagonal elements are composed of &lt;tt&gt;values&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;  Matrix.diagonal(9, 5, -3)
+    =&gt;  9  0  0
+        0  5  0
+        0  0 -3
+&lt;/pre&gt;</method>
+    <method name='identity'>&lt;p&gt;Creates an &lt;tt&gt;n&lt;/tt&gt; by &lt;tt&gt;n&lt;/tt&gt; identity matrix.&lt;/p&gt;&lt;pre&gt;  Matrix.identity(2)
+    =&gt; 1 0
+       0 1
+&lt;/pre&gt;</method>
+    <method name='new'>&lt;p&gt;This method is used by the other methods that create matrices, and is of no use to general users.&lt;/p&gt;</method>
+    <method name='row_vector'>&lt;p&gt;Creates a single-row matrix where the values of that row are as given in &lt;tt&gt;row&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;  Matrix.row_vector([4,5,6])
+    =&gt; 4 5 6
+&lt;/pre&gt;</method>
+    <method name='rows'>&lt;p&gt;Creates a matrix where &lt;tt&gt;rows&lt;/tt&gt; is an array of arrays, each of which is a row to the matrix. If the optional argument &lt;tt&gt;copy&lt;/tt&gt; is false, use the given arrays as the internal structure of the matrix without copying.&lt;/p&gt;&lt;pre&gt;  Matrix.rows([[25, 93], [-1, 66]])
+     =&gt;  25 93
+         -1 66
+&lt;/pre&gt;</method>
+    <method name='scalar'>&lt;p&gt;Creates an &lt;tt&gt;n&lt;/tt&gt; by &lt;tt&gt;n&lt;/tt&gt; diagonal matrix where each diagonal element is &lt;tt&gt;value&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;  Matrix.scalar(2, 5)
+    =&gt; 5 0
+       0 5
+&lt;/pre&gt;</method>
+    <method name='zero'>&lt;p&gt;Creates an &lt;tt&gt;n&lt;/tt&gt; by &lt;tt&gt;n&lt;/tt&gt; zero matrix.&lt;/p&gt;&lt;pre&gt;  Matrix.zero(2)
+    =&gt; 0 0
+       0 0
+&lt;/pre&gt;</method>
+    <method name='*'>&lt;p&gt;Matrix multiplication.&lt;/p&gt;&lt;pre&gt;  Matrix[[2,4], [6,8]] * Matrix.identity(2)
+    =&gt; 2 4
+       6 8
+&lt;/pre&gt;</method>
+    <method name='**'>&lt;p&gt;Matrix exponentiation. Defined for integer powers only. Equivalent to multiplying the matrix by itself N times.&lt;/p&gt;&lt;pre&gt;  Matrix[[7,6], [3,9]] ** 2
+    =&gt; 67 96
+       48 99
+&lt;/pre&gt;</method>
+    <method name='+'>&lt;p&gt;Matrix addition.&lt;/p&gt;&lt;pre&gt;  Matrix.scalar(2,5) + Matrix[[1,0], [-4,7]]
+    =&gt;  6  0
+       -4 12
+&lt;/pre&gt;</method>
+    <method name='-'>&lt;p&gt;Matrix subtraction.&lt;/p&gt;&lt;pre&gt;  Matrix[[1,5], [4,2]] - Matrix[[9,3], [-4,1]]
+    =&gt; -8  2
+        8  1
+&lt;/pre&gt;</method>
+    <method name='/'>&lt;p&gt;Matrix division (multiplication by the inverse).&lt;/p&gt;&lt;pre&gt;  Matrix[[7,6], [3,9]] / Matrix[[2,9], [3,1]]
+    =&gt; -7  1
+       -3 -6
+&lt;/pre&gt;</method>
+    <method name='=='>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if and only if the two matrices contain equal elements.&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;Returns element (&lt;tt&gt;i&lt;/tt&gt;,&lt;tt&gt;j&lt;/tt&gt;) of the matrix. That is: row &lt;tt&gt;i&lt;/tt&gt;, column &lt;tt&gt;j&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='clone'>&lt;p&gt;Returns a clone of the matrix, so that the contents of each do not reference identical objects.&lt;/p&gt;</method>
+    <method name='coerce'>&lt;p&gt;FIXME: describe #coerce.&lt;/p&gt;</method>
+    <method name='collect'>&lt;p&gt;Returns a matrix that is the result of iteration of the given block over all elements of the matrix.&lt;/p&gt;&lt;pre&gt;  Matrix[ [1,2], [3,4] ].collect { |i| i**2 }
+    =&gt; 1  4
+       9 16
+&lt;/pre&gt;</method>
+    <method name='column'>&lt;p&gt;Returns column vector number &lt;tt&gt;j&lt;/tt&gt; of the matrix as a Vector (starting at 0 like an array). When a block is given, the elements of that vector are iterated.&lt;/p&gt;</method>
+    <method name='column_size'>&lt;p&gt;Returns the number of columns. Note that it is possible to construct a matrix with uneven columns (e.g. Matrix[ [1,2,3], [4,5] ]), but this is mathematically unsound. This method uses the first row to determine the result.&lt;/p&gt;</method>
+    <method name='column_vectors'>&lt;p&gt;Returns an array of the column vectors of the matrix. See Vector.&lt;/p&gt;</method>
+    <method name='compare_by_row_vectors'>&lt;p&gt;Not really intended for general consumption.&lt;/p&gt;</method>
+    <method name='det'>&lt;p&gt;Alias for #determinant&lt;/p&gt;</method>
+    <method name='determinant'>&lt;p&gt;Returns the determinant of the matrix. If the matrix is not square, the result is 0.&lt;/p&gt;&lt;pre&gt;  Matrix[[7,6], [3,9]].determinant
+    =&gt; 63
+&lt;/pre&gt;</method>
+    <method name='eql?'>&lt;p&gt;Alias for #==&lt;/p&gt;</method>
+    <method name='hash'>&lt;p&gt;Returns a hash-code for the matrix.&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;Overrides Object#inspect&lt;/p&gt;</method>
+    <method name='inv'>&lt;p&gt;Alias for #inverse&lt;/p&gt;</method>
+    <method name='inverse'>&lt;p&gt;Returns the inverse of the matrix.&lt;/p&gt;&lt;pre&gt;  Matrix[[1, 2], [2, 1]].inverse
+    =&gt; -1  1
+        0 -1
+&lt;/pre&gt;</method>
+    <method name='inverse_from'>&lt;p&gt;Not for public consumption?&lt;/p&gt;</method>
+    <method name='map'>&lt;p&gt;Alias for #collect&lt;/p&gt;</method>
+    <method name='minor'>&lt;p&gt;Returns a section of the matrix. The parameters are either:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;start_row, nrows, start_col, ncols; OR&lt;/li&gt;&lt;li&gt;col_range, row_range&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt;  Matrix.diagonal(9, 5, -3).minor(0..1, 0..2)
+    =&gt; 9 0 0
+       0 5 0
+&lt;/pre&gt;</method>
+    <method name='rank'>&lt;p&gt;Returns the rank of the matrix. Beware that using Float values, with their usual lack of precision, can affect the value returned by this method. Use Rational values instead if this is important to you.&lt;/p&gt;&lt;pre&gt;  Matrix[[7,6], [3,9]].rank
+    =&gt; 2
+&lt;/pre&gt;</method>
+    <method name='regular?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if this is a regular matrix.&lt;/p&gt;</method>
+    <method name='row'>&lt;p&gt;Returns row vector number &lt;tt&gt;i&lt;/tt&gt; of the matrix as a Vector (starting at 0 like an array). When a block is given, the elements of that vector are iterated.&lt;/p&gt;</method>
+    <method name='row_size'>&lt;p&gt;Returns the number of rows.&lt;/p&gt;</method>
+    <method name='row_vectors'>&lt;p&gt;Returns an array of the row vectors of the matrix. See Vector.&lt;/p&gt;</method>
+    <method name='singular?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; is this is a singular (i.e. non-regular) matrix.&lt;/p&gt;</method>
+    <method name='square?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; is this is a square matrix. See note in column_size about this being unreliable, though.&lt;/p&gt;</method>
+    <method name='t'>&lt;p&gt;Alias for #transpose&lt;/p&gt;</method>
+    <method name='to_a'>&lt;p&gt;Returns an array of arrays that describe the rows of the matrix.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Overrides Object#to_s&lt;/p&gt;</method>
+    <method name='tr'>&lt;p&gt;Alias for #trace&lt;/p&gt;</method>
+    <method name='trace'>&lt;p&gt;Returns the trace (sum of diagonal elements) of the matrix.&lt;/p&gt;&lt;pre&gt;  Matrix[[7,6], [3,9]].trace
+    =&gt; 16
+&lt;/pre&gt;</method>
+    <method name='transpose'>&lt;p&gt;Returns the transpose of the matrix.&lt;/p&gt;&lt;pre&gt;  Matrix[[1,2], [3,4], [5,6]]
+    =&gt; 1 2
+       3 4
+       5 6
+  Matrix[[1,2], [3,4], [5,6]].transpose
+    =&gt; 1 3 5
+       2 4 6
+&lt;/pre&gt;</method>
+  </methods>
+</help>

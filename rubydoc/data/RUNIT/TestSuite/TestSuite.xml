@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='add'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_test'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='count_test_cases'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='run'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

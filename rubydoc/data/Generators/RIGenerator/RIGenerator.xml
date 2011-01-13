@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='for'>&lt;p&gt;Generators may need to return specific subclasses depending on the options they are passed. Because of this we create them using a factory&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Set up a new HTML generator. Basically all we do here is load up the correct output temlate&lt;/p&gt;</method>
+    <method name='generate'>&lt;p&gt;Build the initial indices and output objects based on an array of TopLevel objects containing the extracted information.&lt;/p&gt;</method>
+    <method name='generate_class_info'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='generate_method_info'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='process_class'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

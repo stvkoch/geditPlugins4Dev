@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='put_bytes'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='put_label'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='put_labels'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='put_length16'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='put_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='put_pack'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='put_string'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='put_string_list'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

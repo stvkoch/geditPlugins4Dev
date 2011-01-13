@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Build a hash of all items that can be cross-referenced. This is used when we output required and included names: if the names appear in this hash, we can generate an html cross reference to the appropriate description. We also use this when parsing comment blocks: any decorated words matching an entry in this list are hyperlinked.&lt;/p&gt;</comment>
+  <methods>
+    <method name='[]'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='keys'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='reset'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

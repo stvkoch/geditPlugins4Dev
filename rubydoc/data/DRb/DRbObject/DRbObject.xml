@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Object wrapping a reference to a remote drb object.&lt;/p&gt;&lt;p&gt;Method calls on this object are relayed to the remote object that this object is a stub for.&lt;/p&gt;</comment>
+  <methods>
+    <method name='_load'>&lt;p&gt;Unmarshall a marshalled DRbObject.&lt;/p&gt;&lt;p&gt;If the referenced object is located within the local server, then the object itself is returned. Otherwise, a new DRbObject is created to act as a stub for the remote referenced object.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Create a new remote object stub.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;obj&lt;/tt&gt; is the (local) object we want to create a stub for. Normally this is &lt;tt&gt;nil&lt;/tt&gt;. &lt;tt&gt;uri&lt;/tt&gt; is the URI of the remote object that this will be a stub for.&lt;/p&gt;</method>
+    <method name='new_with'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new_with_uri'>&lt;p&gt;Create a new DRbObject from a URI alone.&lt;/p&gt;</method>
+    <method name='prepare_backtrace'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='with_friend'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='__drbref'>&lt;p&gt;Get the reference of the object, if local.&lt;/p&gt;</method>
+    <method name='__drburi'>&lt;p&gt;Get the URI of the remote object.&lt;/p&gt;</method>
+    <method name='_dump'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='eql?'>&lt;p&gt;Alias for #==&lt;/p&gt;</method>
+    <method name='hash'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='method_missing'>&lt;p&gt;Routes method calls to the referenced object.&lt;/p&gt;</method>
+    <method name='respond_to?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

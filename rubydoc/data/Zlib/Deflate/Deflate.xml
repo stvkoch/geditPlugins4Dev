@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Zlib::Deflate is the class for compressing data. See Zlib::Stream for more information.&lt;/p&gt;</comment>
+  <methods>
+    <method name='deflate'>&lt;p&gt;Compresses the given &lt;tt&gt;string&lt;/tt&gt;. Valid values of level are &lt;tt&gt;Zlib::NO_COMPRESSION&lt;/tt&gt;, &lt;tt&gt;Zlib::BEST_SPEED&lt;/tt&gt;, &lt;tt&gt;Zlib::BEST_COMPRESSION&lt;/tt&gt;, &lt;tt&gt;Zlib::DEFAULT_COMPRESSION&lt;/tt&gt;, and an integer from 0 to 9.&lt;/p&gt;&lt;p&gt;This method is almost equivalent to the following code:&lt;/p&gt;&lt;pre&gt;  def deflate(string, level)
+    z = Zlib::Deflate.new(level)
+    dst = z.deflate(string, Zlib::FINISH)
+    z.close
+    dst
+  end
+&lt;/pre&gt;&lt;p&gt;TODO: what&apos;s default value of &lt;tt&gt;level&lt;/tt&gt;?&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Creates a new deflate stream for compression. See zlib.h for details of each argument. If an argument is nil, the default value of that argument is used.&lt;/p&gt;&lt;p&gt;TODO: document better!&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Same as IO.&lt;/p&gt;</method>
+    <method name='deflate'>&lt;p&gt;Inputs &lt;tt&gt;string&lt;/tt&gt; into the deflate stream and returns the output from the stream. On calling this method, both the input and the output buffers of the stream are flushed. If &lt;tt&gt;string&lt;/tt&gt; is nil, this method finishes the stream, just like Zlib::ZStream#finish.&lt;/p&gt;&lt;p&gt;The value of &lt;tt&gt;flush&lt;/tt&gt; should be either &lt;tt&gt;Zlib::NO_FLUSH&lt;/tt&gt;, &lt;tt&gt;Zlib::SYNC_FLUSH&lt;/tt&gt;, &lt;tt&gt;Zlib::FULL_FLUSH&lt;/tt&gt;, or &lt;tt&gt;Zlib::FINISH&lt;/tt&gt;. See zlib.h for details.&lt;/p&gt;&lt;p&gt;TODO: document better!&lt;/p&gt;</method>
+    <method name='flush'>&lt;p&gt;This method is equivalent to &lt;tt&gt;deflate(&apos;&apos;, flush)&lt;/tt&gt;. If flush is omitted, &lt;tt&gt;Zlib::SYNC_FLUSH&lt;/tt&gt; is used as flush. This method is just provided to improve the readability of your Ruby program.&lt;/p&gt;&lt;p&gt;TODO: document better!&lt;/p&gt;</method>
+    <method name='initialize_copy'>&lt;p&gt;Duplicates the deflate stream.&lt;/p&gt;</method>
+    <method name='params'>&lt;p&gt;Changes the parameters of the deflate stream. See zlib.h for details. The output from the stream by changing the params is preserved in output buffer.&lt;/p&gt;&lt;p&gt;TODO: document better!&lt;/p&gt;</method>
+    <method name='set_dictionary'>&lt;p&gt;Sets the preset dictionary and returns &lt;tt&gt;string&lt;/tt&gt;. This method is available just only after Zlib::Deflate.new or Zlib::ZStream#reset method was called. See zlib.h for details.&lt;/p&gt;&lt;p&gt;TODO: document better!&lt;/p&gt;</method>
+  </methods>
+</help>

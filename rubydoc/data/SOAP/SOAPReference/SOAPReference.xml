@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Convenience datatypes.&lt;/p&gt;</comment>
+  <methods>
+    <method name='create_refid'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='decode'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Override the definition in SOAPBasetype.&lt;/p&gt;</method>
+    <method name='__getobj__'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='__setobj__'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='method_missing'>&lt;p&gt;Why don&apos;t I use delegate.rb? -&gt; delegate requires target object type at initialize time. Why don&apos;t I use forwardable.rb? -&gt; forwardable requires a list of forwarding methods.&lt;/p&gt;&lt;p&gt;ToDo: Maybe I should use forwardable.rb and give it a methods list like delegate.rb...&lt;/p&gt;</method>
+    <method name='refidstr'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

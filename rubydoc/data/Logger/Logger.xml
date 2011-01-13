@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Simple logging utility.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;NAKAMURA, Hiroshi &lt;nakahiro@sarion.co.jp&gt;&lt;/li&gt;&lt;li&gt;NAKAMURA, Hiroshi and Gavin Sinclair&lt;/li&gt;&lt;li&gt;You can redistribute it and/or modify it under the same terms of Ruby&apos;s license; either the dual license version in 2003, or any later version.&lt;/li&gt;&lt;li&gt;$Id: logger.rb,v 1.5.2.9 2006/08/04 22:00:21 drbrain Exp $&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;The Logger class provides a simple but sophisticated logging utility that anyone can use because it&apos;s included in the Ruby 1.8.x standard library.&lt;/p&gt;&lt;p&gt;The HOWTOs below give a code-based overview of Logger&apos;s usage, but the basic concept is as follows. You create a Logger object (output to a file or elsewhere), and use it to log messages. The messages will have varying levels (&lt;tt&gt;info&lt;/tt&gt;, &lt;tt&gt;error&lt;/tt&gt;, etc), reflecting their varying importance. The levels, and their meanings, are:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;an unhandleable error that results in a program crash&lt;/li&gt;&lt;li&gt;a handleable error condition&lt;/li&gt;&lt;li&gt;a warning&lt;/li&gt;&lt;li&gt;generic (useful) information about system operation&lt;/li&gt;&lt;li&gt;low-level information for developers&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;So each message has a level, and the Logger itself has a level, which acts as a filter, so you can control the amount of information emitted from the logger without having to remove actual messages.&lt;/p&gt;&lt;p&gt;For instance, in a production system, you may have your logger(s) set to &lt;tt&gt;INFO&lt;/tt&gt; (or &lt;tt&gt;WARN&lt;/tt&gt; if you don&apos;t want the log files growing large with repetitive information). When you are developing it, though, you probably want to know about the program&apos;s internal state, and would set them to &lt;tt&gt;DEBUG&lt;/tt&gt;.&lt;/p&gt;&lt;h3&gt;Example&lt;/h3&gt;&lt;p&gt;A simple example demonstrates the above explanation:&lt;/p&gt;&lt;pre&gt;  log = Logger.new(STDOUT)
+  log.level = Logger::WARN
+
+  log.debug(&quot;Created logger&quot;)
+  log.info(&quot;Program started&quot;)
+  log.warn(&quot;Nothing to do!&quot;)
+
+  begin
+    File.each_line(path) do |line|
+      unless line =~ /^(\w+) = (.*)$/
+        log.error(&quot;Line in wrong format: #{line}&quot;)
+      end
+    end
+  rescue =&gt; err
+    log.fatal(&quot;Caught exception; exiting&quot;)
+    log.fatal(err)
+  end
+&lt;/pre&gt;&lt;p&gt;Because the Logger&apos;s level is set to &lt;tt&gt;WARN&lt;/tt&gt;, only the warning, error, and fatal messages are recorded. The debug and info messages are silently discarded.&lt;/p&gt;&lt;h3&gt;Features&lt;/h3&gt;&lt;p&gt;There are several interesting features that Logger provides, like auto-rolling of log files, setting the format of log messages, and specifying a program name in conjunction with the message. The next section shows you how to achieve these things.&lt;/p&gt;&lt;h2&gt;HOWTOs&lt;/h2&gt;&lt;h3&gt;How to create a logger&lt;/h3&gt;&lt;p&gt;The options below give you various choices, in more or less increasing complexity.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Create a logger which logs messages to STDERR/STDOUT.&lt;/li&gt;&lt;pre&gt;  logger = Logger.new(STDERR)
+  logger = Logger.new(STDOUT)
+&lt;/pre&gt;&lt;li&gt;Create a logger for the file which has the specified name.&lt;/li&gt;&lt;pre&gt;  logger = Logger.new(&apos;logfile.log&apos;)
+&lt;/pre&gt;&lt;li&gt;Create a logger for the specified file.&lt;/li&gt;&lt;pre&gt;  file = File.open(&apos;foo.log&apos;, File::WRONLY | File::APPEND)
+  # To create new (and to remove old) logfile, add File::CREAT like;
+  #   file = open(&apos;foo.log&apos;, File::WRONLY | File::APPEND | File::CREAT)
+  logger = Logger.new(file)
+&lt;/pre&gt;&lt;li&gt;Create a logger which ages logfile once it reaches a certain size. Leave 10 &quot;old log files&quot; and each file is about 1,024,000 bytes.&lt;/li&gt;&lt;pre&gt;  logger = Logger.new(&apos;foo.log&apos;, 10, 1024000)
+&lt;/pre&gt;&lt;li&gt;Create a logger which ages logfile daily/weekly/monthly.&lt;/li&gt;&lt;pre&gt;  logger = Logger.new(&apos;foo.log&apos;, &apos;daily&apos;)
+  logger = Logger.new(&apos;foo.log&apos;, &apos;weekly&apos;)
+  logger = Logger.new(&apos;foo.log&apos;, &apos;monthly&apos;)
+&lt;/pre&gt;&lt;/ul&gt;&lt;h3&gt;How to log a message&lt;/h3&gt;&lt;p&gt;Notice the different methods (&lt;tt&gt;fatal&lt;/tt&gt;, &lt;tt&gt;error&lt;/tt&gt;, &lt;tt&gt;info&lt;/tt&gt;) being used to log messages of various levels. Other methods in this family are &lt;tt&gt;warn&lt;/tt&gt; and &lt;tt&gt;debug&lt;/tt&gt;. &lt;tt&gt;add&lt;/tt&gt; is used below to log a message of an arbitrary (perhaps dynamic) level.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Message in block.&lt;/li&gt;&lt;pre&gt;  logger.fatal { &quot;Argument &apos;foo&apos; not given.&quot; }
+&lt;/pre&gt;&lt;li&gt;Message as a string.&lt;/li&gt;&lt;pre&gt;  logger.error &quot;Argument #{ @foo } mismatch.&quot;
+&lt;/pre&gt;&lt;li&gt;With progname.&lt;/li&gt;&lt;pre&gt;  logger.info(&apos;initialize&apos;) { &quot;Initializing...&quot; }
+&lt;/pre&gt;&lt;li&gt;With severity.&lt;/li&gt;&lt;pre&gt;  logger.add(Logger::FATAL) { &apos;Fatal error!&apos; }
+&lt;/pre&gt;&lt;/ul&gt;&lt;h3&gt;How to close a logger&lt;/h3&gt;&lt;pre&gt;     logger.close
+&lt;/pre&gt;&lt;h3&gt;Setting severity threshold&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Original interface.&lt;/li&gt;&lt;pre&gt;  logger.sev_threshold = Logger::WARN
+&lt;/pre&gt;&lt;li&gt;Log4r (somewhat) compatible interface.&lt;/li&gt;&lt;pre&gt;  logger.level = Logger::INFO
+
+  DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL &lt; UNKNOWN
+&lt;/pre&gt;&lt;/ul&gt;&lt;h2&gt;Format&lt;/h2&gt;&lt;p&gt;Log messages are rendered in the output stream in a certain format. The default format and a sample are shown below:&lt;/p&gt;&lt;p&gt;Log format:&lt;/p&gt;&lt;pre&gt;  SeverityID, [Date Time mSec #pid] SeverityLabel -- ProgName: message
+&lt;/pre&gt;&lt;p&gt;Log sample:&lt;/p&gt;&lt;pre&gt;  I, [Wed Mar 03 02:34:24 JST 1999 895701 #19074]  INFO -- Main: info.
+&lt;/pre&gt;&lt;p&gt;You may change the date and time format in this manner:&lt;/p&gt;&lt;pre&gt;  logger.datetime_format = &quot;%Y-%m-%d %H:%M:%S&quot;
+        # e.g. &quot;2004-01-03 00:54:26&quot;
+&lt;/pre&gt;&lt;p&gt;There is currently no supported way to change the overall format, but you may have some luck hacking the Format constant.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;h3&gt;Synopsis&lt;/h3&gt;&lt;pre&gt;  Logger.new(name, shift_age = 7, shift_size = 1048576)
+  Logger.new(name, shift_age = &apos;weekly&apos;)
+&lt;/pre&gt;&lt;h3&gt;Args&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;The log device. This is a filename (String) or IO object (typically &lt;tt&gt;STDOUT&lt;/tt&gt;, &lt;tt&gt;STDERR&lt;/tt&gt;, or an open file).&lt;/li&gt;&lt;li&gt;Number of old log files to keep, &lt;b&gt;or&lt;/b&gt; frequency of rotation (&lt;tt&gt;daily&lt;/tt&gt;, &lt;tt&gt;weekly&lt;/tt&gt; or &lt;tt&gt;monthly&lt;/tt&gt;).&lt;/li&gt;&lt;li&gt;Maximum logfile size (only applies when &lt;tt&gt;shift_age&lt;/tt&gt; is a number).&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Description&lt;/h3&gt;&lt;p&gt;Create an instance.&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Dump given message to the log device without any formatting. If no log device exists, return &lt;tt&gt;nil&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='add'>&lt;h3&gt;Synopsis&lt;/h3&gt;&lt;pre&gt;  Logger#add(severity, message = nil, progname = nil) { ... }
+&lt;/pre&gt;&lt;h3&gt;Args&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Severity. Constants are defined in Logger namespace: &lt;tt&gt;DEBUG&lt;/tt&gt;, &lt;tt&gt;INFO&lt;/tt&gt;, &lt;tt&gt;WARN&lt;/tt&gt;, &lt;tt&gt;ERROR&lt;/tt&gt;, &lt;tt&gt;FATAL&lt;/tt&gt;, or &lt;tt&gt;UNKNOWN&lt;/tt&gt;.&lt;/li&gt;&lt;li&gt;The log message. A String or Exception.&lt;/li&gt;&lt;li&gt;Program name string. Can be omitted. Treated as a message if no &lt;tt&gt;message&lt;/tt&gt; and &lt;tt&gt;block&lt;/tt&gt; are given.&lt;/li&gt;&lt;li&gt;Can be omitted. Called to get a message string if &lt;tt&gt;message&lt;/tt&gt; is nil.&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Return&lt;/h3&gt;&lt;p&gt;&lt;tt&gt;true&lt;/tt&gt; if successful, &lt;tt&gt;false&lt;/tt&gt; otherwise.&lt;/p&gt;&lt;p&gt;When the given severity is not high enough (for this particular logger), log no message, and return &lt;tt&gt;true&lt;/tt&gt;.&lt;/p&gt;&lt;h3&gt;Description&lt;/h3&gt;&lt;p&gt;Log a message if the given severity is high enough. This is the generic logging method. Users will be more inclined to use #debug, #info, #warn, #error, and #fatal.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Message format&lt;/b&gt;: &lt;tt&gt;message&lt;/tt&gt; can be any object, but it has to be converted to a String in order to log it. Generally, &lt;tt&gt;inspect&lt;/tt&gt; is used if the given object is not a String. A special case is an &lt;tt&gt;Exception&lt;/tt&gt; object, which will be printed in detail, including message, class, and backtrace. See #msg2str for the implementation if required.&lt;/p&gt;&lt;h3&gt;Bugs&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Logfile is not locked.&lt;/li&gt;&lt;li&gt;Append open does not need to lock file.&lt;/li&gt;&lt;li&gt;But on the OS which supports multi I/O, records possibly be mixed.&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='close'>&lt;p&gt;Close the logging device.&lt;/p&gt;</method>
+    <method name='datetime_format'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='datetime_format='>&lt;p&gt;Logging date-time format (string passed to &lt;tt&gt;strftime&lt;/tt&gt;).&lt;/p&gt;</method>
+    <method name='debug'>&lt;p&gt;Log a &lt;tt&gt;DEBUG&lt;/tt&gt; message.&lt;/p&gt;&lt;p&gt;See #info for more information.&lt;/p&gt;</method>
+    <method name='debug?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; iff the current severity level allows for the printing of &lt;tt&gt;DEBUG&lt;/tt&gt; messages.&lt;/p&gt;</method>
+    <method name='error'>&lt;p&gt;Log an &lt;tt&gt;ERROR&lt;/tt&gt; message.&lt;/p&gt;&lt;p&gt;See #info for more information.&lt;/p&gt;</method>
+    <method name='error?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; iff the current severity level allows for the printing of &lt;tt&gt;ERROR&lt;/tt&gt; messages.&lt;/p&gt;</method>
+    <method name='fatal'>&lt;p&gt;Log a &lt;tt&gt;FATAL&lt;/tt&gt; message.&lt;/p&gt;&lt;p&gt;See #info for more information.&lt;/p&gt;</method>
+    <method name='fatal?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; iff the current severity level allows for the printing of &lt;tt&gt;FATAL&lt;/tt&gt; messages.&lt;/p&gt;</method>
+    <method name='info'>&lt;p&gt;Log an &lt;tt&gt;INFO&lt;/tt&gt; message.&lt;/p&gt;&lt;p&gt;The message can come either from the &lt;tt&gt;progname&lt;/tt&gt; argument or the &lt;tt&gt;block&lt;/tt&gt;. If both are provided, then the &lt;tt&gt;block&lt;/tt&gt; is used as the message, and &lt;tt&gt;progname&lt;/tt&gt; is used as the program name.&lt;/p&gt;&lt;h3&gt;Examples&lt;/h3&gt;&lt;pre&gt;  logger.info(&quot;MainApp&quot;) { &quot;Received connection from #{ip}&quot; }
+  # ...
+  logger.info &quot;Waiting for input from user&quot;
+  # ...
+  logger.info { &quot;User typed #{input}&quot; }
+&lt;/pre&gt;&lt;p&gt;You&apos;ll probably stick to the second form above, unless you want to provide a program name (which you can do with &lt;tt&gt;Logger#progname=&lt;/tt&gt; as well).&lt;/p&gt;&lt;h3&gt;Return&lt;/h3&gt;&lt;p&gt;See #add.&lt;/p&gt;</method>
+    <method name='info?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; iff the current severity level allows for the printing of &lt;tt&gt;INFO&lt;/tt&gt; messages.&lt;/p&gt;</method>
+    <method name='log'>&lt;p&gt;Alias for #add&lt;/p&gt;</method>
+    <method name='unknown'>&lt;p&gt;Log an &lt;tt&gt;UNKNOWN&lt;/tt&gt; message. This will be printed no matter what the logger level.&lt;/p&gt;&lt;p&gt;See #info for more information.&lt;/p&gt;</method>
+    <method name='warn'>&lt;p&gt;Log a &lt;tt&gt;WARN&lt;/tt&gt; message.&lt;/p&gt;&lt;p&gt;See #info for more information.&lt;/p&gt;</method>
+    <method name='warn?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; iff the current severity level allows for the printing of &lt;tt&gt;WARN&lt;/tt&gt; messages.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Descendents of class &lt;tt&gt;Exception&lt;/tt&gt; are used to communicate between &lt;tt&gt;raise&lt;/tt&gt; methods and &lt;tt&gt;rescue&lt;/tt&gt; statements in &lt;tt&gt;begin/end&lt;/tt&gt; blocks. &lt;tt&gt;Exception&lt;/tt&gt; objects carry information about the exception---its type (the exception&apos;s class name), an optional descriptive string, and optional traceback information. Programs may subclass &lt;tt&gt;Exception&lt;/tt&gt; to add additional information.&lt;/p&gt;</comment>
+  <methods>
+    <method name='exception'>&lt;p&gt;With no argument, or if the argument is the same as the receiver, return the receiver. Otherwise, create a new exception object of the same class as the receiver, but with a message equal to &lt;tt&gt;string.to_str&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Construct a new Exception object, optionally passing in a message.&lt;/p&gt;</method>
+    <method name='yaml_new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='backtrace'>&lt;p&gt;Returns any backtrace associated with the exception. The backtrace is an array of strings, each containing either ``filename:lineNo: in `method&apos;&apos;&apos; or ``filename:lineNo.&apos;&apos;&lt;/p&gt;&lt;pre&gt;   def a
+     raise &quot;boom&quot;
+   end
+
+   def b
+     a()
+   end
+
+   begin
+     b()
+   rescue =&gt; detail
+     print detail.backtrace.join(&quot;\n&quot;)
+   end
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   prog.rb:2:in `a&apos;
+   prog.rb:6:in `b&apos;
+   prog.rb:10
+&lt;/pre&gt;</method>
+    <method name='exception'>&lt;p&gt;With no argument, or if the argument is the same as the receiver, return the receiver. Otherwise, create a new exception object of the same class as the receiver, but with a message equal to &lt;tt&gt;string.to_str&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;Return this exception&apos;s class name an message&lt;/p&gt;</method>
+    <method name='message'>&lt;p&gt;Returns the result of invoking &lt;tt&gt;exception.to_s&lt;/tt&gt;. Normally this returns the exception&apos;s message or name. By supplying a to_str method, exceptions are agreeing to be used where Strings are expected.&lt;/p&gt;</method>
+    <method name='set_backtrace'>&lt;p&gt;Sets the backtrace information associated with &lt;em&gt;exc&lt;/em&gt;. The argument must be an array of &lt;tt&gt;String&lt;/tt&gt; objects in the format described in &lt;tt&gt;Exception#backtrace&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Returns exception&apos;s message (or the name of the exception if no message is set).&lt;/p&gt;</method>
+    <method name='to_str'>&lt;p&gt;Returns the result of invoking &lt;tt&gt;exception.to_s&lt;/tt&gt;. Normally this returns the exception&apos;s message or name. By supplying a to_str method, exceptions are agreeing to be used where Strings are expected.&lt;/p&gt;</method>
+    <method name='to_yaml'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

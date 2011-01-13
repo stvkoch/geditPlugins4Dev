@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='gethostbyname'>&lt;p&gt;Resolve &lt;tt&gt;host&lt;/tt&gt; and return name and address information for it, similarly to gethostbyname(3). &lt;tt&gt;host&lt;/tt&gt; can be a domain name or the presentation format of an address.&lt;/p&gt;&lt;p&gt;Returns an array of information similar to that found in a +struct hostent+:&lt;/p&gt;&lt;pre&gt;  - cannonical name: the cannonical name for host in the DNS, or a
+    string representing the address
+  - aliases: an array of aliases for the canonical name, there may be no aliases
+  - address family: usually one of Socket::AF_INET or Socket::AF_INET6
+  - address: a string, the binary value of the +struct sockaddr+ for this name, in
+    the indicated address family
+  - ...: if there are multiple addresses for this host,  a series of
+    strings/+struct sockaddr+s may follow, not all necessarily in the same
+    address family. Note that the fact that they may not be all in the same
+    address family is a departure from the behaviour of gethostbyname(3).
+&lt;/pre&gt;&lt;p&gt;Note: I believe that the fact that the multiple addresses returned are not necessarily in the same address family may be a bug, since if this function actually called gethostbyname(3), ALL the addresses returned in the trailing address list (h_addr_list from struct hostent) would be of the same address family! Examples from my system, OS X 10.3:&lt;/p&gt;&lt;pre&gt;  [&quot;localhost&quot;, [], 30, &quot;\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001&quot;, &quot;\177\000\000\001&quot;]
+    and
+  [&quot;ensemble.local&quot;, [], 30, &quot;\376\200\000\004\000\000\000\000\002\003\223\377\376\255\010\214&quot;, &quot;\300\250{\232&quot; ]
+&lt;/pre&gt;&lt;p&gt;Similar information can be returned by Socket.getaddrinfo if called as:&lt;/p&gt;&lt;pre&gt;   Socket.getaddrinfo(&lt;tt&gt;host&lt;/tt&gt;, 0, Socket::AF_UNSPEC, Socket::SOCK_STREAM, nil, Socket::AI_CANONNAME)
+&lt;/pre&gt;&lt;h2&gt;Examples&lt;/h2&gt;&lt;pre&gt;  Socket.gethostbyname &quot;example.com&quot;
+  =&gt; [&quot;example.com&quot;, [], 2, &quot;\300\000\&quot;\246&quot;]
+&lt;/pre&gt;&lt;p&gt;This name has no DNS aliases, and a single IPv4 address.&lt;/p&gt;&lt;pre&gt;  Socket.gethostbyname &quot;smtp.telus.net&quot;
+  =&gt; [&quot;smtp.svc.telus.net&quot;, [&quot;smtp.telus.net&quot;], 2, &quot;\307\271\334\371&quot;]
+&lt;/pre&gt;&lt;p&gt;This name is an an alias so the canonical name is returned, as well as the alias and a single IPv4 address.&lt;/p&gt;&lt;pre&gt;  Socket.gethostbyname &quot;localhost&quot;
+  =&gt; [&quot;localhost&quot;, [], 30, &quot;\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\001&quot;, &quot;\177\000\000\001&quot;]
+&lt;/pre&gt;&lt;p&gt;This machine has no aliases, returns an IPv6 address, and has an additional IPv4 address.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;host&lt;/tt&gt; can also be an IP address in presentation format, in which case a reverse lookup is done on the address:&lt;/p&gt;&lt;pre&gt;  Socket.gethostbyname(&quot;127.0.0.1&quot;)
+  =&gt; [&quot;localhost&quot;, [], 2, &quot;\177\000\000\001&quot;]
+
+  Socket.gethostbyname(&quot;192.0.34.166&quot;)
+  =&gt; [&quot;www.example.com&quot;, [], 2, &quot;\300\000\&quot;\246&quot;]
+&lt;/pre&gt;&lt;h2&gt;See&lt;/h2&gt;&lt;p&gt;See: Socket.getaddrinfo&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Opens a TCP connection to &lt;tt&gt;remote_host&lt;/tt&gt; on &lt;tt&gt;remote_port&lt;/tt&gt;. If &lt;tt&gt;local_host&lt;/tt&gt; and &lt;tt&gt;local_port&lt;/tt&gt; are specified, then those parameters are used on the local end to establish the connection.&lt;/p&gt;</method>
+  </methods>
+</help>

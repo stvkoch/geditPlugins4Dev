@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Represents a full XML document, including PIs, a doctype, etc. A Document has a single child that can be accessed by root(). Note that if you want to have an XML declaration written for a document you create, you must add one; REXML documents do not write a default declaration for you. See |DECLARATION| and |write|.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Constructor @param source if supplied, must be a Document, String, or IO. Documents have their context and Element attributes cloned. Strings are expected to be valid XML documents. IOs are expected to be sources of valid XML documents. @param context if supplied, contains the context of the document; this should be a Hash. NOTE that I&apos;m not sure what the context is for; I cloned it out of the Electric XML API (in which it also seems to do nothing), and it is now legacy. It may do something, someday... it may disappear.&lt;/p&gt;</method>
+    <method name='parse_stream'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;Alias for #add&lt;/p&gt;</method>
+    <method name='add'>&lt;p&gt;We override this, because XMLDecls and DocTypes must go at the start of the document&lt;/p&gt;</method>
+    <method name='add_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='clone'>&lt;p&gt;Should be obvious&lt;/p&gt;</method>
+    <method name='doctype'>&lt;p&gt;@return the DocType child of the document, if one exists, and nil otherwise.&lt;/p&gt;</method>
+    <method name='encoding'>&lt;p&gt;@return the XMLDecl encoding of this document as a String. If no XMLDecl has been set, returns the default encoding.&lt;/p&gt;</method>
+    <method name='expanded_name'>&lt;p&gt;According to the XML spec, a root node has no expanded name&lt;/p&gt;</method>
+    <method name='name'>&lt;p&gt;Alias for #expanded_name&lt;/p&gt;</method>
+    <method name='node_type'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='root'>&lt;p&gt;@return the root Element of the document, or nil if this document has no children.&lt;/p&gt;</method>
+    <method name='stand_alone?'>&lt;p&gt;@return the XMLDecl standalone value of this document as a String. If no XMLDecl has been set, returns the default setting.&lt;/p&gt;</method>
+    <method name='version'>&lt;p&gt;@return the XMLDecl version of this document as a String. If no XMLDecl has been set, returns the default version.&lt;/p&gt;</method>
+    <method name='write'>&lt;p&gt;Write the XML tree out, optionally with indent. This writes out the entire XML document, including XML declarations, doctype declarations, and processing instructions (if any are given). A controversial point is whether Document should always write the XML declaration (&lt;?xml version=&apos;1.0&apos;?&gt;) whether or not one is given by the user (or source document). REXML does not write one if one was not specified, because it adds unneccessary bandwidth to applications such as XML-RPC.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;output an object which supports &apos;&lt;&lt; string&apos;; this is where the&lt;/li&gt;&lt;/ul&gt;&lt;pre&gt;  document will be written.
+&lt;/pre&gt;&lt;ul&gt;&lt;li&gt;An integer. If -1, no indenting will be used; otherwise, the indentation will be this number of spaces, and children will be indented an additional amount. Defaults to -1&lt;/li&gt;&lt;li&gt;If transitive is true and indent is &gt;= 0, then the output will be pretty-printed in such a way that the added whitespace does not affect the absolute &lt;b&gt;value&lt;/b&gt; of the document -- that is, it leaves the value and number of Text nodes in the document unchanged.&lt;/li&gt;&lt;li&gt;Internet Explorer is the worst piece of crap to have ever been written, with the possible exception of Windows itself. Since IE is unable to parse proper XML, we have to provide a hack to generate XML that IE&apos;s limited abilities can handle. This hack inserts a space before the /&gt; on empty tags. Defaults to false&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='xml_decl'>&lt;p&gt;@return the XMLDecl of this document; if no XMLDecl has been set, the default declaration is returned.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Objects of class &lt;tt&gt;File::Stat&lt;/tt&gt; encapsulate common status information for &lt;tt&gt;File&lt;/tt&gt; objects. The information is recorded at the moment the &lt;tt&gt;File::Stat&lt;/tt&gt; object is created; changes made to the file after that point will not be reflected. &lt;tt&gt;File::Stat&lt;/tt&gt; objects are returned by &lt;tt&gt;IO#stat&lt;/tt&gt;, &lt;tt&gt;File::stat&lt;/tt&gt;, &lt;tt&gt;File#lstat&lt;/tt&gt;, and &lt;tt&gt;File::lstat&lt;/tt&gt;. Many of these methods return platform-specific values, and not all values are meaningful on all systems. See also &lt;tt&gt;Kernel#test&lt;/tt&gt;.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;pre&gt;  File::Stat.new(file_name)  =&gt; stat
+&lt;/pre&gt;&lt;p&gt;Create a File::Stat object for the given file name (raising an exception if the file doesn&apos;t exist).&lt;/p&gt;</method>
+    <method name='&lt;=&gt;'>&lt;p&gt;Compares &lt;tt&gt;File::Stat&lt;/tt&gt; objects by comparing their respective modification times.&lt;/p&gt;&lt;pre&gt;   f1 = File.new(&quot;f1&quot;, &quot;w&quot;)
+   sleep 1
+   f2 = File.new(&quot;f2&quot;, &quot;w&quot;)
+   f1.stat &lt;=&gt; f2.stat   #=&gt; -1
+&lt;/pre&gt;</method>
+    <method name='atime'>&lt;p&gt;Returns the last access time for this file as an object of class &lt;tt&gt;Time&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).atime   #=&gt; Wed Dec 31 18:00:00 CST 1969
+&lt;/pre&gt;</method>
+    <method name='blksize'>&lt;p&gt;Returns the native file system&apos;s block size. Will return &lt;tt&gt;nil&lt;/tt&gt; on platforms that don&apos;t support this information.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).blksize   #=&gt; 4096
+&lt;/pre&gt;</method>
+    <method name='blockdev?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the file is a block device, &lt;tt&gt;false&lt;/tt&gt; if it isn&apos;t or if the operating system doesn&apos;t support this feature.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).blockdev?    #=&gt; false
+   File.stat(&quot;/dev/hda1&quot;).blockdev?   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='blocks'>&lt;p&gt;Returns the number of native file system blocks allocated for this file, or &lt;tt&gt;nil&lt;/tt&gt; if the operating system doesn&apos;t support this feature.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).blocks   #=&gt; 2
+&lt;/pre&gt;</method>
+    <method name='chardev?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the file is a character device, &lt;tt&gt;false&lt;/tt&gt; if it isn&apos;t or if the operating system doesn&apos;t support this feature.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;/dev/tty&quot;).chardev?   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='ctime'>&lt;p&gt;Returns the change time for &lt;em&gt;stat&lt;/em&gt; (that is, the time directory information about the file was changed, not the file itself).&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).ctime   #=&gt; Wed Apr 09 08:53:14 CDT 2003
+&lt;/pre&gt;</method>
+    <method name='dev'>&lt;p&gt;Returns an integer representing the device on which &lt;em&gt;stat&lt;/em&gt; resides.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).dev   #=&gt; 774
+&lt;/pre&gt;</method>
+    <method name='dev_major'>&lt;p&gt;Returns the major part of &lt;tt&gt;File_Stat#dev&lt;/tt&gt; or &lt;tt&gt;nil&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;/dev/fd1&quot;).dev_major   #=&gt; 2
+   File.stat(&quot;/dev/tty&quot;).dev_major   #=&gt; 5
+&lt;/pre&gt;</method>
+    <method name='dev_minor'>&lt;p&gt;Returns the minor part of &lt;tt&gt;File_Stat#dev&lt;/tt&gt; or &lt;tt&gt;nil&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;/dev/fd1&quot;).dev_minor   #=&gt; 1
+   File.stat(&quot;/dev/tty&quot;).dev_minor   #=&gt; 0
+&lt;/pre&gt;</method>
+    <method name='directory?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; is a directory, &lt;tt&gt;false&lt;/tt&gt; otherwise.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).directory?   #=&gt; false
+   File.stat(&quot;.&quot;).directory?          #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='executable?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; is executable or if the operating system doesn&apos;t distinguish executable files from nonexecutable files. The tests are made using the effective owner of the process.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).executable?   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='executable_real?'>&lt;p&gt;Same as &lt;tt&gt;executable?&lt;/tt&gt;, but tests using the real owner of the process.&lt;/p&gt;</method>
+    <method name='file?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; is a regular file (not a device file, pipe, socket, etc.).&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).file?   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='ftype'>&lt;p&gt;Identifies the type of &lt;em&gt;stat&lt;/em&gt;. The return string is one of: ``&lt;tt&gt;file&lt;/tt&gt;&apos;&apos;, ``&lt;tt&gt;directory&lt;/tt&gt;&apos;&apos;, ``&lt;tt&gt;characterSpecial&lt;/tt&gt;&apos;&apos;, ``&lt;tt&gt;blockSpecial&lt;/tt&gt;&apos;&apos;, ``&lt;tt&gt;fifo&lt;/tt&gt;&apos;&apos;, ``&lt;tt&gt;link&lt;/tt&gt;&apos;&apos;, ``&lt;tt&gt;socket&lt;/tt&gt;&apos;&apos;, or ``&lt;tt&gt;unknown&lt;/tt&gt;&apos;&apos;.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;/dev/tty&quot;).ftype   #=&gt; &quot;characterSpecial&quot;
+&lt;/pre&gt;</method>
+    <method name='gid'>&lt;p&gt;Returns the numeric group id of the owner of &lt;em&gt;stat&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).gid   #=&gt; 500
+&lt;/pre&gt;</method>
+    <method name='grpowned?'>&lt;p&gt;Returns true if the effective group id of the process is the same as the group id of &lt;em&gt;stat&lt;/em&gt;. On Windows NT, returns &lt;tt&gt;false&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).grpowned?      #=&gt; true
+   File.stat(&quot;/etc/passwd&quot;).grpowned?   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='ino'>&lt;p&gt;Returns the inode number for &lt;em&gt;stat&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).ino   #=&gt; 1083669
+&lt;/pre&gt;</method>
+    <method name='inspect'>&lt;p&gt;Produce a nicely formatted description of &lt;em&gt;stat&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;  File.stat(&quot;/etc/passwd&quot;).inspect
+     #=&gt; &quot;#&lt;File::Stat dev=0xe000005, ino=1078078, mode=0100644,
+          nlink=1, uid=0, gid=0, rdev=0x0, size=1374, blksize=4096,
+          blocks=8, atime=Wed Dec 10 10:16:12 CST 2003,
+          mtime=Fri Sep 12 15:41:41 CDT 2003,
+          ctime=Mon Oct 27 11:20:27 CST 2003&gt;&quot;
+&lt;/pre&gt;</method>
+    <method name='mode'>&lt;p&gt;Returns an integer representing the permission bits of &lt;em&gt;stat&lt;/em&gt;. The meaning of the bits is platform dependent; on Unix systems, see &lt;tt&gt;stat(2)&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   File.chmod(0644, &quot;testfile&quot;)   #=&gt; 1
+   s = File.stat(&quot;testfile&quot;)
+   sprintf(&quot;%o&quot;, s.mode)          #=&gt; &quot;100644&quot;
+&lt;/pre&gt;</method>
+    <method name='mtime'>&lt;p&gt;Returns the modification time of &lt;em&gt;stat&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).mtime   #=&gt; Wed Apr 09 08:53:14 CDT 2003
+&lt;/pre&gt;</method>
+    <method name='nlink'>&lt;p&gt;Returns the number of hard links to &lt;em&gt;stat&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).nlink             #=&gt; 1
+   File.link(&quot;testfile&quot;, &quot;testfile.bak&quot;)   #=&gt; 0
+   File.stat(&quot;testfile&quot;).nlink             #=&gt; 2
+&lt;/pre&gt;</method>
+    <method name='owned?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the effective user id of the process is the same as the owner of &lt;em&gt;stat&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).owned?      #=&gt; true
+   File.stat(&quot;/etc/passwd&quot;).owned?   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='pipe?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the operating system supports pipes and &lt;em&gt;stat&lt;/em&gt; is a pipe; &lt;tt&gt;false&lt;/tt&gt; otherwise.&lt;/p&gt;</method>
+    <method name='pretty_print'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='rdev'>&lt;p&gt;Returns an integer representing the device type on which &lt;em&gt;stat&lt;/em&gt; resides. Returns &lt;tt&gt;nil&lt;/tt&gt; if the operating system doesn&apos;t support this feature.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;/dev/fd1&quot;).rdev   #=&gt; 513
+   File.stat(&quot;/dev/tty&quot;).rdev   #=&gt; 1280
+&lt;/pre&gt;</method>
+    <method name='rdev_major'>&lt;p&gt;Returns the major part of &lt;tt&gt;File_Stat#rdev&lt;/tt&gt; or &lt;tt&gt;nil&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;/dev/fd1&quot;).rdev_major   #=&gt; 2
+   File.stat(&quot;/dev/tty&quot;).rdev_major   #=&gt; 5
+&lt;/pre&gt;</method>
+    <method name='rdev_minor'>&lt;p&gt;Returns the minor part of &lt;tt&gt;File_Stat#rdev&lt;/tt&gt; or &lt;tt&gt;nil&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;/dev/fd1&quot;).rdev_minor   #=&gt; 1
+   File.stat(&quot;/dev/tty&quot;).rdev_minor   #=&gt; 0
+&lt;/pre&gt;</method>
+    <method name='readable?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; is readable by the effective user id of this process.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).readable?   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='readable_real?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; is readable by the real user id of this process.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).readable_real?   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='setgid?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; has the set-group-id permission bit set, &lt;tt&gt;false&lt;/tt&gt; if it doesn&apos;t or if the operating system doesn&apos;t support this feature.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;/usr/sbin/lpc&quot;).setgid?   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='setuid?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; has the set-user-id permission bit set, &lt;tt&gt;false&lt;/tt&gt; if it doesn&apos;t or if the operating system doesn&apos;t support this feature.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;/bin/su&quot;).setuid?   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='size'>&lt;p&gt;Returns the size of &lt;em&gt;stat&lt;/em&gt; in bytes.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).size   #=&gt; 66
+&lt;/pre&gt;</method>
+    <method name='size?'>&lt;p&gt;Returns the size of &lt;em&gt;stat&lt;/em&gt; in bytes.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).size   #=&gt; 66
+&lt;/pre&gt;</method>
+    <method name='socket?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; is a socket, &lt;tt&gt;false&lt;/tt&gt; if it isn&apos;t or if the operating system doesn&apos;t support this feature.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).socket?   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='sticky?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; has its sticky bit set, &lt;tt&gt;false&lt;/tt&gt; if it doesn&apos;t or if the operating system doesn&apos;t support this feature.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).sticky?   #=&gt; false
+&lt;/pre&gt;</method>
+    <method name='symlink?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; is a symbolic link, &lt;tt&gt;false&lt;/tt&gt; if it isn&apos;t or if the operating system doesn&apos;t support this feature. As &lt;tt&gt;File::stat&lt;/tt&gt; automatically follows symbolic links, &lt;tt&gt;symlink?&lt;/tt&gt; will always be &lt;tt&gt;false&lt;/tt&gt; for an object returned by &lt;tt&gt;File::stat&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   File.symlink(&quot;testfile&quot;, &quot;alink&quot;)   #=&gt; 0
+   File.stat(&quot;alink&quot;).symlink?         #=&gt; false
+   File.lstat(&quot;alink&quot;).symlink?        #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='uid'>&lt;p&gt;Returns the numeric user id of the owner of &lt;em&gt;stat&lt;/em&gt;.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).uid   #=&gt; 501
+&lt;/pre&gt;</method>
+    <method name='writable?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; is writable by the effective user id of this process.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).writable?   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='writable_real?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; is writable by the real user id of this process.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).writable_real?   #=&gt; true
+&lt;/pre&gt;</method>
+    <method name='zero?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;em&gt;stat&lt;/em&gt; is a zero-length file; &lt;tt&gt;false&lt;/tt&gt; otherwise.&lt;/p&gt;&lt;pre&gt;   File.stat(&quot;testfile&quot;).zero?   #=&gt; false
+&lt;/pre&gt;</method>
+  </methods>
+</help>

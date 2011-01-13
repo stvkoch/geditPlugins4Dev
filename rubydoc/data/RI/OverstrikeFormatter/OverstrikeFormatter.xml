@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This formatter generates overstrike-style formatting, which works with pagers such as man and less.&lt;/p&gt;</comment>
+  <methods>
+    <method name='bold_print'>&lt;p&gt;draw a string in bold&lt;/p&gt;</method>
+    <method name='write_attribute_text'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

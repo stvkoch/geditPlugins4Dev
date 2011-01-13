@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='format'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='test_00_06'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='test_07_10'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='test_11_14'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='test_15_18'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='test_19_22'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='test_23_26'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='test_27'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

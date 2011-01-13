@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;pre&gt;  version.rb - shell version definition file
+      $Release Version: 0.6.0$
+      $Revision: 1.1 $
+      $Date: 2001/05/17 10:02:48 $
+      by Keiju ISHITSUKA(Nihon Rational Software Co.,Ltd)
+&lt;/pre&gt;&lt;p&gt;--&lt;/p&gt;</comment>
+  <methods>
+    <method name='alias_command'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='cd'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='debug='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='def_system_command'>&lt;p&gt;command definitions&lt;/p&gt;</method>
+    <method name='default_record_separator'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='default_record_separator='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='default_system_path'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='default_system_path='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='install_system_commands'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='notify'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='unalias_command'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='undef_system_command'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='cd'>&lt;p&gt;Alias for #chdir&lt;/p&gt;</method>
+    <method name='chdir'>&lt;p&gt;If called as iterator, it restores the current directory when the block ends.&lt;/p&gt;</method>
+    <method name='debug='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='expand_path'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'></method>
+    <method name='jobs'>&lt;p&gt;process management&lt;/p&gt;</method>
+    <method name='kill'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='popd'>&lt;p&gt;Alias for #popdir&lt;/p&gt;</method>
+    <method name='popdir'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='pushd'>&lt;p&gt;Alias for #pushdir&lt;/p&gt;</method>
+    <method name='pushdir'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='system_path='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;You don&apos;t want to use this class. Really. Use XPath, which is a wrapper for this class. Believe me. You don&apos;t want to poke around in here. There is strange, dark magic at work in this code. Beware. Go back! Go back while you still can!&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='[]='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='first'>&lt;p&gt;Performs a depth-first (document order) XPath search, and returns the first match. This is the fastest, lightest way to return a single result.&lt;/p&gt;&lt;p&gt;FIXME: This method is incomplete!&lt;/p&gt;</method>
+    <method name='get_first'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='match'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='namespaces='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='predicate'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='variables='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

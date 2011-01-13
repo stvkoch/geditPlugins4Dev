@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;FIXME: This isn&apos;t documented in Nutshell.&lt;/p&gt;&lt;p&gt;Since MonitorMixin.new_cond returns a ConditionVariable, and the example above calls while_wait and signal, this class should be documented.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='broadcast'>&lt;p&gt;Wake up all the waiters.&lt;/p&gt;</method>
+    <method name='count_waiters'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='signal'>&lt;p&gt;Wake up and run the next waiter&lt;/p&gt;</method>
+    <method name='wait'>&lt;p&gt;Create a new timer with the argument timeout, and add the current thread to the list of waiters. Then the thread is stopped. It will be resumed when a corresponding #signal occurs.&lt;/p&gt;</method>
+    <method name='wait_until'>&lt;p&gt;call #wait until the supplied block returns &lt;tt&gt;true&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='wait_while'>&lt;p&gt;call #wait while the supplied block returns &lt;tt&gt;true&lt;/tt&gt;.&lt;/p&gt;</method>
+  </methods>
+</help>

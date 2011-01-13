@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='bind'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='connect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='recvfrom_nonblock'>&lt;p&gt;Receives up to &lt;em&gt;maxlen&lt;/em&gt; bytes from &lt;tt&gt;udpsocket&lt;/tt&gt; using recvfrom(2) after O_NONBLOCK is set for the underlying file descriptor. &lt;em&gt;flags&lt;/em&gt; is zero or more of the &lt;tt&gt;MSG_&lt;/tt&gt; options. The first element of the results, &lt;em&gt;mesg&lt;/em&gt;, is the data received. The second element, &lt;em&gt;sender_inet_addr&lt;/em&gt;, is an array to represent the sender address.&lt;/p&gt;&lt;p&gt;When recvfrom(2) returns 0, Socket#recvfrom_nonblock returns an empty string as data. It means an empty packet.&lt;/p&gt;&lt;h3&gt;Parameters&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt;maxlen&lt;/tt&gt; - the number of bytes to receive from the socket&lt;/li&gt;&lt;li&gt;&lt;tt&gt;flags&lt;/tt&gt; - zero or more of the &lt;tt&gt;MSG_&lt;/tt&gt; options&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Example&lt;/h3&gt;&lt;pre&gt;     require &apos;socket&apos;
+     s1 = UDPSocket.new
+     s1.bind(&quot;127.0.0.1&quot;, 0)
+     s2 = UDPSocket.new
+     s2.bind(&quot;127.0.0.1&quot;, 0)
+     s2.connect(*s1.addr.values_at(3,1))
+     s1.connect(*s2.addr.values_at(3,1))
+     s1.send &quot;aaa&quot;, 0
+     IO.select([s2])
+     p s2.recvfrom_nonblock(10)  #=&gt; [&quot;aaa&quot;, [&quot;AF_INET&quot;, 33302, &quot;localhost.localdomain&quot;, &quot;127.0.0.1&quot;]]
+&lt;/pre&gt;&lt;p&gt;Refer to Socket#recvfrom for the exceptions that may be thrown if the call to &lt;em&gt;recvfrom_nonblock&lt;/em&gt; fails.&lt;/p&gt;&lt;p&gt;UDPSocket#recvfrom_nonblock may raise any error corresponding to recvfrom(2) failure, including Errno::EAGAIN.&lt;/p&gt;&lt;h3&gt;See&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Socket#recvfrom&lt;/li&gt;&lt;/ul&gt;</method>
+    <method name='send'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

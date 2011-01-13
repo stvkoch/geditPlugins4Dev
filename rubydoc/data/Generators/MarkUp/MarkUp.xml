@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Handle common markup tasks for the various Html classes&lt;/p&gt;</comment>
+  <methods>
+    <method name='cvs_url'>&lt;p&gt;Build a webcvs URL with the given &apos;url&apos; argument. URLs with a &apos;%s&apos; in them get the file&apos;s path sprintfed into them; otherwise they&apos;re just catenated together.&lt;/p&gt;</method>
+    <method name='markup'>&lt;p&gt;Convert a string in markup format into HTML. We keep a cached SimpleMarkup object lying around after the first time we&apos;re called per object.&lt;/p&gt;</method>
+    <method name='style_url'>&lt;p&gt;Qualify a stylesheet URL; if if &lt;tt&gt;css_name&lt;/tt&gt; does not begin with &apos;/&apos; or &apos;http[s]://&apos;, prepend a prefix relative to &lt;tt&gt;path&lt;/tt&gt;. Otherwise, return it unmodified.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The &lt;tt&gt;Process::Sys&lt;/tt&gt; module contains UID and GID functions which provide direct bindings to the system calls of the same names instead of the more-portable versions of the same functionality found in the &lt;tt&gt;Process&lt;/tt&gt;, &lt;tt&gt;Process::UID&lt;/tt&gt;, and &lt;tt&gt;Process::GID&lt;/tt&gt; modules.&lt;/p&gt;</comment>
+  <methods>
+    <method name='getegid'>&lt;p&gt;Returns the effective group ID for this process. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   Process.egid   #=&gt; 500
+&lt;/pre&gt;</method>
+    <method name='geteuid'>&lt;p&gt;Returns the effective user ID for this process.&lt;/p&gt;&lt;pre&gt;   Process.euid   #=&gt; 501
+&lt;/pre&gt;</method>
+    <method name='getgid'>&lt;p&gt;Returns the (real) group ID for this process.&lt;/p&gt;&lt;pre&gt;   Process.gid   #=&gt; 500
+&lt;/pre&gt;</method>
+    <method name='getuid'>&lt;p&gt;Returns the (real) user ID of this process.&lt;/p&gt;&lt;pre&gt;   Process.uid   #=&gt; 501
+&lt;/pre&gt;</method>
+    <method name='issetugid'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if the process was created as a result of an execve(2) system call which had either of the setuid or setgid bits set (and extra privileges were given as a result) or if it has changed any of its real, effective or saved user or group IDs since it began execution.&lt;/p&gt;</method>
+    <method name='setegid'>&lt;p&gt;Set the effective group ID of the calling process to &lt;em&gt;integer&lt;/em&gt;. Not available on all platforms.&lt;/p&gt;</method>
+    <method name='seteuid'>&lt;p&gt;Set the effective user ID of the calling process to &lt;em&gt;integer&lt;/em&gt;. Not available on all platforms.&lt;/p&gt;</method>
+    <method name='setgid'>&lt;p&gt;Set the group ID of the current process to &lt;em&gt;integer&lt;/em&gt;. Not available on all platforms.&lt;/p&gt;</method>
+    <method name='setregid'>&lt;p&gt;Sets the (integer) real and/or effective group IDs of the current process to &lt;em&gt;rid&lt;/em&gt; and &lt;em&gt;eid&lt;/em&gt;, respectively. A value of &lt;tt&gt;-1&lt;/tt&gt; for either means to leave that ID unchanged. Not available on all platforms.&lt;/p&gt;</method>
+    <method name='setresgid'>&lt;p&gt;Sets the (integer) real, effective, and saved user IDs of the current process to &lt;em&gt;rid&lt;/em&gt;, &lt;em&gt;eid&lt;/em&gt;, and &lt;em&gt;sid&lt;/em&gt; respectively. A value of &lt;tt&gt;-1&lt;/tt&gt; for any value means to leave that ID unchanged. Not available on all platforms.&lt;/p&gt;</method>
+    <method name='setresuid'>&lt;p&gt;Sets the (integer) real, effective, and saved user IDs of the current process to &lt;em&gt;rid&lt;/em&gt;, &lt;em&gt;eid&lt;/em&gt;, and &lt;em&gt;sid&lt;/em&gt; respectively. A value of &lt;tt&gt;-1&lt;/tt&gt; for any value means to leave that ID unchanged. Not available on all platforms.&lt;/p&gt;</method>
+    <method name='setreuid'>&lt;p&gt;Sets the (integer) real and/or effective user IDs of the current process to &lt;em&gt;rid&lt;/em&gt; and &lt;em&gt;eid&lt;/em&gt;, respectively. A value of &lt;tt&gt;-1&lt;/tt&gt; for either means to leave that ID unchanged. Not available on all platforms.&lt;/p&gt;</method>
+    <method name='setrgid'>&lt;p&gt;Set the real group ID of the calling process to &lt;em&gt;integer&lt;/em&gt;. Not available on all platforms.&lt;/p&gt;</method>
+    <method name='setruid'>&lt;p&gt;Set the real user ID of the calling process to &lt;em&gt;integer&lt;/em&gt;. Not available on all platforms.&lt;/p&gt;</method>
+    <method name='setuid'>&lt;p&gt;Set the user ID of the current process to &lt;em&gt;integer&lt;/em&gt;. Not available on all platforms.&lt;/p&gt;</method>
+  </methods>
+</help>

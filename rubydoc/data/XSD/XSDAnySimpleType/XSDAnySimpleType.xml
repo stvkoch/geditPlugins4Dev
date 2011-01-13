@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The base class of XSD datatypes.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='check_lexical_format'>&lt;p&gt;true or raise&lt;/p&gt;</method>
+    <method name='set'>&lt;p&gt;set accepts a string which follows lexical space (ex. String: &quot;+123&quot;), or an object which follows canonical space (ex. Integer: 123).&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;to_s creates a string which follows lexical space (ex. String: &quot;123&quot;).&lt;/p&gt;</method>
+  </methods>
+</help>

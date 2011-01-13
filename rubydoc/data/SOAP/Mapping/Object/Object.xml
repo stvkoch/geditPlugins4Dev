@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;For anyType object: SOAP::Mapping::Object not ::Object&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='[]='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='__add_xmlele_value'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='__xmlattr'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='__xmlele'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

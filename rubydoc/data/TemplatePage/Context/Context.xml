@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A context holds a stack of key/value pairs (like a symbol table). When asked to resolve a key, it first searches the top of the stack, then the next level, and so on until it finds a match (or runs out of entries)&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_scalar'>&lt;p&gt;Find a scalar value, throwing an exception if not found. This method is used when substituting the %xxx% constructs&lt;/p&gt;</method>
+    <method name='lookup'>&lt;p&gt;Lookup any key in the stack of hashes&lt;/p&gt;</method>
+    <method name='pop'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='push'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;TSort implements topological sorting using Tarjan&apos;s algorithm for strongly connected components.&lt;/p&gt;&lt;p&gt;TSort is designed to be able to be used with any object which can be interpreted as a directed graph.&lt;/p&gt;&lt;p&gt;TSort requires two methods to interpret an object as a graph, tsort_each_node and tsort_each_child.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;tsort_each_node is used to iterate for all nodes over a graph.&lt;/li&gt;&lt;li&gt;tsort_each_child is used to iterate for child nodes of a given node.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;The equality of nodes are defined by eql? and hash since TSort uses Hash internally.&lt;/p&gt;&lt;h2&gt;A Simple Example&lt;/h2&gt;&lt;p&gt;The following example demonstrates how to mix the TSort module into an existing class (in this case, Hash). Here, we&apos;re treating each key in the hash as a node in the graph, and so we simply alias the required #tsort_each_node method to Hash&apos;s #each_key method. For each key in the hash, the associated value is an array of the node&apos;s child nodes. This choice in turn leads to our implementation of the required #tsort_each_child method, which fetches the array of child nodes and then iterates over that array using the user-supplied block.&lt;/p&gt;&lt;pre&gt;  require &apos;tsort&apos;
+
+  class Hash
+    include TSort
+    alias tsort_each_node each_key
+    def tsort_each_child(node, &amp;block)
+      fetch(node).each(&amp;block)
+    end
+  end
+
+  {1=&gt;[2, 3], 2=&gt;[3], 3=&gt;[], 4=&gt;[]}.tsort
+  #=&gt; [3, 2, 1, 4]
+
+  {1=&gt;[2], 2=&gt;[3, 4], 3=&gt;[2], 4=&gt;[]}.strongly_connected_components
+  #=&gt; [[4], [2, 3], [1]]
+&lt;/pre&gt;&lt;h2&gt;A More Realistic Example&lt;/h2&gt;&lt;p&gt;A very simple `make&apos; like tool can be implemented as follows:&lt;/p&gt;&lt;pre&gt;  require &apos;tsort&apos;
+
+  class Make
+    def initialize
+      @dep = {}
+      @dep.default = []
+    end
+
+    def rule(outputs, inputs=[], &amp;block)
+      triple = [outputs, inputs, block]
+      outputs.each {|f| @dep[f] = [triple]}
+      @dep[triple] = inputs
+    end
+
+    def build(target)
+      each_strongly_connected_component_from(target) {|ns|
+        if ns.length != 1
+          fs = ns.delete_if {|n| Array === n}
+          raise TSort::Cyclic.new(&quot;cyclic dependencies: #{fs.join &apos;, &apos;}&quot;)
+        end
+        n = ns.first
+        if Array === n
+          outputs, inputs, block = n
+          inputs_time = inputs.map {|f| File.mtime f}.max
+          begin
+            outputs_time = outputs.map {|f| File.mtime f}.min
+          rescue Errno::ENOENT
+            outputs_time = nil
+          end
+          if outputs_time == nil ||
+             inputs_time != nil &amp;&amp; outputs_time &lt;= inputs_time
+            sleep 1 if inputs_time != nil &amp;&amp; inputs_time.to_i == Time.now.to_i
+            block.call
+          end
+        end
+      }
+    end
+
+    def tsort_each_child(node, &amp;block)
+      @dep[node].each(&amp;block)
+    end
+    include TSort
+  end
+
+  def command(arg)
+    print arg, &quot;\n&quot;
+    system arg
+  end
+
+  m = Make.new
+  m.rule(%w[t1]) { command &apos;date &gt; t1&apos; }
+  m.rule(%w[t2]) { command &apos;date &gt; t2&apos; }
+  m.rule(%w[t3]) { command &apos;date &gt; t3&apos; }
+  m.rule(%w[t4], %w[t1 t3]) { command &apos;cat t1 t3 &gt; t4&apos; }
+  m.rule(%w[t5], %w[t4 t2]) { command &apos;cat t4 t2 &gt; t5&apos; }
+  m.build(&apos;t5&apos;)
+&lt;/pre&gt;&lt;h2&gt;Bugs&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;&apos;tsort.rb&apos; is wrong name because this library uses Tarjan&apos;s algorithm for strongly connected components. Although &apos;strongly_connected_components.rb&apos; is correct but too long.&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;References&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;E. Tarjan, &quot;Depth First Search and Linear Graph Algorithms&quot;,&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;em&gt;SIAM Journal on Computing&lt;/em&gt;, Vol. 1, No. 2, pp. 146-160, June 1972.&lt;/p&gt;</comment>
+  <methods>
+    <method name='each_strongly_connected_component'>&lt;p&gt;The iterator version of the #strongly_connected_components method. &lt;tt&gt;&lt;em&gt;obj&lt;/em&gt;.each_strongly_connected_component&lt;/tt&gt; is similar to &lt;tt&gt;&lt;em&gt;obj&lt;/em&gt;.strongly_connected_components.each&lt;/tt&gt;, but modification of &lt;em&gt;obj&lt;/em&gt; during the iteration may lead to unexpected results.&lt;/p&gt;&lt;p&gt;#each_strongly_connected_component returns &lt;tt&gt;nil&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='each_strongly_connected_component_from'>&lt;p&gt;Iterates over strongly connected component in the subgraph reachable from &lt;em&gt;node&lt;/em&gt;.&lt;/p&gt;&lt;p&gt;Return value is unspecified.&lt;/p&gt;&lt;p&gt;#each_strongly_connected_component_from doesn&apos;t call #tsort_each_node.&lt;/p&gt;</method>
+    <method name='strongly_connected_components'>&lt;p&gt;Returns strongly connected components as an array of arrays of nodes. The array is sorted from children to parents. Each elements of the array represents a strongly connected component.&lt;/p&gt;</method>
+    <method name='tsort'>&lt;p&gt;Returns a topologically sorted array of nodes. The array is sorted from children to parents, i.e. the first element has no child and the last node has no parent.&lt;/p&gt;&lt;p&gt;If there is a cycle, TSort::Cyclic is raised.&lt;/p&gt;</method>
+    <method name='tsort_each'>&lt;p&gt;The iterator version of the #tsort method. &lt;tt&gt;&lt;em&gt;obj&lt;/em&gt;.tsort_each&lt;/tt&gt; is similar to &lt;tt&gt;&lt;em&gt;obj&lt;/em&gt;.tsort.each&lt;/tt&gt;, but modification of &lt;em&gt;obj&lt;/em&gt; during the iteration may lead to unexpected results.&lt;/p&gt;&lt;p&gt;#tsort_each returns &lt;tt&gt;nil&lt;/tt&gt;. If there is a cycle, TSort::Cyclic is raised.&lt;/p&gt;</method>
+    <method name='tsort_each_child'>&lt;p&gt;Should be implemented by a extended class.&lt;/p&gt;&lt;p&gt;#tsort_each_child is used to iterate for child nodes of &lt;em&gt;node&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='tsort_each_node'>&lt;p&gt;Should be implemented by a extended class.&lt;/p&gt;&lt;p&gt;#tsort_each_node is used to iterate for all nodes over a graph.&lt;/p&gt;</method>
+  </methods>
+</help>

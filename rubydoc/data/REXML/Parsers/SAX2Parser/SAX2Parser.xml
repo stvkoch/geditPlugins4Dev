@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;SAX2Parser&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_listener'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='deafen'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='listen'>&lt;p&gt;Listen arguments:&lt;/p&gt;&lt;p&gt;Symbol, Array, Block&lt;/p&gt;&lt;pre&gt;   Listen to Symbol events on Array elements
+&lt;/pre&gt;&lt;p&gt;Symbol, Block&lt;/p&gt;&lt;pre&gt;  Listen to Symbol events
+&lt;/pre&gt;&lt;p&gt;Array, Listener&lt;/p&gt;&lt;pre&gt;   Listen to all events on Array elements
+&lt;/pre&gt;&lt;p&gt;Array, Block&lt;/p&gt;&lt;pre&gt;   Listen to :start_element events on Array elements
+&lt;/pre&gt;&lt;p&gt;Listener&lt;/p&gt;&lt;pre&gt;   Listen to All events
+&lt;/pre&gt;&lt;p&gt;Symbol can be one of: :start_element, :end_element, :start_prefix_mapping, :end_prefix_mapping, :characters, :processing_instruction, :doctype, :attlistdecl, :elementdecl, :entitydecl, :notationdecl, :cdata, :xmldecl, :comment&lt;/p&gt;&lt;p&gt;There is an additional symbol that can be listened for: :progress. This will be called for every event generated, passing in the current stream position.&lt;/p&gt;&lt;p&gt;Array contains regular expressions or strings which will be matched against fully qualified element names.&lt;/p&gt;&lt;p&gt;Listener must implement the methods in SAX2Listener&lt;/p&gt;&lt;p&gt;Block will be passed the same arguments as a SAX2Listener method would be, where the method name is the same as the matched Symbol. See the SAX2Listener for more information.&lt;/p&gt;</method>
+    <method name='parse'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

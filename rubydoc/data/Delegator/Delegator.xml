@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Delegator is an abstract class used to build delegator pattern objects from subclasses. Subclasses should redefine __getobj__. For a concrete implementation, see SimpleDelegator.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Pass in the &lt;em&gt;obj&lt;/em&gt; to delegate method calls to. All methods supported by &lt;em&gt;obj&lt;/em&gt; will be delegated to.&lt;/p&gt;</method>
+    <method name='__getobj__'>&lt;p&gt;This method must be overridden by subclasses and should return the object method calls are being delegated to.&lt;/p&gt;</method>
+    <method name='marshal_dump'>&lt;p&gt;Serialization support for the object returned by __getobj__.&lt;/p&gt;</method>
+    <method name='marshal_load'>&lt;p&gt;Reinitializes delegation from a serialized object.&lt;/p&gt;</method>
+    <method name='method_missing'>&lt;p&gt;Handles the magic of delegation through __getobj__.&lt;/p&gt;</method>
+    <method name='respond_to?'>&lt;p&gt;Checks for a method provided by this the delegate object by fowarding the call through __getobj__.&lt;/p&gt;</method>
+  </methods>
+</help>

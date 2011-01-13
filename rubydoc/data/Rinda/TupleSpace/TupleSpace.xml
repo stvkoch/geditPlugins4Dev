@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The Tuplespace manages access to the tuples it contains, ensuring mutual exclusion requirements are met.&lt;/p&gt;&lt;p&gt;The &lt;tt&gt;sec&lt;/tt&gt; option for the write, take, move, read and notify methods may either be a number of seconds or a Renewer object.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new TupleSpace. &lt;tt&gt;period&lt;/tt&gt; is used to control how often to look for dead tuples after modifications to the TupleSpace.&lt;/p&gt;&lt;p&gt;If no dead tuples are found &lt;tt&gt;period&lt;/tt&gt; seconds after the last modification, the TupleSpace will stop looking for dead tuples.&lt;/p&gt;</method>
+    <method name='move'>&lt;p&gt;Moves &lt;tt&gt;tuple&lt;/tt&gt; to &lt;tt&gt;port&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='notify'>&lt;p&gt;Registers for notifications of &lt;tt&gt;event&lt;/tt&gt;. Returns a NotifyTemplateEntry. See NotifyTemplateEntry for examples of how to listen for notifications.&lt;/p&gt;&lt;p&gt;&lt;tt&gt;event&lt;/tt&gt; can be:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;A tuple was added&lt;/li&gt;&lt;li&gt;A tuple was taken or moved&lt;/li&gt;&lt;li&gt;A tuple was lost after being overwritten or expiring&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;The TupleSpace will also notify you of the &apos;close&apos; event when the NotifyTemplateEntry has expired.&lt;/p&gt;</method>
+    <method name='read'>&lt;p&gt;Reads &lt;tt&gt;tuple&lt;/tt&gt;, but does not remove it.&lt;/p&gt;</method>
+    <method name='read_all'>&lt;p&gt;Returns all tuples matching &lt;tt&gt;tuple&lt;/tt&gt;. Does not remove the found tuples.&lt;/p&gt;</method>
+    <method name='take'>&lt;p&gt;Removes &lt;tt&gt;tuple&lt;/tt&gt;&lt;/p&gt;</method>
+    <method name='write'>&lt;p&gt;Adds &lt;tt&gt;tuple&lt;/tt&gt;&lt;/p&gt;</method>
+  </methods>
+</help>

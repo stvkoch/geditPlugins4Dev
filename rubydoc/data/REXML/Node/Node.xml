@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Represents a node in the tree. Nodes are never encountered except as superclasses of other objects. Nodes have siblings.&lt;/p&gt;</comment>
+  <methods>
+    <method name='each_recursive'>&lt;p&gt;Visit all subnodes of &lt;tt&gt;self&lt;/tt&gt; recursively&lt;/p&gt;</method>
+    <method name='find_first_recursive'>&lt;p&gt;Find (and return) first subnode (recursively) for which the block evaluates to true. Returns &lt;tt&gt;nil&lt;/tt&gt; if none was found.&lt;/p&gt;</method>
+    <method name='indent'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='index_in_parent'>&lt;p&gt;Returns the index that &lt;tt&gt;self&lt;/tt&gt; has in its parent&apos;s elements array, so that the following equation holds true:&lt;/p&gt;&lt;pre&gt;  node == node.parent.elements[node.index_in_parent]
+&lt;/pre&gt;</method>
+    <method name='next_sibling_node'>&lt;p&gt;@return the next sibling (nil if unset)&lt;/p&gt;</method>
+    <method name='parent?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='previous_sibling_node'>&lt;p&gt;@return the previous sibling (nil if unset)&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

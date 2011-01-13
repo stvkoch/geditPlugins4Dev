@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;CSV formatted string/stream writer.&lt;/p&gt;&lt;p&gt;EXAMPLE&lt;/p&gt;&lt;pre&gt;  Write rows to &apos;csvout&apos; file.
+
+  outfile = File.open(&apos;csvout&apos;, &apos;wb&apos;)
+  CSV::Writer.generate(outfile) do |csv|
+    csv &lt;&lt; [&apos;c1&apos;, nil, &apos;&apos;, &apos;&quot;&apos;, &quot;\r\n&quot;, &apos;c2&apos;]
+    ...
+  end
+
+  outfile.close
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='create'>&lt;p&gt;str_or_writable must handle &apos;&lt;&lt;(string)&apos;.&lt;/p&gt;</method>
+    <method name='generate'>&lt;p&gt;Given block is called with the writer instance. str_or_writable must handle &apos;&lt;&lt;(string)&apos;.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;dump CSV stream to the device. argument must be an Array of String.&lt;/p&gt;</method>
+    <method name='add_row'>&lt;p&gt;Alias for #&lt;&lt;&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;RFC2368, The mailto URL scheme&lt;/p&gt;</comment>
+  <methods>
+    <method name='build'>&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Creates a new URI::MailTo object from components of URI::MailTo with check. It is to and headers. It provided by an Array of a Hash. You can provide headers as String like &quot;subject=subscribe&amp;cc=addr&quot; or Array like [[&quot;subject&quot;, &quot;subscribe&quot;], [&quot;cc&quot;, &quot;addr&quot;]]&lt;/p&gt;</method>
+    <method name='new'>&lt;h2&gt;Description&lt;/h2&gt;&lt;p&gt;Creates a new URI::MailTo object from ``generic&apos;&apos; components with no check. Because, this method is usually called from URI::parse and the method checks validity of each components.&lt;/p&gt;</method>
+    <method name='headers='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to='>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='to_mailtext'>&lt;h2&gt;Usage&lt;/h2&gt;&lt;pre&gt;  require &apos;uri&apos;
+
+  uri = URI.parse(&quot;mailto:ruby-list@ruby-lang.org?Subject=subscribe&amp;cc=myaddr&quot;)
+  uri.to_mailtext
+  # =&gt; &quot;To: ruby-list@ruby-lang.org\nSubject: subscribe\nCc: myaddr\n\n\n&quot;
+&lt;/pre&gt;</method>
+    <method name='to_rfc822text'>&lt;p&gt;Alias for #to_mailtext&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

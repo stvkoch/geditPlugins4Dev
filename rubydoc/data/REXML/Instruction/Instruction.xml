@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Represents an XML Instruction; IE, &lt;? ... ?&gt; TODO: Add parent arg (3rd arg) to constructor&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Constructs a new Instruction @param target can be one of a number of things. If String, then the target of this instruction is set to this. If an Instruction, then the Instruction is shallowly cloned (target and content are copied). If a Source, then the source is scanned and parsed for an Instruction declaration. @param content Must be either a String, or a Parent. Can only be a Parent if the target argument is a Source. Otherwise, this String is set as the content of this instruction.&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;@return true if other is an Instruction, and the content and target of the other matches the target and content of this object.&lt;/p&gt;</method>
+    <method name='clone'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inspect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='node_type'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='write'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

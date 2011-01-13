@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The &lt;tt&gt;Vector&lt;/tt&gt; class represents a mathematical vector, which is useful in its own right, and also constitutes a row or column of a Matrix.&lt;/p&gt;&lt;h2&gt;Method Catalogue&lt;/h2&gt;&lt;p&gt;To create a Vector:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt; Vector.[](*array) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; Vector.elements(array, copy = true) &lt;/tt&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;To access elements:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt; [](i) &lt;/tt&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;To enumerate the elements:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt; #each2(v) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #collect2(v) &lt;/tt&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Vector arithmetic:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt; *(x) &quot;is matrix or number&quot; &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; +(v) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; -(v) &lt;/tt&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Vector functions:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt; #inner_product(v) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #collect &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #map &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #map2(v) &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #r &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #size &lt;/tt&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Conversion to other data types:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt; #covector &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #to_a &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #coerce(other) &lt;/tt&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;String representations:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;tt&gt; #to_s &lt;/tt&gt;&lt;/li&gt;&lt;li&gt;&lt;tt&gt; #inspect &lt;/tt&gt;&lt;/li&gt;&lt;/ul&gt;</comment>
+  <methods>
+    <method name='[]'>&lt;p&gt;Creates a Vector from a list of elements.&lt;/p&gt;&lt;pre&gt;  Vector[7, 4, ...]
+&lt;/pre&gt;</method>
+    <method name='elements'>&lt;p&gt;Creates a vector from an Array. The optional second argument specifies whether the array itself or a copy is used internally.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;For internal use.&lt;/p&gt;</method>
+    <method name='*'>&lt;p&gt;Multiplies the vector by &lt;tt&gt;x&lt;/tt&gt;, where &lt;tt&gt;x&lt;/tt&gt; is a number or another vector.&lt;/p&gt;</method>
+    <method name='+'>&lt;p&gt;Vector addition.&lt;/p&gt;</method>
+    <method name='-'>&lt;p&gt;Vector subtraction.&lt;/p&gt;</method>
+    <method name='=='>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; iff the two vectors have the same elements in the same order.&lt;/p&gt;</method>
+    <method name='[]'>&lt;p&gt;Returns element number &lt;tt&gt;i&lt;/tt&gt; (starting at zero) of the vector.&lt;/p&gt;</method>
+    <method name='clone'>&lt;p&gt;Return a copy of the vector.&lt;/p&gt;</method>
+    <method name='coerce'>&lt;p&gt;FIXME: describe Vector#coerce.&lt;/p&gt;</method>
+    <method name='collect'>&lt;p&gt;Like Array#collect.&lt;/p&gt;</method>
+    <method name='collect2'>&lt;p&gt;Collects (as in Enumerable#collect) over the elements of this vector and &lt;tt&gt;v&lt;/tt&gt; in conjunction.&lt;/p&gt;</method>
+    <method name='compare_by'>&lt;p&gt;For internal use.&lt;/p&gt;</method>
+    <method name='covector'>&lt;p&gt;Creates a single-row matrix from this vector.&lt;/p&gt;</method>
+    <method name='each2'>&lt;p&gt;Iterate over the elements of this vector and &lt;tt&gt;v&lt;/tt&gt; in conjunction.&lt;/p&gt;</method>
+    <method name='eqn?'>&lt;p&gt;Alias for #==&lt;/p&gt;</method>
+    <method name='hash'>&lt;p&gt;Return a hash-code for the vector.&lt;/p&gt;</method>
+    <method name='init_elements'>&lt;p&gt;For internal use.&lt;/p&gt;</method>
+    <method name='inner_product'>&lt;p&gt;Returns the inner product of this vector with the other.&lt;/p&gt;&lt;pre&gt;  Vector[4,7].inner_product Vector[10,1]  =&gt; 47
+&lt;/pre&gt;</method>
+    <method name='inspect'>&lt;p&gt;Overrides Object#inspect&lt;/p&gt;</method>
+    <method name='map'>&lt;p&gt;Alias for #collect&lt;/p&gt;</method>
+    <method name='map2'>&lt;p&gt;Like Vector#collect2, but returns a Vector instead of an Array.&lt;/p&gt;</method>
+    <method name='r'>&lt;p&gt;Returns the modulus (Pythagorean distance) of the vector.&lt;/p&gt;&lt;pre&gt;  Vector[5,8,2].r =&gt; 9.643650761
+&lt;/pre&gt;</method>
+    <method name='size'>&lt;p&gt;Returns the number of elements in the vector.&lt;/p&gt;</method>
+    <method name='to_a'>&lt;p&gt;Returns the elements of the vector in an array.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Overrides Object#to_s&lt;/p&gt;</method>
+  </methods>
+</help>

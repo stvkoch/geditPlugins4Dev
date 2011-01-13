@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Net::IMAP::BodyTypeMessage represents MESSAGE/RFC822 body structures of messages.&lt;/p&gt;&lt;h4&gt;Fields:&lt;/h4&gt;&lt;ul&gt;&lt;li&gt;Returns a Net::IMAP::Envelope giving the envelope structure.&lt;/li&gt;&lt;li&gt;Returns an object giving the body structure.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;And Net::IMAP::BodyTypeMessage has all methods of Net::IMAP::BodyTypeText.&lt;/p&gt;</comment>
+  <methods>
+    <method name='media_subtype'>&lt;p&gt;Obsolete: use &lt;tt&gt;subtype&lt;/tt&gt; instead. Calling this will generate a warning message to &lt;tt&gt;stderr&lt;/tt&gt;, then return the value of &lt;tt&gt;subtype&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='multipart?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

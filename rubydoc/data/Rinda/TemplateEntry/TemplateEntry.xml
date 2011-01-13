@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A TemplateEntry is a Template together with expiry and cancellation data.&lt;/p&gt;</comment>
+  <methods>
+    <method name='==='>&lt;p&gt;Alias for #match&lt;/p&gt;</method>
+    <method name='match'>&lt;p&gt;Matches this TemplateEntry against &lt;tt&gt;tuple&lt;/tt&gt;. See Template#match for details on how a Template matches a Tuple.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='default_parser'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='default_parser='>&lt;p&gt;Set @@default_parser to new_value if it is one of the available parsers. Else raise NotValidXMLParser error.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Precision is a mixin for concrete numeric classes with precision. Here, `precision&apos; means the fineness of approximation of a real number, so, this module should not be included into anything which is not a subset of Real (so it should not be included in classes such as &lt;tt&gt;Complex&lt;/tt&gt; or &lt;tt&gt;Matrix&lt;/tt&gt;).&lt;/p&gt;</comment>
+  <methods>
+    <method name='included'>&lt;p&gt;call_seq:&lt;/p&gt;&lt;pre&gt;  included
+&lt;/pre&gt;&lt;p&gt;When the &lt;tt&gt;Precision&lt;/tt&gt; module is mixed-in to a class, this &lt;tt&gt;included&lt;/tt&gt; method is used to add our default &lt;tt&gt;induced_from&lt;/tt&gt; implementation to the host class.&lt;/p&gt;</method>
+    <method name='prec'>&lt;p&gt;Converts &lt;em&gt;self&lt;/em&gt; into an instance of &lt;em&gt;klass&lt;/em&gt;. By default, &lt;tt&gt;prec&lt;/tt&gt; invokes&lt;/p&gt;&lt;pre&gt;   klass.induced_from(num)
+&lt;/pre&gt;&lt;p&gt;and returns its value. So, if &lt;tt&gt;klass.induced_from&lt;/tt&gt; doesn&apos;t return an instance of &lt;em&gt;klass&lt;/em&gt;, it will be necessary to reimplement &lt;tt&gt;prec&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='prec_f'>&lt;p&gt;Returns a &lt;tt&gt;Float&lt;/tt&gt; converted from &lt;em&gt;num&lt;/em&gt;. It is equivalent to &lt;tt&gt;prec(Float)&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='prec_i'>&lt;p&gt;Returns an &lt;tt&gt;Integer&lt;/tt&gt; converted from &lt;em&gt;num&lt;/em&gt;. It is equivalent to &lt;tt&gt;prec(Integer)&lt;/tt&gt;.&lt;/p&gt;</method>
+  </methods>
+</help>

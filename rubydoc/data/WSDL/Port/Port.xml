@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_binding'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='inputoperation_map'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='outputoperation_map'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse_attr'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parse_element'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='porttype'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='targetnamespace'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

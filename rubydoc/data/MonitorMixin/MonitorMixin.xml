@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Adds monitor functionality to an arbitrary object by mixing the module with &lt;tt&gt;include&lt;/tt&gt;. For example:&lt;/p&gt;&lt;pre&gt;   require &apos;monitor.rb&apos;
+
+   buf = []
+   buf.extend(MonitorMixin)
+   empty_cond = buf.new_cond
+
+   # consumer
+   Thread.start do
+     loop do
+       buf.synchronize do
+         empty_cond.wait_while { buf.empty? }
+         print buf.shift
+       end
+     end
+   end
+
+   # producer
+   while line = ARGF.gets
+     buf.synchronize do
+       buf.push(line)
+       empty_cond.signal
+     end
+   end
+&lt;/pre&gt;&lt;p&gt;The consumer thread waits for the producer thread to push a line to buf while buf.empty?, and the producer thread (main thread) reads a line from ARGF and push it to buf, then call empty_cond.signal.&lt;/p&gt;</comment>
+  <methods>
+    <method name='extend_object'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='mon_enter'>&lt;p&gt;Enters exclusive section.&lt;/p&gt;</method>
+    <method name='mon_exit'>&lt;p&gt;Leaves exclusive section.&lt;/p&gt;</method>
+    <method name='mon_synchronize'>&lt;p&gt;Enters exclusive section and executes the block. Leaves the exclusive section automatically when the block exits. See example under &lt;tt&gt;MonitorMixin&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='mon_try_enter'>&lt;p&gt;Attempts to enter exclusive section. Returns &lt;tt&gt;false&lt;/tt&gt; if lock fails.&lt;/p&gt;</method>
+    <method name='new_cond'>&lt;p&gt;FIXME: This isn&apos;t documented in Nutshell.&lt;/p&gt;&lt;p&gt;Create a new condition variable for this monitor. This facilitates control of the monitor with #signal and #wait.&lt;/p&gt;</method>
+    <method name='synchronize'>&lt;p&gt;Alias for #mon_synchronize&lt;/p&gt;</method>
+    <method name='try_mon_enter'>&lt;p&gt;Alias for #mon_try_enter&lt;/p&gt;</method>
+  </methods>
+</help>

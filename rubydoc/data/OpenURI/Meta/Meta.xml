@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Mixin for holding meta-information.&lt;/p&gt;</comment>
+  <methods>
+    <method name='charset'>&lt;p&gt;returns a charset parameter in Content-Type field. It is downcased for canonicalization.&lt;/p&gt;&lt;p&gt;If charset parameter is not given but a block is given, the block is called and its result is returned. It can be used to guess charset.&lt;/p&gt;&lt;p&gt;If charset parameter and block is not given, nil is returned except text type in HTTP. In that case, &quot;iso-8859-1&quot; is returned as defined by RFC2616 3.7.1.&lt;/p&gt;</method>
+    <method name='content_encoding'>&lt;p&gt;returns a list of encodings in Content-Encoding field as an Array of String. The encodings are downcased for canonicalization.&lt;/p&gt;</method>
+    <method name='content_type'>&lt;p&gt;returns &quot;type/subtype&quot; which is MIME Content-Type. It is downcased for canonicalization. Content-Type parameters are stripped.&lt;/p&gt;</method>
+    <method name='last_modified'>&lt;p&gt;returns a Time which represents Last-Modified field.&lt;/p&gt;</method>
+  </methods>
+</help>

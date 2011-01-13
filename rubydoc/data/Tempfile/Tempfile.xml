@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;A class for managing temporary files. This library is written to be thread safe.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a temporary file of mode 0600 in the temporary directory whose name is basename.pid.n and opens with mode &quot;w+&quot;. A Tempfile object works just like a File object.&lt;/p&gt;&lt;p&gt;If tmpdir is omitted, the temporary directory is determined by Dir::tmpdir provided by &apos;tmpdir.rb&apos;. When $SAFE &gt; 0 and the given tmpdir is tainted, it uses /tmp. (Note that ENV values are tainted by default)&lt;/p&gt;</method>
+    <method name='open'>&lt;p&gt;If no block is given, this is a synonym for new().&lt;/p&gt;&lt;p&gt;If a block is given, it will be passed tempfile as an argument, and the tempfile will automatically be closed when the block terminates. In this case, open() returns nil.&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;Closes the file. If the optional flag is true, unlinks the file after closing.&lt;/p&gt;&lt;p&gt;If you don&apos;t explicitly unlink the temporary file, the removal will be delayed until the object is finalized.&lt;/p&gt;</method>
+    <method name='close!'>&lt;p&gt;Closes and unlinks the file.&lt;/p&gt;</method>
+    <method name='delete'>&lt;p&gt;Alias for #unlink&lt;/p&gt;</method>
+    <method name='length'>&lt;p&gt;Alias for #size&lt;/p&gt;</method>
+    <method name='open'>&lt;p&gt;Opens or reopens the file with mode &quot;r+&quot;.&lt;/p&gt;</method>
+    <method name='path'>&lt;p&gt;Returns the full path name of the temporary file.&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;Returns the size of the temporary file. As a side effect, the IO buffer is flushed before determining the size.&lt;/p&gt;</method>
+    <method name='unlink'>&lt;p&gt;Unlinks the file. On UNIX-like systems, it is often a good idea to unlink a temporary file immediately after creating and opening it, because it leaves other programs zero chance to access the file.&lt;/p&gt;</method>
+  </methods>
+</help>

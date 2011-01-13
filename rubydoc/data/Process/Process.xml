@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;The &lt;tt&gt;Process&lt;/tt&gt; module is a collection of methods used to manipulate processes.&lt;/p&gt;</comment>
+  <methods>
+    <method name='abort'>&lt;p&gt;Terminate execution immediately, effectively by calling &lt;tt&gt;Kernel.exit(1)&lt;/tt&gt;. If &lt;em&gt;msg&lt;/em&gt; is given, it is written to STDERR prior to terminating.&lt;/p&gt;</method>
+    <method name='detach'>&lt;p&gt;Some operating systems retain the status of terminated child processes until the parent collects that status (normally using some variant of &lt;tt&gt;wait()&lt;/tt&gt;. If the parent never collects this status, the child stays around as a &lt;em&gt;zombie&lt;/em&gt; process. &lt;tt&gt;Process::detach&lt;/tt&gt; prevents this by setting up a separate Ruby thread whose sole job is to reap the status of the process &lt;em&gt;pid&lt;/em&gt; when it terminates. Use &lt;tt&gt;detach&lt;/tt&gt; only when you do not intent to explicitly wait for the child to terminate. &lt;tt&gt;detach&lt;/tt&gt; only checks the status periodically (currently once each second).&lt;/p&gt;&lt;p&gt;In this first example, we don&apos;t reap the first child process, so it appears as a zombie in the process status display.&lt;/p&gt;&lt;pre&gt;   p1 = fork { sleep 0.1 }
+   p2 = fork { sleep 0.2 }
+   Process.waitpid(p2)
+   sleep 2
+   system(&quot;ps -ho pid,state -p #{p1}&quot;)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   27389 Z
+&lt;/pre&gt;&lt;p&gt;In the next example, &lt;tt&gt;Process::detach&lt;/tt&gt; is used to reap the child automatically.&lt;/p&gt;&lt;pre&gt;   p1 = fork { sleep 0.1 }
+   p2 = fork { sleep 0.2 }
+   Process.detach(p1)
+   Process.waitpid(p2)
+   sleep 2
+   system(&quot;ps -ho pid,state -p #{p1}&quot;)
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;(produces no output)&lt;/em&gt;&lt;/p&gt;</method>
+    <method name='egid'>&lt;p&gt;Returns the effective group ID for this process. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   Process.egid   #=&gt; 500
+&lt;/pre&gt;</method>
+    <method name='egid='>&lt;p&gt;Sets the effective group ID for this process. Not available on all platforms.&lt;/p&gt;</method>
+    <method name='euid'>&lt;p&gt;Returns the effective user ID for this process.&lt;/p&gt;&lt;pre&gt;   Process.euid   #=&gt; 501
+&lt;/pre&gt;</method>
+    <method name='euid='>&lt;p&gt;Sets the effective user ID for this process. Not available on all platforms.&lt;/p&gt;</method>
+    <method name='exit'>&lt;p&gt;Initiates the termination of the Ruby script by raising the &lt;tt&gt;SystemExit&lt;/tt&gt; exception. This exception may be caught. The optional parameter is used to return a status code to the invoking environment.&lt;/p&gt;&lt;pre&gt;   begin
+     exit
+     puts &quot;never get here&quot;
+   rescue SystemExit
+     puts &quot;rescued a SystemExit exception&quot;
+   end
+   puts &quot;after begin block&quot;
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   rescued a SystemExit exception
+   after begin block
+&lt;/pre&gt;&lt;p&gt;Just prior to termination, Ruby executes any &lt;tt&gt;at_exit&lt;/tt&gt; functions (see Kernel::at_exit) and runs any object finalizers (see ObjectSpace::define_finalizer).&lt;/p&gt;&lt;pre&gt;   at_exit { puts &quot;at_exit function&quot; }
+   ObjectSpace.define_finalizer(&quot;string&quot;,  proc { puts &quot;in finalizer&quot; })
+   exit
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   at_exit function
+   in finalizer
+&lt;/pre&gt;</method>
+    <method name='exit!'>&lt;p&gt;Exits the process immediately. No exit handlers are run. &lt;em&gt;fixnum&lt;/em&gt; is returned to the underlying system as the exit status.&lt;/p&gt;&lt;pre&gt;   Process.exit!(0)
+&lt;/pre&gt;</method>
+    <method name='fork'>&lt;p&gt;Creates a subprocess. If a block is specified, that block is run in the subprocess, and the subprocess terminates with a status of zero. Otherwise, the &lt;tt&gt;fork&lt;/tt&gt; call returns twice, once in the parent, returning the process ID of the child, and once in the child, returning &lt;em&gt;nil&lt;/em&gt;. The child process can exit using &lt;tt&gt;Kernel.exit!&lt;/tt&gt; to avoid running any &lt;tt&gt;at_exit&lt;/tt&gt; functions. The parent process should use &lt;tt&gt;Process.wait&lt;/tt&gt; to collect the termination statuses of its children or use &lt;tt&gt;Process.detach&lt;/tt&gt; to register disinterest in their status; otherwise, the operating system may accumulate zombie processes.&lt;/p&gt;&lt;p&gt;The thread calling fork is the only thread in the created child process. fork doesn&apos;t copy other threads.&lt;/p&gt;</method>
+    <method name='getpgid'>&lt;p&gt;Returns the process group ID for the given process id. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   Process.getpgid(Process.ppid())   #=&gt; 25527
+&lt;/pre&gt;</method>
+    <method name='getpriority'>&lt;p&gt;Gets the scheduling priority for specified process, process group, or user. &lt;em&gt;kind&lt;/em&gt; indicates the kind of entity to find: one of &lt;tt&gt;Process::PRIO_PGRP&lt;/tt&gt;, &lt;tt&gt;Process::PRIO_USER&lt;/tt&gt;, or &lt;tt&gt;Process::PRIO_PROCESS&lt;/tt&gt;. &lt;em&gt;integer&lt;/em&gt; is an id indicating the particular process, process group, or user (an id of 0 means &lt;em&gt;current&lt;/em&gt;). Lower priorities are more favorable for scheduling. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   Process.getpriority(Process::PRIO_USER, 0)      #=&gt; 19
+   Process.getpriority(Process::PRIO_PROCESS, 0)   #=&gt; 19
+&lt;/pre&gt;</method>
+    <method name='getrlimit'>&lt;p&gt;Gets the resource limit of the process. &lt;em&gt;cur_limit&lt;/em&gt; means current (soft) limit and &lt;em&gt;max_limit&lt;/em&gt; means maximum (hard) limit.&lt;/p&gt;&lt;p&gt;&lt;em&gt;resource&lt;/em&gt; indicates the kind of resource to limit: such as &lt;tt&gt;Process::RLIMIT_CORE&lt;/tt&gt;, &lt;tt&gt;Process::RLIMIT_CPU&lt;/tt&gt;, etc. See Process.setrlimit for details.&lt;/p&gt;&lt;p&gt;&lt;em&gt;cur_limit&lt;/em&gt; and &lt;em&gt;max_limit&lt;/em&gt; may be &lt;tt&gt;Process::RLIM_INFINITY&lt;/tt&gt;, &lt;tt&gt;Process::RLIM_SAVED_MAX&lt;/tt&gt; or &lt;tt&gt;Process::RLIM_SAVED_CUR&lt;/tt&gt;. See Process.setrlimit and the system getrlimit(2) manual for details.&lt;/p&gt;</method>
+    <method name='gid'>&lt;p&gt;Returns the (real) group ID for this process.&lt;/p&gt;&lt;pre&gt;   Process.gid   #=&gt; 500
+&lt;/pre&gt;</method>
+    <method name='gid='>&lt;p&gt;Sets the group ID for this process.&lt;/p&gt;</method>
+    <method name='groups'>&lt;p&gt;Get an &lt;tt&gt;Array&lt;/tt&gt; of the gids of groups in the supplemental group access list for this process.&lt;/p&gt;&lt;pre&gt;   Process.groups   #=&gt; [27, 6, 10, 11]
+&lt;/pre&gt;</method>
+    <method name='groups='>&lt;p&gt;Set the supplemental group access list to the given &lt;tt&gt;Array&lt;/tt&gt; of group IDs.&lt;/p&gt;&lt;pre&gt;   Process.groups   #=&gt; [0, 1, 2, 3, 4, 6, 10, 11, 20, 26, 27]
+   Process.groups = [27, 6, 10, 11]   #=&gt; [27, 6, 10, 11]
+   Process.groups   #=&gt; [27, 6, 10, 11]
+&lt;/pre&gt;</method>
+    <method name='initgroups'>&lt;p&gt;Initializes the supplemental group access list by reading the system group database and using all groups of which the given user is a member. The group with the specified &lt;em&gt;gid&lt;/em&gt; is also added to the list. Returns the resulting &lt;tt&gt;Array&lt;/tt&gt; of the gids of all the groups in the supplementary group access list. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   Process.groups   #=&gt; [0, 1, 2, 3, 4, 6, 10, 11, 20, 26, 27]
+   Process.initgroups( &quot;mgranger&quot;, 30 )   #=&gt; [30, 6, 10, 11]
+   Process.groups   #=&gt; [30, 6, 10, 11]
+&lt;/pre&gt;</method>
+    <method name='kill'>&lt;p&gt;Sends the given signal to the specified process id(s), or to the current process if &lt;em&gt;pid&lt;/em&gt; is zero. &lt;em&gt;signal&lt;/em&gt; may be an integer signal number or a POSIX signal name (either with or without a &lt;tt&gt;SIG&lt;/tt&gt; prefix). If &lt;em&gt;signal&lt;/em&gt; is negative (or starts with a minus sign), kills process groups instead of processes. Not all signals are available on all platforms.&lt;/p&gt;&lt;pre&gt;   pid = fork do
+      Signal.trap(&quot;HUP&quot;) { puts &quot;Ouch!&quot;; exit }
+      # ... do some work ...
+   end
+   # ...
+   Process.kill(&quot;HUP&quot;, pid)
+   Process.wait
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   Ouch!
+&lt;/pre&gt;</method>
+    <method name='maxgroups'>&lt;p&gt;Returns the maximum number of gids allowed in the supplemental group access list.&lt;/p&gt;&lt;pre&gt;   Process.maxgroups   #=&gt; 32
+&lt;/pre&gt;</method>
+    <method name='maxgroups='>&lt;p&gt;Sets the maximum number of gids allowed in the supplemental group access list.&lt;/p&gt;</method>
+    <method name='pid'>&lt;p&gt;Returns the process id of this process. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   Process.pid   #=&gt; 27415
+&lt;/pre&gt;</method>
+    <method name='ppid'>&lt;p&gt;Returns the process id of the parent of this process. Always returns 0 on NT. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   puts &quot;I am #{Process.pid}&quot;
+   Process.fork { puts &quot;Dad is #{Process.ppid}&quot; }
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;   I am 27417
+   Dad is 27417
+&lt;/pre&gt;</method>
+    <method name='setpgid'>&lt;p&gt;Sets the process group ID of &lt;em&gt;pid&lt;/em&gt; (0 indicates this process) to &lt;em&gt;integer&lt;/em&gt;. Not available on all platforms.&lt;/p&gt;</method>
+    <method name='setpgrp'>&lt;p&gt;Equivalent to &lt;tt&gt;setpgid(0,0)&lt;/tt&gt;. Not available on all platforms.&lt;/p&gt;</method>
+    <method name='setpriority'>&lt;p&gt;See &lt;tt&gt;Process#getpriority&lt;/tt&gt;.&lt;/p&gt;&lt;pre&gt;   Process.setpriority(Process::PRIO_USER, 0, 19)      #=&gt; 0
+   Process.setpriority(Process::PRIO_PROCESS, 0, 19)   #=&gt; 0
+   Process.getpriority(Process::PRIO_USER, 0)          #=&gt; 19
+   Process.getpriority(Process::PRIO_PROCESS, 0)       #=&gt; 19
+&lt;/pre&gt;</method>
+    <method name='setrlimit'>&lt;p&gt;Sets the resource limit of the process. &lt;em&gt;cur_limit&lt;/em&gt; means current (soft) limit and &lt;em&gt;max_limit&lt;/em&gt; means maximum (hard) limit.&lt;/p&gt;&lt;p&gt;If &lt;em&gt;max_limit&lt;/em&gt; is not given, &lt;em&gt;cur_limit&lt;/em&gt; is used.&lt;/p&gt;&lt;p&gt;&lt;em&gt;resource&lt;/em&gt; indicates the kind of resource to limit. The list of resources are OS dependent. Ruby may support following resources.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;core size (bytes) (SUSv3)&lt;/li&gt;&lt;li&gt;CPU time (seconds) (SUSv3)&lt;/li&gt;&lt;li&gt;data segment (bytes) (SUSv3)&lt;/li&gt;&lt;li&gt;file size (bytes) (SUSv3)&lt;/li&gt;&lt;li&gt;file descriptors (number) (SUSv3)&lt;/li&gt;&lt;li&gt;stack size (bytes) (SUSv3)&lt;/li&gt;&lt;li&gt;total available memory (bytes) (SUSv3, NetBSD, FreeBSD, OpenBSD but 4.4BSD-Lite)&lt;/li&gt;&lt;li&gt;total size for mlock(2) (bytes) (4.4BSD, GNU/Linux)&lt;/li&gt;&lt;li&gt;number of processes for the user (number) (4.4BSD, GNU/Linux)&lt;/li&gt;&lt;li&gt;resident memory size (bytes) (4.2BSD, GNU/Linux)&lt;/li&gt;&lt;li&gt;all socket buffers (bytes) (NetBSD, FreeBSD)&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Other &lt;tt&gt;Process::RLIMIT_???&lt;/tt&gt; constants may be defined.&lt;/p&gt;&lt;p&gt;&lt;em&gt;cur_limit&lt;/em&gt; and &lt;em&gt;max_limit&lt;/em&gt; may be &lt;tt&gt;Process::RLIM_INFINITY&lt;/tt&gt;, which means that the resource is not limited. They may be &lt;tt&gt;Process::RLIM_SAVED_MAX&lt;/tt&gt; or &lt;tt&gt;Process::RLIM_SAVED_CUR&lt;/tt&gt; too. See system setrlimit(2) manual for details.&lt;/p&gt;</method>
+    <method name='setsid'>&lt;p&gt;Establishes this process as a new session and process group leader, with no controlling tty. Returns the session id. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   Process.setsid   #=&gt; 27422
+&lt;/pre&gt;</method>
+    <method name='times'>&lt;p&gt;Returns a &lt;tt&gt;Tms&lt;/tt&gt; structure (see &lt;tt&gt;Struct::Tms&lt;/tt&gt; on page 388) that contains user and system CPU times for this process.&lt;/p&gt;&lt;pre&gt;   t = Process.times
+   [ t.utime, t.stime ]   #=&gt; [0.0, 0.02]
+&lt;/pre&gt;</method>
+    <method name='uid'>&lt;p&gt;Returns the (real) user ID of this process.&lt;/p&gt;&lt;pre&gt;   Process.uid   #=&gt; 501
+&lt;/pre&gt;</method>
+    <method name='uid='>&lt;p&gt;Sets the (integer) user ID for this process. Not available on all platforms.&lt;/p&gt;</method>
+    <method name='wait'>&lt;p&gt;Waits for a child process to exit, returns its process id, and sets &lt;tt&gt;$?&lt;/tt&gt; to a &lt;tt&gt;Process::Status&lt;/tt&gt; object containing information on that process. Which child it waits on depends on the value of &lt;em&gt;pid&lt;/em&gt;:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Waits for the child whose process ID equals &lt;em&gt;pid&lt;/em&gt;.&lt;/li&gt;&lt;li&gt;Waits for any child whose process group ID equals that of the calling process.&lt;/li&gt;&lt;li&gt;Waits for any child process (the default if no &lt;em&gt;pid&lt;/em&gt; is given).&lt;/li&gt;&lt;li&gt;Waits for any child whose process group ID equals the absolute value of &lt;em&gt;pid&lt;/em&gt;.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;The &lt;em&gt;flags&lt;/em&gt; argument may be a logical or of the flag values &lt;tt&gt;Process::WNOHANG&lt;/tt&gt; (do not block if no child available) or &lt;tt&gt;Process::WUNTRACED&lt;/tt&gt; (return stopped children that haven&apos;t been reported). Not all flags are available on all platforms, but a flag value of zero will work on all platforms.&lt;/p&gt;&lt;p&gt;Calling this method raises a &lt;tt&gt;SystemError&lt;/tt&gt; if there are no child processes. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   include Process
+   fork { exit 99 }                 #=&gt; 27429
+   wait                             #=&gt; 27429
+   $?.exitstatus                    #=&gt; 99
+
+   pid = fork { sleep 3 }           #=&gt; 27440
+   Time.now                         #=&gt; Wed Apr 09 08:57:09 CDT 2003
+   waitpid(pid, Process::WNOHANG)   #=&gt; nil
+   Time.now                         #=&gt; Wed Apr 09 08:57:09 CDT 2003
+   waitpid(pid, 0)                  #=&gt; 27440
+   Time.now                         #=&gt; Wed Apr 09 08:57:12 CDT 2003
+&lt;/pre&gt;</method>
+    <method name='wait2'>&lt;p&gt;Waits for a child process to exit (see Process::waitpid for exact semantics) and returns an array containing the process id and the exit status (a &lt;tt&gt;Process::Status&lt;/tt&gt; object) of that child. Raises a &lt;tt&gt;SystemError&lt;/tt&gt; if there are no child processes.&lt;/p&gt;&lt;pre&gt;   Process.fork { exit 99 }   #=&gt; 27437
+   pid, status = Process.wait2
+   pid                        #=&gt; 27437
+   status.exitstatus          #=&gt; 99
+&lt;/pre&gt;</method>
+    <method name='waitall'>&lt;p&gt;Waits for all children, returning an array of &lt;em&gt;pid&lt;/em&gt;/&lt;em&gt;status&lt;/em&gt; pairs (where &lt;em&gt;status&lt;/em&gt; is a &lt;tt&gt;Process::Status&lt;/tt&gt; object).&lt;/p&gt;&lt;pre&gt;   fork { sleep 0.2; exit 2 }   #=&gt; 27432
+   fork { sleep 0.1; exit 1 }   #=&gt; 27433
+   fork {            exit 0 }   #=&gt; 27434
+   p Process.waitall
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;produces&lt;/em&gt;:&lt;/p&gt;&lt;pre&gt;   [[27434, #&lt;Process::Status: pid=27434,exited(0)&gt;],
+    [27433, #&lt;Process::Status: pid=27433,exited(1)&gt;],
+    [27432, #&lt;Process::Status: pid=27432,exited(2)&gt;]]
+&lt;/pre&gt;</method>
+    <method name='waitpid'>&lt;p&gt;Waits for a child process to exit, returns its process id, and sets &lt;tt&gt;$?&lt;/tt&gt; to a &lt;tt&gt;Process::Status&lt;/tt&gt; object containing information on that process. Which child it waits on depends on the value of &lt;em&gt;pid&lt;/em&gt;:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Waits for the child whose process ID equals &lt;em&gt;pid&lt;/em&gt;.&lt;/li&gt;&lt;li&gt;Waits for any child whose process group ID equals that of the calling process.&lt;/li&gt;&lt;li&gt;Waits for any child process (the default if no &lt;em&gt;pid&lt;/em&gt; is given).&lt;/li&gt;&lt;li&gt;Waits for any child whose process group ID equals the absolute value of &lt;em&gt;pid&lt;/em&gt;.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;The &lt;em&gt;flags&lt;/em&gt; argument may be a logical or of the flag values &lt;tt&gt;Process::WNOHANG&lt;/tt&gt; (do not block if no child available) or &lt;tt&gt;Process::WUNTRACED&lt;/tt&gt; (return stopped children that haven&apos;t been reported). Not all flags are available on all platforms, but a flag value of zero will work on all platforms.&lt;/p&gt;&lt;p&gt;Calling this method raises a &lt;tt&gt;SystemError&lt;/tt&gt; if there are no child processes. Not available on all platforms.&lt;/p&gt;&lt;pre&gt;   include Process
+   fork { exit 99 }                 #=&gt; 27429
+   wait                             #=&gt; 27429
+   $?.exitstatus                    #=&gt; 99
+
+   pid = fork { sleep 3 }           #=&gt; 27440
+   Time.now                         #=&gt; Wed Apr 09 08:57:09 CDT 2003
+   waitpid(pid, Process::WNOHANG)   #=&gt; nil
+   Time.now                         #=&gt; Wed Apr 09 08:57:09 CDT 2003
+   waitpid(pid, 0)                  #=&gt; 27440
+   Time.now                         #=&gt; Wed Apr 09 08:57:12 CDT 2003
+&lt;/pre&gt;</method>
+    <method name='waitpid2'>&lt;p&gt;Waits for a child process to exit (see Process::waitpid for exact semantics) and returns an array containing the process id and the exit status (a &lt;tt&gt;Process::Status&lt;/tt&gt; object) of that child. Raises a &lt;tt&gt;SystemError&lt;/tt&gt; if there are no child processes.&lt;/p&gt;&lt;pre&gt;   Process.fork { exit 99 }   #=&gt; 27437
+   pid, status = Process.wait2
+   pid                        #=&gt; 27437
+   status.exitstatus          #=&gt; 99
+&lt;/pre&gt;</method>
+  </methods>
+</help>

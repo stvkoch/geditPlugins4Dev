@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment></comment>
+  <methods>
+    <method name='all_methods'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='reset'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='&lt;=&gt;'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='add_line_numbers'>&lt;p&gt;we rely on the fact that the first line of a source code listing has&lt;/p&gt;&lt;pre&gt;   # File xxxxx, line dddd
+&lt;/pre&gt;</method>
+    <method name='aliases'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='aref'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='as_href'>&lt;p&gt;return a reference to outselves to be used as an href= the form depends on whether we&apos;re all in one file or in multiple files&lt;/p&gt;</method>
+    <method name='call_seq'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='create_source_code_file'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='description'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='document_self'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='find_symbol'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='index_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='markup_code'>&lt;p&gt;Given a sequence of source tokens, mark up the source code to make it look purty.&lt;/p&gt;</method>
+    <method name='name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='params'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='parent_name'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='path'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='section'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='singleton'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='visibility'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

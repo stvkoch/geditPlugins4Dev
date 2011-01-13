@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;We handle the parsing of options, and subsequently as a singleton object to be queried for option values&lt;/p&gt;</comment>
+  <methods/>
+</help>

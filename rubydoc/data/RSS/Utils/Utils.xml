@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='element_initialize_arguments?'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='get_file_and_line_from_caller'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='h'>&lt;p&gt;Alias for #html_escape&lt;/p&gt;</method>
+    <method name='html_escape'>&lt;p&gt;escape &apos;&amp;&apos;, &apos;&quot;&apos;, &apos;&lt;&apos; and &apos;&gt;&apos; for use in HTML.&lt;/p&gt;</method>
+    <method name='new_with_value_if_need'>&lt;p&gt;If &lt;tt&gt;value&lt;/tt&gt; is an instance of class &lt;tt&gt;klass&lt;/tt&gt;, return it, else create a new instance of &lt;tt&gt;klass&lt;/tt&gt; with value &lt;tt&gt;value&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='to_class_name'>&lt;p&gt;Convert a name_with_underscores to CamelCase.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;This class watches for termination of multiple threads. Basic functionality (wait until specified threads have terminated) can be accessed through the class method ThreadsWait::all_waits. Finer control can be gained using instance methods.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;pre&gt;  ThreadsWait.all_wait(thr1, thr2, ...) do |t|
+    STDERR.puts &quot;Thread #{t} has terminated.&quot;
+  end
+&lt;/pre&gt;</comment>
+  <methods>
+    <method name='all_waits'>&lt;p&gt;Waits until all specified threads have terminated. If a block is provided, it is executed for each thread termination.&lt;/p&gt;</method>
+    <method name='new'>&lt;p&gt;Creates a ThreadsWait object, specifying the threads to wait on. Non-blocking.&lt;/p&gt;</method>
+    <method name='all_waits'>&lt;p&gt;Waits until all of the specified threads are terminated. If a block is supplied for the method, it is executed for each thread termination.&lt;/p&gt;&lt;p&gt;Raises exceptions in the same manner as &lt;tt&gt;next_wait&lt;/tt&gt;.&lt;/p&gt;</method>
+    <method name='empty?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if there are no threads to be synchronized.&lt;/p&gt;</method>
+    <method name='finished?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if any thread has terminated.&lt;/p&gt;</method>
+    <method name='join'>&lt;p&gt;Waits for specified threads to terminate.&lt;/p&gt;</method>
+    <method name='join_nowait'>&lt;p&gt;Specifies the threads that this object will wait for, but does not actually wait.&lt;/p&gt;</method>
+    <method name='next_wait'>&lt;p&gt;Waits until any of the specified threads has terminated, and returns the one that does.&lt;/p&gt;&lt;p&gt;If there is no thread to wait, raises &lt;tt&gt;ErrNoWaitingThread&lt;/tt&gt;. If &lt;tt&gt;nonblock&lt;/tt&gt; is true, and there is no terminated thread, raises &lt;tt&gt;ErrNoFinishedThread&lt;/tt&gt;.&lt;/p&gt;</method>
+  </methods>
+</help>

@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;h2&gt;Synopsis&lt;/h2&gt;&lt;p&gt;This code converts &lt;tt&gt;input_string&lt;/tt&gt;, which is in the format described in markup/simple_markup.rb, to HTML. The conversion takes place in the &lt;tt&gt;convert&lt;/tt&gt; method, so you can use the same SimpleMarkup object to convert multiple input strings.&lt;/p&gt;&lt;pre&gt;  require &apos;rdoc/markup/simple_markup&apos;
+  require &apos;rdoc/markup/simple_markup/to_html&apos;
+
+  p = SM::SimpleMarkup.new
+  h = SM::ToHtml.new
+
+  puts p.convert(input_string, h)
+&lt;/pre&gt;&lt;p&gt;You can extend the SimpleMarkup parser to recognise new markup sequences, and to add special processing for text that matches a regular epxression. Here we make WikiWords significant to the parser, and also make the sequences {word} and &lt;no&gt;text...&lt;/no&gt; signify strike-through text. When then subclass the HTML output class to deal with these:&lt;/p&gt;&lt;pre&gt;  require &apos;rdoc/markup/simple_markup&apos;
+  require &apos;rdoc/markup/simple_markup/to_html&apos;
+
+  class WikiHtml &lt; SM::ToHtml
+    def handle_special_WIKIWORD(special)
+      &quot;&lt;font color=red&gt;&quot; + special.text + &quot;&lt;/font&gt;&quot;
+    end
+  end
+
+  p = SM::SimpleMarkup.new
+  p.add_word_pair(&quot;{&quot;, &quot;}&quot;, :STRIKE)
+  p.add_html(&quot;no&quot;, :STRIKE)
+
+  p.add_special(/\b([A-Z][a-z]+[A-Z]\w+)/, :WIKIWORD)
+
+  h = WikiHtml.new
+  h.add_tag(:STRIKE, &quot;&lt;strike&gt;&quot;, &quot;&lt;/strike&gt;&quot;)
+
+  puts &quot;&lt;body&gt;&quot; + p.convert(ARGF.read, h) + &quot;&lt;/body&gt;&quot;
+&lt;/pre&gt;&lt;h2&gt;Output Formatters&lt;/h2&gt;&lt;p&gt;&lt;em&gt;missing&lt;/em&gt;&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;take a block of text and use various heuristics to determine it&apos;s structure (paragraphs, lists, and so on). Invoke an event handler as we identify significant chunks.&lt;/p&gt;</method>
+    <method name='add_html'>&lt;p&gt;Add to the sequences recognized as general markup&lt;/p&gt;</method>
+    <method name='add_special'>&lt;p&gt;Add to other inline sequences. For example, we could add WikiWords using something like:&lt;/p&gt;&lt;pre&gt;   parser.add_special(/\b([A-Z][a-z]+[A-Z]\w+)/, :WIKIWORD)
+&lt;/pre&gt;&lt;p&gt;Each wiki word will be presented to the output formatter via the accept_special method&lt;/p&gt;</method>
+    <method name='add_word_pair'>&lt;p&gt;Add to the sequences used to add formatting to an individual word (such as &lt;b&gt;bold&lt;/b&gt;). Matching entries will generate attibutes that the output formatters can recognize by their &lt;tt&gt;name&lt;/tt&gt;&lt;/p&gt;</method>
+    <method name='content'>&lt;p&gt;for debugging, we allow access to our line contents as text&lt;/p&gt;</method>
+    <method name='convert'>&lt;p&gt;We take a string, split it into lines, work out the type of each line, and from there deduce groups of lines (for example all lines in a paragraph). We then invoke the output formatter using a Visitor to display the result&lt;/p&gt;</method>
+    <method name='get_line_types'>&lt;p&gt;for debugging, return the list of line types&lt;/p&gt;</method>
+  </methods>
+</help>

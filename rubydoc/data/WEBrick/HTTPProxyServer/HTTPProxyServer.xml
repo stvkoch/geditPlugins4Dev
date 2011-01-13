@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;No description for this element&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='choose_header'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='do_OPTIONS'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='proxy_auth'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='proxy_connect'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='proxy_service'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='proxy_uri'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='service'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='set_cookie'>&lt;p&gt;Net::HTTP is stupid about the multiple header fields. Here is workaround:&lt;/p&gt;</method>
+    <method name='set_via'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='split_field'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+  </methods>
+</help>

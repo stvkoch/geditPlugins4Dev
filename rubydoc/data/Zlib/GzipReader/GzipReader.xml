@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Zlib::GzipReader is the class for reading a gzipped file. GzipReader should be used an IO, or -IO-lie, object.&lt;/p&gt;&lt;pre&gt;  Zlib::GzipReader.open(&apos;hoge.gz&apos;) {|gz|
+    print gz.read
+  }
+
+  File.open(&apos;hoge.gz&apos;) do |f|
+    gz = Zlib::GzipReader.new(f)
+    print gz.read
+    gz.close
+  end
+
+  # TODO: test these.  Are they equivalent?  Can GzipReader.new take a
+  # block?
+&lt;/pre&gt;&lt;h2&gt;Method Catalogue&lt;/h2&gt;&lt;p&gt;The following methods in Zlib::GzipReader are just like their counterparts in IO, but they raise Zlib::Error or Zlib::GzipFile::Error exception if an error was found in the gzip file.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;#each&lt;/li&gt;&lt;li&gt;#each_line&lt;/li&gt;&lt;li&gt;#each_byte&lt;/li&gt;&lt;li&gt;#gets&lt;/li&gt;&lt;li&gt;#getc&lt;/li&gt;&lt;li&gt;#lineno&lt;/li&gt;&lt;li&gt;#lineno=&lt;/li&gt;&lt;li&gt;#read&lt;/li&gt;&lt;li&gt;#readchar&lt;/li&gt;&lt;li&gt;#readline&lt;/li&gt;&lt;li&gt;#readlines&lt;/li&gt;&lt;li&gt;#ungetc&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Be careful of the footer of the gzip file. A gzip file has the checksum of pre-compressed data in its footer. GzipReader checks all uncompressed data against that checksum at the following cases, and if it fails, raises &lt;tt&gt;Zlib::GzipFile::NoFooter&lt;/tt&gt;, &lt;tt&gt;Zlib::GzipFile::CRCError&lt;/tt&gt;, or &lt;tt&gt;Zlib::GzipFile::LengthError&lt;/tt&gt; exception.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;When an reading request is received beyond the end of file (the end of compressed data). That is, when Zlib::GzipReader#read, Zlib::GzipReader#gets, or some other methods for reading returns nil.&lt;/li&gt;&lt;li&gt;When Zlib::GzipFile#close method is called after the object reaches the end of file.&lt;/li&gt;&lt;li&gt;When Zlib::GzipReader#unused method is called after the object reaches the end of file.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;The rest of the methods are adequately described in their own documentation.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a GzipReader object associated with &lt;tt&gt;io&lt;/tt&gt;. The GzipReader object reads gzipped data from &lt;tt&gt;io&lt;/tt&gt;, and parses/decompresses them. At least, &lt;tt&gt;io&lt;/tt&gt; must have a &lt;tt&gt;read&lt;/tt&gt; method that behaves same as the &lt;tt&gt;read&lt;/tt&gt; method in IO class.&lt;/p&gt;&lt;p&gt;If the gzip file header is incorrect, raises an Zlib::GzipFile::Error exception.&lt;/p&gt;</method>
+    <method name='open'>&lt;p&gt;Opens a file specified by &lt;tt&gt;filename&lt;/tt&gt; as a gzipped file, and returns a GzipReader object associated with that file. Further details of this method are in Zlib::GzipReader.new and ZLib::GzipReader.wrap.&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;See Zlib::GzipReader documentation for a description.&lt;/p&gt;</method>
+    <method name='each_byte'>&lt;p&gt;See Zlib::GzipReader documentation for a description.&lt;/p&gt;</method>
+    <method name='each_line'>&lt;p&gt;See Zlib::GzipReader documentation for a description.&lt;/p&gt;</method>
+    <method name='eof'>&lt;p&gt;???&lt;/p&gt;</method>
+    <method name='eof?'>&lt;p&gt;???&lt;/p&gt;</method>
+    <method name='getc'>&lt;p&gt;See Zlib::GzipReader documentation for a description.&lt;/p&gt;</method>
+    <method name='gets'>&lt;p&gt;See Zlib::GzipReader documentation for a description.&lt;/p&gt;</method>
+    <method name='lineno'>&lt;p&gt;???&lt;/p&gt;</method>
+    <method name='lineno='>&lt;p&gt;???&lt;/p&gt;</method>
+    <method name='pos'>&lt;p&gt;???&lt;/p&gt;</method>
+    <method name='read'>&lt;p&gt;See Zlib::GzipReader documentation for a description.&lt;/p&gt;</method>
+    <method name='readchar'>&lt;p&gt;See Zlib::GzipReader documentation for a description.&lt;/p&gt;</method>
+    <method name='readline'>&lt;p&gt;See Zlib::GzipReader documentation for a description.&lt;/p&gt;</method>
+    <method name='readlines'>&lt;p&gt;See Zlib::GzipReader documentation for a description.&lt;/p&gt;</method>
+    <method name='rewind'>&lt;p&gt;Resets the position of the file pointer to the point created the GzipReader object. The associated IO object needs to respond to the &lt;tt&gt;seek&lt;/tt&gt; method.&lt;/p&gt;</method>
+    <method name='tell'>&lt;p&gt;???&lt;/p&gt;</method>
+    <method name='ungetc'>&lt;p&gt;See Zlib::GzipReader documentation for a description.&lt;/p&gt;</method>
+    <method name='unused'>&lt;p&gt;Returns the rest of the data which had read for parsing gzip format, or &lt;tt&gt;nil&lt;/tt&gt; if the whole gzip file is not parsed yet.&lt;/p&gt;</method>
+  </methods>
+</help>

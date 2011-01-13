@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Pseudo I/O on String object.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates new StringIO instance from with &lt;em&gt;string&lt;/em&gt; and &lt;em&gt;mode&lt;/em&gt;.&lt;/p&gt;</method>
+    <method name='open'>&lt;p&gt;Equivalent to StringIO.new except that when it is called with a block, it yields with the new instance and closes it, and returns the result which returned from the block.&lt;/p&gt;</method>
+    <method name='&lt;&lt;'>&lt;p&gt;See IO#&lt;&lt;.&lt;/p&gt;</method>
+    <method name='binmode'>&lt;p&gt;Returns &lt;b&gt;strio&lt;/b&gt; itself. Just for compatibility to IO.&lt;/p&gt;</method>
+    <method name='close'>&lt;p&gt;Closes strio. The &lt;b&gt;strio&lt;/b&gt; is unavailable for any further data operations; an &lt;tt&gt;IOError&lt;/tt&gt; is raised if such an attempt is made.&lt;/p&gt;</method>
+    <method name='close_read'>&lt;p&gt;Closes the read end of a StringIO. Will raise an &lt;tt&gt;IOError&lt;/tt&gt; if the &lt;b&gt;strio&lt;/b&gt; is not readable.&lt;/p&gt;</method>
+    <method name='close_write'>&lt;p&gt;Closes the write end of a StringIO. Will raise an &lt;tt&gt;IOError&lt;/tt&gt; if the &lt;b&gt;strio&lt;/b&gt; is not writeable.&lt;/p&gt;</method>
+    <method name='closed?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;b&gt;strio&lt;/b&gt; is completely closed, &lt;tt&gt;false&lt;/tt&gt; otherwise.&lt;/p&gt;</method>
+    <method name='closed_read?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;b&gt;strio&lt;/b&gt; is not readable, &lt;tt&gt;false&lt;/tt&gt; otherwise.&lt;/p&gt;</method>
+    <method name='closed_write?'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; if &lt;b&gt;strio&lt;/b&gt; is not writable, &lt;tt&gt;false&lt;/tt&gt; otherwise.&lt;/p&gt;</method>
+    <method name='each'>&lt;p&gt;See IO#each.&lt;/p&gt;</method>
+    <method name='each_byte'>&lt;p&gt;See IO#each_byte.&lt;/p&gt;</method>
+    <method name='each_line'>&lt;p&gt;See IO#each.&lt;/p&gt;</method>
+    <method name='eof'>&lt;p&gt;Returns true if &lt;b&gt;strio&lt;/b&gt; is at end of file. The stringio must be opened for reading or an &lt;tt&gt;IOError&lt;/tt&gt; will be raised.&lt;/p&gt;</method>
+    <method name='eof?'>&lt;p&gt;Returns true if &lt;b&gt;strio&lt;/b&gt; is at end of file. The stringio must be opened for reading or an &lt;tt&gt;IOError&lt;/tt&gt; will be raised.&lt;/p&gt;</method>
+    <method name='fcntl'>&lt;p&gt;Raises NotImplementedError.&lt;/p&gt;</method>
+    <method name='fileno'>&lt;p&gt;Returns &lt;tt&gt;nil&lt;/tt&gt;. Just for compatibility to IO.&lt;/p&gt;</method>
+    <method name='flush'>&lt;p&gt;Returns &lt;b&gt;strio&lt;/b&gt; itself. Just for compatibility to IO.&lt;/p&gt;</method>
+    <method name='fsync'>&lt;p&gt;Returns 0. Just for compatibility to IO.&lt;/p&gt;</method>
+    <method name='getc'>&lt;p&gt;See IO#getc.&lt;/p&gt;</method>
+    <method name='gets'>&lt;p&gt;See IO#gets.&lt;/p&gt;</method>
+    <method name='isatty'>&lt;p&gt;Returns &lt;tt&gt;false&lt;/tt&gt;. Just for compatibility to IO.&lt;/p&gt;</method>
+    <method name='length'>&lt;p&gt;Returns the size of the buffer string.&lt;/p&gt;</method>
+    <method name='lineno'>&lt;p&gt;Returns the current line number in &lt;b&gt;strio&lt;/b&gt;. The stringio must be opened for reading. &lt;tt&gt;lineno&lt;/tt&gt; counts the number of times &lt;tt&gt;gets&lt;/tt&gt; is called, rather than the number of newlines encountered. The two values will differ if &lt;tt&gt;gets&lt;/tt&gt; is called with a separator other than newline. See also the &lt;tt&gt;$.&lt;/tt&gt; variable.&lt;/p&gt;</method>
+    <method name='lineno='>&lt;p&gt;Manually sets the current line number to the given value. &lt;tt&gt;$.&lt;/tt&gt; is updated only on the next read.&lt;/p&gt;</method>
+    <method name='path'>&lt;p&gt;Returns &lt;tt&gt;nil&lt;/tt&gt;. Just for compatibility to IO.&lt;/p&gt;</method>
+    <method name='pid'>&lt;p&gt;Returns &lt;tt&gt;nil&lt;/tt&gt;. Just for compatibility to IO.&lt;/p&gt;</method>
+    <method name='pos'>&lt;p&gt;Returns the current offset (in bytes) of &lt;b&gt;strio&lt;/b&gt;.&lt;/p&gt;</method>
+    <method name='pos='>&lt;p&gt;Seeks to the given position (in bytes) in &lt;b&gt;strio&lt;/b&gt;.&lt;/p&gt;</method>
+    <method name='print'>&lt;p&gt;See IO#print.&lt;/p&gt;</method>
+    <method name='printf'>&lt;p&gt;See IO#printf.&lt;/p&gt;</method>
+    <method name='putc'>&lt;p&gt;See IO#putc.&lt;/p&gt;</method>
+    <method name='puts'>&lt;p&gt;See IO#puts.&lt;/p&gt;</method>
+    <method name='read'>&lt;p&gt;See IO#read.&lt;/p&gt;</method>
+    <method name='readchar'>&lt;p&gt;See IO#readchar.&lt;/p&gt;</method>
+    <method name='readline'>&lt;p&gt;See IO#readline.&lt;/p&gt;</method>
+    <method name='readlines'>&lt;p&gt;See IO#readlines.&lt;/p&gt;</method>
+    <method name='reopen'>&lt;p&gt;Reinitializes &lt;b&gt;strio&lt;/b&gt; with the given &lt;em&gt;other_StrIO&lt;/em&gt; or &lt;em&gt;string&lt;/em&gt; and &lt;em&gt;mode&lt;/em&gt; (see StringIO#new).&lt;/p&gt;</method>
+    <method name='rewind'>&lt;p&gt;No description for this element&lt;/p&gt;</method>
+    <method name='seek'>&lt;p&gt;Seeks to a given offset &lt;em&gt;amount&lt;/em&gt; in the stream according to the value of &lt;em&gt;whence&lt;/em&gt; (see IO#seek).&lt;/p&gt;</method>
+    <method name='size'>&lt;p&gt;Returns the size of the buffer string.&lt;/p&gt;</method>
+    <method name='string'>&lt;p&gt;Returns underlying String object, the subject of IO.&lt;/p&gt;</method>
+    <method name='string='>&lt;p&gt;Changes underlying String object, the subject of IO.&lt;/p&gt;</method>
+    <method name='sync'>&lt;p&gt;Returns &lt;tt&gt;true&lt;/tt&gt; always.&lt;/p&gt;</method>
+    <method name='sync='>&lt;p&gt;Returns the argument unchanged. Just for compatibility to IO.&lt;/p&gt;</method>
+    <method name='sysread'>&lt;p&gt;Similar to #read, but raises &lt;tt&gt;EOFError&lt;/tt&gt; at end of string instead of returning &lt;tt&gt;nil&lt;/tt&gt;, as well as IO#sysread does.&lt;/p&gt;</method>
+    <method name='syswrite'>&lt;p&gt;Appends the given string to the underlying buffer string of &lt;b&gt;strio&lt;/b&gt;. The stream must be opened for writing. If the argument is not a string, it will be converted to a string using &lt;tt&gt;to_s&lt;/tt&gt;. Returns the number of bytes written. See IO#write.&lt;/p&gt;</method>
+    <method name='tell'>&lt;p&gt;Returns the current offset (in bytes) of &lt;b&gt;strio&lt;/b&gt;.&lt;/p&gt;</method>
+    <method name='truncate'>&lt;p&gt;Truncates the buffer string to at most &lt;em&gt;integer&lt;/em&gt; bytes. The &lt;b&gt;strio&lt;/b&gt; must be opened for writing.&lt;/p&gt;</method>
+    <method name='tty?'>&lt;p&gt;Returns &lt;tt&gt;false&lt;/tt&gt;. Just for compatibility to IO.&lt;/p&gt;</method>
+    <method name='ungetc'>&lt;p&gt;Pushes back one character (passed as a parameter) onto &lt;b&gt;strio&lt;/b&gt; such that a subsequent buffered read will return it. Pushing back behind the beginning of the buffer string is not possible. Nothing will be done if such an attempt is made. In other case, there is no limitation for multiple pushbacks.&lt;/p&gt;</method>
+    <method name='write'>&lt;p&gt;Appends the given string to the underlying buffer string of &lt;b&gt;strio&lt;/b&gt;. The stream must be opened for writing. If the argument is not a string, it will be converted to a string using &lt;tt&gt;to_s&lt;/tt&gt;. Returns the number of bytes written. See IO#write.&lt;/p&gt;</method>
+  </methods>
+</help>

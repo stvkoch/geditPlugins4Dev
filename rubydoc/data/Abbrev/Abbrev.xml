@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Calculate the set of unique abbreviations for a given set of strings.&lt;/p&gt;&lt;pre&gt;  require &apos;abbrev&apos;
+  require &apos;pp&apos;
+
+  pp Abbrev::abbrev([&apos;ruby&apos;, &apos;rules&apos;]).sort
+&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Generates:&lt;/em&gt;&lt;/p&gt;&lt;pre&gt;  [[&quot;rub&quot;, &quot;ruby&quot;],
+   [&quot;ruby&quot;, &quot;ruby&quot;],
+   [&quot;rul&quot;, &quot;rules&quot;],
+   [&quot;rule&quot;, &quot;rules&quot;],
+   [&quot;rules&quot;, &quot;rules&quot;]]
+&lt;/pre&gt;&lt;p&gt;Also adds an &lt;tt&gt;abbrev&lt;/tt&gt; method to class &lt;tt&gt;Array&lt;/tt&gt;.&lt;/p&gt;</comment>
+  <methods>
+    <method name='abbrev'>&lt;p&gt;Given a set of strings, calculate the set of unambiguous abbreviations for those strings, and return a hash where the keys are all the possible abbreviations and the values are the full strings. Thus, given input of &quot;car&quot; and &quot;cone&quot;, the keys pointing to &quot;car&quot; would be &quot;ca&quot; and &quot;car&quot;, while those pointing to &quot;cone&quot; would be &quot;co&quot;, &quot;con&quot;, and &quot;cone&quot;.&lt;/p&gt;&lt;p&gt;The optional &lt;tt&gt;pattern&lt;/tt&gt; parameter is a pattern or a string. Only those input strings matching the pattern, or begging the string, are considered for inclusion in the output hash&lt;/p&gt;</method>
+  </methods>
+</help>

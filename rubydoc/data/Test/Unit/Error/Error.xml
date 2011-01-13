@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Encapsulates an error in a test. Created by Test::Unit::TestCase when it rescues an exception thrown during the processing of a test.&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;Creates a new Error with the given test_name and exception.&lt;/p&gt;</method>
+    <method name='long_display'>&lt;p&gt;Returns a verbose version of the error description.&lt;/p&gt;</method>
+    <method name='message'>&lt;p&gt;Returns the message associated with the error.&lt;/p&gt;</method>
+    <method name='short_display'>&lt;p&gt;Returns a brief version of the error description.&lt;/p&gt;</method>
+    <method name='single_character_display'>&lt;p&gt;Returns a single character representation of an error.&lt;/p&gt;</method>
+    <method name='to_s'>&lt;p&gt;Overridden to return long_display.&lt;/p&gt;</method>
+  </methods>
+</help>

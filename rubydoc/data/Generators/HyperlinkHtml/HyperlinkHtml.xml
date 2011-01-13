@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<help>
+  <comment>&lt;p&gt;Subclass of the SM::ToHtml class that supports looking up words in the AllReferences list. Those that are found (like AllReferences in this comment) will be hyperlinked&lt;/p&gt;</comment>
+  <methods>
+    <method name='new'>&lt;p&gt;We need to record the html path of our caller so we can generate correct relative paths for any hyperlinks that we find&lt;/p&gt;</method>
+    <method name='gen_url'>&lt;p&gt;Generate a hyperlink for url, labeled with text. Handle the special cases for img: and link: described under handle_special_HYPEDLINK&lt;/p&gt;</method>
+    <method name='handle_special_CROSSREF'>&lt;p&gt;We&apos;re invoked when any text matches the CROSSREF pattern (defined in MarkUp). If we fine the corresponding reference, generate a hyperlink. If the name we&apos;re looking for contains no punctuation, we look for it up the module/class chain. For example, HyperlinkHtml is found, even without the Generators:: prefix, because we look for it in module Generators first.&lt;/p&gt;</method>
+    <method name='handle_special_HYPERLINK'>&lt;p&gt;And we&apos;re invoked with a potential external hyperlink mailto: just gets inserted. http: links are checked to see if they reference an image. If so, that image gets inserted using an &lt;img&gt; tag. Otherwise a conventional &lt;a href&gt; is used. We also support a special type of hyperlink, link:, which is a reference to a local file whose path is relative to the --op directory.&lt;/p&gt;</method>
+    <method name='handle_special_TIDYLINK'>&lt;p&gt;HEre&apos;s a hypedlink where the label is different to the URL&lt;/p&gt;&lt;pre&gt; &lt;label&gt;[url]
+&lt;/pre&gt;</method>
+  </methods>
+</help>
