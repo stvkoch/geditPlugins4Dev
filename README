@@ -1,0 +1,10 @@
+
+
+
+
+#instalation
+
+cd ~/.gnome2/gedit/plugins
+git clone git@github.com:stvkoch/geditPlugins4Dev.git .
+
+
